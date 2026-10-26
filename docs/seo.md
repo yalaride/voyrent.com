@@ -8,8 +8,7 @@ GleeCars follows the same default: `/` and `/ar` are the Dubai homepage. City, m
 
 | Page | URL |
 | --- | --- |
-| Country hub | `/`, `/saudi-arabia/car-rental`, `/uk/car-rental`, `/spain/car-rental` |
-| Morocco country | `https://www.gleecars.ma/` |
+| Country hub | `/`, `/morocco/car-rental`, `/saudi-arabia/car-rental`, `/uk/car-rental`, `/spain/car-rental` |
 | City catalog | `/rent-a-car-dubai` |
 | Arabic city | `/ar/rent-a-car-dubai` |
 | Make | `/rent-bmw-car-dubai` |
@@ -21,18 +20,13 @@ GleeCars follows the same default: `/` and `/ar` are the Dubai homepage. City, m
 
 A keyword that is a known make redirects to the make path. Currency stays in the `gc_currency` cookie and is not part of the canonical URL. Supplier currency is what structured data advertises, so the indexed price does not change when a visitor switches display currency.
 
-## Domain shift
-
-`NEXT_PUBLIC_SITE_URL` is the primary host. `NEXT_PUBLIC_MA_SITE_URL` is the Morocco host. While it is empty, Morocco stays on the primary host. When both domains serve this app, a request for a Morocco city on `.com` is permanently redirected to `.ma`, and the reverse for every other country. Localhost is never redirected.
-
-Canonical, hreflang, sitemap, and Open Graph use those hosts. hreflang includes the language and a region variant such as `en-AE` and `ar-MA`.
+Every country stays on `NEXT_PUBLIC_SITE_URL`. Canonical, hreflang, sitemap, and Open Graph use that origin. hreflang includes the language and a region variant such as `en-AE` and `ar-MA`.
 
 ## Values to replace later
 
 Set these in `.env.local`. No code change is required.
 
 - `NEXT_PUBLIC_SITE_URL`
-- `NEXT_PUBLIC_MA_SITE_URL`
 - `NEXT_PUBLIC_GTM_ID` (`GTM-XXXX`)
 - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`
 - `NEXT_PUBLIC_BING_SITE_VERIFICATION`

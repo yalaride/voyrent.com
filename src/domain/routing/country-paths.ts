@@ -1,5 +1,6 @@
 const HUB_SLUG_BY_COUNTRY: Record<string, string> = {
   sa: "saudi-arabia",
+  ma: "morocco",
   es: "spain",
   fr: "france",
   pt: "portugal",
@@ -11,7 +12,7 @@ const COUNTRY_BY_HUB_SLUG: Record<string, string> = Object.fromEntries(
   Object.entries(HUB_SLUG_BY_COUNTRY).map(([code, slug]) => [slug, code]),
 );
 
-/** UAE and Morocco use the host homepage. Every other country has a hub path. */
+/** The UAE homepage is `/`. Every other country uses `/{slug}/car-rental` on the same host. */
 export function countryHubPath(country: string): string {
   const slug = HUB_SLUG_BY_COUNTRY[country];
   return slug ? `/${slug}/car-rental` : "/";

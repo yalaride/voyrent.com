@@ -26,18 +26,18 @@ function localePath(locale: AppLocale, path: string): string {
   return locale === DEFAULT_LOCALE ? path : `/${locale}${path}`;
 }
 
-function localizedUrl(locale: AppLocale, country: string, path: string): string {
-  return absoluteUrl(country, localePath(locale, path));
+function localizedUrl(locale: AppLocale, path: string): string {
+  return absoluteUrl(localePath(locale, path));
 }
 
 function languageAlternates(country: string, path: string): Record<string, string> {
   const region = REGION[country] ?? country.toUpperCase();
   const languages: Record<string, string> = {
-    "x-default": localizedUrl(DEFAULT_LOCALE, country, path),
+    "x-default": localizedUrl(DEFAULT_LOCALE, path),
   };
 
   for (const locale of LOCALES) {
-    const url = localizedUrl(locale, country, path);
+    const url = localizedUrl(locale, path);
     languages[locale] = url;
     languages[`${locale}-${region}`] = url;
   }
@@ -120,7 +120,7 @@ export async function buildRentMetadata(input: {
       input.listing.seo?.description?.[input.locale] ?? meta("marketDescription", { city });
   }
 
-  const canonical = absoluteUrl(market.country, localePath(input.locale, input.path));
+  const canonical = absoluteUrl(localePath(input.locale, input.path));
   const ogImage = serverEnv.NEXT_PUBLIC_OG_IMAGE;
 
   return {
@@ -170,7 +170,7 @@ export function organizationJsonLd() {
 
 export function websiteJsonLd(market: Market, locale: AppLocale) {
   const path = catalogPath(market.city);
-  const url = absoluteUrl(market.country, localePath(locale, path));
+  const url = absoluteUrl(localePath(locale, path));
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",

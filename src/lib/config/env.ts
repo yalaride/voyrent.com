@@ -13,11 +13,6 @@ const envSchema = z.object({
    * Replace this when the production domain is connected.
    */
   NEXT_PUBLIC_SITE_URL: z.string().url().default("https://www.gleecars.com"),
-  /**
-   * Morocco storefront. Leave empty to keep Morocco on the primary host
-   * until gleecars.ma is pointed at this app.
-   */
-  NEXT_PUBLIC_MA_SITE_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
   NEXT_PUBLIC_GTM_ID: z.preprocess(emptyToUndefined, z.string().regex(/^GTM-[A-Z0-9]+$/).optional()),
   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
   NEXT_PUBLIC_BING_SITE_VERIFICATION: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
@@ -33,7 +28,6 @@ export const serverEnv = envSchema.parse({
   APP_ENV: process.env.APP_ENV,
   NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
-  NEXT_PUBLIC_MA_SITE_URL: process.env.NEXT_PUBLIC_MA_SITE_URL,
   NEXT_PUBLIC_GTM_ID: process.env.NEXT_PUBLIC_GTM_ID,
   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   NEXT_PUBLIC_BING_SITE_VERIFICATION: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION,

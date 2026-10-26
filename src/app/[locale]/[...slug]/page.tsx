@@ -113,10 +113,7 @@ async function RentRouteContent({
       model: listing.model,
       id: listing.id,
     });
-    const pageUrl = absoluteUrl(
-      listing.country,
-      locale === DEFAULT_LOCALE ? path : `/${locale}${path}`,
-    );
+    const pageUrl = absoluteUrl(locale === DEFAULT_LOCALE ? path : `/${locale}${path}`);
 
     return (
       <AppShell locale={locale} market={view.market}>

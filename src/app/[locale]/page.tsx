@@ -1,23 +1,18 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
 import { isLocale } from "@/domain/geo/locales";
-import { getMarket, type Market } from "@/domain/geo/markets";
-import { homeMarketForHostname } from "@/domain/routing/hosts";
+import { getMarket } from "@/domain/geo/markets";
 import { MarketHome } from "@/features/home/market-home";
 import { AppShell } from "@/features/shell/app-shell";
 import { routing } from "@/i18n/routing";
 import { buildRentMetadata, websiteJsonLd } from "@/server/seo/metadata";
 
-async function marketForRequest(): Promise<Market | undefined> {
-  const headerStore = await headers();
-  const host = (headerStore.get("x-forwarded-host") ?? headerStore.get("host") ?? "").split(":")[0] ?? "";
-  const home = homeMarketForHostname(host);
-  return getMarket(home.country, home.city);
+function homeMarket() {
+  return getMarket("ae", "dubai");
 }
 
 export async function generateMetadata({
@@ -26,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const market = await marketForRequest();
+  const market = homeMarket();
 
   if (!isLocale(locale) || !market) {
     return {};
@@ -56,7 +51,7 @@ async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   }
 
   setRequestLocale(locale);
-  const market = await marketForRequest();
+  const market = homeMarket();
 
   if (!market) {
     notFound();

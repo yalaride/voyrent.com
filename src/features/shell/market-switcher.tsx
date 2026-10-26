@@ -5,7 +5,6 @@ import { MapPinIcon } from "lucide-react";
 
 import { useRouter } from "@/i18n/navigation";
 import { countryHubPath } from "@/domain/routing/country-paths";
-import { isAppHostname, originForBrowsing } from "@/domain/routing/hosts";
 import { cityRentPath } from "@/domain/routing/rent-paths";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,15 +34,8 @@ export function MarketSwitcher({
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
-  function selectPlace(country: string, path: string) {
-    const current = new URL(window.location.href);
-
-    if (!isAppHostname(current.hostname) || originForBrowsing(country, current) === current.origin) {
-      router.push(path);
-    } else {
-      window.location.assign(`${originForBrowsing(country, current)}${path}`);
-    }
-
+  function selectPlace(path: string) {
+    router.push(path);
     setOpen(false);
   }
 
@@ -70,7 +62,7 @@ export function MarketSwitcher({
                   type="button"
                   aria-current={countrySelected ? "true" : undefined}
                   className="flex w-full rounded-lg px-2 py-2 text-start text-sm font-medium hover:bg-muted aria-[current=true]:bg-muted"
-                  onClick={() => selectPlace(country.code, countryHubPath(country.code))}
+                  onClick={() => selectPlace(countryHubPath(country.code))}
                 >
                   {country.name}
                 </button>
@@ -83,7 +75,7 @@ export function MarketSwitcher({
                           type="button"
                           aria-current={selected ? "true" : undefined}
                           className="flex w-full rounded-lg px-2 py-2 text-start text-sm text-muted-foreground hover:bg-muted hover:text-foreground aria-[current=true]:bg-muted aria-[current=true]:font-medium aria-[current=true]:text-foreground"
-                          onClick={() => selectPlace(country.code, cityRentPath(city.slug))}
+                          onClick={() => selectPlace(cityRentPath(city.slug))}
                         >
                           {city.name}
                         </button>

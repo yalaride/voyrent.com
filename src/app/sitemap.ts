@@ -10,7 +10,7 @@ function localizedPath(locale: AppLocale, path: string): string {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const home = LOCALES.map((locale) => ({
-    url: absoluteUrl("ae", localizedPath(locale, "/")),
+    url: absoluteUrl(localizedPath(locale, "/")),
     changeFrequency: "daily" as const,
     priority: 1,
   }));
@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const path = `/${slug.join("/")}`;
 
     return LOCALES.map((locale) => ({
-      url: absoluteUrl(view.market.country, localizedPath(locale, path)),
+      url: absoluteUrl(localizedPath(locale, path)),
       changeFrequency: "daily" as const,
       priority: view.kind === "city" ? 1 : view.kind === "country" ? 0.9 : 0.7,
     }));
