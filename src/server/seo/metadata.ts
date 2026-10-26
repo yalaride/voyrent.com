@@ -84,7 +84,10 @@ export async function buildRentMetadata(input: {
   listing?: VehicleListing;
 }): Promise<Metadata> {
   const { market } = input.view;
-  const city = localize(market.cityNames, input.locale);
+  const city =
+    input.view.kind === "country"
+      ? localize(market.countryNames, input.locale)
+      : localize(market.cityNames, input.locale);
   const meta = await getTranslations({ locale: input.locale, namespace: "Meta" });
   const search = await getTranslations({ locale: input.locale, namespace: "Search" });
   const bodies = await getTranslations({ locale: input.locale, namespace: "BodyTypes" });

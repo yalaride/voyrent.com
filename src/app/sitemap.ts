@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return LOCALES.map((locale) => ({
       url: absoluteUrl(view.market.country, localizedPath(locale, path)),
       changeFrequency: "daily" as const,
-      priority: view.kind === "city" ? 1 : 0.7,
+      priority: view.kind === "city" ? 1 : view.kind === "country" ? 0.9 : 0.7,
     }));
   });
 

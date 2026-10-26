@@ -8,6 +8,8 @@ GleeCars follows the same default: `/` and `/ar` are the Dubai homepage. City, m
 
 | Page | URL |
 | --- | --- |
+| Country hub | `/`, `/saudi-arabia/car-rental`, `/uk/car-rental`, `/spain/car-rental` |
+| Morocco country | `https://www.gleecars.ma/` |
 | City catalog | `/rent-a-car-dubai` |
 | Arabic city | `/ar/rent-a-car-dubai` |
 | Make | `/rent-bmw-car-dubai` |

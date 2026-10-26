@@ -185,6 +185,12 @@ export function getCountry(code: string): CountryRecord | undefined {
   return COUNTRIES.find((country) => country.code === code.toLowerCase());
 }
 
+export function primaryMarket(countryCode: string): Market | undefined {
+  const country = getCountry(countryCode);
+  const city = country?.cities[0];
+  return city ? getMarket(country.code, city.slug) : undefined;
+}
+
 export function getMarket(countryCode: string, citySlug: string): Market | undefined {
   const country = getCountry(countryCode);
   const city = country?.cities.find((item) => item.slug === citySlug.toLowerCase());

@@ -19,8 +19,11 @@ import {
  * Transport lives in `remote-catalog`. Validation lives in `domain/catalog/contract`.
  * This file only chooses the source.
  */
-export async function searchCatalog(query: VehicleSearchQuery): Promise<ListingPage> {
-  if (!isRemoteCatalog) return searchListings(query);
+export async function searchCatalog(
+  query: VehicleSearchQuery,
+  options?: { allCities?: boolean },
+): Promise<ListingPage> {
+  if (!isRemoteCatalog) return searchListings(query, options);
   return searchRemoteCatalog(query);
 }
 

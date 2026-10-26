@@ -10,7 +10,7 @@ export function rentView(slug: string[]): RentView | undefined {
 export function searchQueryFor(view: RentView, raw: RawSearchParams, locale: AppLocale): VehicleSearchQuery {
   const base = queryFromView(view);
   const query = parseVehicleSearch(raw, view.market, locale, {
-    limit: view.kind === "city" ? 6 : 12,
+    limit: view.kind === "city" || view.kind === "country" ? 6 : 12,
   });
 
   return {
@@ -28,6 +28,20 @@ export function searchQueryFor(view: RentView, raw: RawSearchParams, locale: App
 export function pathCanonical(slug: string[], raw: RawSearchParams, locale: AppLocale): string | undefined {
   const view = rentView(slug);
   if (!view || view.kind === "listing") return undefined;
+
+  if (view.kind === "country") {
+    const query = searchQueryFor(view, raw, locale);
+    if (!query.q && query.page === 1 && query.sort === "recommended" && !hasExtraFilter(view, query)) {
+      return undefined;
+    }
+
+    const keywordMake = query.q ? makeFromKeyword(query.q) : undefined;
+    return catalogPath(view.market.city, {
+      ...query,
+      make: keywordMake?.slug ?? query.make,
+      q: keywordMake ? undefined : query.q,
+    });
+  }
 
   const query = searchQueryFor(view, raw, locale);
   const keywordMake = view.kind === "city" && query.q ? makeFromKeyword(query.q) : undefined;

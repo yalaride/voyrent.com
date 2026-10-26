@@ -69,16 +69,18 @@ export async function ListingSection({
   query,
   heading,
   showPagination = false,
+  allCities = false,
 }: {
   market: Market;
   locale: AppLocale;
   query: VehicleSearchQuery;
   heading?: string;
   showPagination?: boolean;
+  allCities?: boolean;
 }) {
   const [currency, result, t, body] = await Promise.all([
     getDisplayCurrency(market.currency),
-    searchCatalog(query),
+    searchCatalog(query, allCities ? { allCities: true } : undefined),
     getTranslations("Listings"),
     getTranslations("BodyTypes"),
   ]);

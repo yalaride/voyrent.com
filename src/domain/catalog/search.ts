@@ -1,6 +1,6 @@
 import "server-only";
 
-import { listingsForMarket, allListings } from "@/domain/catalog/fleet";
+import { listingsForCountry, listingsForMarket, allListings } from "@/domain/catalog/fleet";
 import { normalizeSearch } from "@/domain/catalog/text";
 import type { ListingPage, MakeOption, ModelOption, VehicleListing, VehicleSearchQuery } from "@/domain/catalog/types";
 
@@ -38,8 +38,25 @@ function compare(left: VehicleListing, right: VehicleListing, query: VehicleSear
   return left.dailyPriceMinor - right.dailyPriceMinor || left.id.localeCompare(right.id);
 }
 
-export function searchListings(query: VehicleSearchQuery): ListingPage {
-  const matched = listingsForMarket(query.country, query.city)
+function onePerModel(listings: VehicleListing[]): VehicleListing[] {
+  const seen = new Map<string, VehicleListing>();
+
+  for (const listing of listings) {
+    const key = `${listing.makeSlug}:${listing.modelSlug}`;
+    const current = seen.get(key);
+    if (!current || listing.dailyPriceMinor < current.dailyPriceMinor) {
+      seen.set(key, listing);
+    }
+  }
+
+  return [...seen.values()];
+}
+
+export function searchListings(query: VehicleSearchQuery, options?: { allCities?: boolean }): ListingPage {
+  const pool = options?.allCities
+    ? onePerModel(listingsForCountry(query.country))
+    : listingsForMarket(query.country, query.city);
+  const matched = pool
     .filter((listing) => matches(listing, query))
     .sort((left, right) => compare(left, right, query));
 

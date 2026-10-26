@@ -12,7 +12,15 @@ import { SearchPanel } from "@/features/search/search-panel";
 import { Link } from "@/i18n/navigation";
 import { listMakes, listModels } from "@/server/catalog/catalog";
 
-export async function MarketHome({ market, locale }: { market: Market; locale: AppLocale }) {
+export async function MarketHome({
+  market,
+  locale,
+  scope = "city",
+}: {
+  market: Market;
+  locale: AppLocale;
+  scope?: "city" | "country";
+}) {
   const [t, body, makes, models] = await Promise.all([
     getTranslations(),
     getTranslations("BodyTypes"),
@@ -21,6 +29,7 @@ export async function MarketHome({ market, locale }: { market: Market; locale: A
   ]);
   const cityName = localize(market.cityNames, locale);
   const countryName = localize(market.countryNames, locale);
+  const place = scope === "country" ? countryName : cityName;
   const country = getCountry(market.country);
 
   return (
@@ -29,7 +38,7 @@ export async function MarketHome({ market, locale }: { market: Market; locale: A
         <div className="mx-auto max-w-6xl px-4 pt-12 pb-20 md:pt-16">
           <p className="text-sm font-medium text-brand">{t("Hero.eyebrow")}</p>
           <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl">
-            {t("Hero.title", { city: cityName })}
+            {t("Hero.title", { city: place })}
           </h1>
           <p className="mt-4 max-w-2xl text-base text-background/70 md:text-lg">
             {t("Hero.subtitle", { country: countryName })}
@@ -70,7 +79,8 @@ export async function MarketHome({ market, locale }: { market: Market; locale: A
               page: 1,
               limit: 6,
             }}
-            heading={t("Listings.featured", { city: cityName })}
+            allCities={scope === "country"}
+            heading={t("Listings.featured", { city: place })}
           />
         </Suspense>
         {country && country.cities.length > 1 ? (
@@ -78,7 +88,7 @@ export async function MarketHome({ market, locale }: { market: Market; locale: A
             <h2 className="text-2xl font-semibold tracking-tight">{t("Cities.title", { country: countryName })}</h2>
             <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {country.cities
-                .filter((city) => city.slug !== market.city)
+                .filter((city) => scope === "country" || city.slug !== market.city)
                 .map((city) => (
                   <li key={city.slug}>
                     <Link

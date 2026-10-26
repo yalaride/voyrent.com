@@ -7,7 +7,7 @@ export function siteOrigin(): string {
 }
 
 export function moroccoOrigin(): string {
-  return (serverEnv.NEXT_PUBLIC_MA_SITE_URL ?? serverEnv.NEXT_PUBLIC_SITE_URL).replace(/\/$/, "");
+  return (serverEnv.NEXT_PUBLIC_MA_SITE_URL ?? "https://www.gleecars.ma").replace(/\/$/, "");
 }
 
 export function originForCountry(country: string): string {

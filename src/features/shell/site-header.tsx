@@ -38,7 +38,15 @@ async function Preferences({
   );
 }
 
-export async function SiteHeader({ locale, market }: { locale: AppLocale; market?: Market }) {
+export async function SiteHeader({
+  locale,
+  market,
+  scope = "city",
+}: {
+  locale: AppLocale;
+  market?: Market;
+  scope?: "city" | "country";
+}) {
   const t = await getTranslations("Header");
   const countries = await listMarketReference();
   const groups = countries.map((country) => ({
@@ -66,7 +74,8 @@ export async function SiteHeader({ locale, market }: { locale: AppLocale; market
               ? {
                   country: market.country,
                   city: market.city,
-                  cityName: localize(market.cityNames, locale),
+                  placeName: scope === "country" ? localize(market.countryNames, locale) : localize(market.cityNames, locale),
+                  scope,
                 }
               : undefined
           }

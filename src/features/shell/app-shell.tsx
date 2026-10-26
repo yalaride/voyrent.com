@@ -10,10 +10,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 export async function AppShell({
   locale,
   market,
+  scope = "city",
   children,
 }: {
   locale: AppLocale;
   market?: Market;
+  scope?: "city" | "country";
   children: React.ReactNode;
 }) {
   const t = await getTranslations("Header");
@@ -26,7 +28,7 @@ export async function AppShell({
       >
         {t("skip")}
       </a>
-      <SiteHeader locale={locale} market={market} />
+      <SiteHeader locale={locale} market={market} scope={scope} />
       <main id="content" className="flex-1">
         <Suspense
           fallback={

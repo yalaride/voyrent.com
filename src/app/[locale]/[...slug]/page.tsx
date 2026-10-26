@@ -6,6 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import { makeFromToken } from "@/domain/catalog/directory";
 import type { RawSearchParams } from "@/domain/catalog/params";
 import { DEFAULT_LOCALE, isLocale, LOCALES } from "@/domain/geo/locales";
+import { countryHubPath } from "@/domain/routing/country-paths";
 import { catalogPath, indexableStaticPaths, listingPath, queryFromView } from "@/domain/routing/rent-paths";
 import { ListingDetail } from "@/features/catalog/listing-detail";
 import { MarketHome } from "@/features/home/market-home";
@@ -49,7 +50,9 @@ export async function generateMetadata({
   const path =
     view.kind === "listing" && listing
       ? listingPath({ city: listing.city, make: listing.make, model: listing.model, id: listing.id })
-      : catalogPath(view.market.city, queryFromView(view));
+      : view.kind === "country"
+        ? countryHubPath(view.market.country)
+        : catalogPath(view.market.city, queryFromView(view));
 
   return buildRentMetadata({
     locale,
@@ -124,13 +127,13 @@ async function RentRouteContent({
   }
 
   return (
-    <AppShell locale={locale} market={view.market}>
+    <AppShell locale={locale} market={view.market} scope={view.kind === "country" ? "country" : "city"}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd(view.market, locale)) }}
       />
-      {view.kind === "city" && isIndexable(view, query) ? (
-        <MarketHome market={view.market} locale={locale} />
+      {(view.kind === "city" || view.kind === "country") && isIndexable(view, query) ? (
+        <MarketHome market={view.market} locale={locale} scope={view.kind === "country" ? "country" : "city"} />
       ) : (
         <div className="mx-auto max-w-6xl px-4 py-8">
           <SearchScreen market={view.market} locale={locale} query={query} />

@@ -1,6 +1,7 @@
 import { makeBySlug, makeFromToken, makePrefix, pathToken } from "@/domain/catalog/directory";
 import type { BodyType, VehicleSearchQuery } from "@/domain/catalog/types";
-import { listMarkets, type Market } from "@/domain/geo/markets";
+import { listMarkets, primaryMarket, type Market } from "@/domain/geo/markets";
+import { countryCodeFromHub, countryHubSlugs } from "@/domain/routing/country-paths";
 
 export const LANDING_IDS = [
   "economy",
@@ -19,6 +20,7 @@ export const LANDING_IDS = [
 export type LandingId = (typeof LANDING_IDS)[number];
 
 export type RentView =
+  | { kind: "country"; market: Market }
   | { kind: "city"; market: Market }
   | { kind: "make"; market: Market; make: string }
   | { kind: "model"; market: Market; make: string; model: string }
@@ -140,6 +142,12 @@ function parseSegment(segment: string): RentView | undefined {
 }
 
 export function parseRentPath(slug: string[]): RentView | undefined {
+  if (slug.length === 2 && slug[1] === "car-rental" && slug[0]) {
+    const country = countryCodeFromHub(slug[0]);
+    const market = country ? primaryMarket(country) : undefined;
+    return market ? { kind: "country", market } : undefined;
+  }
+
   if (slug.length === 1 && slug[0]) {
     return parseSegment(slug[0]);
   }
@@ -167,6 +175,7 @@ export function parseRentPath(slug: string[]): RentView | undefined {
 
 export function queryFromView(view: RentView): Partial<VehicleSearchQuery> {
   switch (view.kind) {
+    case "country":
     case "city":
       return {};
     case "make":
@@ -224,7 +233,7 @@ export function catalogPath(city: string, query: Partial<VehicleSearchQuery> = {
 }
 
 export function indexableStaticPaths(): string[][] {
-  const paths: string[][] = [];
+  const paths: string[][] = countryHubSlugs();
 
   for (const market of listMarkets()) {
     paths.push([`rent-a-car-${market.city}`]);

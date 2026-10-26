@@ -159,3 +159,7 @@ export function listingsForMarket(country: string, city: string): VehicleListing
     (listing) => listing.country === country.toLowerCase() && listing.city === city.toLowerCase(),
   );
 }
+
+export function listingsForCountry(country: string): VehicleListing[] {
+  return LISTINGS.filter((listing) => listing.country === country.toLowerCase());
+}

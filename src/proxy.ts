@@ -3,10 +3,10 @@ import createMiddleware from "next-intl/middleware";
 
 import { isLocale, LOCALES, type AppLocale } from "@/domain/geo/locales";
 import { getMarket } from "@/domain/geo/markets";
+import { hostnameForCountry, isAppHostname, isLocalHostname } from "@/domain/routing/hosts";
 import { cityRentPath, parseRentPath } from "@/domain/routing/rent-paths";
 import { routing } from "@/i18n/routing";
 import { pathCanonical } from "@/server/rent/resolve-rent";
-import { hostOf, managedHosts, originForCountry } from "@/server/seo/origins";
 
 const handleLocale = createMiddleware(routing);
 
@@ -15,8 +15,8 @@ function requestHost(request: NextRequest): string {
 }
 
 function shiftCountryHost(request: NextRequest): NextResponse | undefined {
-  const host = requestHost(request);
-  if (!host || !managedHosts().includes(host)) return undefined;
+  const hostname = requestHost(request);
+  if (!hostname || !isAppHostname(hostname)) return undefined;
 
   const pathname = request.nextUrl.pathname;
   const segments = pathname.split("/").filter(Boolean);
@@ -25,11 +25,28 @@ function shiftCountryHost(request: NextRequest): NextResponse | undefined {
   const view = parseRentPath(slug);
   if (!view) return undefined;
 
-  const targetHost = hostOf(originForCountry(view.market.country));
-  if (targetHost === host) return undefined;
+  const targetHost = hostnameForCountry(view.market.country, hostname);
+  if (targetHost === hostname) return undefined;
 
-  const destination = new URL(pathname + request.nextUrl.search, originForCountry(view.market.country));
-  return NextResponse.redirect(destination, 308);
+  const destination = new URL(pathname + request.nextUrl.search, browsingOrigin(request, targetHost));
+  return new NextResponse(null, {
+    status: 308,
+    headers: {
+      Location: destination.toString(),
+    },
+  });
+}
+
+function browsingOrigin(request: NextRequest, targetHost: string): string {
+  if (isLocalHostname(requestHost(request))) {
+    const port = request.nextUrl.port ? `:${request.nextUrl.port}` : "";
+    // `localhost` is the dev server's own host, so Next collapses a redirect
+    // to it into a same-host path. `ae.localhost` stays a real host change.
+    const host = targetHost === "localhost" ? "ae.localhost" : targetHost;
+    return `${request.nextUrl.protocol}//${host}${port}`;
+  }
+
+  return `https://${targetHost}`;
 }
 
 function legacyMarketRedirect(request: NextRequest): NextResponse | undefined {
@@ -42,7 +59,7 @@ function legacyMarketRedirect(request: NextRequest): NextResponse | undefined {
   const host = requestHost(request);
   const locale = match[1];
   const path = locale && locale !== "en" ? `/${locale}${cityRentPath(market.city)}` : cityRentPath(market.city);
-  const origin = host && managedHosts().includes(host) ? originForCountry(market.country) : request.nextUrl.origin;
+  const origin = browsingOrigin(request, hostnameForCountry(market.country, host));
   const destination = new URL(path, origin);
   destination.search = request.nextUrl.search;
   return NextResponse.redirect(destination, 308);
