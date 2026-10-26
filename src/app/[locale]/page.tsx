@@ -7,6 +7,7 @@ import { setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/domain/geo/locales";
 import { getMarket } from "@/domain/geo/markets";
 import { MarketHome } from "@/features/home/market-home";
+import { MetadataBoundary } from "@/features/seo/metadata-boundary";
 import { AppShell } from "@/features/shell/app-shell";
 import { routing } from "@/i18n/routing";
 import { buildRentMetadata, websiteJsonLd } from "@/server/seo/metadata";
@@ -37,9 +38,12 @@ export async function generateMetadata({
 
 export default function LocaleIndex({ params }: { params: Promise<{ locale: string }> }) {
   return (
-    <Suspense fallback={<div className="min-h-dvh bg-background" />}>
-      <HomePage params={params} />
-    </Suspense>
+    <>
+      <MetadataBoundary />
+      <Suspense fallback={<div className="min-h-dvh bg-background" />}>
+        <HomePage params={params} />
+      </Suspense>
+    </>
   );
 }
 

@@ -11,6 +11,7 @@ import { catalogPath, indexableStaticPaths, listingPath, queryFromView } from "@
 import { ListingDetail } from "@/features/catalog/listing-detail";
 import { MarketHome } from "@/features/home/market-home";
 import { SearchScreen } from "@/features/search/search-screen";
+import { MetadataBoundary } from "@/features/seo/metadata-boundary";
 import { AppShell } from "@/features/shell/app-shell";
 import { redirect } from "@/i18n/navigation";
 import { getListingForPath } from "@/server/catalog/catalog";
@@ -71,9 +72,12 @@ export default function RentRoute({
   searchParams: Promise<RawSearchParams>;
 }) {
   return (
-    <Suspense fallback={<Skeleton className="mx-auto mt-8 h-80 max-w-6xl rounded-2xl" />}>
-      <RentRouteContent params={params} searchParams={searchParams} />
-    </Suspense>
+    <>
+      <MetadataBoundary />
+      <Suspense fallback={<Skeleton className="mx-auto mt-8 h-80 max-w-6xl rounded-2xl" />}>
+        <RentRouteContent params={params} searchParams={searchParams} />
+      </Suspense>
+    </>
   );
 }
 

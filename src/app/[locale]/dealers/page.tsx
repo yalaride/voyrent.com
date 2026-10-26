@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { isLocale } from "@/domain/geo/locales";
+import { MetadataBoundary } from "@/features/seo/metadata-boundary";
 import { AppShell } from "@/features/shell/app-shell";
 
 export async function generateMetadata({
@@ -23,9 +24,12 @@ export async function generateMetadata({
 
 export default function DealersPage({ params }: { params: Promise<{ locale: string }> }) {
   return (
-    <Suspense fallback={null}>
-      <DealersContent params={params} />
-    </Suspense>
+    <>
+      <MetadataBoundary />
+      <Suspense fallback={null}>
+        <DealersContent params={params} />
+      </Suspense>
+    </>
   );
 }
 
