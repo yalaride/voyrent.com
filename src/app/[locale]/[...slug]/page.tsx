@@ -6,12 +6,12 @@ import { setRequestLocale } from "next-intl/server";
 import { makeFromToken } from "@/domain/catalog/directory";
 import type { RawSearchParams } from "@/domain/catalog/params";
 import { DEFAULT_LOCALE, isLocale, LOCALES } from "@/domain/geo/locales";
+import { requestLocale } from "@/server/seo/request-locale";
 import { countryHubPath } from "@/domain/routing/country-paths";
 import { catalogPath, indexableStaticPaths, listingPath, queryFromView } from "@/domain/routing/rent-paths";
 import { ListingDetail } from "@/features/catalog/listing-detail";
 import { MarketHome } from "@/features/home/market-home";
 import { SearchScreen } from "@/features/search/search-screen";
-import { MetadataBoundary } from "@/features/seo/metadata-boundary";
 import { AppShell } from "@/features/shell/app-shell";
 import { redirect } from "@/i18n/navigation";
 import { getListingForPath } from "@/server/catalog/catalog";
@@ -33,8 +33,8 @@ export async function generateMetadata({
   params: Promise<PageParams>;
   searchParams: Promise<RawSearchParams>;
 }): Promise<Metadata> {
-  const [{ locale, slug }, raw] = await Promise.all([params, searchParams]);
-  if (!isLocale(locale)) return {};
+  const [{ slug }, raw, locale] = await Promise.all([params, searchParams, requestLocale()]);
+  if (!locale) return {};
   const view = rentView(slug);
   if (!view) return {};
   const query = searchQueryFor(view, raw, locale);
@@ -72,12 +72,9 @@ export default function RentRoute({
   searchParams: Promise<RawSearchParams>;
 }) {
   return (
-    <>
-      <MetadataBoundary />
-      <Suspense fallback={<Skeleton className="mx-auto mt-8 h-80 max-w-6xl rounded-2xl" />}>
-        <RentRouteContent params={params} searchParams={searchParams} />
-      </Suspense>
-    </>
+    <Suspense fallback={<Skeleton className="mx-auto mt-8 h-80 max-w-6xl rounded-2xl" />}>
+      <RentRouteContent params={params} searchParams={searchParams} />
+    </Suspense>
   );
 }
 

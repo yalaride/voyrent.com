@@ -4,17 +4,13 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { isLocale } from "@/domain/geo/locales";
-import { MetadataBoundary } from "@/features/seo/metadata-boundary";
 import { AppShell } from "@/features/shell/app-shell";
+import { requestLocale } from "@/server/seo/request-locale";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await requestLocale();
 
-  if (!isLocale(locale)) {
+  if (!locale) {
     return {};
   }
 
@@ -24,12 +20,9 @@ export async function generateMetadata({
 
 export default function DealersPage({ params }: { params: Promise<{ locale: string }> }) {
   return (
-    <>
-      <MetadataBoundary />
-      <Suspense fallback={null}>
-        <DealersContent params={params} />
-      </Suspense>
-    </>
+    <Suspense fallback={null}>
+      <DealersContent params={params} />
+    </Suspense>
   );
 }
 

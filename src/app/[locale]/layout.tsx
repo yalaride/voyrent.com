@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Suspense } from "react";
-import { notFound } from "next/navigation";
+import { Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
 import { hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
@@ -12,6 +13,19 @@ import { routing } from "@/i18n/routing";
 import { serverEnv } from "@/lib/config/env";
 import { organizationJsonLd, rootVerification } from "@/server/seo/metadata";
 import { siteOrigin } from "@/server/seo/origins";
+import "../globals.css";
+
+const sans = Plus_Jakarta_Sans({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-sans-latin",
+  display: "swap",
+});
+
+const arabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  variable: "--font-arabic",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),
@@ -33,13 +47,17 @@ export default function LocaleLayout({
   children,
   params,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   params: Promise<{ locale: string }>;
 }) {
   return (
-    <Suspense fallback={<div className="min-h-dvh bg-background" />}>
-      <LocaleDocument params={params}>{children}</LocaleDocument>
-    </Suspense>
+    <html lang="en" className={`${sans.variable} ${arabic.variable} h-full antialiased`} suppressHydrationWarning>
+      <body className="min-h-full bg-background text-foreground">
+        <Suspense fallback={<div className="min-h-dvh bg-background" />}>
+          <LocaleDocument params={params}>{children}</LocaleDocument>
+        </Suspense>
+      </body>
+    </html>
   );
 }
 
@@ -47,14 +65,13 @@ async function LocaleDocument({
   children,
   params,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
-
-  if (!hasLocale(routing.locales, locale) || !isLocale(locale)) {
-    notFound();
-  }
+  const { locale: requested } = await params;
+  // Unknown segments still render the page, which calls notFound() inside its own Suspense.
+  // Throwing here sits outside that boundary and fails instant validation.
+  const locale = hasLocale(routing.locales, requested) && isLocale(requested) ? requested : routing.defaultLocale;
 
   setRequestLocale(locale);
   const messages = await getMessages();

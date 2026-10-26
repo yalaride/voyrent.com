@@ -7,24 +7,20 @@ import { setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/domain/geo/locales";
 import { getMarket } from "@/domain/geo/markets";
 import { MarketHome } from "@/features/home/market-home";
-import { MetadataBoundary } from "@/features/seo/metadata-boundary";
 import { AppShell } from "@/features/shell/app-shell";
 import { routing } from "@/i18n/routing";
 import { buildRentMetadata, websiteJsonLd } from "@/server/seo/metadata";
+import { requestLocale } from "@/server/seo/request-locale";
 
 function homeMarket() {
   return getMarket("ae", "dubai");
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await requestLocale();
   const market = homeMarket();
 
-  if (!isLocale(locale) || !market) {
+  if (!locale || !market) {
     return {};
   }
 
@@ -38,12 +34,9 @@ export async function generateMetadata({
 
 export default function LocaleIndex({ params }: { params: Promise<{ locale: string }> }) {
   return (
-    <>
-      <MetadataBoundary />
-      <Suspense fallback={<div className="min-h-dvh bg-background" />}>
-        <HomePage params={params} />
-      </Suspense>
-    </>
+    <Suspense fallback={<div className="min-h-dvh bg-background" />}>
+      <HomePage params={params} />
+    </Suspense>
   );
 }
 

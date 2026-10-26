@@ -32,7 +32,7 @@ Set these in `.env.local`. No code change is required.
 - `NEXT_PUBLIC_BING_SITE_VERIFICATION`
 - `NEXT_PUBLIC_OG_IMAGE`
 
-Tag Manager renders only when the id is set. `sitemap.xml` and `robots.txt` are generated from the market list.
+Tag Manager renders only when the id is set. `sitemap.xml` is an index. Rent URLs are split into `/sitemap/rent-locations.xml`, `/sitemap/rent-brands.xml`, and `/sitemap/rent-landings.xml`. Buy, sell, and yacht catalogs add their own files to that index. `robots.txt` points at the index.
 
 ## Dynamic copy from the API
 
