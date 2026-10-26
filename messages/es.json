@@ -1,0 +1,119 @@
+{
+  "Meta": {
+    "marketTitle": "Alquiler de coches en {city}",
+    "marketDescription": "Compara coches de alquiler por día y por mes en {city}, directo con empresas locales. Sin comisión de plataforma.",
+    "searchTitle": "Buscar coches de alquiler en {city}",
+    "listingTitle": "Alquiler de {name} en {city}",
+    "dealersTitle": "Publica tus coches",
+    "makeTitle": "Alquila un {make} en {city}",
+    "makeDescription": "Compara coches {make} de alquiler en {city} con empresas locales.",
+    "modelTitle": "Alquila un {make} {model} en {city}",
+    "modelDescription": "Ofertas de alquiler del {make} {model} en {city}.",
+    "filteredTitle": "{filter} en {city}",
+    "filteredDescription": "Compara alquileres de {filter} en {city}."
+  },
+  "Header": {
+    "skip": "Saltar al contenido",
+    "openMenu": "Abrir menú",
+    "menu": "Menú",
+    "dealers": "Publica tus coches",
+    "chooseCity": "Elegir ciudad",
+    "language": "Idioma",
+    "currency": "Moneda"
+  },
+  "Hero": {
+    "eyebrow": "Empresas locales. Sin comisión de plataforma.",
+    "title": "Alquila un coche en {city}",
+    "subtitle": "Compara marcas, modelos y tipos de coche en {country}. Tarifas diarias y mensuales, en la moneda que elijas."
+  },
+  "Search": {
+    "make": "Marca",
+    "model": "Modelo",
+    "type": "Tipo de coche",
+    "query": "Buscar",
+    "queryPlaceholder": "Marca, modelo o una búsqueda popular",
+    "anyMake": "Cualquier marca",
+    "anyModel": "Cualquier modelo",
+    "anyType": "Cualquier tipo",
+    "submit": "Buscar coches",
+    "popular": "Búsquedas populares",
+    "suggestions": "Sugerencias",
+    "famous": {
+      "cheapDaily": "Alquiler diario barato",
+      "suv": "SUV",
+      "luxury": "Coches de lujo",
+      "sports": "Deportivos",
+      "monthly": "Alquiler mensual",
+      "noDeposit": "Sin depósito",
+      "airport": "Entrega en el aeropuerto",
+      "sevenSeater": "7 plazas"
+    }
+  },
+  "BodyTypes": {
+    "title": "Buscar por tipo",
+    "economy": "Económico",
+    "sedan": "Sedán",
+    "suv": "SUV",
+    "luxury": "Lujo",
+    "sports": "Deportivo",
+    "van": "Furgoneta",
+    "convertible": "Descapotable"
+  },
+  "Listings": {
+    "featured": "Disponibles en {city}",
+    "results": "{count, plural, one {# coche} other {# coches}}",
+    "emptyTitle": "Ningún coche coincide con esta búsqueda",
+    "emptyBody": "Prueba con otra marca, modelo o tipo de coche.",
+    "perDay": "por día",
+    "perMonth": "por mes",
+    "noDeposit": "Sin depósito",
+    "airport": "Entrega en el aeropuerto",
+    "seats": "{count, plural, one {# plaza} other {# plazas}}",
+    "automatic": "Automático",
+    "manual": "Manual",
+    "supplier": "Proveedor",
+    "supplierPrice": "Precio del proveedor {price}",
+    "view": "Ver coche",
+    "request": "Solicitar este coche",
+    "requestNote": "Las solicitudes de reserva llegarán al proveedor a través de la API de NestJS. Esa conexión todavía no está activa.",
+    "back": "Volver a la búsqueda",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "pageStatus": "Página {page} de {pages}"
+  },
+  "Cities": {
+    "title": "Ciudades en {country}"
+  },
+  "Trust": {
+    "title": "Un mercado, no un intermediario",
+    "rangeTitle": "Marca, modelo y tipo",
+    "rangeBody": "Busca como lo hace un conductor: marca, modelo, tipo de coche o una petición habitual.",
+    "priceTitle": "Precios del proveedor",
+    "priceBody": "La tarifa la pone la empresa de alquiler. GleeCars no suma comisión.",
+    "marketTitle": "Varios mercados, una búsqueda",
+    "marketBody": "Cambia de país, ciudad, idioma y moneda sin empezar de cero."
+  },
+  "Footer": {
+    "summary": "Compara coches de alquiler de empresas locales."
+  },
+  "Dealers": {
+    "title": "Ofrece coches en GleeCars",
+    "body": "Las empresas de alquiler mantienen sus precios y hablan directo con los conductores. El alta de proveedores se conectará a la plataforma NestJS. Las herramientas del proveedor viven en una aplicación aparte."
+  },
+  "Errors": {
+    "notFoundTitle": "Esta página no está disponible",
+    "notFoundBody": "Esa ciudad o ese coche no está en el catálogo.",
+    "home": "Ver coches en Dubái",
+    "unexpectedTitle": "Algo ha fallado",
+    "unexpectedBody": "Vuelve a cargar la página. Si continúa, el servicio de catálogo puede no estar disponible.",
+    "retry": "Reintentar"
+  },
+  "Currencies": {
+    "AED": "Dírham de EAU",
+    "USD": "Dólar estadounidense",
+    "EUR": "Euro",
+    "GBP": "Libra esterlina",
+    "SAR": "Riyal saudí",
+    "MAD": "Dírham marroquí"
+  }
+}

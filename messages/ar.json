@@ -1,0 +1,119 @@
+{
+  "Meta": {
+    "marketTitle": "تأجير سيارات في {city}",
+    "marketDescription": "قارن سيارات الإيجار اليومي والشهري في {city} من شركات محلية. بدون عمولة للمنصة.",
+    "searchTitle": "ابحث عن سيارات للإيجار في {city}",
+    "listingTitle": "إيجار {name} في {city}",
+    "dealersTitle": "اعرض سياراتك",
+    "makeTitle": "استأجر {make} في {city}",
+    "makeDescription": "قارن سيارات {make} للإيجار في {city} من شركات محلية.",
+    "modelTitle": "استأجر {make} {model} في {city}",
+    "modelDescription": "عروض إيجار {make} {model} في {city}.",
+    "filteredTitle": "{filter} في {city}",
+    "filteredDescription": "قارن إيجار {filter} في {city}."
+  },
+  "Header": {
+    "skip": "تخطي إلى المحتوى",
+    "openMenu": "فتح القائمة",
+    "menu": "القائمة",
+    "dealers": "اعرض سياراتك",
+    "chooseCity": "اختر مدينة",
+    "language": "اللغة",
+    "currency": "العملة"
+  },
+  "Hero": {
+    "eyebrow": "شركات محلية. بدون رسوم على المنصة.",
+    "title": "استأجر سيارة في {city}",
+    "subtitle": "قارن الشركات المصنّعة والطرازات وأنواع السيارات في {country}. أسعار يومية وشهرية بالعملة التي تختارها."
+  },
+  "Search": {
+    "make": "الشركة",
+    "model": "الطراز",
+    "type": "نوع السيارة",
+    "query": "بحث",
+    "queryPlaceholder": "شركة أو طراز أو بحث شائع",
+    "anyMake": "أي شركة",
+    "anyModel": "أي طراز",
+    "anyType": "أي نوع",
+    "submit": "ابحث عن سيارات",
+    "popular": "عمليات بحث شائعة",
+    "suggestions": "اقتراحات",
+    "famous": {
+      "cheapDaily": "إيجار يومي رخيص",
+      "suv": "دفع رباعي",
+      "luxury": "سيارات فاخرة",
+      "sports": "سيارات رياضية",
+      "monthly": "إيجار شهري",
+      "noDeposit": "بدون تأمين",
+      "airport": "توصيل المطار",
+      "sevenSeater": "7 مقاعد"
+    }
+  },
+  "BodyTypes": {
+    "title": "تصفح حسب النوع",
+    "economy": "اقتصادية",
+    "sedan": "سيدان",
+    "suv": "دفع رباعي",
+    "luxury": "فاخرة",
+    "sports": "رياضية",
+    "van": "فان",
+    "convertible": "مكشوفة"
+  },
+  "Listings": {
+    "featured": "متاحة في {city}",
+    "results": "{count, plural, zero {لا توجد سيارات} one {سيارة واحدة} two {سيارتان} few {# سيارات} many {# سيارة} other {# سيارة}}",
+    "emptyTitle": "لا توجد سيارات تطابق هذا البحث",
+    "emptyBody": "جرّب شركة أو طرازًا أو نوعًا آخر.",
+    "perDay": "في اليوم",
+    "perMonth": "في الشهر",
+    "noDeposit": "بدون تأمين",
+    "airport": "توصيل المطار",
+    "seats": "{count, plural, zero {بدون مقاعد} one {مقعد واحد} two {مقعدان} few {# مقاعد} many {# مقعدًا} other {# مقعد}}",
+    "automatic": "أوتوماتيك",
+    "manual": "عادي",
+    "supplier": "المورّد",
+    "supplierPrice": "سعر المورّد {price}",
+    "view": "عرض السيارة",
+    "request": "اطلب هذه السيارة",
+    "requestNote": "طلبات الحجز ستصل إلى المورّد عبر واجهة NestJS. هذا الربط غير مفعّل بعد.",
+    "back": "العودة إلى البحث",
+    "previous": "السابق",
+    "next": "التالي",
+    "pageStatus": "صفحة {page} من {pages}"
+  },
+  "Cities": {
+    "title": "مدن {country}"
+  },
+  "Trust": {
+    "title": "سوق، وليس وسيطًا",
+    "rangeTitle": "الشركة والطراز والنوع",
+    "rangeBody": "ابحث بالطريقة التي يبحث بها السائق: الشركة، الطراز، نوع السيارة، أو طلبًا شائعًا.",
+    "priceTitle": "أسعار المورّد",
+    "priceBody": "السعر تحدده شركة التأجير. GleeCars لا تضيف عمولة.",
+    "marketTitle": "أسواق متعددة، بحث واحد",
+    "marketBody": "بدّل الدولة والمدينة واللغة والعملة دون أن تبدأ من جديد."
+  },
+  "Footer": {
+    "summary": "قارن سيارات الإيجار من شركات محلية."
+  },
+  "Dealers": {
+    "title": "اعرض سياراتك على GleeCars",
+    "body": "تحتفظ شركات التأجير بأسعارها وتتواصل مع السائقين مباشرة. تسجيل المورّدين سيتصل بمنصة NestJS. أدوات المورّد تطبيق منفصل."
+  },
+  "Errors": {
+    "notFoundTitle": "هذه الصفحة غير متاحة",
+    "notFoundBody": "هذه المدينة أو هذه السيارة غير موجودة في الكتالوج.",
+    "home": "تصفح السيارات في دبي",
+    "unexpectedTitle": "حدث خطأ",
+    "unexpectedBody": "أعد تحميل الصفحة. إذا استمر الخطأ، قد تكون خدمة الكتالوج غير متاحة.",
+    "retry": "حاول مرة أخرى"
+  },
+  "Currencies": {
+    "AED": "درهم إماراتي",
+    "USD": "دولار أمريكي",
+    "EUR": "يورو",
+    "GBP": "جنيه إسترليني",
+    "SAR": "ريال سعودي",
+    "MAD": "درهم مغربي"
+  }
+}

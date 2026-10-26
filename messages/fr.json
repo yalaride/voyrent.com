@@ -1,0 +1,119 @@
+{
+  "Meta": {
+    "marketTitle": "Location de voiture à {city}",
+    "marketDescription": "Comparez des locations à la journée et au mois à {city}, directement auprès de loueurs locaux. Sans commission de plateforme.",
+    "searchTitle": "Rechercher une location à {city}",
+    "listingTitle": "Location {name} à {city}",
+    "dealersTitle": "Proposez vos voitures",
+    "makeTitle": "Louer {make} à {city}",
+    "makeDescription": "Comparez les locations {make} à {city} auprès de loueurs locaux.",
+    "modelTitle": "Louer {make} {model} à {city}",
+    "modelDescription": "Offres de location pour {make} {model} à {city}.",
+    "filteredTitle": "{filter} à {city}",
+    "filteredDescription": "Comparez les locations {filter} à {city}."
+  },
+  "Header": {
+    "skip": "Aller au contenu",
+    "openMenu": "Ouvrir le menu",
+    "menu": "Menu",
+    "dealers": "Proposez vos voitures",
+    "chooseCity": "Choisir une ville",
+    "language": "Langue",
+    "currency": "Devise"
+  },
+  "Hero": {
+    "eyebrow": "Loueurs locaux. Aucun frais de plateforme.",
+    "title": "Louer une voiture à {city}",
+    "subtitle": "Comparez marques, modèles et types de voiture en {country}. Tarifs journaliers et mensuels, dans la devise de votre choix."
+  },
+  "Search": {
+    "make": "Marque",
+    "model": "Modèle",
+    "type": "Type de voiture",
+    "query": "Recherche",
+    "queryPlaceholder": "Marque, modèle ou recherche fréquente",
+    "anyMake": "Toutes les marques",
+    "anyModel": "Tous les modèles",
+    "anyType": "Tous les types",
+    "submit": "Rechercher",
+    "popular": "Recherches fréquentes",
+    "suggestions": "Suggestions",
+    "famous": {
+      "cheapDaily": "Location journalière pas chère",
+      "suv": "SUV",
+      "luxury": "Voitures de luxe",
+      "sports": "Sportives",
+      "monthly": "Location mensuelle",
+      "noDeposit": "Sans caution",
+      "airport": "Livraison aéroport",
+      "sevenSeater": "7 places"
+    }
+  },
+  "BodyTypes": {
+    "title": "Parcourir par type",
+    "economy": "Économique",
+    "sedan": "Berline",
+    "suv": "SUV",
+    "luxury": "Luxe",
+    "sports": "Sportive",
+    "van": "Van",
+    "convertible": "Cabriolet"
+  },
+  "Listings": {
+    "featured": "Disponibles à {city}",
+    "results": "{count, plural, one {# voiture} other {# voitures}}",
+    "emptyTitle": "Aucune voiture ne correspond",
+    "emptyBody": "Essayez une autre marque, un autre modèle ou un autre type.",
+    "perDay": "par jour",
+    "perMonth": "par mois",
+    "noDeposit": "Sans caution",
+    "airport": "Livraison aéroport",
+    "seats": "{count, plural, one {# place} other {# places}}",
+    "automatic": "Automatique",
+    "manual": "Manuelle",
+    "supplier": "Loueur",
+    "supplierPrice": "Prix loueur {price}",
+    "view": "Voir la voiture",
+    "request": "Demander cette voiture",
+    "requestNote": "Les demandes de réservation seront envoyées au loueur via l’API NestJS. Cette connexion n’est pas encore active.",
+    "back": "Retour à la recherche",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "pageStatus": "Page {page} sur {pages}"
+  },
+  "Cities": {
+    "title": "Villes en {country}"
+  },
+  "Trust": {
+    "title": "Une place de marché, pas un intermédiaire",
+    "rangeTitle": "Marque, modèle et type",
+    "rangeBody": "Cherchez comme un conducteur : marque, modèle, type de carrosserie ou demande fréquente.",
+    "priceTitle": "Prix des loueurs",
+    "priceBody": "Le tarif est fixé par le loueur. GleeCars n’ajoute pas de commission.",
+    "marketTitle": "Plusieurs marchés, une recherche",
+    "marketBody": "Changez de pays, de ville, de langue et de devise sans tout recommencer."
+  },
+  "Footer": {
+    "summary": "Comparez des locations auprès de loueurs locaux."
+  },
+  "Dealers": {
+    "title": "Proposez des voitures sur GleeCars",
+    "body": "Les loueurs gardent leurs prix et parlent directement aux conducteurs. L’inscription des partenaires sera reliée à la plateforme NestJS. Les outils loueur sont une application séparée."
+  },
+  "Errors": {
+    "notFoundTitle": "Cette page n’est pas disponible",
+    "notFoundBody": "Cette ville ou cette voiture n’est pas dans le catalogue.",
+    "home": "Voir les voitures à Dubaï",
+    "unexpectedTitle": "Un problème est survenu",
+    "unexpectedBody": "Rechargez la page. Si cela continue, le service de catalogue est peut-être indisponible.",
+    "retry": "Réessayer"
+  },
+  "Currencies": {
+    "AED": "Dirham des EAU",
+    "USD": "Dollar américain",
+    "EUR": "Euro",
+    "GBP": "Livre sterling",
+    "SAR": "Riyal saoudien",
+    "MAD": "Dirham marocain"
+  }
+}

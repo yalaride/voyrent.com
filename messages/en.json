@@ -1,0 +1,119 @@
+{
+  "Meta": {
+    "marketTitle": "Car rental in {city}",
+    "marketDescription": "Compare daily and monthly rental cars in {city} from local suppliers. No platform commission.",
+    "searchTitle": "Search rental cars in {city}",
+    "listingTitle": "{name} rental in {city}",
+    "dealersTitle": "List your cars",
+    "makeTitle": "Rent {make} in {city}",
+    "makeDescription": "Compare {make} rental cars in {city} from local suppliers.",
+    "modelTitle": "Rent {make} {model} in {city}",
+    "modelDescription": "Rental offers for the {make} {model} in {city}.",
+    "filteredTitle": "{filter} in {city}",
+    "filteredDescription": "Compare {filter} rental cars in {city}."
+  },
+  "Header": {
+    "skip": "Skip to content",
+    "openMenu": "Open menu",
+    "menu": "Menu",
+    "dealers": "List your cars",
+    "chooseCity": "Choose a city",
+    "language": "Language",
+    "currency": "Currency"
+  },
+  "Hero": {
+    "eyebrow": "Local suppliers. No platform fee.",
+    "title": "Rent a car in {city}",
+    "subtitle": "Compare makes, models, and car types across {country}. Daily and monthly rates, shown in the currency you choose."
+  },
+  "Search": {
+    "make": "Make",
+    "model": "Model",
+    "type": "Car type",
+    "query": "Search",
+    "queryPlaceholder": "Make, model, or a popular search",
+    "anyMake": "Any make",
+    "anyModel": "Any model",
+    "anyType": "Any type",
+    "submit": "Search cars",
+    "popular": "Popular searches",
+    "suggestions": "Suggestions",
+    "famous": {
+      "cheapDaily": "Cheap daily rental",
+      "suv": "SUVs",
+      "luxury": "Luxury cars",
+      "sports": "Sports cars",
+      "monthly": "Monthly rental",
+      "noDeposit": "No deposit",
+      "airport": "Airport delivery",
+      "sevenSeater": "7 seaters"
+    }
+  },
+  "BodyTypes": {
+    "title": "Browse by type",
+    "economy": "Economy",
+    "sedan": "Sedan",
+    "suv": "SUV",
+    "luxury": "Luxury",
+    "sports": "Sports",
+    "van": "Van",
+    "convertible": "Convertible"
+  },
+  "Listings": {
+    "featured": "Available in {city}",
+    "results": "{count, plural, one {# car} other {# cars}}",
+    "emptyTitle": "No cars match this search",
+    "emptyBody": "Try another make, model, or car type.",
+    "perDay": "per day",
+    "perMonth": "per month",
+    "noDeposit": "No deposit",
+    "airport": "Airport delivery",
+    "seats": "{count, plural, one {# seat} other {# seats}}",
+    "automatic": "Automatic",
+    "manual": "Manual",
+    "supplier": "Supplier",
+    "supplierPrice": "Supplier price {price}",
+    "view": "View car",
+    "request": "Request this car",
+    "requestNote": "Booking requests will go to the supplier through the NestJS API. That connection is not live yet.",
+    "back": "Back to search",
+    "previous": "Previous",
+    "next": "Next",
+    "pageStatus": "Page {page} of {pages}"
+  },
+  "Cities": {
+    "title": "Cities in {country}"
+  },
+  "Trust": {
+    "title": "A marketplace, not a middleman",
+    "rangeTitle": "Make, model, and type",
+    "rangeBody": "Search the way drivers actually look: brand, model, body type, or a popular request.",
+    "priceTitle": "Supplier prices",
+    "priceBody": "The rate comes from the rental company. GleeCars does not add a commission on top.",
+    "marketTitle": "Many markets, one search",
+    "marketBody": "Switch country, city, language, and currency without starting over."
+  },
+  "Footer": {
+    "summary": "Compare rental cars from local suppliers."
+  },
+  "Dealers": {
+    "title": "Supply cars on GleeCars",
+    "body": "Rental companies keep their own prices and talk to drivers directly. Dealer onboarding will connect to the NestJS platform. The dealer tools live in a separate application."
+  },
+  "Errors": {
+    "notFoundTitle": "This page is not available",
+    "notFoundBody": "That city or car is not in the catalog.",
+    "home": "Browse cars in Dubai",
+    "unexpectedTitle": "Something went wrong",
+    "unexpectedBody": "Reload this page. If it continues, the catalog service may be unavailable.",
+    "retry": "Try again"
+  },
+  "Currencies": {
+    "AED": "UAE dirham",
+    "USD": "US dollar",
+    "EUR": "Euro",
+    "GBP": "British pound",
+    "SAR": "Saudi riyal",
+    "MAD": "Moroccan dirham"
+  }
+}
