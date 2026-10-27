@@ -31,11 +31,11 @@
     "model": "Model",
     "type": "Car type",
     "query": "Search",
-    "queryPlaceholder": "Make, model, or a popular search",
+    "queryPlaceholder": "Search for a car",
     "anyMake": "Any make",
     "anyModel": "Any model",
     "anyType": "Any type",
-    "submit": "Search cars",
+    "submit": "View all cars",
     "popular": "Popular searches",
     "suggestions": "Suggestions",
     "famous": {

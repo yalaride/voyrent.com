@@ -10,7 +10,7 @@ export function rentView(slug: string[]): RentView | undefined {
 export function searchQueryFor(view: RentView, raw: RawSearchParams, locale: AppLocale): VehicleSearchQuery {
   const base = queryFromView(view);
   const query = parseVehicleSearch(raw, view.market, locale, {
-    limit: view.kind === "city" || view.kind === "country" ? 6 : 12,
+    limit: view.kind === "country" ? 6 : 12,
   });
 
   return {

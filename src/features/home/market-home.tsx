@@ -10,7 +10,6 @@ import { ListingSkeleton } from "@/features/catalog/listing-skeleton";
 import { FamousSearches } from "@/features/search/famous-searches";
 import { SearchPanel } from "@/features/search/search-panel";
 import { Link } from "@/i18n/navigation";
-import { listMakes, listModels } from "@/server/catalog/catalog";
 
 export async function MarketHome({
   market,
@@ -21,12 +20,7 @@ export async function MarketHome({
   locale: AppLocale;
   scope?: "city" | "country";
 }) {
-  const [t, body, makes, models] = await Promise.all([
-    getTranslations(),
-    getTranslations("BodyTypes"),
-    listMakes(market.country, market.city),
-    listModels(market.country, market.city),
-  ]);
+  const [t, body] = await Promise.all([getTranslations(), getTranslations("BodyTypes")]);
   const cityName = localize(market.cityNames, locale);
   const countryName = localize(market.countryNames, locale);
   const place = scope === "country" ? countryName : cityName;
@@ -47,7 +41,7 @@ export async function MarketHome({
       </section>
       <div className="mx-auto -mt-10 max-w-6xl px-4">
         <div className="rounded-2xl border bg-card p-3 shadow-sm md:p-4">
-          <SearchPanel country={market.country} city={market.city} makes={makes} models={models} />
+          <SearchPanel country={market.country} city={market.city} />
         </div>
         <FamousSearches city={market.city} />
       </div>

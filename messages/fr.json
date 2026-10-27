@@ -31,11 +31,11 @@
     "model": "Modèle",
     "type": "Type de voiture",
     "query": "Recherche",
-    "queryPlaceholder": "Marque, modèle ou recherche fréquente",
+    "queryPlaceholder": "Rechercher une voiture",
     "anyMake": "Toutes les marques",
     "anyModel": "Tous les modèles",
     "anyType": "Tous les types",
-    "submit": "Rechercher",
+    "submit": "Voir toutes les voitures",
     "popular": "Recherches fréquentes",
     "suggestions": "Suggestions",
     "famous": {

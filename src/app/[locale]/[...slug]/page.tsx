@@ -130,8 +130,8 @@ async function RentRouteContent({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd(view.market, locale)) }}
       />
-      {(view.kind === "city" || view.kind === "country") && isIndexable(view, query) ? (
-        <MarketHome market={view.market} locale={locale} scope={view.kind === "country" ? "country" : "city"} />
+      {view.kind === "country" && isIndexable(view, query) ? (
+        <MarketHome market={view.market} locale={locale} scope="country" />
       ) : (
         <div className="mx-auto max-w-6xl px-4 py-8">
           <SearchScreen market={view.market} locale={locale} query={query} />

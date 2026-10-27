@@ -31,11 +31,11 @@
     "model": "الطراز",
     "type": "نوع السيارة",
     "query": "بحث",
-    "queryPlaceholder": "شركة أو طراز أو بحث شائع",
+    "queryPlaceholder": "ابحث عن سيارة",
     "anyMake": "أي شركة",
     "anyModel": "أي طراز",
     "anyType": "أي نوع",
-    "submit": "ابحث عن سيارات",
+    "submit": "عرض كل السيارات",
     "popular": "عمليات بحث شائعة",
     "suggestions": "اقتراحات",
     "famous": {
