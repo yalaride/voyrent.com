@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { LikeButton } from "@/components/ui/like-button";
 
 export type ListingCardModel = {
   href: string;
@@ -19,12 +20,19 @@ export type ListingCardModel = {
   airportLabel: string;
   supplierLabel: string;
   viewLabel: string;
+  likeLabel: string;
+  likedLabel: string;
 };
 
 export function ListingCard({ listing }: { listing: ListingCardModel }) {
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border bg-card">
-      <div className="flex h-28 items-end bg-foreground px-4 py-4 text-background">
+      <div className="relative flex h-28 items-end bg-foreground px-4 py-4 text-background">
+        <LikeButton
+          label={listing.likeLabel}
+          likedLabel={listing.likedLabel}
+          className="absolute top-3 right-3"
+        />
         <p className="text-2xl font-semibold tracking-tight">{listing.make}</p>
       </div>
       <div className="flex flex-1 flex-col gap-4 p-4">

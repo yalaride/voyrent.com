@@ -25,6 +25,8 @@ function presentListing(
     supplier: string;
     supplierPrice: string;
     view: string;
+    like: string;
+    liked: string;
   },
 ): ListingCardModel {
   const dailyMinor = convertMinor(listing.dailyPriceMinor, listing.currency, displayCurrency);
@@ -60,6 +62,8 @@ function presentListing(
     airportLabel: labels.airport,
     supplierLabel: labels.supplier,
     viewLabel: labels.view,
+    likeLabel: labels.like,
+    likedLabel: labels.liked,
   };
 }
 
@@ -97,6 +101,8 @@ export async function ListingSection({
       supplier: t("supplier"),
       supplierPrice: t("supplierPrice", { price: "{price}" }),
       view: t("view"),
+      like: t("like"),
+      liked: t("liked"),
     }),
   );
 

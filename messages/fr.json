@@ -74,6 +74,8 @@
     "supplier": "Loueur",
     "supplierPrice": "Prix loueur {price}",
     "view": "Voir la voiture",
+    "like": "Ajouter la voiture aux favoris",
+    "liked": "Retirer la voiture des favoris",
     "request": "Demander cette voiture",
     "requestNote": "Les demandes de réservation seront envoyées au loueur via l’API NestJS. Cette connexion n’est pas encore active.",
     "back": "Retour à la recherche",

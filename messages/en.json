@@ -74,6 +74,8 @@
     "supplier": "Supplier",
     "supplierPrice": "Supplier price {price}",
     "view": "View car",
+    "like": "Add car to favourites",
+    "liked": "Remove car from favourites",
     "request": "Request this car",
     "requestNote": "Booking requests will go to the supplier through the NestJS API. That connection is not live yet.",
     "back": "Back to search",

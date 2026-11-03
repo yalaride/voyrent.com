@@ -74,6 +74,8 @@
     "supplier": "Fornecedor",
     "supplierPrice": "Preço do fornecedor {price}",
     "view": "Ver carro",
+    "like": "Adicionar carro aos favoritos",
+    "liked": "Remover carro dos favoritos",
     "request": "Pedir este carro",
     "requestNote": "Os pedidos de reserva serão enviados ao fornecedor pela API NestJS. Essa ligação ainda não está ativa.",
     "back": "Voltar à pesquisa",
