@@ -94,7 +94,30 @@
     "marketBody": "Cambia de país, ciudad, idioma y moneda sin empezar de cero."
   },
   "Footer": {
-    "summary": "Compara coches de alquiler de empresas locales."
+    "resourcesTitle": "Recursos",
+    "usedCarsDubai": "Coches usados Dubái",
+    "newCarsDubai": "Coches nuevos Dubái",
+    "sellMyCar": "Vender mi coche",
+    "dealerDirectory": "Directorio de concesionarios",
+    "carBuyingGuide": "Guía de compra de coches",
+    "companyTitle": "Empresa",
+    "aboutUs": "Sobre nosotros",
+    "contactUs": "Contacto",
+    "joinAsDealer": "Únete como concesionario",
+    "dealerLogin": "Acceso concesionario (Portal)",
+    "legalTitle": "Legal",
+    "privacyPolicy": "Política de privacidad",
+    "termsConditions": "Términos y condiciones",
+    "cookiePolicy": "Política de cookies",
+    "supportTitle": "Soporte",
+    "email": "contact@gleeonedrive.com",
+    "phone": "+92 339 0500 659",
+    "socialLabel": "Redes sociales",
+    "socialFacebook": "Facebook",
+    "socialLinkedin": "LinkedIn",
+    "socialInstagram": "Instagram",
+    "copyright": "© 2026 Copyright by Rizitech",
+    "paymentsLabel": "Métodos de pago aceptados"
   },
   "Dealers": {
     "title": "Ofrece coches en GleeCars",

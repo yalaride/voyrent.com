@@ -94,7 +94,30 @@
     "marketBody": "Mude de país, cidade, idioma e moeda sem recomeçar."
   },
   "Footer": {
-    "summary": "Compare carros de aluguer de empresas locais."
+    "resourcesTitle": "Recursos",
+    "usedCarsDubai": "Carros usados Dubai",
+    "newCarsDubai": "Carros novos Dubai",
+    "sellMyCar": "Vender o meu carro",
+    "dealerDirectory": "Diretório de concessionários",
+    "carBuyingGuide": "Guia de compra de carros",
+    "companyTitle": "Empresa",
+    "aboutUs": "Sobre nós",
+    "contactUs": "Contacto",
+    "joinAsDealer": "Juntar-se como concessionário",
+    "dealerLogin": "Login do concessionário (Portal)",
+    "legalTitle": "Legal",
+    "privacyPolicy": "Política de privacidade",
+    "termsConditions": "Termos e condições",
+    "cookiePolicy": "Política de cookies",
+    "supportTitle": "Suporte",
+    "email": "contact@gleeonedrive.com",
+    "phone": "+92 339 0500 659",
+    "socialLabel": "Redes sociais",
+    "socialFacebook": "Facebook",
+    "socialLinkedin": "LinkedIn",
+    "socialInstagram": "Instagram",
+    "copyright": "© 2026 Copyright by Rizitech",
+    "paymentsLabel": "Métodos de pagamento aceites"
   },
   "Dealers": {
     "title": "Disponibilize carros na GleeCars",
