@@ -30,7 +30,7 @@ const config = {
   theme: {
     extend: {
       colors: {
-        "ds-primary": v("color-ds-primary"),
+        primary: v("color-primary"),
         success: v("color-success"),
         warning: v("color-warning"),
         danger: v("color-danger"),
