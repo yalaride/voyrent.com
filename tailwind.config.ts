@@ -29,23 +29,7 @@ const config = {
   ],
   theme: {
     extend: {
-      colors: {
-        primary: v("color-primary"),
-        success: v("color-success"),
-        warning: v("color-warning"),
-        danger: v("color-danger"),
-        info: v("color-info"),
-        link: v("color-link"),
-        "text-primary": v("color-text-primary"),
-        "text-secondary": v("color-text-secondary"),
-        "text-inverse": v("color-text-inverse"),
-        "text-disabled": v("color-text-disabled"),
-        "border-subtle": v("color-border-subtle"),
-        "border-default": v("color-border-default"),
-        "background-primary": v("color-background-primary"),
-        "background-secondary": v("color-background-secondary"),
-        "background-section": v("color-background-section"),
-      },
+      // Color utilities come from @theme in globals.css (--color-*)
       spacing: {
         ...Object.fromEntries(
           space.map((n) => [`space-${n}`, v(`spacing-space-${n}`)]),

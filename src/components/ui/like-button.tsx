@@ -26,7 +26,7 @@ export function LikeButton({
       data-liked={liked}
       onClick={() => setLiked((current) => !current)}
       className={cn(
-        "inline-flex size-10 items-center justify-center rounded-full border border-border-default bg-background-primary text-text-secondary shadow-small transition-colors hover:bg-background-secondary hover:text-danger focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ds-primary/40 data-[liked=true]:text-danger",
+        "inline-flex size-10 items-center justify-center rounded-full border border-border-default bg-background-primary text-text-secondary shadow-small transition-colors hover:bg-background-secondary hover:text-danger focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-primary/40 data-[liked=true]:text-danger",
         className,
       )}
     >

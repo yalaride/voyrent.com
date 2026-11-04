@@ -43,6 +43,23 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+
+  /* Global CSS / Figma palette — usable in components as utilities */
+  --color-success: var(--ds-success);
+  --color-warning: var(--ds-warning);
+  --color-danger: var(--ds-danger);
+  --color-info: var(--ds-info);
+  --color-link: var(--ds-link);
+  --color-text-primary: var(--ds-text-primary);
+  --color-text-secondary: var(--ds-text-secondary);
+  --color-text-inverse: var(--ds-text-inverse);
+  --color-text-disabled: var(--ds-text-disabled);
+  --color-border-subtle: var(--ds-border-subtle);
+  --color-border-default: var(--ds-border-default);
+  --color-background-primary: var(--ds-background-primary);
+  --color-background-secondary: var(--ds-background-secondary);
+  --color-background-section: var(--ds-background-section);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -53,44 +70,85 @@
 }
 
 :root {
-  /* ================= shadcn / base ================= */
-  --background: oklch(0.985 0.004 95);
-  --foreground: oklch(0.22 0.02 250);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.02 250);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.02 250);
-  --primary: oklch(0.24 0.03 250);
-  --primary-foreground: oklch(0.985 0.004 95);
-  --secondary: oklch(0.96 0.006 95);
-  --secondary-foreground: oklch(0.24 0.03 250);
-  --muted: oklch(0.96 0.006 95);
-  --muted-foreground: oklch(0.48 0.02 250);
-  --accent: oklch(0.95 0.02 80);
-  --accent-foreground: oklch(0.24 0.03 250);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.008 95);
-  --input: oklch(0.9 0.008 95);
-  --ring: oklch(0.62 0.12 55);
-  --brand: oklch(0.68 0.14 60);
+  /*
+   * Figma Colors collection (GleeOneDrive · node 5562:11390)
+   * Light only · 15 variables · same HEX ≠ same role — keep separate bindings
+   */
+
+  /* ---------- Background ---------- */
+  /* Background/Primary — Default canvas & surfaces */
+  --ds-background-primary: #ffffff;
+  /* Background/Secondary — Supporting surface */
+  --ds-background-secondary: #f7f9fb;
+  /* Background/Section — Dark section surface */
+  --ds-background-section: #172746;
+
+  /* ---------- Text ---------- */
+  /* Text/Primary — Primary content */
+  --ds-text-primary: #1d2939;
+  /* Text/Secondary — Supporting content */
+  --ds-text-secondary: #667085;
+  /* Text/Inverse — Text on dark surfaces */
+  --ds-text-inverse: #ffffff;
+  /* Text/Disabled — Inactive content */
+  --ds-text-disabled: #98a2b3;
+
+  /* ---------- Border ---------- */
+  /* Border/Default — Default boundaries */
+  --ds-border-default: #ccd0d8;
+  /* Border/Subtle — Subtle separators */
+  --ds-border-subtle: #e4e7ec;
+
+  /* ---------- Brand / status / navigation ---------- */
+  /* Primary — Primary brand accent */
+  --ds-primary: #0b7ad3;
+  /* Success — Positive status */
+  --ds-success: #159953;
+  /* Warning — Caution status */
+  --ds-warning: #ea9713;
+  /* Danger — Error or destructive status */
+  --ds-danger: #d62f2f;
+  /* Info — Informational status (same HEX as Primary; separate role) */
+  --ds-info: #0b7ad3;
+  /* Link — Navigation text (same HEX as Primary; separate role) */
+  --ds-link: #0b7ad3;
+
+  /* ================= shadcn / base (bridged to Figma roles) ================= */
+  --background: var(--ds-background-primary);
+  --foreground: var(--ds-text-primary);
+  --card: var(--ds-background-primary);
+  --card-foreground: var(--ds-text-primary);
+  --popover: var(--ds-background-primary);
+  --popover-foreground: var(--ds-text-primary);
+  --primary: var(--ds-primary);
+  --primary-foreground: var(--ds-text-inverse);
+  --secondary: var(--ds-background-secondary);
+  --secondary-foreground: var(--ds-text-primary);
+  --muted: var(--ds-background-secondary);
+  --muted-foreground: var(--ds-text-secondary);
+  --accent: var(--ds-background-secondary);
+  --accent-foreground: var(--ds-text-primary);
+  --destructive: var(--ds-danger);
+  --border: var(--ds-border-default);
+  --input: var(--ds-border-default);
+  --ring: var(--ds-primary);
+  --brand: var(--ds-primary);
   --radius: 0.625rem;
 
-  /* ================= Figma Design Tokens (Colors) ================= */
-  --color-primary: #2563eb;
-  --color-success: #16a34a;
-  --color-warning: #f59e0b;
-  --color-danger: #dc2626;
-  --color-info: #0284c7;
-  --color-link: #2563eb;
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #64748b;
-  --color-text-inverse: #ffffff;
-  --color-text-disabled: #94a3b8;
-  --color-border-subtle: #f1f5f9;
-  --color-border-default: #e2e8f0;
-  --color-background-primary: #ffffff;
-  --color-background-secondary: #f8fafc;
-  --color-background-section: #f1f5f9;
+  --chart-1: var(--ds-primary);
+  --chart-2: var(--ds-info);
+  --chart-3: var(--ds-success);
+  --chart-4: var(--ds-warning);
+  --chart-5: var(--ds-danger);
+
+  --sidebar: var(--ds-background-primary);
+  --sidebar-foreground: var(--ds-text-primary);
+  --sidebar-primary: var(--ds-primary);
+  --sidebar-primary-foreground: var(--ds-text-inverse);
+  --sidebar-accent: var(--ds-background-secondary);
+  --sidebar-accent-foreground: var(--ds-text-primary);
+  --sidebar-border: var(--ds-border-default);
+  --sidebar-ring: var(--ds-primary);
 
   /* ================= Figma Spacing & Dimensions ================= */
   --spacing-space-0: 0px;
@@ -176,15 +234,17 @@
   --text-caption--font-weight: 400;
 }
 
+/* Figma Colors collection is light-only; dark is a provisional invert */
 .dark {
-  /* Override any tokens that need dark mode colors here */
-  --color-text-primary: #f8fafc;
-  --color-text-secondary: #94a3b8;
-  --color-background-primary: #0f172a;
-  --color-background-secondary: #1e293b;
-  --color-background-section: #334155;
-  --color-border-subtle: #1e293b;
-  --color-border-default: #334155;
+  --ds-background-primary: #172746;
+  --ds-background-secondary: #1d2939;
+  --ds-background-section: #0f172a;
+  --ds-text-primary: #ffffff;
+  --ds-text-secondary: #98a2b3;
+  --ds-text-inverse: #1d2939;
+  --ds-text-disabled: #667085;
+  --ds-border-default: #334155;
+  --ds-border-subtle: #1d2939;
 }
 
 @layer base {

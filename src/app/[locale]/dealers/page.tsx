@@ -39,8 +39,8 @@ async function DealersContent({ params }: { params: Promise<{ locale: string }> 
   return (
     <AppShell locale={locale}>
       <section className="mx-auto max-w-2xl px-4 py-16">
-        <h1 className="text-4xl font-semibold tracking-tight">{t("title")}</h1>
-        <p className="mt-4 text-lg leading-8 text-muted-foreground">{t("body")}</p>
+        <h1 className="text-4xl font-semibold tracking-tight text-text-primary">{t("title")}</h1>
+        <p className="mt-4 text-lg leading-8 text-text-secondary">{t("body")}</p>
       </section>
     </AppShell>
   );

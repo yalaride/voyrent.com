@@ -28,32 +28,32 @@ export async function MarketHome({
 
   return (
     <>
-      <section className="bg-foreground text-background">
+      <section className="bg-background-section text-text-inverse">
         <div className="mx-auto max-w-6xl px-4 pt-12 pb-20 md:pt-16">
-          <p className="text-sm font-medium text-brand">{t("Hero.eyebrow")}</p>
-          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl">
+          <p className="text-sm font-medium text-primary">{t("Hero.eyebrow")}</p>
+          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-balance text-text-inverse md:text-6xl">
             {t("Hero.title", { city: place })}
           </h1>
-          <p className="mt-4 max-w-2xl text-base text-background/70 md:text-lg">
+          <p className="mt-4 max-w-2xl text-base text-text-inverse/70 md:text-lg">
             {t("Hero.subtitle", { country: countryName })}
           </p>
         </div>
       </section>
       <div className="mx-auto -mt-10 max-w-6xl px-4">
-        <div className="rounded-2xl border bg-card p-3 shadow-sm md:p-4">
+        <div className="rounded-2xl border border-border-default bg-background-primary p-3 shadow-small md:p-4">
           <SearchPanel country={market.country} city={market.city} />
         </div>
         <FamousSearches city={market.city} />
       </div>
       <div className="mx-auto mt-12 grid max-w-6xl gap-12 px-4">
         <section>
-          <h2 className="text-2xl font-semibold tracking-tight">{body("title")}</h2>
+          <h2 className="text-2xl font-semibold tracking-tight text-text-primary">{body("title")}</h2>
           <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
             {BODY_TYPES.map((type) => (
               <li key={type}>
                 <Link
                   href={catalogPath(market.city, { bodyType: type })}
-                  className="flex h-full items-end rounded-2xl border bg-card px-3 py-4 text-sm font-medium hover:border-foreground"
+                  className="flex h-full items-end rounded-2xl border border-border-default bg-background-primary px-3 py-4 text-sm font-medium text-text-primary hover:border-text-primary"
                 >
                   {body(type)}
                 </Link>
@@ -79,7 +79,9 @@ export async function MarketHome({
         </Suspense>
         {country && country.cities.length > 1 ? (
           <section>
-            <h2 className="text-2xl font-semibold tracking-tight">{t("Cities.title", { country: countryName })}</h2>
+            <h2 className="text-2xl font-semibold tracking-tight text-text-primary">
+              {t("Cities.title", { country: countryName })}
+            </h2>
             <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {country.cities
                 .filter((city) => scope === "country" || city.slug !== market.city)
@@ -87,10 +89,12 @@ export async function MarketHome({
                   <li key={city.slug}>
                     <Link
                       href={cityRentPath(city.slug)}
-                      className="block rounded-2xl border bg-card px-4 py-4 hover:border-foreground"
+                      className="block rounded-2xl border border-border-default bg-background-primary px-4 py-4 hover:border-text-primary"
                     >
-                      <span className="font-medium">{localize(city.names, locale)}</span>
-                      <span className="mt-1 block text-sm text-muted-foreground">{countryName}</span>
+                      <span className="font-medium text-text-primary">
+                        {localize(city.names, locale)}
+                      </span>
+                      <span className="mt-1 block text-sm text-text-secondary">{countryName}</span>
                     </Link>
                   </li>
                 ))}
@@ -98,7 +102,9 @@ export async function MarketHome({
           </section>
         ) : null}
         <section>
-          <h2 className="max-w-xl text-2xl font-semibold tracking-tight">{t("Trust.title")}</h2>
+          <h2 className="max-w-xl text-2xl font-semibold tracking-tight text-text-primary">
+            {t("Trust.title")}
+          </h2>
           <ul className="mt-4 grid gap-4 md:grid-cols-3">
             {(
               [
@@ -107,9 +113,12 @@ export async function MarketHome({
                 ["Trust.marketTitle", "Trust.marketBody"],
               ] as const
             ).map(([title, bodyKey]) => (
-              <li key={title} className="rounded-2xl border bg-card p-5">
-                <h3 className="font-semibold">{t(title)}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{t(bodyKey)}</p>
+              <li
+                key={title}
+                className="rounded-2xl border border-border-default bg-background-primary p-5"
+              >
+                <h3 className="font-semibold text-text-primary">{t(title)}</h3>
+                <p className="mt-2 text-sm text-text-secondary">{t(bodyKey)}</p>
               </li>
             ))}
           </ul>

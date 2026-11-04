@@ -60,10 +60,15 @@ export async function SiteHeader({
   const homeHref = "/";
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-border-default bg-background-primary/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4">
-        <Link href={homeHref} className="flex items-center gap-2 font-semibold tracking-tight">
-          <span className="grid size-8 place-items-center rounded-lg bg-foreground text-sm text-background">G</span>
+        <Link
+          href={homeHref}
+          className="flex items-center gap-2 font-semibold tracking-tight text-text-primary"
+        >
+          <span className="grid size-8 place-items-center rounded-lg bg-background-section text-sm text-text-inverse">
+            G
+          </span>
           <span>GleeCars</span>
         </Link>
         <MarketSwitcher

@@ -38,22 +38,26 @@ export async function SiteFooter() {
   ] as const;
 
   return (
-    <footer className="mt-16 overflow-x-clip bg-[#172746] pt-15">
+    <footer className="mt-16 overflow-x-clip bg-background-section pt-15">
       {/* Main footer content — columns, copyright, payments, stroke */}
       <div className="mx-auto flex w-full max-w-360 flex-col gap-10 px-5 sm:px-10 lg:px-20">
         <div className="flex flex-col gap-10 sm:flex-row sm:flex-wrap sm:justify-between lg:flex-nowrap lg:items-start">
           {columns.map((column) => (
             <div key={column.title} className="flex min-w-38 flex-col gap-2.5">
-              <h2 className="text-2xl font-semibold tracking-[-0.02em] text-white">{column.title}</h2>
-              <ul className="flex flex-col gap-1.5 text-base font-medium leading-normal text-[#667085]">
+              <h2 className="text-2xl font-semibold tracking-[-0.02em] text-text-inverse">
+                {column.title}
+              </h2>
+              <ul className="flex flex-col gap-1.5 text-base font-medium leading-normal text-text-secondary">
                
               </ul>
             </div>
           ))}
 
           <div className="flex flex-col gap-2.5">
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] text-white">{t("supportTitle")}</h2>
-            <ul className="flex flex-col gap-1.5 text-base font-medium leading-normal text-[#667085]">
+            <h2 className="text-2xl font-semibold tracking-[-0.02em] text-text-inverse">
+              {t("supportTitle")}
+            </h2>
+            <ul className="flex flex-col gap-1.5 text-base font-medium leading-normal text-text-secondary">
             </ul>
             <ul className="mt-1 flex gap-3" aria-label={t("socialLabel")}>
               {SOCIALS.map((social) => (
@@ -82,7 +86,7 @@ export async function SiteFooter() {
 
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-base font-medium leading-normal text-[#667085]">{t("copyright")}</p>
+            <p className="text-base font-medium leading-normal text-text-secondary">{t("copyright")}</p>
             <ul className="flex items-center gap-2" aria-label={t("paymentsLabel")}>
               {PAYMENTS.map((payment) => (
                 <li key={payment.src} className="shrink-0">
@@ -98,7 +102,7 @@ export async function SiteFooter() {
               ))}
             </ul>
           </div>
-          <div className="h-px w-full bg-[#667085]/40" aria-hidden />
+          <div className="h-px w-full bg-text-secondary/40" aria-hidden />
         </div>
       </div>
 
@@ -107,7 +111,7 @@ export async function SiteFooter() {
         aria-hidden
         className="flex w-full select-none justify-center overflow-hidden"
       >
-        <p className="whitespace-nowrap bg-linear-to-b from-white/20 to-transparent bg-clip-text text-center text-[clamp(3.75rem,21.8vw,19.625rem)] font-medium leading-none tracking-[-0.02em] text-transparent">
+        <p className="whitespace-nowrap bg-linear-to-b from-text-inverse/20 to-transparent bg-clip-text text-center text-[clamp(3.75rem,21.8vw,19.625rem)] font-medium leading-none tracking-[-0.02em] text-transparent">
           GleeCars
         </p>
       </div>
