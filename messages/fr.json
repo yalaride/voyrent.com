@@ -96,7 +96,30 @@
     "marketBody": "Changez de pays, de ville, de langue et de devise sans tout recommencer."
   },
   "Footer": {
-    "summary": "Comparez des locations auprès de loueurs locaux."
+    "resourcesTitle": "Ressources",
+    "usedCarsDubai": "Voitures d'occasion Dubaï",
+    "newCarsDubai": "Voitures neuves Dubaï",
+    "sellMyCar": "Vendre ma voiture",
+    "dealerDirectory": "Annuaire des concessionnaires",
+    "carBuyingGuide": "Guide d'achat automobile",
+    "companyTitle": "Entreprise",
+    "aboutUs": "À propos",
+    "contactUs": "Contact",
+    "joinAsDealer": "Rejoindre comme concessionnaire",
+    "dealerLogin": "Connexion concessionnaire (Portail)",
+    "legalTitle": "Mentions légales",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsConditions": "Conditions générales",
+    "cookiePolicy": "Politique de cookies",
+    "supportTitle": "Assistance",
+    "email": "contact@gleeonedrive.com",
+    "phone": "+92 339 0500 659",
+    "socialLabel": "Réseaux sociaux",
+    "socialFacebook": "Facebook",
+    "socialLinkedin": "LinkedIn",
+    "socialInstagram": "Instagram",
+    "copyright": "© 2026 Copyright by Rizitech",
+    "paymentsLabel": "Moyens de paiement acceptés"
   },
   "Dealers": {
     "title": "Proposez des voitures sur GleeCars",
