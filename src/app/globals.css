@@ -1,33 +1,135 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans:
+    var(--font-sans-latin), var(--font-arabic), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
+  --color-brand: var(--brand);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* Figma role color utilities */
+  --color-bg-primary: var(--token-bg-primary);
+  --color-bg-secondary: var(--token-bg-secondary);
+  --color-bg-section: var(--token-bg-section);
+  --color-text-primary: var(--token-text-primary);
+  --color-text-secondary: var(--token-text-secondary);
+  --color-text-inverse: var(--token-text-inverse);
+  --color-text-disabled: var(--token-text-disabled);
+  --color-border-default: var(--token-border-default);
+  --color-border-subtle: var(--token-border-subtle);
+  --color-success: var(--token-success);
+  --color-warning: var(--token-warning);
+  --color-danger: var(--token-danger);
+  --color-info: var(--token-info);
+  --color-link: var(--token-link);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+}
+
 :root {
   /* ========================================
-     1. COLORS
+     1. COLORS (Figma Colors collection)
+     Light only · same HEX ≠ same role
   ======================================== */
 
-  --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #F7F9FB;
-  --color-bg-section: #172746;
+  /* Background/Primary — Default canvas & surfaces */
+  --token-bg-primary: #ffffff;
+  /* Background/Secondary — Supporting surface */
+  --token-bg-secondary: #f7f9fb;
+  /* Background/Section — Dark section surface */
+  --token-bg-section: #172746;
 
-  --color-text-primary: #1D2939;
-  --color-text-secondary: #667085;
-  --color-text-inverse: #FFFFFF;
-  --color-text-disabled: #98A2B3;
+  /* Text/Primary — Primary content */
+  --token-text-primary: #1d2939;
+  /* Text/Secondary — Supporting content */
+  --token-text-secondary: #667085;
+  /* Text/Inverse — Text on dark surfaces */
+  --token-text-inverse: #ffffff;
+  /* Text/Disabled — Inactive content */
+  --token-text-disabled: #98a2b3;
 
-  --color-border-default: #CCD0D8;
-  --color-border-subtle: #E4E7EC;
+  /* Border/Default — Default boundaries */
+  --token-border-default: #ccd0d8;
+  /* Border/Subtle — Subtle separators */
+  --token-border-subtle: #e4e7ec;
 
-  --color-primary: #0B7AD3;
-  --color-success: #159953;
-  --color-warning: #EA9713;
-  --color-danger: #D62F2F;
-  --color-info: #0B7AD3;
-  --color-link: #0B7AD3;
+  /* Primary — Primary brand accent */
+  --token-primary: #0b7ad3;
+  /* Success — Positive status */
+  --token-success: #159953;
+  /* Warning — Caution status */
+  --token-warning: #ea9713;
+  /* Danger — Error or destructive status */
+  --token-danger: #d62f2f;
+  /* Info — Informational status (same HEX as Primary; separate role) */
+  --token-info: #0b7ad3;
+  /* Link — Navigation text (same HEX as Primary; separate role) */
+  --token-link: #0b7ad3;
 
+  /* Aliases matching branch token names for direct CSS use */
+  --color-bg-primary: var(--token-bg-primary);
+  --color-bg-secondary: var(--token-bg-secondary);
+  --color-bg-section: var(--token-bg-section);
+  --color-text-primary: var(--token-text-primary);
+  --color-text-secondary: var(--token-text-secondary);
+  --color-text-inverse: var(--token-text-inverse);
+  --color-text-disabled: var(--token-text-disabled);
+  --color-border-default: var(--token-border-default);
+  --color-border-subtle: var(--token-border-subtle);
+  --color-success: var(--token-success);
+  --color-warning: var(--token-warning);
+  --color-danger: var(--token-danger);
+  --color-info: var(--token-info);
+  --color-link: var(--token-link);
 
   /* ========================================
      2. TYPOGRAPHY
   ======================================== */
 
-  --font-family-primary: 'Google Sans Flex', sans-serif;
+  --font-family-primary: "Google Sans Flex", sans-serif;
 
   --font-size-xs: 12px;
   --font-size-sm: 13px;
@@ -44,46 +146,43 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
 
-  --line-height-110: 1.10;
+  --line-height-110: 1.1;
   --line-height-116: 1.16;
-  --line-height-120: 1.20;
+  --line-height-120: 1.2;
   --line-height-126: 1.26;
-  --line-height-140: 1.40;
-  --line-height-150: 1.50;
+  --line-height-140: 1.4;
+  --line-height-150: 1.5;
 
   --letter-spacing-tight: -0.02em;
   --letter-spacing-normal: 0;
 
-
   /* ========================================
-     3. SPACING
+     3. SPACING (Figma scale — var(--space-*), not Tailwind p-4)
   ======================================== */
 
-  --spacing-0: 0px;
-  --spacing-4: 4px;
-  --spacing-6: 6px;
-  --spacing-8: 8px;
-  --spacing-10: 10px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-20: 20px;
-  --spacing-24: 24px;
-  --spacing-30: 30px;
-  --spacing-40: 40px;
-  --spacing-80: 80px;
-
+  --space-0: 0px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-30: 30px;
+  --space-40: 40px;
+  --space-80: 80px;
 
   /* ========================================
      4. BORDER RADIUS
   ======================================== */
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 24px;
-  --radius-full: 999px;
-
+  --radius-token-sm: 4px;
+  --radius-token-md: 8px;
+  --radius-token-lg: 12px;
+  --radius-token-xl: 16px;
+  --radius-token-2xl: 24px;
+  --radius-token-full: 999px;
 
   /* ========================================
      5. BORDER
@@ -92,50 +191,104 @@
   --border-width-none: 0px;
   --border-width-default: 1px;
 
-
   /* ========================================
      7. SHADOWS / ELEVATION
   ======================================== */
 
-  --shadow-sm: 0px 1px 4px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0px 4px 12px rgba(0, 0, 0, 0.10);
-  --shadow-lg: 0px 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-spread: 0px 5px 25px 10px rgba(0, 0, 0, 0.10);
-
+  --shadow-token-sm: 0px 1px 4px rgba(0, 0, 0, 0.08);
+  --shadow-token-md: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-token-lg: 0px 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-token-spread: 0px 5px 25px 10px rgba(0, 0, 0, 0.1);
 
   /* ========================================
      8. BUTTON TOKENS
   ======================================== */
 
-  --button-radius: var(--radius-full);
+  --button-radius: var(--radius-token-full);
 
-  /* Large Button */
   --button-lg-height: 48px;
   --button-lg-padding-x: 24px;
   --button-lg-padding-y: 10px;
   --button-lg-gap: 10px;
 
-  /* Small Button */
   --button-sm-height: 40px;
   --button-sm-padding-x: 16px;
   --button-sm-padding-y: 0px;
   --button-sm-gap: 4px;
 
-  /* Icon + Text Button */
   --button-icon-text-height: 48px;
   --button-icon-text-padding-left: 20px;
   --button-icon-text-padding-right: 24px;
   --button-icon-text-padding-y: 10px;
   --button-icon-text-gap: 8px;
 
-  /* Icon Only Button */
   --button-icon-only-height: 40px;
   --button-icon-only-width: 135px;
   --button-icon-size: 20px;
   --button-icon-only-gap: 6px;
 
-  /* Button Typography */
   --button-font-family: var(--font-family-primary);
   --button-font-weight: var(--font-weight-medium);
 
+  /* ================= shadcn bridge (Figma roles) ================= */
+  --background: var(--token-bg-primary);
+  --foreground: var(--token-text-primary);
+  --card: var(--token-bg-primary);
+  --card-foreground: var(--token-text-primary);
+  --popover: var(--token-bg-primary);
+  --popover-foreground: var(--token-text-primary);
+  --primary: var(--token-primary);
+  --primary-foreground: var(--token-text-inverse);
+  --secondary: var(--token-bg-secondary);
+  --secondary-foreground: var(--token-text-primary);
+  --muted: var(--token-bg-secondary);
+  --muted-foreground: var(--token-text-secondary);
+  --accent: var(--token-bg-secondary);
+  --accent-foreground: var(--token-text-primary);
+  --destructive: var(--token-danger);
+  --border: var(--token-border-default);
+  --input: var(--token-border-default);
+  --ring: var(--token-primary);
+  --brand: var(--token-primary);
+  --radius: 0.75rem;
+
+  --chart-1: var(--token-primary);
+  --chart-2: var(--token-info);
+  --chart-3: var(--token-success);
+  --chart-4: var(--token-warning);
+  --chart-5: var(--token-danger);
+
+  --sidebar: var(--token-bg-primary);
+  --sidebar-foreground: var(--token-text-primary);
+  --sidebar-primary: var(--token-primary);
+  --sidebar-primary-foreground: var(--token-text-inverse);
+  --sidebar-accent: var(--token-bg-secondary);
+  --sidebar-accent-foreground: var(--token-text-primary);
+  --sidebar-border: var(--token-border-default);
+  --sidebar-ring: var(--token-primary);
+}
+
+/* Figma Colors collection is light-only; dark is provisional */
+.dark {
+  --token-bg-primary: #172746;
+  --token-bg-secondary: #1d2939;
+  --token-bg-section: #0f172a;
+  --token-text-primary: #ffffff;
+  --token-text-secondary: #98a2b3;
+  --token-text-inverse: #1d2939;
+  --token-text-disabled: #667085;
+  --token-border-default: #334155;
+  --token-border-subtle: #1d2939;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }
