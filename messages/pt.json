@@ -127,7 +127,55 @@
     "whatsapp": "Conversar no WhatsApp"
   },
   "Cities": {
-    "title": "Cidades em {country}"
+    "title": "Cidades em {country}",
+    "sliderTitle": "Encontre serviços de aluguel de carros perto de você",
+    "carsAvailable": "{count}+ carros disponíveis",
+    "previousSlide": "Cidades anteriores",
+    "nextSlide": "Próximas cidades"
+  },
+  "Blog": {
+    "title": "Aprenda antes de comprar",
+    "subtitle": "Tome decisões bem informadas com guias práticos, comparações e conteúdos especializados pensados para todo comprador de carro.",
+    "viewAll": "Ver tudo",
+    "readTime": "{minutes} min de leitura",
+    "fallbackPosts": {
+      "post1Title": "Como comprar um carro usado sem pagar caro demais",
+      "post1Date": "Julho de 2026",
+      "post2Title": "Entenda o financiamento de veículos",
+      "post2Date": "Julho de 2026",
+      "post3Title": "Checklist para comprar um carro usado",
+      "post3Date": "Julho de 2026"
+    }
+  },
+  "Faq": {
+    "title": "Tudo o que você precisa saber",
+    "subtitle": "Gerencie o estoque, acompanhe as consultas de compradores e mantenha o controle em um único painel fácil de usar.",
+    "items": {
+      "q1": {
+        "question": "Como a RutaRide verifica os anúncios?",
+        "answer": "Analisamos os anúncios para ajudar a reduzir publicações duplicadas, incompletas ou enganosas. Embora nos esforcemos para manter a qualidade dos anúncios, recomendamos que os compradores inspecionem o veículo e verifiquem todos os detalhes antes de concluir a compra."
+      },
+      "q2": {
+        "question": "A RutaRide é uma concessionária?",
+        "answer": "Não. A RutaRide é um marketplace que conecta compradores e locatários diretamente a revendedores verificados e parceiros de locação. Não somos proprietários dos veículos anunciados na plataforma."
+      },
+      "q3": {
+        "question": "Posso entrar em contato diretamente com o vendedor?",
+        "answer": "Sim. Todos os anúncios permitem falar diretamente com o revendedor ou vendedor por telefone, WhatsApp ou formulário de contato, sem intermediários e sem acréscimo no preço."
+      },
+      "q4": {
+        "question": "Por que alguns carros têm mais fotos do que outros?",
+        "answer": "Revendedores e parceiros enviam as fotos diretamente para cada veículo. Incentivamos galerias completas com vários ângulos, mas a quantidade de fotos varia conforme o vendedor."
+      },
+      "q5": {
+        "question": "Como saber se o preço de um carro é justo?",
+        "answer": "Você pode comparar marcas, modelos, anos e quilometragens semelhantes entre vários revendedores da sua cidade no Gleecar e ver os preços transparentes dos fornecedores."
+      },
+      "q6": {
+        "question": "O que devo verificar antes de entrar em contato com um vendedor?",
+        "answer": "Confira as especificações do veículo, o ano do modelo, a quilometragem, as condições de locação ou compra incluídas e o local de retirada antes de entrar em contato para confirmar a disponibilidade."
+      }
+    }
   },
   "Trust": {
     "title": "Um mercado, não um intermediário",
@@ -138,31 +186,44 @@
     "marketTitle": "Vários mercados, uma pesquisa",
     "marketBody": "Mude de país, cidade, idioma e moeda sem recomeçar."
   },
+  "DealerBanner": {
+    "title": "Venda seu estoque mais rápido com compradores qualificados.",
+    "subtitle": "Receba uma oferta em dinheiro na hora, anuncie para milhões de compradores ou venda para um revendedor verificado perto de você. Você escolhe o que funciona melhor.",
+    "joinCta": "Cadastre-se como Revendedor",
+    "pricingCta": "Ver Preços",
+    "badgeDashboard": "Painel do Revendedor",
+    "badgeInventory": "Gerencie o Estoque",
+    "badgeCalls": "Ligações Diretas de Clientes",
+    "imageAlt": "Consultor de concessionária apresentando veículos a compradores"
+  },
   "Footer": {
     "resourcesTitle": "Recursos",
-    "usedCarsDubai": "Carros usados Dubai",
-    "newCarsDubai": "Carros novos Dubai",
-    "sellMyCar": "Vender o meu carro",
-    "dealerDirectory": "Diretório de concessionários",
+    "usedCarsDubai": "Carros usados em Dubai",
+    "newCarsDubai": "Carros novos em Dubai",
+    "sellMyCar": "Venda seu carro",
+    "dealerDirectory": "Diretório de revendedores",
     "carBuyingGuide": "Guia de compra de carros",
     "companyTitle": "Empresa",
     "aboutUs": "Sobre nós",
-    "contactUs": "Contacto",
-    "joinAsDealer": "Juntar-se como concessionário",
-    "dealerLogin": "Login do concessionário (Portal)",
-    "legalTitle": "Legal",
-    "privacyPolicy": "Política de privacidade",
-    "termsConditions": "Termos e condições",
-    "cookiePolicy": "Política de cookies",
+    "contactUs": "Fale conosco",
+    "joinAsDealer": "Cadastre-se como revendedor",
+    "dealerLogin": "Login do revendedor (portal)",
+    "legalTitle": "Jurídico",
+    "privacyPolicy": "Política de Privacidade",
+    "termsConditions": "Termos e Condições",
+    "cookiePolicy": "Política de Cookies",
     "supportTitle": "Suporte",
-    "email": "contact@gleeonedrive.com",
-    "phone": "+92 339 0500 659",
-    "socialLabel": "Redes sociais",
+    "contactEmail": "contact@gleeonedrive.com",
+    "contactPhone": "+92 339 0500 659",
+    "socialLabel": "Links de redes sociais",
     "socialFacebook": "Facebook",
     "socialLinkedin": "LinkedIn",
     "socialInstagram": "Instagram",
-    "copyright": "© 2026 Copyright by Rizitech",
-    "paymentsLabel": "Métodos de pagamento aceites"
+    "copyright": "© 2026 Todos os direitos reservados à Rizitech",
+    "paymentsLabel": "Formas de pagamento aceitas",
+    "paymentVisa": "Visa",
+    "paymentMastercard": "Mastercard",
+    "paymentUnionPay": "UnionPay"
   },
   "Dealers": {
     "title": "Disponibilize carros na GleeCars",

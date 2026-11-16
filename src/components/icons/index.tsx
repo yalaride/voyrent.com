@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { SVGProps } from "react";
 
 /** Official WhatsApp Brand Icon */
 export function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -31,6 +32,41 @@ export function ArrowRightIcon({
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+
+export function UsersGroupIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+    </svg>
+  );
+}
+
+export function InventoryBoxIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <rect x="3" y="4" width="18" height="4" rx="1" />
+      <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8" />
+      <path d="M10 12h4" />
+    </svg>
+  );
+}
+
+export function PhoneCallIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z" />
     </svg>
   );
 }
@@ -136,6 +172,36 @@ export function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
       {...props}
     >
       <polyline points="13 4.5 6.5 11.5 3 8" />
+    </svg>
+  );
+}
+export function GooglePlayIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M3.61 1.814A1.5 1.5 0 0 0 3 3.04v17.92a1.5 1.5 0 0 0 .61 1.226l.09.06 10.04-10.04v-.412L3.7 1.754l-.09.06Z"
+        fill="#00D2FF"
+      />
+      <path
+        d="m17.08 15.55-3.34-3.344v-.412l3.34-3.344.075.043 3.96 2.25c1.13.642 1.13 1.692 0 2.334l-3.96 2.25-.075.043Z"
+        fill="#FFBD00"
+      />
+      <path
+        d="M17.155 15.507 13.74 12.09 3.61 22.186c.374.396.993.445 1.692.048l11.853-6.727Z"
+        fill="#FF3A44"
+      />
+      <path
+        d="M17.155 8.493 5.302 1.766C4.603 1.37 3.984 1.418 3.61 1.814L13.74 11.91l3.415-3.417Z"
+        fill="#00E676"
+      />
+    </svg>
+  );
+}
+
+export function AppleLogoIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M16.365 12.7c-.026-2.55 2.08-3.78 2.176-3.838-1.186-1.734-3.03-1.97-3.683-1.996-1.55-.16-3.053.93-3.843.93-.804 0-2.02-.912-3.332-.886-1.7.026-3.28 1.008-4.152 2.53-1.786 3.095-.455 7.66 1.264 10.165.854 1.228 1.856 2.6 3.17 2.55 1.28-.052 1.76-.82 3.306-.82 1.534 0 1.978.82 3.314.79 1.378-.022 2.244-1.236 3.074-2.474.988-1.422 1.384-2.82 1.404-2.894-.032-.012-2.668-1.018-2.698-4.057ZM13.84 5.26c.696-.856 1.17-2.028 1.04-3.214-1.006.044-2.256.682-2.978 1.522-.636.736-1.202 1.94-1.054 3.078 1.13.086 2.288-.566 2.992-1.386Z" />
     </svg>
   );
 }

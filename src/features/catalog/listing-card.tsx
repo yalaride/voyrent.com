@@ -94,18 +94,17 @@ export function ListingCard({ listing }: { listing: ListingCardModel }) {
   const monthlyUnit = formatUnit(listing.perMonthLabel, "mon");
 
   return (
-    /* Card: width: 308; height: 454; p-0; pb: space/20 (20px); gap: 10px; radius: 16px; border: 1px */
     <div
       data-slot="listing-card"
-      className="group relative flex h-[454px] w-[308px] shrink-0 flex-col gap-[10px] overflow-hidden rounded-[16px] border border-border-default bg-background-primary p-0 pb-[20px] shadow-small transition-shadow duration-200 hover:shadow-medium"
+      className="group relative flex min-h-[454px] w-full flex-col gap-[10px] overflow-hidden rounded-[16px] border border-border-default bg-background-primary p-0 pb-[20px] shadow-small transition-shadow duration-200 hover:shadow-medium"
     >
-      {/* ================= 1. IMAGE CONTAINER (308px × 200px) ================= */}
-      <div className="relative h-[200px] w-[308px] shrink-0 overflow-hidden bg-background-secondary">
+      {/* 1. IMAGE CONTAINER (fluid width, 200px height) */}
+      <div className="relative h-[200px] w-full shrink-0 overflow-hidden bg-background-secondary">
         <Image
           src={images[currentImageIndex]}
           alt={listing.title}
           fill
-          sizes="308px"
+          sizes="(max-width: 640px) 85vw, 308px"
           priority={false}
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
@@ -156,7 +155,6 @@ export function ListingCard({ listing }: { listing: ListingCardModel }) {
               <ChevronRightIcon className="size-4" />
             </button>
 
-            {/* Pagination Dots */}
             <div className="absolute bottom-2 left-1/2 z-10 flex h-[12px] -translate-x-1/2 items-center justify-center gap-[3px] rounded-full bg-black/45 px-2 py-1 backdrop-blur-xs">
               {images.slice(0, 5).map((_, idx) => (
                 <span
@@ -171,83 +169,72 @@ export function ListingCard({ listing }: { listing: ListingCardModel }) {
         ) : null}
       </div>
 
-      {/* ================= 2. CONTENT CONTAINER (276px width) ================= */}
-      <div className="flex flex-1 flex-col justify-between px-4 py-0">
-        {/* Name: width: 276; height: 25; font-size: 18px; font-weight: 500; line-height: 140% */}
-        <Link
-          href={listing.href}
-          className="group/title block h-[25px] w-[276px]"
-        >
+      {/* 2. CONTENT CONTAINER (fluid width) */}
+      <div className="flex flex-1 flex-col justify-between gap-2.5 px-4 py-0">
+        <Link href={listing.href} className="group/title block w-full">
           <h3 className="truncate font-sans text-[18px] font-medium leading-[140%] tracking-normal text-text-primary transition-colors group-hover/title:text-primary">
             {listing.title}
           </h3>
         </Link>
 
-        {/* Price Section: width: 276; height: 71; gap: 12; */}
-        <div className="flex h-[71px] w-[276px] items-start justify-between gap-[12px]">
+        {/* Price Section: fluid columns, original price beside discount badge */}
+        <div className="flex w-full items-stretch justify-between gap-3">
           {/* Daily Price Column */}
-          <div className="flex h-[71px] flex-1 min-w-0 flex-col justify-between">
-            {/* -26% Badge */}
-            <div className="flex h-5 items-center">
+          <div className="flex min-w-0 flex-1 flex-col justify-between gap-1">
+            <div className="flex flex-wrap items-center gap-1.5">
               {listing.dailyDiscount ? (
-                <span className="flex h-5 items-center justify-center rounded-[4px] bg-text-primary px-[10px] text-[10px] font-bold text-text-inverse">
+                <span className="inline-flex h-5 items-center justify-center rounded-[4px] bg-text-primary px-2 text-[10px] font-bold text-text-inverse">
                   {listing.dailyDiscount}
+                </span>
+              ) : null}
+              {listing.dailyOriginalPrice ? (
+                <span className="truncate text-[12px] font-normal text-text-disabled line-through">
+                  {listing.dailyOriginalPrice}
                 </span>
               ) : null}
             </div>
 
-            {/* Price Line: $540  $439 / day */}
-            <div className="flex h-[22px] items-baseline gap-1 overflow-hidden whitespace-nowrap">
-              {listing.dailyOriginalPrice ? (
-                <span className="shrink-0 text-[13px] font-normal leading-[150%] text-text-disabled line-through">
-                  {listing.dailyOriginalPrice}
-                </span>
-              ) : null}
-              <span className="shrink-0 text-[20px] font-semibold leading-[126%] tracking-[-0.02em] text-text-primary">
+            <div className="flex flex-wrap items-baseline gap-x-1">
+              <span className="text-[17px] font-semibold leading-tight tracking-[-0.02em] text-text-primary">
                 {listing.dailyPrice}
               </span>
-              <span className="shrink-0 text-[12px] leading-none text-text-secondary">
+              <span className="text-[11px] leading-none text-text-secondary">
                 {dailyUnit}
               </span>
             </div>
 
-            {/* Km Limit */}
             <div className="flex items-center gap-1 text-[12px] text-text-secondary">
               <RoadIcon className="size-3.5 shrink-0" />
               <span className="truncate">{listing.dailyKm}</span>
             </div>
           </div>
 
-          {/* Figma Vertical Divider (height: 71px, border-width: 0.5px) */}
-          <div className="h-[71px] w-0 shrink-0 border-r-[0.5px] border-border-default" />
+          <div className="w-0 shrink-0 border-r-[0.5px] border-border-default" />
 
           {/* Monthly Price Column */}
-          <div className="flex h-[71px] flex-1 min-w-0 flex-col justify-between">
-            {/* -26% Badge */}
-            <div className="flex h-5 items-center">
+          <div className="flex min-w-0 flex-1 flex-col justify-between gap-1">
+            <div className="flex flex-wrap items-center gap-1.5">
               {listing.monthlyDiscount ? (
-                <span className="flex h-5 items-center justify-center rounded-[4px] bg-text-primary px-[10px] text-[10px] font-bold text-text-inverse">
+                <span className="inline-flex h-5 items-center justify-center rounded-[4px] bg-text-primary px-2 text-[10px] font-bold text-text-inverse">
                   {listing.monthlyDiscount}
+                </span>
+              ) : null}
+              {listing.monthlyOriginalPrice ? (
+                <span className="truncate text-[12px] font-normal text-text-disabled line-through">
+                  {listing.monthlyOriginalPrice}
                 </span>
               ) : null}
             </div>
 
-            {/* Price Line: $540  $439 / mon */}
-            <div className="flex h-[22px] items-baseline gap-1 overflow-hidden whitespace-nowrap">
-              {listing.monthlyOriginalPrice ? (
-                <span className="shrink-0 text-[13px] font-normal leading-[150%] text-text-disabled line-through">
-                  {listing.monthlyOriginalPrice}
-                </span>
-              ) : null}
-              <span className="shrink-0 text-[20px] font-semibold leading-[126%] tracking-[-0.02em] text-text-primary">
+            <div className="flex flex-wrap items-baseline gap-x-1">
+              <span className="text-[17px] font-semibold leading-tight tracking-[-0.02em] text-text-primary">
                 {listing.monthlyPrice ?? listing.dailyPrice}
               </span>
-              <span className="shrink-0 text-[12px] leading-none text-text-secondary">
+              <span className="text-[11px] leading-none text-text-secondary">
                 {monthlyUnit}
               </span>
             </div>
 
-            {/* Km Limit */}
             <div className="flex items-center gap-1 text-[12px] text-text-secondary">
               <RoadIcon className="size-3.5 shrink-0" />
               <span className="truncate">{listing.monthlyKm}</span>
@@ -255,15 +242,14 @@ export function ListingCard({ listing }: { listing: ListingCardModel }) {
           </div>
         </div>
 
-        {/* Horizontal Divider: width: 276; height: 0px; border-width: 0.5px; */}
-        <div className="h-0 w-[276px] shrink-0 border-t-[0.5px] border-border-subtle" />
+        <div className="h-0 w-full shrink-0 border-t-[0.5px] border-border-subtle" />
 
-        {/* Features Checklist: width: 276; */}
-        <div className="grid w-[276px] grid-cols-2 grid-rows-2 gap-x-2 gap-y-1">
+        {/* Features Checklist */}
+        <div className="grid w-full grid-cols-2 grid-rows-2 gap-x-2 gap-y-1">
           {(listing.features ?? []).slice(0, 4).map((feature, idx) => (
             <div
               key={idx}
-              className="flex items-center gap-1.5 text-[13px] font-normal leading-tight text-text-secondary"
+              className="flex min-w-0 items-center gap-1.5 text-[13px] font-normal leading-tight text-text-secondary"
             >
               <CheckIcon className="size-3.5 shrink-0 text-text-secondary" />
               <span className="truncate">{feature}</span>
@@ -271,36 +257,47 @@ export function ListingCard({ listing }: { listing: ListingCardModel }) {
           ))}
         </div>
 
-        {/* Action Buttons: Phone + WhatsApp + Dealer Logo */}
-        <div className="flex h-10 w-[276px] items-center gap-2">
-          {/* Phone Button */}
+        {/* Action Buttons */}
+        <div className="flex h-10 w-full items-center gap-2">
           <Button
-            asChild
+            asChild={Boolean(listing.phoneHref)}
+            disabled={!listing.phoneHref}
             variant="outline-brand"
             className="h-10 flex-1 rounded-full p-0"
           >
-            <a href={listing.phoneHref ?? "#"} aria-label={listing.callLabel}>
-              <PhoneIcon className="size-5" />
-            </a>
+            {listing.phoneHref ? (
+              <a href={listing.phoneHref} aria-label={listing.callLabel}>
+                <PhoneIcon className="size-5" />
+              </a>
+            ) : (
+              <span aria-label={listing.callLabel}>
+                <PhoneIcon className="size-5" />
+              </span>
+            )}
           </Button>
 
-          {/* WhatsApp Button */}
           <Button
-            asChild
+            asChild={Boolean(listing.whatsappHref)}
+            disabled={!listing.whatsappHref}
             variant="whatsapp-outline"
             className="h-10 flex-1 rounded-full p-0"
           >
-            <a
-              href={listing.whatsappHref ?? "#"}
-              aria-label={listing.whatsappLabel}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <WhatsAppIcon className="size-5" />
-            </a>
+            {listing.whatsappHref ? (
+              <a
+                href={listing.whatsappHref}
+                aria-label={listing.whatsappLabel}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <WhatsAppIcon className="size-5" />
+              </a>
+            ) : (
+              <span aria-label={listing.whatsappLabel}>
+                <WhatsAppIcon className="size-5" />
+              </span>
+            )}
           </Button>
 
-          {/* Dealer Logo */}
           {listing.dealerHref ? (
             <Link
               href={listing.dealerHref}

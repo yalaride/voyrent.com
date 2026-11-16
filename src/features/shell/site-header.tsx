@@ -54,7 +54,10 @@ async function Preferences({
           className="size-6 border-none bg-transparent p-0 text-white transition-colors hover:bg-white/10 hover:text-white group-data-[transparent=false]:text-text-primary group-data-[transparent=false]:hover:bg-primary/10 group-data-[transparent=false]:hover:text-primary lg:h-9 lg:w-auto lg:gap-2 lg:px-2"
           aria-label={`${currency} - ${active?.placeName ?? t("menu")}`}
         >
-          <Link href="/auth/signin" className="flex items-center justify-center">
+          <Link
+            href="/auth/signin"
+            className="flex items-center justify-center"
+          >
             <UserRoundIcon className="size-4 lg:hidden" aria-hidden="true" />
             <span className="hidden lg:inline">{t("signIn")}</span>
           </Link>
@@ -105,8 +108,8 @@ export async function SiteHeader({
             href={homeHref}
             className="flex h-[34px] w-[117px] items-center text-xl font-bold tracking-tight text-white transition-opacity hover:opacity-90 group-data-[transparent=false]:text-text-primary lg:h-auto lg:w-auto lg:text-2xl"
           >
-            <span>Glee</span>
-            <span className="text-primary">Cars</span>
+            <span>Ruta</span>
+            <span className="text-primary">Ride</span>
           </Link>
 
           <nav className="hidden items-center gap-6 text-body-small font-medium lg:flex">

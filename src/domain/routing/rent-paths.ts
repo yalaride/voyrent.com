@@ -82,6 +82,8 @@ export function listingPath(input: {
   return `/details/index/search-car-rentals-${input.city}/${pathToken(input.make)}/${pathToken(input.model)}?${params}`;
 }
 
+
+
 function landingQuery(landing: LandingId): Partial<VehicleSearchQuery> {
   switch (landing) {
     case "economy":
@@ -91,7 +93,7 @@ function landingQuery(landing: LandingId): Partial<VehicleSearchQuery> {
     case "sports":
     case "van":
     case "convertible":
-      return { bodyType: landing };
+      return { bodyType: landing as BodyType };
     case "no-deposit":
       return { deposit: "none" };
     case "monthly":

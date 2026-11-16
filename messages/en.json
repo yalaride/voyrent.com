@@ -132,6 +132,20 @@
     "previousSlide": "Previous cities",
     "nextSlide": "Next cities"
   },
+  "Blog": {
+    "title": "Learn Before You Buy",
+    "subtitle": "Make informed decisions with practical guides, comparisons, and expert resources designed for every car buyer.",
+    "viewAll": "View All",
+    "readTime": "{minutes} min read",
+    "fallbackPosts": {
+      "post1Title": "How to Buy a Used Car Without Overpaying",
+      "post1Date": "Jul 2026",
+      "post2Title": "Understanding Auto Loans",
+      "post2Date": "Jul 2026",
+      "post3Title": "Used Car Buying Checklist",
+      "post3Date": "Jul 2026"
+    }
+  },
   "Trust": {
     "title": "A marketplace, not a middleman",
     "rangeTitle": "Make, model, and type",
@@ -141,6 +155,56 @@
     "marketTitle": "Many markets, one search",
     "marketBody": "Switch country, city, language, and currency without starting over."
   },
+  "DealerBanner": {
+    "title": "Move inventory faster with qualified buyers.",
+    "subtitle": "Get an instant cash offer, list to millions of buyers, or sell to a verified dealer near you. You choose what works.",
+    "joinCta": "Join as a Dealer",
+    "pricingCta": "See Pricing",
+    "badgeDashboard": "Dealer Dashboard",
+    "badgeInventory": "Manage Inventory",
+    "badgeCalls": "Direct Customer Calls",
+    "imageAlt": "Car dealership advisor presenting vehicles to buyers"
+  },
+  "Faq": {
+    "title": "Everything You Need to Know",
+    "subtitle": "Manage inventory, track buyer inquiries, and stay in control with a single, easy-to-use dashboard.",
+    "items": {
+      "q1": {
+        "question": "How does RutaRide verify listings?",
+        "answer": "We review listings to help reduce duplicate, incomplete, or misleading posts. While we aim to maintain listing quality, we recommend that buyers inspect the vehicle and verify all details before making a purchase."
+      },
+      "q2": {
+        "question": "Is RutaRide a dealership?",
+        "answer": "No. RutaRide is a marketplace that connects buyers and renters directly with verified dealers and rental partners. We do not own the vehicles listed on the platform."
+      },
+      "q3": {
+        "question": "Can I contact a seller directly?",
+        "answer": "Yes. Every listing lets you reach out directly to the dealer or seller by phone, WhatsApp, or inquiry form with no middleman markup."
+      },
+      "q4": {
+        "question": "Why do some cars have more photos than others?",
+        "answer": "Dealers and partners upload photos directly for each vehicle. We encourage complete multi-angle galleries, though photo counts vary depending on the seller."
+      },
+      "q5": {
+        "question": "How do I know if a car is priced fairly?",
+        "answer": "You can compare similar makes, models, years, and mileage across multiple dealers in your city on Gleecar to see transparent supplier pricing."
+      },
+      "q6": {
+        "question": "What should I check before contacting a seller?",
+        "answer": "Review the vehicle specifications, model year, mileage, included rental or purchase terms, and pickup location before reaching out to confirm availability."
+      }
+    }
+  },
+  "AppCta": {
+    "title": "Go further with <brand>RutaRide</brand>",
+    "subtitle": "Download the RutaRide app to book cars faster, manage reservations anytime, and unlock exclusive deals. Get it on the App Store, Google Play, or scan the QR code.",
+    "googlePlayTop": "Get it on",
+    "googlePlayName": "Google Play",
+    "appStoreTop": "Download on the",
+    "appStoreName": "App Store",
+    "imageAlt": "RutaRide mobile app preview on smartphones"
+  },
+
   "Footer": {
     "resourcesTitle": "Resources",
     "usedCarsDubai": "Used Cars Dubai",
@@ -158,15 +222,19 @@
     "termsConditions": "Terms & Conditions",
     "cookiePolicy": "Cookie Policy",
     "supportTitle": "Support",
-    "email": "contact@gleeonedrive.com",
-    "phone": "+92 339 0500 659",
-    "socialLabel": "Social media",
+    "contactEmail": "contact@gleeonedrive.com",
+    "contactPhone": "+92 339 0500 659",
+    "socialLabel": "Social media links",
     "socialFacebook": "Facebook",
     "socialLinkedin": "LinkedIn",
     "socialInstagram": "Instagram",
     "copyright": "© 2026 Copyright by Rizitech",
-    "paymentsLabel": "Accepted payment methods"
+    "paymentsLabel": "Accepted payment methods",
+    "paymentVisa": "Visa",
+    "paymentMastercard": "Mastercard",
+    "paymentUnionPay": "UnionPay"
   },
+
   "Dealers": {
     "title": "Supply cars on GleeCars",
     "body": "Rental companies keep their own prices and talk to drivers directly. Dealer onboarding will connect to the NestJS platform. The dealer tools live in a separate application."

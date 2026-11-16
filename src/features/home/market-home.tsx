@@ -14,8 +14,11 @@ import { listMakes } from "@/server/catalog/catalog";
 import {
   PopularCitiesSlider,
   type PopularCityItem,
-} from "@/components/cities-slider/cities-section";
-import LayoutWrapper from "@/components/layout/LayoutWrapper";
+} from "@/components/landing-slider/cities-section";
+import { DealerBanner } from "@/components/banner/Dealer-Banner";
+import { BlogSection } from "@/components/blog/Blog-Section";
+import LandingFaqSection from "@/components/faqs/Landing-Section-faqs";
+import { AppDownloadCta } from "@/components/cta/App-Download-CTA";
 
 export async function MarketHome({
   market,
@@ -118,31 +121,21 @@ export async function MarketHome({
         cities={popularCities}
         fallbackSubtitle={countryName}
       />
+      <div className="mt-10">
+        <DealerBanner
+          joinHref="/dealers/join"
+          pricingHref="/pricing"
+          imageSrc="/banner/Dealer-Banner.jpg"
+        />
+      </div>
 
-      <LayoutWrapper className="mt-10">
-        <section>
-          <h2 className="max-w-xl text-2xl font-semibold tracking-tight text-text-primary">
-            {t("Trust.title")}
-          </h2>
-          <ul className="mt-4 grid gap-4 md:grid-cols-3">
-            {(
-              [
-                ["Trust.rangeTitle", "Trust.rangeBody"],
-                ["Trust.priceTitle", "Trust.priceBody"],
-                ["Trust.marketTitle", "Trust.marketBody"],
-              ] as const
-            ).map(([title, bodyKey]) => (
-              <li
-                key={title}
-                className="rounded-2xl border border-border-default bg-background-primary p-5"
-              >
-                <h3 className="font-semibold text-text-primary">{t(title)}</h3>
-                <p className="mt-2 text-sm text-text-secondary">{t(bodyKey)}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </LayoutWrapper>
+      <BlogSection viewAllHref="/blog" />
+      <AppDownloadCta
+        googlePlayHref="https://play.google.com/store/apps"
+        appStoreHref="https://apps.apple.com"
+        imageSrc="/cta/Landing-Section-CTA.png"
+      />
+      <LandingFaqSection />
     </>
   );
 }

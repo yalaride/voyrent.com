@@ -23,7 +23,7 @@ interface ListingSliderProps {
   emptyBody: string;
 }
 
-const TOTAL_DOTS = 4; // 4 dots as shown in Figma Image 1
+const TOTAL_DOTS = 4;
 
 export function ListingSlider({
   cards,
@@ -36,7 +36,7 @@ export function ListingSlider({
 }: ListingSliderProps) {
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
-  const [canScrollRight, setCanScrollRight] = React.useState(true);
+  const [canScrollRight, setCanScrollRight] = React.useState(false);
   const [activeDot, setActiveDot] = React.useState(0);
 
   const checkScrollState = React.useCallback(() => {
@@ -44,18 +44,21 @@ export function ListingSlider({
     if (!el) return;
     const { scrollLeft, scrollWidth, clientWidth } = el;
 
-    setCanScrollLeft(scrollLeft > 4);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 4);
+    const maxScroll = Math.max(0, scrollWidth - clientWidth);
+    const absScrollLeft = Math.abs(scrollLeft);
 
-    // Calculate active pagination dot (0 to TOTAL_DOTS - 1)
-    const maxScroll = scrollWidth - clientWidth;
+    setCanScrollLeft(absScrollLeft > 4);
+    setCanScrollRight(absScrollLeft < maxScroll - 4);
+
     if (maxScroll > 0) {
-      const progress = scrollLeft / maxScroll;
+      const progress = absScrollLeft / maxScroll;
       const index = Math.min(
         TOTAL_DOTS - 1,
         Math.max(0, Math.round(progress * (TOTAL_DOTS - 1))),
       );
       setActiveDot(index);
+    } else {
+      setActiveDot(0);
     }
   }, []);
 
@@ -74,9 +77,13 @@ export function ListingSlider({
   const handleScroll = (direction: "left" | "right") => {
     const el = scrollContainerRef.current;
     if (!el) return;
-    const scrollAmount = 324; // Card width + gap
+    const firstCard = el.firstElementChild as HTMLElement | null;
+    const scrollAmount = firstCard ? firstCard.offsetWidth + 16 : 324;
+    const isRtl = getComputedStyle(el).direction === "rtl";
+    const sign = isRtl ? -1 : 1;
+
     el.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
+      left: (direction === "left" ? -scrollAmount : scrollAmount) * sign,
       behavior: "smooth",
     });
   };
@@ -85,9 +92,11 @@ export function ListingSlider({
     const el = scrollContainerRef.current;
     if (!el) return;
     const maxScroll = el.scrollWidth - el.clientWidth;
+    const isRtl = getComputedStyle(el).direction === "rtl";
     const targetScroll = (index / (TOTAL_DOTS - 1)) * maxScroll;
+
     el.scrollTo({
-      left: targetScroll,
+      left: isRtl ? -targetScroll : targetScroll,
       behavior: "smooth",
     });
   };
@@ -96,7 +105,6 @@ export function ListingSlider({
     <div className="w-full">
       {/* Header Section */}
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-        {/* Left Side: Title & Subtitle */}
         <div className="flex max-w-[601px] flex-col gap-2">
           <h2 className="text-[28px] font-semibold leading-[120%] tracking-[-0.02em] text-text-primary md:text-[36px]">
             {heading}
@@ -106,11 +114,8 @@ export function ListingSlider({
           </p>
         </div>
 
-        {/* Right Side Controls: Figma Spec (width: 211px; height: 40px; gap: 16px) */}
         <div className="flex items-center gap-4 self-start md:self-end">
-          {/* Arrow Buttons: [<] [>] */}
           <div className="flex items-center gap-2">
-            {/* Previous (<) Button */}
             <Button
               type="button"
               variant="outline"
@@ -123,7 +128,6 @@ export function ListingSlider({
               <ChevronLeftIcon className="size-4 shrink-0 rtl:rotate-180" />
             </Button>
 
-            {/* Next (>) Button */}
             <Button
               type="button"
               variant="outline"
@@ -137,7 +141,6 @@ export function ListingSlider({
             </Button>
           </div>
 
-          {/* Shop All Button: 107px x 40px, ps: 16px, pe: 12px, gap: 8px, border: #0B7AD3 */}
           {viewAllHref && viewAllLabel ? (
             <Button
               asChild
@@ -155,7 +158,7 @@ export function ListingSlider({
 
       {/* Cards List / Slider */}
       {cards.length === 0 ? (
-        <div className="mt-8 rounded-2xl border border-dashed border-border-default bg-background-primary  py-12 text-center">
+        <div className="mt-8 rounded-2xl border border-dashed border-border-default bg-background-primary px-6 py-12 text-center">
           <h3 className="text-lg font-semibold text-text-primary">
             {emptyTitle}
           </h3>
@@ -165,42 +168,42 @@ export function ListingSlider({
         <>
           <div
             ref={scrollContainerRef}
-            className="mt-8 flex gap-4 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth scroll-px-4
-                       [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
-                       -mx-4 px-4 sm:-mx-6 sm:px-6 xl:mx-0 xl:px-0"
+            className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-4 pt-1
+                       [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {cards.map((listing) => (
               <div
                 key={listing.id ?? listing.href}
-                className="shrink-0 snap-start
-                           w-[calc((100vw-48px)/1.45)] min-w-[250px] max-w-[280px]
-                           md:w-[calc((100%-32px)/2.5)] md:min-w-0 md:max-w-none 
-                           xl:w-[308px] xl:max-w-none"
+                className="min-w-0 shrink-0 snap-start
+                           w-[min(308px,calc(100vw-48px))]
+                           md:w-[calc((100%-32px)/2.5)]
+                           xl:w-[308px]"
               >
                 <ListingCard listing={listing} />
               </div>
             ))}
           </div>
 
-          {/* Slider Pagination Indicator (Image 1: Active pill + dots) */}
-          <div className="mt-6 flex items-center justify-center gap-2">
-            {Array.from({ length: TOTAL_DOTS }).map((_, index) => {
-              const isActive = activeDot === index;
-              return (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => handleDotClick(index)}
-                  aria-label={`Go to slide page ${index + 1}`}
-                  className={`h-2 transition-all duration-300 focus:outline-none ${
-                    isActive
-                      ? "w-8 rounded-full bg-[#18181B]"
-                      : "w-2 rounded-full bg-[#CCD0D8] hover:bg-neutral-400"
-                  }`}
-                />
-              );
-            })}
-          </div>
+          {(canScrollLeft || canScrollRight) && (
+            <div className="mt-6 flex items-center justify-center gap-2">
+              {Array.from({ length: TOTAL_DOTS }).map((_, index) => {
+                const isActive = activeDot === index;
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => handleDotClick(index)}
+                    aria-label={`Go to slide page ${index + 1}`}
+                    className={`h-2 transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "w-8 rounded-full bg-[#18181B]"
+                        : "w-2 rounded-full bg-[#CCD0D8] hover:bg-neutral-400"
+                    }`}
+                  />
+                );
+              })}
+            </div>
+          )}
         </>
       )}
     </div>

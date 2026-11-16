@@ -229,3 +229,4 @@ export async function ListingSection({
     </LayoutWrapper>
   );
 }
+export default ListingSlider;
