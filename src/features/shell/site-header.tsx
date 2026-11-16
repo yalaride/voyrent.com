@@ -34,11 +34,11 @@ async function Preferences({
     scope: "city" | "country";
   };
 }) {
-  const t = await getTranslations("Header");
+  const t = await getTranslations({ locale, namespace: "Header" });
   const currency = await getDisplayCurrency(fallback);
 
   return (
-    <div className="ml-auto flex h-[25px] w-[150px] items-center justify-end gap-3 lg:h-auto lg:w-auto">
+    <div className="ms-auto flex h-[25px] shrink-0 items-center justify-end gap-3 lg:h-auto">
       <div className="flex h-full items-center gap-3">
         <HeaderMenu
           key={`${locale}-${currency}-${active?.country ?? ""}-${active?.city ?? ""}`}
@@ -59,7 +59,9 @@ async function Preferences({
             className="flex items-center justify-center"
           >
             <UserRoundIcon className="size-4 lg:hidden" aria-hidden="true" />
-            <span className="hidden lg:inline">{t("signIn")}</span>
+            <span className="hidden whitespace-nowrap lg:inline">
+              {t("signIn")}
+            </span>
           </Link>
         </Button>
       </div>
@@ -77,7 +79,7 @@ export async function SiteHeader({
   market?: Market;
   scope?: "city" | "country";
 }) {
-  const t = await getTranslations("Header");
+  const t = await getTranslations({ locale, namespace: "Header" });
   const countries = await listMarketReference();
   const groups = countries.map((country) => ({
     code: country.code,
@@ -102,17 +104,18 @@ export async function SiteHeader({
 
   return (
     <HeaderShell>
-      <div className="flex h-20 w-full items-center justify-between">
-        <div className="flex items-center gap-4 lg:gap-8">
+      <div className="flex h-20 w-full items-center justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-4 lg:gap-8">
           <Link
             href={homeHref}
-            className="flex h-[34px] w-[117px] items-center text-xl font-bold tracking-tight text-white transition-opacity hover:opacity-90 group-data-[transparent=false]:text-text-primary lg:h-auto lg:w-auto lg:text-2xl"
+            dir="ltr"
+            className="flex h-[34px] shrink-0 items-center text-xl font-bold text-white transition-opacity hover:opacity-90 group-data-[transparent=false]:text-text-primary ltr:tracking-tight lg:h-auto lg:text-2xl"
           >
             <span>Ruta</span>
             <span className="text-primary">Ride</span>
           </Link>
 
-          <nav className="hidden items-center gap-6 text-body-small font-medium lg:flex">
+          <nav className="hidden items-center gap-6 whitespace-nowrap text-body-small font-medium lg:flex">
             <Link
               href="/"
               className="text-white/85 transition-colors hover:text-white group-data-[transparent=false]:text-text-primary group-data-[transparent=false]:hover:text-link"
@@ -134,7 +137,11 @@ export async function SiteHeader({
           </nav>
         </div>
 
-        <Suspense fallback={<Skeleton className="h-8 w-28 bg-white/20" />}>
+        <Suspense
+          fallback={
+            <Skeleton className="ms-auto h-8 w-28 shrink-0 bg-white/20" />
+          }
+        >
           <Preferences
             locale={locale}
             fallback={market?.currency ?? "AED"}

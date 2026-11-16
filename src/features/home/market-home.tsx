@@ -78,8 +78,12 @@ export async function MarketHome({
         </div>
 
         <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 flex-col items-center justify-between text-center md:flex-initial md:justify-center">
-          <h1 className="w-full max-w-[320px] text-[32px] font-semibold leading-[1.16] tracking-[-0.02em] text-text-inverse drop-shadow-sm [text-wrap:balance] sm:max-w-[420px] sm:text-[38px] md:max-w-[520px] md:text-[48px] lg:max-w-[760px] lg:text-[72px] lg:leading-[1.1]">
-            {t("Hero.title", { city: place, place })}
+          <h1 className="w-full max-w-[320px] text-[32px] font-semibold leading-[1.16] tracking-[-0.02em] text-text-inverse drop-shadow-sm sm:max-w-[420px] sm:text-[38px] md:max-w-[520px] md:text-[48px] lg:max-w-[760px] lg:text-[72px] lg:leading-[1.1]">
+            {t.rich("Hero.title", {
+              city: place,
+              place,
+              line: (chunks) => <span className="block">{chunks}</span>,
+            })}
           </h1>
 
           <div className="mt-auto w-full md:mt-8 lg:mt-10">

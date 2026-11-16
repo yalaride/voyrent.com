@@ -224,6 +224,15 @@
     "paymentMastercard": "Mastercard",
     "paymentUnionPay": "UnionPay"
   },
+  "AppCta": {
+    "title": "Allez plus loin avec <brand>RutaRide</brand>",
+    "subtitle": "Téléchargez l'application RutaRide pour réserver plus vite, gérer vos réservations à tout moment et profiter d'offres exclusives. Disponible sur l'App Store et Google Play, ou scannez le code QR.",
+    "googlePlayTop": "Disponible sur",
+    "googlePlayName": "Google Play",
+    "appStoreTop": "Télécharger dans l'",
+    "appStoreName": "App Store",
+    "imageAlt": "Aperçu de l'application mobile RutaRide sur smartphones"
+  },
   "Dealers": {
     "title": "Proposez des voitures sur GleeCars",
     "body": "Les loueurs gardent leurs prix et parlent directement aux conducteurs. L’inscription des partenaires sera reliée à la plateforme NestJS. Les outils loueur sont une application séparée."

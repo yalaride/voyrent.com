@@ -177,6 +177,15 @@
       }
     }
   },
+  "AppCta": {
+    "title": "Ve más lejos con <brand>RutaRide</brand>",
+    "subtitle": "Descarga la app de RutaRide para reservar autos más rápido, gestionar tus reservas en cualquier momento y acceder a ofertas exclusivas. Disponible en App Store y Google Play, o escanea el código QR.",
+    "googlePlayTop": "Disponible en",
+    "googlePlayName": "Google Play",
+    "appStoreTop": "Descarga en el",
+    "appStoreName": "App Store",
+    "imageAlt": "Vista previa de la app móvil de RutaRide en smartphones"
+  },
   "Trust": {
     "title": "Un mercado, no un intermediario",
     "rangeTitle": "Marca, modelo y tipo",

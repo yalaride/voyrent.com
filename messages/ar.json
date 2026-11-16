@@ -228,6 +228,15 @@
     "title": "اعرض سياراتك على GleeCars",
     "body": "تحتفظ شركات التأجير بأسعارها وتتواصل مع السائقين مباشرة. تسجيل المورّدين سيتصل بمنصة NestJS. أدوات المورّد تطبيق منفصل."
   },
+  "AppCta": {
+    "title": "انطلق أبعد مع <brand>RutaRide</brand>",
+    "subtitle": "حمّل تطبيق RutaRide لحجز السيارات بشكل أسرع، وإدارة حجوزاتك في أي وقت، والاستفادة من عروض حصرية. متوفر على App Store وGoogle Play، أو امسح رمز QR.",
+    "googlePlayTop": "احصل عليه من",
+    "googlePlayName": "Google Play",
+    "appStoreTop": "حمّله من",
+    "appStoreName": "App Store",
+    "imageAlt": "معاينة لتطبيق RutaRide على الهواتف الذكية"
+  },
   "Errors": {
     "notFoundTitle": "هذه الصفحة غير متاحة",
     "notFoundBody": "هذه المدينة أو هذه السيارة غير موجودة في الكتالوج.",

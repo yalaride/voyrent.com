@@ -225,6 +225,15 @@
     "paymentMastercard": "Mastercard",
     "paymentUnionPay": "UnionPay"
   },
+  "AppCta": {
+    "title": "Vá mais longe com <brand>RutaRide</brand>",
+    "subtitle": "Baixe o app da RutaRide para reservar carros mais rápido, gerenciar suas reservas a qualquer hora e aproveitar ofertas exclusivas. Disponível na App Store e no Google Play, ou escaneie o QR code.",
+    "googlePlayTop": "Disponível no",
+    "googlePlayName": "Google Play",
+    "appStoreTop": "Baixe na",
+    "appStoreName": "App Store",
+    "imageAlt": "Prévia do app móvel da RutaRide em smartphones"
+  },
   "Dealers": {
     "title": "Disponibilize carros na GleeCars",
     "body": "As empresas de aluguer mantêm os seus preços e falam diretamente com os condutores. O registo de parceiros vai ligar-se à plataforma NestJS. As ferramentas do parceiro são uma aplicação separada."

@@ -7,12 +7,16 @@ import LayoutWrapper from "@/components/layout/LayoutWrapper";
 interface AppDownloadCtaProps {
   googlePlayHref?: string;
   appStoreHref?: string;
+  downloadHref?: string;
+  downloadLabel?: string;
   imageSrc?: string;
 }
 
 export async function AppDownloadCta({
   googlePlayHref = "https://play.google.com",
   appStoreHref = "https://apps.apple.com",
+  downloadHref = appStoreHref,
+  downloadLabel = "Download App",
   imageSrc = "/landing-page/app-cta-phones.png",
 }: AppDownloadCtaProps) {
   const t = await getTranslations("AppCta");
@@ -20,25 +24,35 @@ export async function AppDownloadCta({
   return (
     /* Section: 1440px container, lg:min-h-[448px], py-120px px-80px, gap-40px */
     <LayoutWrapper className="w-full bg-background-primary">
-      <div className="mx-auto flex w-full max-w-[var(--container-1440)] flex-col items-center justify-between gap-10 px-4 py-12 md:py-16 lg:min-h-[448px] lg:flex-row lg:py-[120px]">
-        {/* Left Side Content: max-w 683px */}
-        <div className="flex w-full max-w-[683px] flex-col items-start gap-8">
+      <div className="mx-auto flex w-full max-w-[var(--container-1440)] flex-col items-center justify-between gap-8 px-4 py-12 sm:flex-row sm:gap-6 sm:px-6 md:py-16 lg:min-h-[448px] lg:gap-10 lg:py-[120px]">
+        {/* Left Side Content: centered on mobile, start-aligned on tablet & desktop */}
+        <div className="flex w-full flex-1 flex-col items-center gap-6 text-center sm:max-w-[683px] sm:items-start sm:gap-8 sm:text-start">
           {/* Heading + Subtitle: gap 8px */}
-          <div className="flex w-full flex-col gap-[var(--spacing-space-8)]">
-            <h2 className="text-3xl font-semibold leading-[1.16] tracking-[-0.02em] text-text-primary sm:text-4xl lg:text-[48px]">
+          <div className="flex w-full flex-col items-center gap-[var(--spacing-space-8)] sm:items-start">
+            <h2 className="text-[32px] font-semibold leading-[1.16] tracking-[-0.02em] text-text-primary sm:text-[36px] lg:text-[48px]">
               {t.rich("title", {
                 brand: (chunks) => (
                   <span className="text-primary">{chunks}</span>
                 ),
               })}
             </h2>
-            <p className="max-w-[683px] text-base font-medium leading-[1.5] text-text-secondary">
+            <p className="max-w-[440px] text-sm font-medium leading-[1.5] text-text-secondary sm:max-w-[683px] sm:text-base">
               {t("subtitle")}
             </p>
           </div>
 
-          {/* Store Buttons: 168 x 56, padding 12px 16px, gap 8px, radius/8 */}
-          <div className="flex flex-wrap items-center gap-3">
+          {/* Mobile & Tablet Single Pill Button */}
+          <a
+            href={downloadHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-7 text-base font-medium text-text-inverse transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 lg:hidden"
+          >
+            {downloadLabel}
+          </a>
+
+          {/* Desktop Store Buttons: 168 x 56, padding 12px 16px, gap 8px, radius/8 */}
+          <div className="hidden flex-wrap items-center gap-3 lg:flex">
             <a
               href={googlePlayHref}
               target="_blank"
@@ -76,12 +90,12 @@ export async function AppDownloadCta({
         </div>
 
         {/* Right Side Phones Mockup */}
-        <div className="relative h-[280px] w-full max-w-[440px] shrink-0 sm:h-[340px] lg:h-[360px]">
+        <div className="relative h-[260px] w-full max-w-[320px] shrink-0 sm:h-[270px] sm:w-[280px] sm:max-w-none md:h-[310px] md:w-[340px] lg:h-[360px] lg:w-[440px]">
           <Image
             src={imageSrc}
             alt={t("imageAlt")}
             fill
-            sizes="(max-width: 1024px) 100vw, 440px"
+            sizes="(max-width: 639px) 320px, (max-width: 1023px) 340px, 440px"
             className="object-contain object-center"
           />
         </div>
