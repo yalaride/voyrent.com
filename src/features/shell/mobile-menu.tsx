@@ -17,7 +17,12 @@ export function MobileMenu({ locale, currency }: { locale: AppLocale; currency: 
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden" aria-label={t("openMenu")}>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-6 w-6 lg:hidden"
+          aria-label={t("openMenu")}
+        >
           <MenuIcon />
         </Button>
       </SheetTrigger>

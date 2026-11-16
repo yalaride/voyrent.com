@@ -9,6 +9,8 @@ export const BODY_TYPES = [
   "sports",
   "van",
   "convertible",
+  "crossover",
+  "pickup",
 ] as const;
 
 export type BodyType = (typeof BODY_TYPES)[number];

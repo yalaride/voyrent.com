@@ -32,7 +32,7 @@ export async function AppShell({
       <main id="content" className="flex-1">
         <Suspense
           fallback={
-            <div className="mx-auto grid max-w-6xl gap-4 px-4 py-10">
+            <div className="grid gap-4 py-10">
               <Skeleton className="h-10 w-72" />
               <Skeleton className="h-40 w-full rounded-2xl" />
             </div>

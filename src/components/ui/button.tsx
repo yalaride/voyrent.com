@@ -1,56 +1,77 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
-import { Slot } from "radix-ui"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+import { Slot } from "radix-ui";
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/80",
+        // Standard styles across the 3 columns:
+        default:
+          "bg-primary text-primary-foreground hover:bg-primary/90 border border-transparent shadow-xs rounded-full",
+
+        // Neutral Secondary (Rows 1 & 2)
         outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+          "border border-border-default bg-background-primary text-text-primary hover:bg-background-secondary hover:text-text-primary rounded-full",
+
+        // Brand Secondary (Rows 3 & 4 with blue border & blue content)
+        "outline-brand":
+          "border border-primary bg-background-primary text-primary hover:bg-primary/10 hover:border-primary active:bg-primary/20 rounded-full",
+
         ghost:
-          "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+          "bg-transparent text-primary hover:bg-primary/10 border border-transparent rounded-full",
+
         destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-destructive text-primary-foreground hover:bg-destructive/90 border border-transparent rounded-full",
+
+        // WhatsApp Examples
+        "whatsapp-solid":
+          "bg-success text-white hover:bg-success/90 border border-transparent shadow-xs rounded-full",
+        "whatsapp-outline":
+          "border border-success bg-background-primary text-success hover:bg-success/10 hover:border-success active:bg-success/20 rounded-full",
       },
       size: {
-        default:
-          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        icon: "size-8",
-        "icon-xs":
-          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm":
-          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        "icon-lg": "size-9",
+        // Group 1: Large Button (48px height, 24 L/R, 10 T/B, gap 10)
+        lg: "h-12 px-6 py-2.5 gap-2.5 text-base rounded-full",
+
+        // Group 2: Small Button (40px height, 16 L/R, 0 T/B, gap 4)
+        sm: "h-10 px-4 py-0 gap-1 text-sm rounded-full",
+
+        // Group 3: Icon + Text Button (178.5 × 48 px, 20 L, 24 R, 10 T/B, gap 8)
+        "icon-text-lg":
+          "h-12 w-[178.5px] pl-5 pr-6 py-2.5 gap-2 text-base rounded-full",
+
+        // Group 4: Icon Only Button (135 × 40 px, 0 padding, gap 6)
+        "icon-wide": "h-10 w-[135px] p-0 rounded-full",
+
+        // Standard Icon utilities
+        icon: "size-10 p-0 rounded-full",
+        "icon-sm": "size-8 p-0 rounded-full",
+        "icon-lg": "size-12 p-0 rounded-full",
       },
     },
     defaultVariants: {
       variant: "default",
-      size: "default",
+      size: "lg",
     },
-  }
-)
+  },
+);
+
+export interface ButtonProps
+  extends React.ComponentProps<"button">, VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
 
 function Button({
   className,
   variant = "default",
-  size = "default",
+  size = "lg",
   asChild = false,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
-  const Comp = asChild ? Slot.Root : "button"
+}: ButtonProps) {
+  const Comp = asChild ? Slot.Root : "button";
 
   return (
     <Comp
@@ -60,7 +81,7 @@ function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />
-  )
+  );
 }
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

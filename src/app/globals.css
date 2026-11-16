@@ -81,11 +81,11 @@
   /* Background/Secondary — Supporting surface */
   --ds-background-secondary: #f7f9fb;
   /* Background/Section — Dark section surface */
-  --ds-background-section: #122855;
+  --ds-background-section: #172746;
 
   /* ---------- Text ---------- */
   /* Text/Primary — Primary content */
-  --ds-text-primary: #142337;
+  --ds-text-primary: #1d2939;
   /* Text/Secondary — Supporting content */
   --ds-text-secondary: #667085;
   /* Text/Inverse — Text on dark surfaces */
