@@ -90,7 +90,7 @@
     "tesla": "Tesla"
   },
   "Listings": {
-    "featured": "Available in {city}",
+    "featured": "Featured",
     "results": "{count, plural, one {# car} other {# cars}}",
     "emptyTitle": "No cars match this search",
     "emptyBody": "Try another make, model, or car type.",
@@ -122,8 +122,8 @@
     "kmLimit": "{count} km",
     "perDayShort": "/ day",
     "perMonthShort": "/ month",
-    "call": "Call supplier",
-    "whatsapp": "Chat on WhatsApp"
+    "call": "Call",
+    "whatsapp": "WhatsApp"
   },
   "Cities": {
     "title": "Cities in {country}",
@@ -247,6 +247,126 @@
     "unexpectedBody": "Reload this page. If it continues, the catalog service may be unavailable.",
     "retry": "Try again"
   },
+
+  "SearchToolbar": {
+    "zeroDeposit": "Zero Deposit",
+    "monthly": "Monthly",
+    "airportDelivery": "Airport Delivery",
+    "seatsCount": "{count} Seats",
+    "clearFilter": "Clear Filter:",
+    "removeFilter": "Remove {label} filter",
+    "sortBy": "Sort By:",
+    "sortRecommended": "Best Deals",
+    "sortPriceAsc": "Price: Low to High",
+    "sortPriceDesc": "Price: High to Low"
+  },
+
+  "FilterSidebar": {
+    "filter": "Filter",
+    "filterWithCount": "Filter ({count})",
+    "filtersHeading": "Filters",
+    "closeFilters": "Close filters",
+    "clearAllFilters": "Clear all filters",
+    "carType": "Car Type",
+    "brandAndModel": "Brand & Model",
+    "brand": "Brand",
+    "allBrands": "All Brands",
+    "model": "Model",
+    "allModels": "All Models",
+    "rentalTerm": "Rental Term",
+    "daily": "Daily",
+    "monthly": "Monthly",
+    "carRentalOptions": "Car Rental Options",
+    "allOptions": "All Options",
+    "withoutDeposit": "Without Deposit",
+    "numberOfSeats": "Number of Seats",
+    "seatsCount": "{count} Seats",
+    "deliveryOptions": "Delivery Options",
+    "airportDelivery": "Airport Delivery",
+    "modelYear": "Model Year",
+    "transmission": "Transmission",
+    "fuelType": "Fuel Type",
+    "locationAndArea": "Location & Area",
+    "carFeatures": "Car Features",
+    "exteriorCarColor": "Exterior Car Color"
+  },
+
+  "PrivacyPolicy": {
+    "breadcrumb": {
+      "ariaLabel": "Breadcrumb",
+      "home": "Home",
+      "current": "Privacy Policy"
+    },
+    "hero": {
+      "title": "Privacy Policy",
+      "subtitle": "This policy describes how RutaRide collects, uses, and protects your personal information when you use our platform and services.",
+      "lastUpdated": "Last updated: October 10, 2026"
+    },
+    "introduction": {
+      "title": "Introduction",
+      "p1": "RutaRide respects your privacy and is committed to protecting personal information collected from you through our website and mobile application (herein collectively referred to as the “Platform”). This privacy policy governs the way we collect and use information, and by using the services on our Platform (“Services”) you agree to be bound by this policy. All references within this policy to 'we/us/our' refer to <siteLink>rutaride.com</siteLink>. This Privacy Policy is in addition to any other terms and conditions applicable to the Platform. Specific privacy terms contained in any documents made available by us should be read together with this Privacy Policy.",
+      "p2": "The Website Policies and Terms & Conditions may be changed or updated occasionally to meet the requirements and standards. Therefore, the Customers’ are encouraged to frequently visit these sections to be updated about the changes on the website. Modifications will be effective on the day they are posted.",
+      "p3": "We reserve the right, at our discretion, to modify or remove portions of this Privacy Policy at any time. You should review this Privacy Policy periodically so that you are updated on any changes. We do not make any representations about third party web sites that may be linked to the Platform. Information we collect when you use the Services you will have the option to provide us with personal information, such as your email address, so that we may keep you informed. We use this to provide the Services."
+    },
+    "rentalGuide": {
+      "title": "What to look for in your rental",
+      "description": "Finding the perfect rental car at the right price doesn't have to be difficult. With RutaRide's \"Bid My Price\" feature, you can negotiate the rental price instead of simply accepting the listed rate. This gives travelers more flexibility and the opportunity to save money while booking from verified rental operators."
+    },
+    "roadRules": {
+      "title": "Road rules worth memorizing",
+      "description": "Speed limits are strictly enforced by camera. Stick within the posted limit plus the small grace buffer, signal every lane change, and never undertake on the right. Roundabouts give way to the left. RutaRide's <strong>Bid My Price</strong> feature gives customers more control over the car rental process. Instead of accepting fixed prices, you have the opportunity to negotiate a better deal while booking through a trusted marketplace. By following these simple steps, searching for a vehicle, comparing options, placing a bid, and completing your booking, you can enjoy a smoother rental experience and potentially save on your next trip.",
+      "bullets": {
+        "contactDetails": "Information, such as your name, email and other contact details (including information that you provide by filling in forms on the Platform).",
+        "noCardStorage": "All credit/debit cards details and personally identifiable information will <strong>NOT</strong> be stored, sold, shared, rented or leased to any third parties.",
+        "noCardThirdParty": "We will not pass any debit/credit card details to <strong>third parties</strong>.",
+        "securityMeasures": "We intend to take appropriate steps to ensure data privacy and security including through various hardware and software methodologies. However, RutaRide cannot guarantee the security of any information that is disclosed online.",
+        "correspondence": "If you contact us, we may keep a record of that correspondence.",
+        "surveys": "We may also ask you to complete surveys that we use for research purposes, although you are not obligated to respond to them.",
+        "ipAddress": "Please note that we may use your Internet protocol (or IP) address (which is a unique number assigned to your computer server or your Internet service provider (or ISP)). We use your Internet Protocol (IP) address to help diagnose problems with our computer server, and to administer our web site(s). Your IP address is used to help identify you, but contains no personal information about you."
+      },
+      "confirmation": {
+        "title": "The confirmation contains:",
+        "items": {
+          "operatorContacts": "Rental operator contacts details",
+          "pickupInstructions": "Pickup instructions"
+        }
+      }
+    },
+    "cookies": {
+      "title": "Cookies and Tracking Technologies",
+      "description": "We use cookies and similar tracking technologies to track activity on our platform and hold certain analytical information to enhance your experience.",
+      "table": {
+        "headers": {
+          "type": "Cookie Type",
+          "purpose": "Purpose"
+        },
+        "rows": {
+          "essential": {
+            "type": "Essential",
+            "purpose": "Required for core website functionality such as login and booking"
+          },
+          "analytics": {
+            "type": "Analytics",
+            "purpose": "Helps us understand how visitors interact with our website"
+          },
+          "preferences": {
+            "type": "Preferences",
+            "purpose": "Remembers your settings, language, and display preferences"
+          },
+          "marketing": {
+            "type": "Marketing",
+            "purpose": "Used to deliver relevant communications and measure campaign effectiveness"
+          }
+        }
+      }
+    },
+    "payments": {
+      "title": "Payments",
+      "description": "Speed limits are strictly enforced by camera. Stick within the posted limit plus the small grace buffer, signal every lane change, and never undertake on the right. Roundabouts give way to the left. RutaRide's Bid My Price feature gives customers more control over the car rental process. Instead of accepting fixed prices, you have the opportunity to negotiate a better deal while booking through a trusted marketplace.",
+      "securityNote": "We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction."
+    }
+  },
+
   "Currencies": {
     "AED": "UAE dirham",
     "USD": "US dollar",

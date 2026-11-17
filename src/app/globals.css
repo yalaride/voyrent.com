@@ -258,3 +258,22 @@
     @apply font-sans;
   }
 }
+@layer utilities {
+  .filter-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #aaaaaa transparent;
+  }
+
+  .filter-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .filter-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .filter-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #aaaaaa;
+    border-radius: var(--radius-999);
+  }
+}

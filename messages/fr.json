@@ -90,7 +90,7 @@
     "tesla": "Tesla"
   },
   "Listings": {
-    "featured": "Disponibles à {city}",
+    "featured": "À la une",
     "results": "{count, plural, one {# voiture} other {# voitures}}",
     "emptyTitle": "Aucune voiture ne correspond à cette recherche",
     "emptyBody": "Essayez une autre marque, un autre modèle ou un autre type de voiture.",
@@ -122,8 +122,8 @@
     "kmLimit": "{count} km",
     "perDayShort": "/ jour",
     "perMonthShort": "/ mois",
-    "call": "Appeler le fournisseur",
-    "whatsapp": "Discuter sur WhatsApp"
+    "call": "Appeler",
+    "whatsapp": "WhatsApp"
   },
   "Cities": {
     "title": "Villes en {country}",
@@ -131,6 +131,18 @@
     "carsAvailable": "{count}+ voitures disponibles",
     "previousSlide": "Villes précédentes",
     "nextSlide": "Villes suivantes"
+  },
+  "SearchToolbar": {
+    "zeroDeposit": "Sans dépôt de garantie",
+    "monthly": "Mensuel",
+    "airportDelivery": "Livraison à l'aéroport",
+    "seatsCount": "{count} places",
+    "clearFilter": "Effacer le filtre :",
+    "removeFilter": "Supprimer le filtre {label}",
+    "sortBy": "Trier par :",
+    "sortRecommended": "Meilleures offres",
+    "sortPriceAsc": "Prix : croissant",
+    "sortPriceDesc": "Prix : décroissant"
   },
   "Trust": {
     "title": "Une place de marché, pas un intermédiaire",
@@ -244,6 +256,35 @@
     "unexpectedTitle": "Un problème est survenu",
     "unexpectedBody": "Rechargez la page. Si cela continue, le service de catalogue est peut-être indisponible.",
     "retry": "Réessayer"
+  },
+  "FilterSidebar": {
+    "filter": "Filtrer",
+    "filterWithCount": "Filtrer ({count})",
+    "filtersHeading": "Filtres",
+    "closeFilters": "Fermer les filtres",
+    "clearAllFilters": "Effacer tous les filtres",
+    "carType": "Type de voiture",
+    "brandAndModel": "Marque et modèle",
+    "brand": "Marque",
+    "allBrands": "Toutes les marques",
+    "model": "Modèle",
+    "allModels": "Tous les modèles",
+    "rentalTerm": "Durée de location",
+    "daily": "Journalier",
+    "monthly": "Mensuel",
+    "carRentalOptions": "Options de location",
+    "allOptions": "Toutes les options",
+    "withoutDeposit": "Sans dépôt de garantie",
+    "numberOfSeats": "Nombre de places",
+    "seatsCount": "{count} places",
+    "deliveryOptions": "Options de livraison",
+    "airportDelivery": "Livraison à l'aéroport",
+    "modelYear": "Année du modèle",
+    "transmission": "Boîte de vitesses",
+    "fuelType": "Type de carburant",
+    "locationAndArea": "Lieu et zone",
+    "carFeatures": "Équipements du véhicule",
+    "exteriorCarColor": "Couleur extérieure"
   },
   "Currencies": {
     "AED": "Dirham des EAU",

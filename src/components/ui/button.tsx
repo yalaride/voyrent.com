@@ -4,52 +4,51 @@ import { cn } from "@/lib/utils";
 import { Slot } from "radix-ui";
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "group/button inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        // Standard styles across the 3 columns:
         default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 border border-transparent shadow-xs rounded-full",
+          "border border-transparent bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
 
-        // Neutral Secondary (Rows 1 & 2)
         outline:
-          "border border-border-default bg-background-primary text-text-primary hover:bg-background-secondary hover:text-text-primary rounded-full",
-
-        // Brand Secondary (Rows 3 & 4 with blue border & blue content)
+          "border border-border-default bg-background-primary text-text-primary hover:bg-background-secondary hover:text-text-primary",
         "outline-brand":
-          "border border-primary bg-background-primary text-primary hover:bg-primary/10 hover:border-primary active:bg-primary/20 rounded-full",
+          "border border-border-default bg-background-primary text-primary hover:border-primary hover:bg-primary/10 active:bg-primary/20",
 
         ghost:
-          "bg-transparent text-primary hover:bg-primary/10 border border-transparent rounded-full",
+          "border border-transparent bg-transparent text-primary hover:bg-primary/10",
 
         destructive:
-          "bg-destructive text-primary-foreground hover:bg-destructive/90 border border-transparent rounded-full",
+          "border border-transparent bg-destructive text-primary-foreground hover:bg-destructive/90",
 
-        // WhatsApp Examples
         "whatsapp-solid":
-          "bg-success text-white hover:bg-success/90 border border-transparent shadow-xs rounded-full",
+          "border border-transparent bg-success text-white shadow-xs hover:bg-success/90",
+
         "whatsapp-outline":
-          "border border-success bg-background-primary text-success hover:bg-success/10 hover:border-success active:bg-success/20 rounded-full",
+          "border border-border-default bg-background-primary text-success hover:border-success hover:bg-success/10 active:bg-success/20",
+
+        // Legacy aliases kept for backwards compatibility
+        "outline-call":
+          "border border-border-default bg-background-primary text-primary hover:border-primary hover:bg-primary/10 active:bg-primary/20",
+        "outline-whatsapp":
+          "border border-border-default bg-background-primary text-success hover:border-success hover:bg-success/10 active:bg-success/20",
       },
       size: {
-        // Group 1: Large Button (48px height, 24 L/R, 10 T/B, gap 10)
-        lg: "h-12 px-6 py-2.5 gap-2.5 text-base rounded-full",
+        lg: "h-12 gap-2.5 px-6 py-2.5 text-base [&_svg:not([class*='size-'])]:size-5",
+        sm: "h-10 gap-1.5 px-4 py-0 text-sm [&_svg:not([class*='size-'])]:size-4",
 
-        // Group 2: Small Button (40px height, 16 L/R, 0 T/B, gap 4)
-        sm: "h-10 px-4 py-0 gap-1 text-sm rounded-full",
-
-        // Group 3: Icon + Text Button (178.5 × 48 px, 20 L, 24 R, 10 T/B, gap 8)
         "icon-text-lg":
-          "h-12 w-[178.5px] pl-5 pr-6 py-2.5 gap-2 text-base rounded-full",
+          "h-12 w-[178.5px] gap-2 pl-5 pr-6 py-2.5 text-base [&_svg:not([class*='size-'])]:size-5",
 
-        // Group 4: Icon Only Button (135 × 40 px, 0 padding, gap 6)
-        "icon-wide": "h-10 w-[135px] p-0 rounded-full",
+        "icon-text-sm":
+          "h-10 gap-2 px-4 py-0 text-sm [&_svg:not([class*='size-'])]:size-4",
 
-        // Standard Icon utilities
-        icon: "size-10 p-0 rounded-full",
-        "icon-sm": "size-8 p-0 rounded-full",
-        "icon-lg": "size-12 p-0 rounded-full",
+        "icon-wide": "h-10 w-[135px] p-0 [&_svg:not([class*='size-'])]:size-5",
+
+        icon: "size-10 p-0 [&_svg:not([class*='size-'])]:size-5",
+        "icon-sm": "size-8 p-0 [&_svg:not([class*='size-'])]:size-4",
+        "icon-lg": "size-12 p-0 [&_svg:not([class*='size-'])]:size-5",
       },
     },
     defaultVariants: {
@@ -69,6 +68,7 @@ function Button({
   variant = "default",
   size = "lg",
   asChild = false,
+  type,
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot.Root : "button";
@@ -78,7 +78,8 @@ function Button({
       data-slot="button"
       data-variant={variant}
       data-size={size}
-      className={cn(buttonVariants({ variant, size, className }))}
+      type={asChild ? undefined : (type ?? "button")}
+      className={cn(buttonVariants({ variant, size }), className)}
       {...props}
     />
   );

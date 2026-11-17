@@ -91,7 +91,7 @@
   },
 
   "Listings": {
-    "featured": "Disponibles en {city}",
+    "featured": "Destacado",
     "results": "{count, plural, one {# auto} other {# autos}}",
     "emptyTitle": "Ningún auto coincide con esta búsqueda",
     "emptyBody": "Prueba con otra marca, modelo o tipo de auto.",
@@ -123,8 +123,8 @@
     "kmLimit": "{count} km",
     "perDayShort": "/ día",
     "perMonthShort": "/ mes",
-    "call": "Llamar al proveedor",
-    "whatsapp": "Chatear por WhatsApp"
+    "call": "Llamar",
+    "whatsapp": "WhatsApp"
   },
   "Cities": {
     "title": "Ciudades en {country}",
@@ -132,6 +132,18 @@
     "carsAvailable": "{count}+ autos disponibles",
     "previousSlide": "Ciudades anteriores",
     "nextSlide": "Ciudades siguientes"
+  },
+  "SearchToolbar": {
+    "zeroDeposit": "Sin depósito",
+    "monthly": "Mensual",
+    "airportDelivery": "Entrega en el aeropuerto",
+    "seatsCount": "{count} plazas",
+    "clearFilter": "Borrar filtro:",
+    "removeFilter": "Quitar filtro {label}",
+    "sortBy": "Ordenar por:",
+    "sortRecommended": "Mejores ofertas",
+    "sortPriceAsc": "Precio: de menor a mayor",
+    "sortPriceDesc": "Precio: de mayor a menor"
   },
   "Blog": {
     "title": "Infórmate antes de comprar",
@@ -245,6 +257,35 @@
     "unexpectedTitle": "Algo ha fallado",
     "unexpectedBody": "Vuelve a cargar la página. Si continúa, el servicio de catálogo puede no estar disponible.",
     "retry": "Reintentar"
+  },
+  "FilterSidebar": {
+    "filter": "Filtrar",
+    "filterWithCount": "Filtrar ({count})",
+    "filtersHeading": "Filtros",
+    "closeFilters": "Cerrar filtros",
+    "clearAllFilters": "Borrar todos los filtros",
+    "carType": "Tipo de coche",
+    "brandAndModel": "Marca y modelo",
+    "brand": "Marca",
+    "allBrands": "Todas las marcas",
+    "model": "Modelo",
+    "allModels": "Todos los modelos",
+    "rentalTerm": "Periodo de alquiler",
+    "daily": "Diario",
+    "monthly": "Mensual",
+    "carRentalOptions": "Opciones de alquiler",
+    "allOptions": "Todas las opciones",
+    "withoutDeposit": "Sin depósito",
+    "numberOfSeats": "Número de plazas",
+    "seatsCount": "{count} plazas",
+    "deliveryOptions": "Opciones de entrega",
+    "airportDelivery": "Entrega en el aeropuerto",
+    "modelYear": "Año del modelo",
+    "transmission": "Transmisión",
+    "fuelType": "Tipo de combustible",
+    "locationAndArea": "Ubicación y zona",
+    "carFeatures": "Características del coche",
+    "exteriorCarColor": "Color exterior del coche"
   },
   "Currencies": {
     "AED": "Dírham de EAU",

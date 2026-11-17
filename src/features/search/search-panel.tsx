@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useState, type FormEvent } from "react";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight, Search, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import {
@@ -26,25 +26,32 @@ export function SearchPanel({
   country,
   city,
   initialQuery = "",
+  variant = "hero",
+  currentQuery,
 }: {
   country: string;
   city: string;
   initialQuery?: string;
+  variant?: "hero" | "toolbar";
+  currentQuery?: Partial<VehicleSearchQuery>;
 }) {
   const t = useTranslations("Search");
   const bodyLabels = useTranslations("BodyTypes");
   const router = useRouter();
   const queryId = useId();
   const [query, setQuery] = useState(initialQuery);
+  const [selectedQuery, setSelectedQuery] =
+    useState<Partial<VehicleSearchQuery> | null>(null);
   const [suggestions, setSuggestions] =
     useState<SearchSuggestion[]>(popularSuggestions);
   const [open, setOpen] = useState(false);
 
   const trimmed = query.trim();
   const showingPopular = trimmed.length < 2;
+  const isToolbar = variant === "toolbar";
 
   useEffect(() => {
-    if (trimmed.length < 2) {
+    if (trimmed.length < 2 || selectedQuery !== null) {
       return;
     }
 
@@ -74,35 +81,51 @@ export function SearchPanel({
       controller.abort();
       window.clearTimeout(timer);
     };
-  }, [city, country, trimmed]);
+  }, [city, country, selectedQuery, trimmed]);
 
   function navigate(next: Partial<VehicleSearchQuery>) {
     setOpen(false);
-    router.push(catalogPath(city, next));
+    const merged =
+      isToolbar && currentQuery ? { ...currentQuery, ...next, page: 1 } : next;
+    router.push(catalogPath(city, merged));
   }
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (selectedQuery) {
+      navigate(selectedQuery);
+      return;
+    }
     navigate({ q: trimmed || undefined });
   }
 
-  function applySuggestion(suggestion: SearchSuggestion) {
+  function suggestionQuery(
+    suggestion: SearchSuggestion,
+  ): Partial<VehicleSearchQuery> {
     if (suggestion.kind === "famous") {
-      navigate(getFamousSearch(suggestion.slug)?.query ?? {});
-      return;
+      return getFamousSearch(suggestion.slug)?.query ?? {};
     }
 
     if (suggestion.kind === "bodyType") {
-      navigate({ bodyType: suggestion.slug });
-      return;
+      return { bodyType: suggestion.slug };
     }
 
     if (suggestion.kind === "make") {
-      navigate({ make: suggestion.slug });
-      return;
+      return { make: suggestion.slug, model: undefined };
     }
 
-    navigate({ make: suggestion.makeSlug, model: suggestion.slug });
+    return { make: suggestion.makeSlug, model: suggestion.slug };
+  }
+
+  function applySuggestion(suggestion: SearchSuggestion) {
+    setQuery(suggestionLabel(suggestion));
+    const next = suggestionQuery(suggestion);
+    setSelectedQuery(next);
+    setOpen(false);
+
+    if (isToolbar) {
+      navigate(next);
+    }
   }
 
   function suggestionLabel(suggestion: SearchSuggestion) {
@@ -118,11 +141,18 @@ export function SearchPanel({
     <form
       role="search"
       onSubmit={onSubmit}
-      className="mx-auto w-full max-w-[363px] sm:max-w-[490px] md:max-w-[561px] lg:max-w-[637px]"
+      className={
+        isToolbar
+          ? "w-full lg:max-w-[330px] shrink-0"
+          : "mx-auto w-full max-w-[363px] sm:max-w-[490px] md:max-w-[561px] lg:max-w-[637px]"
+      }
     >
-      {/* Pill container with semi-transparent frosted styling */}
       <div
-        className="relative flex h-[54px] w-full items-center rounded-full border border-white/50 bg-background-primary/60 p-[5px] shadow-large backdrop-blur-md transition-all focus-within:border-white focus-within:bg-background-primary focus-within:shadow-spread dark:border-white/15 dark:bg-black/40"
+        className={
+          isToolbar
+            ? "relative flex h-11 w-full items-center rounded-full border border-white/25 bg-white/5 px-1.5 transition-colors focus-within:border-white/60 focus-within:bg-white/10"
+            : "relative flex h-[54px] w-full items-center rounded-full border border-white/50 bg-background-primary/60 p-[5px] shadow-large backdrop-blur-md transition-all focus-within:border-white focus-within:bg-background-primary focus-within:shadow-spread dark:border-white/15 dark:bg-black/40"
+        }
         onBlur={(event) => {
           if (
             !event.currentTarget.contains(event.relatedTarget as Node | null)
@@ -131,13 +161,23 @@ export function SearchPanel({
           }
         }}
       >
-        <Search className="pointer-events-none ms-3.5 size-5 shrink-0 text-text-secondary" />
+        <Search
+          className={
+            isToolbar
+              ? "pointer-events-none ms-2.5 size-4 shrink-0 text-white/70"
+              : "pointer-events-none ms-3.5 size-5 shrink-0 text-text-secondary"
+          }
+        />
 
         <input
           id={queryId}
           type="text"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(event) => {
+            setQuery(event.target.value);
+            setSelectedQuery(null);
+            setOpen(true);
+          }}
           onFocus={() => setOpen(true)}
           placeholder={t("queryPlaceholder")}
           autoComplete="off"
@@ -147,22 +187,43 @@ export function SearchPanel({
           aria-expanded={open}
           aria-controls={`${queryId}-suggestions`}
           aria-autocomplete="list"
-          className="h-full flex-1 bg-transparent px-3 text-sm text-text-primary placeholder:text-text-primary focus:outline-none sm:text-base"
+          className={
+            isToolbar
+              ? "h-full flex-1 bg-transparent px-2.5 text-sm text-white placeholder:text-white/70 focus:outline-none"
+              : "h-full flex-1 bg-transparent px-3 text-sm text-text-primary placeholder:text-text-primary focus:outline-none sm:text-base"
+          }
         />
 
-        {/* Circular icon button on mobile & tab (< lg); wide text pill button on desktop (lg:) */}
-        <Button
-          type="submit"
-          aria-label={t("submit")}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary p-0 text-primary-foreground shadow-sm transition-all hover:bg-primary/90 lg:h-11 lg:w-auto lg:px-6"
-        >
-          <span className="hidden text-sm font-medium lg:inline">
-            {t("submit")}
-          </span>
-          <ArrowRight className="size-5 lg:hidden rtl:rotate-180" />
-        </Button>
+        {isToolbar ? (
+          query.length > 0 ? (
+            <button
+              type="button"
+              aria-label="Clear search"
+              onClick={() => {
+                setQuery("");
+                setSelectedQuery(null);
+                if (initialQuery) {
+                  navigate({ q: undefined });
+                }
+              }}
+              className="me-1.5 flex size-7 shrink-0 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+            >
+              <X className="size-3.5" />
+            </button>
+          ) : null
+        ) : (
+          <Button
+            type="submit"
+            aria-label={t("submit")}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary p-0 text-primary-foreground shadow-sm transition-all hover:bg-primary/90 lg:h-11 lg:w-auto lg:px-6"
+          >
+            <span className="hidden text-sm font-medium lg:inline">
+              {t("submit")}
+            </span>
+            <ArrowRight className="size-5 lg:hidden rtl:rotate-180" />
+          </Button>
+        )}
 
-        {/* Suggestions Dropdown */}
         {open && visible.length > 0 ? (
           <ul
             id={`${queryId}-suggestions`}
@@ -179,7 +240,6 @@ export function SearchPanel({
                   className="flex w-full rounded-xl px-3.5 py-2.5 text-start text-sm text-text-primary transition-colors hover:bg-background-secondary"
                   onMouseDown={(event) => {
                     event.preventDefault();
-                    applySuggestion(suggestion);
                   }}
                   onClick={() => applySuggestion(suggestion)}
                 >

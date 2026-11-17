@@ -91,7 +91,7 @@
     "tesla": "Tesla"
   },
   "Listings": {
-    "featured": "Disponíveis em {city}",
+    "featured": "Em destaque",
     "results": "{count, plural, one {# carro} other {# carros}}",
     "emptyTitle": "Nenhum carro corresponde a esta busca",
     "emptyBody": "Tente outra marca, modelo ou tipo de carro.",
@@ -123,8 +123,20 @@
     "kmLimit": "{count} km",
     "perDayShort": "/ dia",
     "perMonthShort": "/ mês",
-    "call": "Ligar para o fornecedor",
-    "whatsapp": "Conversar no WhatsApp"
+    "call": "Ligar",
+    "whatsapp": "WhatsApp"
+  },
+  "SearchToolbar": {
+    "zeroDeposit": "Sem caução",
+    "monthly": "Mensal",
+    "airportDelivery": "Entrega no aeroporto",
+    "seatsCount": "{count} lugares",
+    "clearFilter": "Limpar filtro:",
+    "removeFilter": "Remover filtro {label}",
+    "sortBy": "Ordenar por:",
+    "sortRecommended": "Melhores ofertas",
+    "sortPriceAsc": "Preço: do menor para o maior",
+    "sortPriceDesc": "Preço: do maior para o menor"
   },
   "Cities": {
     "title": "Cidades em {country}",
@@ -245,6 +257,35 @@
     "unexpectedTitle": "Ocorreu um problema",
     "unexpectedBody": "Recarregue a página. Se continuar, o serviço de catálogo pode estar indisponível.",
     "retry": "Tentar novamente"
+  },
+  "FilterSidebar": {
+    "filter": "Filtrar",
+    "filterWithCount": "Filtrar ({count})",
+    "filtersHeading": "Filtros",
+    "closeFilters": "Fechar filtros",
+    "clearAllFilters": "Limpar todos os filtros",
+    "carType": "Tipo de carro",
+    "brandAndModel": "Marca e modelo",
+    "brand": "Marca",
+    "allBrands": "Todas as marcas",
+    "model": "Modelo",
+    "allModels": "Todos os modelos",
+    "rentalTerm": "Período de aluguer",
+    "daily": "Diário",
+    "monthly": "Mensal",
+    "carRentalOptions": "Opções de aluguer",
+    "allOptions": "Todas as opções",
+    "withoutDeposit": "Sem caução",
+    "numberOfSeats": "Número de lugares",
+    "seatsCount": "{count} lugares",
+    "deliveryOptions": "Opções de entrega",
+    "airportDelivery": "Entrega no aeroporto",
+    "modelYear": "Ano do modelo",
+    "transmission": "Transmissão",
+    "fuelType": "Tipo de combustível",
+    "locationAndArea": "Localização e zona",
+    "carFeatures": "Características do carro",
+    "exteriorCarColor": "Cor exterior do carro"
   },
   "Currencies": {
     "AED": "Dirham dos EAU",

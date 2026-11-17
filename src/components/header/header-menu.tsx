@@ -139,9 +139,9 @@ export function HeaderMenu({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-sm rounded-3xl border-border-subtle bg-white p-6 shadow-2xl dark:bg-background-primary [&>button]:end-4 [&>button]:right-auto [&>button]:text-primary">
-        <DialogHeader className="pb-2">
-          <DialogTitle className="text-start text-lg font-semibold text-text-primary">
+      <DialogContent className="max-w-sm rounded-3xl border-border-subtle bg-white p-6 shadow-2xl dark:bg-background-primary [&>button]:left-auto [&>button]:right-4 [&>button]:text-primary">
+        <DialogHeader className="pb-2 text-center sm:text-center">
+          <DialogTitle className="text-center text-lg font-semibold text-text-primary">
             {t("displaySettings")}
           </DialogTitle>
           <DialogDescription className="sr-only">

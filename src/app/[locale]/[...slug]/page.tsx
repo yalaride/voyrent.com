@@ -8,22 +8,38 @@ import type { RawSearchParams } from "@/domain/catalog/params";
 import { DEFAULT_LOCALE, isLocale, LOCALES } from "@/domain/geo/locales";
 import { requestLocale } from "@/server/seo/request-locale";
 import { countryHubPath } from "@/domain/routing/country-paths";
-import { catalogPath, indexableStaticPaths, listingPath, queryFromView } from "@/domain/routing/rent-paths";
+import {
+  catalogPath,
+  indexableStaticPaths,
+  listingPath,
+  queryFromView,
+} from "@/domain/routing/rent-paths";
 import { ListingDetail } from "@/features/catalog/listing-detail";
 import { MarketHome } from "@/features/home/market-home";
 import { SearchScreen } from "@/features/search/search-screen";
 import { AppShell } from "@/features/shell/app-shell";
 import { redirect } from "@/i18n/navigation";
 import { getListingForPath } from "@/server/catalog/catalog";
-import { isIndexable, pathCanonical, rentView, searchQueryFor } from "@/server/rent/resolve-rent";
-import { buildRentMetadata, vehicleJsonLd, websiteJsonLd } from "@/server/seo/metadata";
+import {
+  isIndexable,
+  pathCanonical,
+  rentView,
+  searchQueryFor,
+} from "@/server/rent/resolve-rent";
+import {
+  buildRentMetadata,
+  vehicleJsonLd,
+  websiteJsonLd,
+} from "@/server/seo/metadata";
 import { absoluteUrl } from "@/server/seo/origins";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type PageParams = { locale: string; slug: string[] };
 
 export function generateStaticParams() {
-  return LOCALES.flatMap((locale) => indexableStaticPaths().map((slug) => ({ locale, slug })));
+  return LOCALES.flatMap((locale) =>
+    indexableStaticPaths().map((slug) => ({ locale, slug })),
+  );
 }
 
 export async function generateMetadata({
@@ -33,7 +49,11 @@ export async function generateMetadata({
   params: Promise<PageParams>;
   searchParams: Promise<RawSearchParams>;
 }): Promise<Metadata> {
-  const [{ slug }, raw, locale] = await Promise.all([params, searchParams, requestLocale()]);
+  const [{ slug }, raw, locale] = await Promise.all([
+    params,
+    searchParams,
+    requestLocale(),
+  ]);
   if (!locale) return {};
   const view = rentView(slug);
   if (!view) return {};
@@ -50,7 +70,12 @@ export async function generateMetadata({
       : undefined;
   const path =
     view.kind === "listing" && listing
-      ? listingPath({ city: listing.city, make: listing.make, model: listing.model, id: listing.id })
+      ? listingPath({
+          city: listing.city,
+          make: listing.make,
+          model: listing.model,
+          id: listing.id,
+        })
       : view.kind === "country"
         ? countryHubPath(view.market.country)
         : catalogPath(view.market.city, queryFromView(view));
@@ -72,7 +97,11 @@ export default function RentRoute({
   searchParams: Promise<RawSearchParams>;
 }) {
   return (
-    <Suspense fallback={<Skeleton className="mx-auto mt-8 h-80 max-w-6xl rounded-2xl" />}>
+    <Suspense
+      fallback={
+        <Skeleton className="mx-auto mt-8 h-80 max-w-6xl rounded-2xl" />
+      }
+    >
       <RentRouteContent params={params} searchParams={searchParams} />
     </Suspense>
   );
@@ -114,28 +143,39 @@ async function RentRouteContent({
       model: listing.model,
       id: listing.id,
     });
-    const pageUrl = absoluteUrl(locale === DEFAULT_LOCALE ? path : `/${locale}${path}`);
+    const pageUrl = absoluteUrl(
+      locale === DEFAULT_LOCALE ? path : `/${locale}${path}`,
+    );
 
     return (
       <AppShell locale={locale} market={view.market}>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(vehicleJsonLd(listing, locale, pageUrl)) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(vehicleJsonLd(listing, locale, pageUrl)),
+          }}
+        />
         <ListingDetail market={view.market} locale={locale} listing={listing} />
       </AppShell>
     );
   }
 
   return (
-    <AppShell locale={locale} market={view.market} scope={view.kind === "country" ? "country" : "city"}>
+    <AppShell
+      locale={locale}
+      market={view.market}
+      scope={view.kind === "country" ? "country" : "city"}
+    >
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd(view.market, locale)) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteJsonLd(view.market, locale)),
+        }}
       />
       {view.kind === "country" && isIndexable(view, query) ? (
         <MarketHome market={view.market} locale={locale} scope="country" />
       ) : (
-        <div className="mx-auto max-w-6xl px-4 py-8">
-          <SearchScreen market={view.market} locale={locale} query={query} />
-        </div>
+        <SearchScreen market={view.market} locale={locale} query={query} />
       )}
     </AppShell>
   );
