@@ -47,6 +47,8 @@ interface FilterSidebarProps {
   makes: MakeOption[];
   models: ModelOption[];
   facets?: BackendFilterFacets;
+  variant?: "default" | "drawer";
+  hideMobileTrigger?: boolean;
 }
 
 function AccordionCard({
@@ -197,6 +199,8 @@ export function FilterSidebar({
   makes,
   models,
   facets,
+  variant = "default",
+  hideMobileTrigger = false,
 }: FilterSidebarProps) {
   const router = useRouter();
   const bodyLabels = useTranslations("BodyTypes");
@@ -543,19 +547,25 @@ export function FilterSidebar({
     </div>
   );
 
+  if (variant === "drawer") {
+    return sidebarContent;
+  }
+
   return (
     <>
       {/* Mobile / Tablet Filter Trigger */}
-      <div className="flex items-center justify-between lg:hidden">
-        <button
-          type="button"
-          onClick={() => setMobileOpen(true)}
-          className="inline-flex h-10 items-center gap-2 rounded-[var(--radius-12)] border border-border-default bg-background-primary px-4 text-sm font-medium text-text-primary shadow-[var(--shadow-small)]"
-        >
-          <SlidersHorizontal className="size-4" />
-          <span>{filterTitleText}</span>
-        </button>
-      </div>
+      {!hideMobileTrigger ? (
+        <div className="flex items-center justify-between lg:hidden">
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            className="inline-flex h-10 items-center gap-2 rounded-[var(--radius-12)] border border-border-default bg-background-primary px-4 text-sm font-medium text-text-primary shadow-[var(--shadow-small)]"
+          >
+            <SlidersHorizontal className="size-4" />
+            <span>{filterTitleText}</span>
+          </button>
+        </div>
+      ) : null}
 
       {/* Desktop Sidebar */}
       <aside className="hidden lg:block lg:w-[302px] lg:shrink-0">
@@ -563,7 +573,7 @@ export function FilterSidebar({
       </aside>
 
       {/* Mobile Drawer */}
-      {mobileOpen ? (
+      {!hideMobileTrigger && mobileOpen ? (
         <div className="fixed inset-0 z-50 flex lg:hidden">
           <div
             className="fixed inset-0 bg-black/50"

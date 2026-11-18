@@ -32,7 +32,11 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function LocaleIndex({ params }: { params: Promise<{ locale: string }> }) {
+export default function LocaleIndex({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   return (
     <Suspense fallback={<div className="min-h-dvh bg-background" />}>
       <HomePage params={params} />
@@ -56,7 +60,12 @@ async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
 
   return (
     <AppShell locale={locale} market={market}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd(market, locale)) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteJsonLd(market, locale)),
+        }}
+      />
       <MarketHome market={market} locale={locale} />
     </AppShell>
   );

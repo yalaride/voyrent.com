@@ -115,7 +115,7 @@ export function BrowseCarsSection({ city }: { city: string }) {
         </h2>
 
         {/* Grid: 2 cols (mobile) -> 4 cols (tablet) -> 5 cols (desktop) */}
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 justify-items-center">
+        <div className="mt-6 grid grid-cols-2 justify-items-center gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5">
           {CATEGORIES.map((item, index) => {
             // Responsive breakdown:
             // Mobile (< 768px): shows 6 items (index 0 to 5)
@@ -136,7 +136,7 @@ export function BrowseCarsSection({ city }: { city: string }) {
               <Link
                 key={item.id}
                 href={href}
-                className={`${visibilityClass} h-[179px] w-full max-w-[243px] flex-col items-center justify-between rounded-[16px] border border-[var(--Border-Default,#CCD0D8)] bg-white px-[20px] py-[14px] transition-all hover:border-text-primary hover:shadow-xs active:scale-[0.98]`}
+                className={`${visibilityClass} h-[179px] w-full max-w-[243px] flex-col items-center justify-between rounded-[16px] bg-white px-[20px] py-[14px]`}
               >
                 {/* Image */}
                 <div className="relative flex aspect-[170/96] w-full max-w-[170px] shrink-0 items-center justify-center">

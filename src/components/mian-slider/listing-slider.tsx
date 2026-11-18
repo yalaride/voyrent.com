@@ -13,6 +13,8 @@ import {
   type ListingCardModel,
 } from "@/features/catalog/listing-card";
 
+export type ListingSliderVariant = "default" | "search" | "related";
+
 interface ListingSliderProps {
   cards: ListingCardModel[];
   heading: string;
@@ -21,13 +23,15 @@ interface ListingSliderProps {
   viewAllLabel?: string;
   emptyTitle: string;
   emptyBody: string;
-  variant?: "default" | "search";
+  variant?: ListingSliderVariant;
+  desktopColumns?: 3 | 4;
   showHeader?: boolean;
   autoPlay?: boolean;
   autoPlayInterval?: number;
+  scrollBy?: "page" | "card";
 }
 
-const TOTAL_DOTS = 4;
+const CARD_GAP_PX = 16; // matches Tailwind gap-4
 
 export function ListingSlider({
   cards,
@@ -38,79 +42,117 @@ export function ListingSlider({
   emptyTitle,
   emptyBody,
   variant = "default",
+  desktopColumns = 4,
   showHeader = true,
   autoPlay = false,
   autoPlayInterval = 3500,
+  scrollBy,
 }: ListingSliderProps) {
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(false);
   const [activeDot, setActiveDot] = React.useState(0);
+  const [pageCount, setPageCount] = React.useState(1);
   const [isPaused, setIsPaused] = React.useState(false);
 
-  const checkScrollState = React.useCallback(() => {
+  const resolvedScrollBy = scrollBy ?? (variant === "search" ? "card" : "page");
+
+  const getMetrics = React.useCallback(
+    (el: HTMLDivElement) => {
+      const firstCard = el.firstElementChild as HTMLElement | null;
+      const cardWidth = firstCard ? firstCard.offsetWidth : el.clientWidth;
+      const cardStep = cardWidth + CARD_GAP_PX;
+      const visibleCount = Math.max(
+        1,
+        Math.round((el.clientWidth + CARD_GAP_PX) / cardStep),
+      );
+      const pageStep = visibleCount * cardStep;
+      const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
+      const totalPages = Math.max(1, Math.ceil(cards.length / visibleCount));
+
+      return { cardStep, pageStep, maxScroll, totalPages };
+    },
+    [cards.length],
+  );
+
+  const syncScrollState = React.useCallback(() => {
     const el = scrollContainerRef.current;
     if (!el) return;
-    const { scrollLeft, scrollWidth, clientWidth } = el;
 
-    const maxScroll = Math.max(0, scrollWidth - clientWidth);
-    const absScrollLeft = Math.abs(scrollLeft);
+    const { pageStep, maxScroll, totalPages } = getMetrics(el);
+    const absScrollLeft = Math.abs(el.scrollLeft);
 
     setCanScrollLeft(absScrollLeft > 4);
     setCanScrollRight(absScrollLeft < maxScroll - 4);
+    setPageCount(totalPages);
 
-    if (maxScroll > 0) {
-      const progress = absScrollLeft / maxScroll;
-      const index = Math.min(
-        TOTAL_DOTS - 1,
-        Math.max(0, Math.round(progress * (TOTAL_DOTS - 1))),
-      );
-      setActiveDot(index);
-    } else {
+    if (maxScroll <= 4 || totalPages <= 1) {
       setActiveDot(0);
+      return;
     }
-  }, []);
+
+    if (absScrollLeft >= maxScroll - 4) {
+      setActiveDot(totalPages - 1);
+      return;
+    }
+
+    const currentPage = Math.round(absScrollLeft / pageStep);
+    setActiveDot(Math.min(totalPages - 1, Math.max(0, currentPage)));
+  }, [getMetrics]);
 
   React.useEffect(() => {
     const el = scrollContainerRef.current;
     if (!el) return;
-    checkScrollState();
-    el.addEventListener("scroll", checkScrollState, { passive: true });
-    window.addEventListener("resize", checkScrollState);
+
+    syncScrollState();
+    el.addEventListener("scroll", syncScrollState, { passive: true });
+    window.addEventListener("resize", syncScrollState);
+
+    const observer =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(syncScrollState)
+        : null;
+    observer?.observe(el);
+
     return () => {
-      el.removeEventListener("scroll", checkScrollState);
-      window.removeEventListener("resize", checkScrollState);
+      el.removeEventListener("scroll", syncScrollState);
+      window.removeEventListener("resize", syncScrollState);
+      observer?.disconnect();
     };
-  }, [checkScrollState, cards.length]);
+  }, [syncScrollState]);
 
   const handleScroll = (direction: "left" | "right") => {
     const el = scrollContainerRef.current;
     if (!el) return;
-    const firstCard = el.firstElementChild as HTMLElement | null;
-    const scrollAmount = firstCard ? firstCard.offsetWidth + 16 : 324;
+
+    const { cardStep, pageStep } = getMetrics(el);
+    const step = resolvedScrollBy === "page" ? pageStep : cardStep;
     const isRtl = getComputedStyle(el).direction === "rtl";
     const sign = isRtl ? -1 : 1;
 
     el.scrollBy({
-      left: (direction === "left" ? -scrollAmount : scrollAmount) * sign,
+      left: (direction === "left" ? -step : step) * sign,
       behavior: "smooth",
     });
   };
 
-  const handleDotClick = React.useCallback((index: number) => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-    const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
-    const isRtl = getComputedStyle(el).direction === "rtl";
-    const targetScroll = (index / (TOTAL_DOTS - 1)) * maxScroll;
+  const handleDotClick = React.useCallback(
+    (pageIndex: number) => {
+      const el = scrollContainerRef.current;
+      if (!el) return;
 
-    el.scrollTo({
-      left: isRtl ? -targetScroll : targetScroll,
-      behavior: "smooth",
-    });
-  }, []);
+      const { pageStep, maxScroll } = getMetrics(el);
+      const isRtl = getComputedStyle(el).direction === "rtl";
+      const targetScroll = Math.min(pageIndex * pageStep, maxScroll);
 
-  // Auto-slide for search page slider (disabled by default on landing page)
+      el.scrollTo({
+        left: isRtl ? -targetScroll : targetScroll,
+        behavior: "smooth",
+      });
+    },
+    [getMetrics],
+  );
+
   React.useEffect(() => {
     if (!autoPlay || isPaused || cards.length <= 1) return;
 
@@ -118,18 +160,16 @@ export function ListingSlider({
       const el = scrollContainerRef.current;
       if (!el) return;
 
-      const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
+      const { cardStep, pageStep, maxScroll } = getMetrics(el);
       if (maxScroll <= 4) return;
 
       const isRtl = getComputedStyle(el).direction === "rtl";
       const absScrollLeft = Math.abs(el.scrollLeft);
 
       if (absScrollLeft >= maxScroll - 8) {
-        // Loop back to the first card
         el.scrollTo({ left: 0, behavior: "smooth" });
       } else {
-        const firstCard = el.firstElementChild as HTMLElement | null;
-        const step = firstCard ? firstCard.offsetWidth + 16 : 324;
+        const step = resolvedScrollBy === "page" ? pageStep : cardStep;
         el.scrollBy({
           left: (isRtl ? -1 : 1) * step,
           behavior: "smooth",
@@ -138,8 +178,20 @@ export function ListingSlider({
     }, autoPlayInterval);
 
     return () => window.clearInterval(timer);
-  }, [autoPlay, autoPlayInterval, isPaused, cards.length]);
+  }, [
+    autoPlay,
+    autoPlayInterval,
+    isPaused,
+    cards.length,
+    getMetrics,
+    resolvedScrollBy,
+  ]);
 
+  // Exact card widths per breakpoint -> zero half-card cutoffs
+  const cardWidthClass =
+    desktopColumns === 3
+      ? "w-full min-w-0 shrink-0 snap-start sm:w-[calc((100%-16px)/2)] xl:w-[calc((100%-32px)/3)]"
+      : "w-full min-w-0 shrink-0 snap-start sm:w-[calc((100%-16px)/2)] lg:w-[calc((100%-32px)/3)] xl:w-[calc((100%-48px)/4)]";
   const hasOverflow = canScrollLeft || canScrollRight;
 
   return (
@@ -150,7 +202,6 @@ export function ListingSlider({
       onFocusCapture={autoPlay ? () => setIsPaused(true) : undefined}
       onBlurCapture={autoPlay ? () => setIsPaused(false) : undefined}
     >
-      {/* Header Section (Landing Page only) */}
       {showHeader ? (
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div className="flex max-w-[601px] flex-col gap-2">
@@ -193,7 +244,7 @@ export function ListingSlider({
               <Button
                 asChild
                 variant="outline"
-                className="h-10 w-[107px] min-w-[107px] gap-2 rounded-full border border-[#0B7AD3] bg-transparent py-0 pe-3 ps-4 text-sm font-medium text-[#0B7AD3] shadow-none transition-colors hover:bg-[#0B7AD3]/10"
+                className="h-10 min-w-[107px] gap-2 rounded-full border border-[#0B7AD3] bg-transparent py-0 pe-3 ps-4 text-sm font-medium text-[#0B7AD3] shadow-none transition-colors hover:bg-[#0B7AD3]/10"
               >
                 <Link href={viewAllHref}>
                   <span className="truncate">{viewAllLabel}</span>
@@ -205,7 +256,6 @@ export function ListingSlider({
         </div>
       ) : null}
 
-      {/* Cards List / Slider */}
       {cards.length === 0 ? (
         <div
           className={`${showHeader ? "mt-8" : ""} rounded-2xl border border-dashed border-border-default bg-background-primary px-6 py-12 text-center`}
@@ -223,22 +273,15 @@ export function ListingSlider({
                        [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
           >
             {cards.map((listing) => (
-              <div
-                key={listing.id ?? listing.href}
-                className={
-                  variant === "search"
-                    ? "min-w-0 shrink-0 snap-start w-[min(308px,calc(100vw-48px))] sm:w-[calc((100%-16px)/2)] md:w-[calc((100%-32px)/3)] lg:w-[calc((100%-48px)/4)]"
-                    : "min-w-0 shrink-0 snap-start w-[min(308px,calc(100vw-48px))] md:w-[calc((100%-32px)/2.5)] xl:w-[308px]"
-                }
-              >
+              <div key={listing.id ?? listing.href} className={cardWidthClass}>
                 <ListingCard listing={listing} />
               </div>
             ))}
           </div>
 
-          {hasOverflow && (
+          {hasOverflow && pageCount > 1 ? (
             <div className="mt-4 flex items-center justify-center gap-2">
-              {Array.from({ length: TOTAL_DOTS }).map((_, index) => {
+              {Array.from({ length: pageCount }).map((_, index) => {
                 const isActive = activeDot === index;
                 return (
                   <button
@@ -255,7 +298,7 @@ export function ListingSlider({
                 );
               })}
             </div>
-          )}
+          ) : null}
         </>
       )}
     </div>

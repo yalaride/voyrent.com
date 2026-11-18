@@ -15,6 +15,7 @@ import type {
 } from "@/domain/catalog/types";
 import { catalogPath } from "@/domain/routing/rent-paths";
 import { useRouter } from "@/i18n/navigation";
+import { FilterSidebar } from "@/features/search/filter-sidebar";
 import { SearchPanel } from "@/features/search/search-panel";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 
@@ -194,9 +195,9 @@ export function SearchToolbar({
         <div className="w-full bg-background-section text-text-inverse">
           <LayoutWrapper className="py-[var(--spacing-space-20)]">
             <div className="flex flex-col gap-[var(--spacing-space-12)] lg:min-h-[var(--spacing-dim-48)] lg:flex-row lg:items-center lg:justify-between lg:gap-[var(--spacing-space-20)]">
-              {/* Mobile: full-width input | Tablet: input + Filter button | Desktop: input + dark chips */}
+              {/* Mobile: full-width input | Tablet: input + Filter button | Desktop: wider input + dark chips */}
               <div className="flex flex-1 items-center justify-between gap-[var(--spacing-space-16)] lg:flex-wrap lg:justify-start lg:gap-[var(--spacing-space-20)]">
-                <div className="w-full sm:max-w-[440px] sm:flex-1 lg:w-auto lg:max-w-none lg:flex-none [&>*]:w-full">
+                <div className="w-full sm:max-w-[440px] sm:flex-1 lg:w-[440px] lg:max-w-none lg:flex-none xl:w-[500px] [&>*]:w-full [&>*]:max-w-none">
                   <SearchPanel
                     key={searchQueryKey(query)}
                     variant="toolbar"
@@ -220,9 +221,13 @@ export function SearchToolbar({
                 {/* Desktop-only active filter chips inside dark bar */}
                 {chips.length > 0 ? (
                   <div className="hidden flex-wrap items-center gap-[var(--spacing-space-12)] lg:flex">
-                    <span className="inline-flex h-6 items-center align-middle text-[16px] font-medium leading-[1.5] text-text-inverse whitespace-nowrap">
+                    <button
+                      type="button"
+                      onClick={clearAllFilters}
+                      className="inline-flex h-6 cursor-pointer items-center align-middle text-[16px] font-medium leading-[1.5] text-text-inverse whitespace-nowrap transition-opacity hover:opacity-80"
+                    >
                       {t("clearFilter")}
-                    </span>
+                    </button>
                     {chips.map((chip) => (
                       <button
                         key={chip.key}
@@ -356,12 +361,16 @@ export function SearchToolbar({
               ) : null}
             </div>
 
-            {/* Tablet (sm to lg): Clear Filter label + Light-grey Chips */}
+            {/* Tablet (sm to lg): Clear Filter button + Light-grey Chips */}
             {chips.length > 0 ? (
               <div className="hidden flex-wrap items-center gap-2.5 sm:flex lg:hidden">
-                <span className="text-sm font-medium text-text-primary whitespace-nowrap">
+                <button
+                  type="button"
+                  onClick={clearAllFilters}
+                  className="cursor-pointer text-sm font-medium text-text-primary whitespace-nowrap transition-colors hover:text-primary"
+                >
                   {t("clearFilter")}
-                </span>
+                </button>
                 {chips.map((chip) => (
                   <button
                     key={chip.key}
@@ -410,8 +419,16 @@ export function SearchToolbar({
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 [&>*]:block [&>*]:w-full [&>*]:max-w-none">
-              {filterDrawerContent}
+            <div className="flex-1 overflow-y-auto p-4 [&>*]:w-full [&>*]:max-w-none">
+              {filterDrawerContent ?? (
+                <FilterSidebar
+                  city={city}
+                  query={query}
+                  makes={makes}
+                  models={models}
+                  variant="drawer"
+                />
+              )}
             </div>
           </div>
         </div>

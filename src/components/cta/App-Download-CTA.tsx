@@ -22,9 +22,8 @@ export async function AppDownloadCta({
   const t = await getTranslations("AppCta");
 
   return (
-    /* Section: 1440px container, lg:min-h-[448px], py-120px px-80px, gap-40px */
     <LayoutWrapper className="w-full bg-background-primary">
-      <div className="flex w-full  flex-col items-center justify-between gap-8 px-4 py-12 sm:flex-row sm:gap-6 sm:px-6 md:py-16 lg:min-h-[448px] lg:gap-10 lg:py-[120px]">
+      <div className="flex w-full flex-col items-center justify-between gap-8 py-12 sm:flex-row sm:gap-6 md:py-16 lg:min-h-[448px] lg:gap-10 lg:py-[120px]">
         {/* Left Side Content: centered on mobile, start-aligned on tablet & desktop */}
         <div className="flex w-full flex-1 flex-col items-center gap-6 text-center sm:max-w-[683px] sm:items-start sm:gap-8 sm:text-start">
           {/* Heading + Subtitle: gap 8px */}

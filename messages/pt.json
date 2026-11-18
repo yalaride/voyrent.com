@@ -90,42 +90,102 @@
     "chevrolet": "Chevrolet",
     "tesla": "Tesla"
   },
+
   "Listings": {
-    "featured": "Em destaque",
+    "featured": "Destaque",
     "results": "{count, plural, one {# carro} other {# carros}}",
-    "emptyTitle": "Nenhum carro corresponde a esta busca",
-    "emptyBody": "Tente outra marca, modelo ou tipo de carro.",
+    "emptyTitle": "Nenhum carro corresponde a esta pesquisa",
+    "emptyBody": "Tente outra marca, modelo ou tipo de veículo.",
     "perDay": "por dia",
     "perMonth": "por mês",
     "noDeposit": "Sem caução",
     "airport": "Entrega no aeroporto",
-    "seats": "{count, plural, one {# assento} other {# assentos}}",
+    "seats": "{count, plural, one {# lugar} other {# lugares}}",
     "automatic": "Automático",
     "manual": "Manual",
     "supplier": "Fornecedor",
     "supplierPrice": "Preço do fornecedor {price}",
     "view": "Ver carro",
-    "like": "Adicionar carro aos favoritos",
-    "liked": "Remover carro dos favoritos",
+    "like": "Adicionar aos favoritos",
+    "liked": "Remover dos favoritos",
     "request": "Solicitar este carro",
-    "requestNote": "Os pedidos de reserva serão enviados ao fornecedor por meio da API NestJS. Essa conexão ainda não está ativa.",
-    "back": "Voltar à busca",
+    "requestNote": "Os pedidos de reserva serão enviados ao fornecedor através da API NestJS. Essa ligação ainda não está ativa.",
+    "back": "Voltar à pesquisa",
     "previous": "Anterior",
-    "next": "Próxima",
+    "next": "Seguinte",
     "pageStatus": "Página {page} de {pages}",
     "bestDealsTitle": "Melhores ofertas de carros da semana",
-    "bestDealsSubtitle": "Veículos com preço abaixo do mercado, verificados pela nossa inteligência de ofertas",
-    "shopAllDeals": "Loja",
+    "bestDealsSubtitle": "Veículos abaixo do preço de mercado — verificados pela nossa inteligência de ofertas",
+    "shopAllDeals": "Ver ofertas",
     "premium": "Premium",
-    "freeDelivery": "Entrega grátis",
+    "freeDelivery": "Entrega gratuita",
     "minDays": "{count, plural, one {Mínimo de 1 dia} other {Mínimo de # dias}}",
-    "insuranceIncluded": "Seguro incluso",
+    "insuranceIncluded": "Seguro incluído",
     "kmLimit": "{count} km",
     "perDayShort": "/ dia",
+    "perWeekShort": "/ semana",
     "perMonthShort": "/ mês",
     "call": "Ligar",
-    "whatsapp": "WhatsApp"
+    "whatsapp": "WhatsApp",
+    "home": "Início",
+    "breadcrumb": "Navegação estrutural",
+    "share": "Partilhar",
+    "save": "Guardar",
+    "prevImage": "Imagem anterior",
+    "nextImage": "Imagem seguinte",
+    "lastUpdatedDefault": "Atualizado recentemente",
+    "pricingTitle": "Preços",
+    "dayUnit": "dia",
+    "weekUnit": "sem.",
+    "monthUnit": "mês",
+    "includedMileage": "Quilometragem incluída",
+    "kmUnit": "km",
+    "kmValue": "{count} km",
+    "additionalMileageCharges": "Taxas de quilometragem adicional",
+    "chauffeurCharges": "Taxas adicionais de motorista",
+    "overviewTitle": "Visão geral",
+    "bodyType": "Tipo de carroçaria",
+    "make": "Marca",
+    "model": "Modelo",
+    "mileage": "Quilometragem",
+    "seatingCapacity": "Lotação",
+    "passengers": "{count, plural, one {# passageiro} other {# passageiros}}",
+    "mpg": "MPG",
+    "transmissionLabel": "Transmissão",
+    "fuelType": "Combustível",
+    "gasoline": "Gasolina",
+    "engine": "Motor",
+    "featuresTitle": "Características",
+    "extColor": "Cor ext.",
+    "intColor": "Cor int.",
+    "featureComfort": "Conforto e conveniência",
+    "featureTechnology": "Tecnologia e conectividade",
+    "featureSafety": "Segurança e assistência ao condutor",
+    "featureAppearance": "Aparência e estilo",
+    "featureBackupCamera": "Câmara de marcha-atrás",
+    "featureCleanTitle": "Registo limpo",
+    "featureNoAccidents": "Sem acidentes",
+    "viewAllFeatures": "Ver todas as características",
+    "installedOptionsTitle": "Opções e pacotes instalados",
+    "installedOptionsNote": "*Pode substituir o equipamento de série.",
+    "reviewsCount": "{count, plural, one {# avaliação} other {# avaliações}}",
+    "openStatus": "Aberto",
+    "closesAt": "Fecha às {time}",
+    "sunday": "Domingo",
+    "monday": "Segunda-feira",
+    "tuesday": "Terça-feira",
+    "wednesday": "Quarta-feira",
+    "thursday": "Quinta-feira",
+    "friday": "Sexta-feira",
+    "saturday": "Sábado",
+    "rentalTerms": "Termos de aluguer",
+    "mileagePolicy": "Política de quilometragem",
+    "fuelPolicy": "Política de combustível",
+    "depositPolicy": "Política de caução",
+    "rentalPolicy": "Política de aluguer",
+    "dealerInfoLocation": "Informações e localização do fornecedor"
   },
+
   "SearchToolbar": {
     "zeroDeposit": "Sem caução",
     "monthly": "Mensal",
@@ -286,6 +346,82 @@
     "locationAndArea": "Localização e zona",
     "carFeatures": "Características do carro",
     "exteriorCarColor": "Cor exterior do carro"
+  },
+
+  "PrivacyPolicy": {
+    "breadcrumb": {
+      "ariaLabel": "Navegação estrutural",
+      "home": "Início",
+      "current": "Política de Privacidade"
+    },
+    "hero": {
+      "title": "Política de Privacidade",
+      "subtitle": "Esta política descreve como a RutaRide coleta, utiliza e protege suas informações pessoais quando você utiliza nossa plataforma e nossos serviços.",
+      "lastUpdated": "Última atualização: 10 de outubro de 2026"
+    },
+    "introduction": {
+      "title": "Introdução",
+      "p1": "A RutaRide respeita sua privacidade e está comprometida em proteger as informações pessoais coletadas de você por meio do nosso site e aplicativo móvel (doravante denominados coletivamente como “Plataforma”). Esta política de privacidade estabelece como coletamos e utilizamos informações. Ao utilizar os serviços disponibilizados em nossa Plataforma (“Serviços”), você concorda em cumprir esta política. Todas as referências nesta política aos termos “nós/nosso/nossa” referem-se a <siteLink>rutaride.com</siteLink>. Esta Política de Privacidade complementa quaisquer outros termos e condições aplicáveis à Plataforma. As disposições específicas de privacidade contidas em quaisquer documentos disponibilizados por nós devem ser lidas em conjunto com esta Política de Privacidade.",
+      "p2": "As políticas do site e os Termos e Condições podem ser alterados ou atualizados ocasionalmente para atender aos requisitos e padrões aplicáveis. Portanto, os clientes são incentivados a visitar essas seções frequentemente para se manterem informados sobre as alterações no site. As modificações entrarão em vigor no dia em que forem publicadas.",
+      "p3": "Reservamo-nos o direito, a nosso critério, de modificar ou remover partes desta Política de Privacidade a qualquer momento. Você deve revisar esta Política de Privacidade periodicamente para se manter informado sobre quaisquer alterações. Não fazemos declarações sobre sites de terceiros que possam estar vinculados à Plataforma. Ao utilizar os Serviços, você terá a opção de nos fornecer informações pessoais, como seu endereço de e-mail, para que possamos mantê-lo informado. Utilizamos essas informações para fornecer os Serviços."
+    },
+    "rentalGuide": {
+      "title": "O que observar ao alugar um veículo",
+      "description": "Encontrar o carro de aluguel perfeito pelo preço certo não precisa ser difícil. Com o recurso \"Bid My Price\" da RutaRide, você pode negociar o preço do aluguel em vez de simplesmente aceitar a tarifa anunciada. Isso oferece aos viajantes mais flexibilidade e a oportunidade de economizar dinheiro ao reservar com operadores de aluguel verificados."
+    },
+    "roadRules": {
+      "title": "Regras de trânsito importantes",
+      "description": "Os limites de velocidade são rigorosamente fiscalizados por câmeras. Respeite o limite indicado e a pequena margem de tolerância, sinalize todas as mudanças de faixa e nunca ultrapasse pela direita. Nas rotatórias, a preferência é dos veículos que vêm pela esquerda. O recurso <strong>Bid My Price</strong> da RutaRide oferece aos clientes mais controle sobre o processo de aluguel de veículos. Em vez de aceitar preços fixos, você tem a oportunidade de negociar uma oferta melhor ao reservar por meio de um marketplace confiável. Seguindo estas etapas simples, pesquisando um veículo, comparando opções, fazendo uma oferta e concluindo sua reserva, você poderá desfrutar de uma experiência de aluguel mais tranquila e potencialmente economizar em sua próxima viagem.",
+      "bullets": {
+        "contactDetails": "Informações como seu nome, endereço de e-mail e outros dados de contato (incluindo informações fornecidas ao preencher formulários na Plataforma).",
+        "noCardStorage": "Todos os dados de cartões de crédito/débito e informações de identificação pessoal <strong>NÃO</strong> serão armazenados, vendidos, compartilhados, alugados ou cedidos a terceiros.",
+        "noCardThirdParty": "Não compartilharemos quaisquer dados de cartões de crédito/débito com <strong>terceiros</strong>.",
+        "securityMeasures": "Pretendemos tomar medidas adequadas para garantir a privacidade e a segurança dos dados, inclusive por meio de diversas metodologias de hardware e software. No entanto, a RutaRide não pode garantir a segurança de quaisquer informações divulgadas online.",
+        "correspondence": "Se você entrar em contato conosco, poderemos manter um registro dessa correspondência.",
+        "surveys": "Também poderemos solicitar que você responda a pesquisas utilizadas para fins de investigação, embora sua participação não seja obrigatória.",
+        "ipAddress": "Observe que podemos utilizar seu endereço de protocolo de Internet (endereço IP), que é um número exclusivo atribuído ao seu servidor de computador ou ao seu provedor de serviços de Internet (ISP). Utilizamos seu endereço IP para ajudar a diagnosticar problemas em nosso servidor de computador e administrar nosso(s) site(s). Seu endereço IP pode ajudar a identificá-lo, mas não contém informações pessoais sobre você."
+      },
+      "confirmation": {
+        "title": "A confirmação contém:",
+        "items": {
+          "operatorContacts": "Dados de contato do operador de aluguel",
+          "pickupInstructions": "Instruções para retirada do veículo"
+        }
+      }
+    },
+    "cookies": {
+      "title": "Cookies e tecnologias de rastreamento",
+      "description": "Utilizamos cookies e tecnologias de rastreamento semelhantes para monitorar a atividade em nossa plataforma e armazenar determinadas informações analíticas para melhorar sua experiência.",
+      "table": {
+        "headers": {
+          "type": "Tipo de cookie",
+          "purpose": "Finalidade"
+        },
+        "rows": {
+          "essential": {
+            "type": "Essenciais",
+            "purpose": "Necessários para as funcionalidades principais do site, como login e reservas."
+          },
+          "analytics": {
+            "type": "Analíticos",
+            "purpose": "Ajudam a compreender como os visitantes interagem com nosso site."
+          },
+          "preferences": {
+            "type": "Preferências",
+            "purpose": "Lembram suas configurações, idioma e preferências de exibição."
+          },
+          "marketing": {
+            "type": "Marketing",
+            "purpose": "Utilizados para enviar comunicações relevantes e medir a eficácia das campanhas."
+          }
+        }
+      }
+    },
+    "payments": {
+      "title": "Pagamentos",
+      "description": "Os limites de velocidade são rigorosamente fiscalizados por câmeras. Respeite o limite indicado e a pequena margem de tolerância, sinalize todas as mudanças de faixa e nunca ultrapasse pela direita. Nas rotatórias, a preferência é dos veículos que vêm pela esquerda. O recurso Bid My Price da RutaRide oferece aos clientes mais controle sobre o processo de aluguel de veículos. Em vez de aceitar preços fixos, você tem a oportunidade de negociar uma oferta melhor ao reservar por meio de um marketplace confiável.",
+      "securityNote": "Implementamos medidas técnicas e organizacionais adequadas para proteger suas informações pessoais contra acesso, alteração, divulgação ou destruição não autorizados."
+    }
   },
   "Currencies": {
     "AED": "Dirham dos EAU",

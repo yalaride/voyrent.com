@@ -33,7 +33,8 @@ export const metadata: Metadata = {
     default: "GleeCars",
     template: "%s · GleeCars",
   },
-  description: "Compare rental cars from local suppliers across cities, languages, and currencies.",
+  description:
+    "Compare rental cars from local suppliers across cities, languages, and currencies.",
   applicationName: "GleeCars",
   verification: rootVerification(),
   robots: { index: true, follow: true },
@@ -51,7 +52,11 @@ export default function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   return (
-    <html lang="en" className={`${sans.variable} ${arabic.variable} h-full antialiased`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${sans.variable} ${arabic.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
       <body className="min-h-full bg-background text-foreground">
         <Suspense fallback={<div className="min-h-dvh bg-background" />}>
           <LocaleDocument params={params}>{children}</LocaleDocument>
@@ -71,7 +76,10 @@ async function LocaleDocument({
   const { locale: requested } = await params;
   // Unknown segments still render the page, which calls notFound() inside its own Suspense.
   // Throwing here sits outside that boundary and fails instant validation.
-  const locale = hasLocale(routing.locales, requested) && isLocale(requested) ? requested : routing.defaultLocale;
+  const locale =
+    hasLocale(routing.locales, requested) && isLocale(requested)
+      ? requested
+      : routing.defaultLocale;
 
   setRequestLocale(locale);
   const messages = await getMessages();
@@ -81,7 +89,12 @@ async function LocaleDocument({
     <NextIntlClientProvider locale={locale} messages={messages}>
       <DocumentLocale locale={locale} direction={direction} />
       <GoogleTagManager id={serverEnv.NEXT_PUBLIC_GTM_ID} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationJsonLd()),
+        }}
+      />
       {children}
     </NextIntlClientProvider>
   );

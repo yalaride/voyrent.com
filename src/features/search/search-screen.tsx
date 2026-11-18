@@ -30,6 +30,15 @@ export async function SearchScreen({
         query={query}
         makes={makes}
         models={models}
+        filterDrawerContent={
+          <FilterSidebar
+            city={market.city}
+            query={query}
+            makes={makes}
+            models={models}
+            variant="drawer"
+          />
+        }
       />
 
       {/* 2. Top Premium Auto-Slider */}
@@ -64,6 +73,7 @@ export async function SearchScreen({
             query={query}
             makes={makes}
             models={models}
+            hideMobileTrigger
           />
 
           <div className="min-w-0">

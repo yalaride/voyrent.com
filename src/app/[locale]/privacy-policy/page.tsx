@@ -6,7 +6,6 @@ import LayoutWrapper from "@/components/layout/LayoutWrapper";
 export default async function PrivacyPage() {
   const t = await getTranslations("PrivacyPolicy");
 
-  // 1. Replace bulletPoints & cookieRows with stable keys:
   const bulletPoints = [
     { id: "contactDetails", content: t("roadRules.bullets.contactDetails") },
     {
@@ -32,6 +31,17 @@ export default async function PrivacyPage() {
     { id: "correspondence", content: t("roadRules.bullets.correspondence") },
     { id: "surveys", content: t("roadRules.bullets.surveys") },
     { id: "ipAddress", content: t("roadRules.bullets.ipAddress") },
+  ];
+
+  const confirmationItems = [
+    {
+      id: "operatorContacts",
+      content: t("roadRules.confirmation.items.operatorContacts"),
+    },
+    {
+      id: "pickupInstructions",
+      content: t("roadRules.confirmation.items.pickupInstructions"),
+    },
   ];
 
   const cookieRows = [
@@ -64,7 +74,7 @@ export default async function PrivacyPage() {
         <LayoutWrapper>
           <div className="flex w-full flex-col items-start gap-[var(--spacing-space-16)]">
             <nav
-              aria-label="Breadcrumb"
+              aria-label={t("breadcrumb.ariaLabel")}
               className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-medium"
             >
               <Link
@@ -105,12 +115,12 @@ export default async function PrivacyPage() {
               <h2 className="w-full text-[length:var(--text-h2)] leading-[var(--text-h2--line-height)] font-semibold text-text-primary">
                 {t("introduction.title")}
               </h2>
-              <div className="w-full space-y-[var(--spacing-space-16)] text-justify text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-normal text-text-secondary">
+              <div className="w-full space-y-[var(--spacing-space-16)] text-start text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-normal text-text-secondary">
                 <p>
                   {t.rich("introduction.p1", {
                     siteLink: (chunks) => (
                       <a
-                        href="https://yalaride.com"
+                        href="https://rutaride.com"
                         target="_blank"
                         rel="noreferrer"
                         className="text-link hover:underline"
@@ -130,7 +140,7 @@ export default async function PrivacyPage() {
               <h2 className="w-full text-[length:var(--text-h2)] leading-[var(--text-h2--line-height)] font-semibold text-text-primary">
                 {t("rentalGuide.title")}
               </h2>
-              <p className="w-full text-justify text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-normal text-text-secondary">
+              <p className="w-full text-start text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-normal text-text-secondary">
                 {t("rentalGuide.description")}
               </p>
             </section>
@@ -140,7 +150,7 @@ export default async function PrivacyPage() {
               <h2 className="w-full text-[length:var(--text-h2)] leading-[var(--text-h2--line-height)] font-semibold text-text-primary">
                 {t("roadRules.title")}
               </h2>
-              <div className="w-full space-y-[var(--spacing-space-16)] text-justify text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-normal text-text-secondary">
+              <div className="w-full space-y-[var(--spacing-space-16)] text-start text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-normal text-text-secondary">
                 <p>
                   {t.rich("roadRules.description", {
                     strong: (chunks) => (
@@ -150,11 +160,24 @@ export default async function PrivacyPage() {
                     ),
                   })}
                 </p>
-                <ul className="list-disc space-y-[var(--spacing-space-8)] ps-[var(--spacing-space-20)] text-justify">
+
+                <ul className="list-disc space-y-[var(--spacing-space-8)] ps-[var(--spacing-space-20)]">
                   {bulletPoints.map((item) => (
                     <li key={item.id}>{item.content}</li>
                   ))}
                 </ul>
+
+                {/* The confirmation contains: */}
+                <div className="space-y-[var(--spacing-space-8)] pt-[var(--spacing-space-8)]">
+                  <h3 className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-semibold text-text-primary">
+                    {t("roadRules.confirmation.title")}
+                  </h3>
+                  <ul className="list-disc space-y-[var(--spacing-space-8)] ps-[var(--spacing-space-20)]">
+                    {confirmationItems.map((item) => (
+                      <li key={item.id}>{item.content}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </section>
 
@@ -164,7 +187,7 @@ export default async function PrivacyPage() {
                 <h2 className="w-full text-[length:var(--text-h2)] leading-[var(--text-h2--line-height)] font-semibold text-text-primary">
                   {t("cookies.title")}
                 </h2>
-                <p className="w-full text-justify text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-normal text-text-secondary">
+                <p className="w-full text-start text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-normal text-text-secondary">
                   {t("cookies.description")}
                 </p>
               </div>
@@ -173,10 +196,16 @@ export default async function PrivacyPage() {
                 <table className="w-full border-collapse text-start">
                   <thead>
                     <tr className="border-b border-border-default bg-background-secondary text-[length:var(--text-body-small)] leading-[var(--text-body-small--line-height)] text-text-primary">
-                      <th className="w-1/4 px-[var(--spacing-space-16)] py-[var(--spacing-space-12)] font-medium">
+                      <th
+                        scope="col"
+                        className="w-[1%] whitespace-nowrap py-[var(--spacing-space-12)] ps-[var(--spacing-space-16)] pe-[var(--spacing-space-40)] text-start font-medium"
+                      >
                         {t("cookies.table.headers.type")}
                       </th>
-                      <th className="w-3/4 px-[var(--spacing-space-16)] py-[var(--spacing-space-12)] font-medium">
+                      <th
+                        scope="col"
+                        className="px-[var(--spacing-space-16)] py-[var(--spacing-space-12)] text-start font-medium"
+                      >
                         {t("cookies.table.headers.purpose")}
                       </th>
                     </tr>
@@ -184,17 +213,17 @@ export default async function PrivacyPage() {
                   <tbody className="divide-y divide-border-default text-[length:var(--text-body-small)] leading-[var(--text-body-small--line-height)]">
                     {cookieRows.map((row, index) => (
                       <tr
-                        key={row.type}
+                        key={row.id}
                         className={
                           index % 2 === 0
                             ? "bg-background-primary"
                             : "bg-background-secondary"
                         }
                       >
-                        <td className="whitespace-nowrap px-[var(--spacing-space-16)] py-[var(--spacing-space-12)] font-medium text-text-primary">
+                        <td className="w-[1%] whitespace-nowrap py-[var(--spacing-space-12)] ps-[var(--spacing-space-16)] pe-[var(--spacing-space-40)] text-start font-medium text-text-primary">
                           {row.type}
                         </td>
-                        <td className="px-[var(--spacing-space-16)] py-[var(--spacing-space-12)] text-text-secondary">
+                        <td className="px-[var(--spacing-space-16)] py-[var(--spacing-space-12)] text-start text-text-secondary">
                           {row.purpose}
                         </td>
                       </tr>
@@ -209,7 +238,7 @@ export default async function PrivacyPage() {
               <h2 className="w-full text-[length:var(--text-h2)] leading-[var(--text-h2--line-height)] font-semibold text-text-primary">
                 {t("payments.title")}
               </h2>
-              <p className="w-full text-justify text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-normal text-text-secondary">
+              <p className="w-full text-start text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-normal text-text-secondary">
                 {t("payments.description")}
               </p>
 

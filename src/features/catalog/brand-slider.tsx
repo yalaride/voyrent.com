@@ -81,7 +81,7 @@ function BrandSliderView({
   };
 
   return (
-    <div className="relative mx-auto flex w-full max-w-[1440px] items-center gap-[10px] px-4 py-3">
+    <div className="relative flex w-full items-center gap-[10px] py-3 px-4">
       {/* Scroll Left Button */}
       <button
         type="button"
@@ -95,7 +95,7 @@ function BrandSliderView({
       {/* Scroll Track */}
       <div
         ref={scrollRef}
-        className="no-scrollbar flex flex-1 items-center gap-[10px] overflow-x-auto scroll-smooth py-1 [-webkit-overflow-scrolling:touch]"
+        className="no-scrollbar flex min-w-0 flex-1 items-center gap-[10px] overflow-x-auto scroll-smooth py-1 [-webkit-overflow-scrolling:touch]"
       >
         {brands.map((brand) => (
           <Link

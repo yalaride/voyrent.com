@@ -89,11 +89,12 @@
     "chevrolet": "Chevrolet",
     "tesla": "Tesla"
   },
+
   "Listings": {
-    "featured": "À la une",
+    "featured": "En vedette",
     "results": "{count, plural, one {# voiture} other {# voitures}}",
     "emptyTitle": "Aucune voiture ne correspond à cette recherche",
-    "emptyBody": "Essayez une autre marque, un autre modèle ou un autre type de voiture.",
+    "emptyBody": "Essayez une autre marque, un autre modèle ou un autre type de véhicule.",
     "perDay": "par jour",
     "perMonth": "par mois",
     "noDeposit": "Sans caution",
@@ -102,28 +103,86 @@
     "automatic": "Automatique",
     "manual": "Manuelle",
     "supplier": "Fournisseur",
-    "supplierPrice": "Prix du fournisseur {price}",
+    "supplierPrice": "Prix fournisseur {price}",
     "view": "Voir la voiture",
-    "like": "Ajouter la voiture aux favoris",
-    "liked": "Retirer la voiture des favoris",
+    "like": "Ajouter aux favoris",
+    "liked": "Retirer des favoris",
     "request": "Demander cette voiture",
     "requestNote": "Les demandes de réservation seront envoyées au fournisseur via l'API NestJS. Cette connexion n'est pas encore active.",
     "back": "Retour à la recherche",
     "previous": "Précédent",
     "next": "Suivant",
     "pageStatus": "Page {page} sur {pages}",
-    "bestDealsTitle": "Les meilleures offres de voitures de la semaine",
-    "bestDealsSubtitle": "Des véhicules à prix inférieur au marché, vérifiés par notre intelligence des offres",
-    "shopAllDeals": "Boutique",
+    "bestDealsTitle": "Meilleures offres auto de la semaine",
+    "bestDealsSubtitle": "Des véhicules sous le prix du marché — vérifiés par notre intelligence tarifaire",
+    "shopAllDeals": "Voir les offres",
     "premium": "Premium",
     "freeDelivery": "Livraison gratuite",
-    "minDays": "{count, plural, one {1 jour minimum} other {# jours minimum}}",
+    "minDays": "{count, plural, one {Minimum 1 jour} other {Minimum # jours}}",
     "insuranceIncluded": "Assurance incluse",
     "kmLimit": "{count} km",
     "perDayShort": "/ jour",
+    "perWeekShort": "/ semaine",
     "perMonthShort": "/ mois",
     "call": "Appeler",
-    "whatsapp": "WhatsApp"
+    "whatsapp": "WhatsApp",
+    "home": "Accueil",
+    "breadcrumb": "Fil d'Ariane",
+    "share": "Partager",
+    "save": "Enregistrer",
+    "prevImage": "Image précédente",
+    "nextImage": "Image suivante",
+    "lastUpdatedDefault": "Mis à jour récemment",
+    "pricingTitle": "Tarifs",
+    "dayUnit": "jour",
+    "weekUnit": "sem.",
+    "monthUnit": "mois",
+    "includedMileage": "Kilométrage inclus",
+    "kmUnit": "km",
+    "kmValue": "{count} km",
+    "additionalMileageCharges": "Frais de kilométrage supplémentaire",
+    "chauffeurCharges": "Frais supplémentaires chauffeur / conducteur",
+    "overviewTitle": "Aperçu",
+    "bodyType": "Carrosserie",
+    "make": "Marque",
+    "model": "Modèle",
+    "mileage": "Kilométrage",
+    "seatingCapacity": "Nombre de places",
+    "passengers": "{count, plural, one {# passager} other {# passagers}}",
+    "mpg": "MPG",
+    "transmissionLabel": "Transmission",
+    "fuelType": "Carburant",
+    "gasoline": "Essence",
+    "engine": "Moteur",
+    "featuresTitle": "Équipements",
+    "extColor": "Couleur ext.",
+    "intColor": "Couleur int.",
+    "featureComfort": "Confort et commodité",
+    "featureTechnology": "Technologie et connectivité",
+    "featureSafety": "Sécurité et aide à la conduite",
+    "featureAppearance": "Apparence et style",
+    "featureBackupCamera": "Caméra de recul",
+    "featureCleanTitle": "Historique vierge",
+    "featureNoAccidents": "Aucun accident",
+    "viewAllFeatures": "Voir tous les équipements",
+    "installedOptionsTitle": "Options et packs installés",
+    "installedOptionsNote": "*Peut remplacer l'équipement de série.",
+    "reviewsCount": "{count, plural, one {# avis} other {# avis}}",
+    "openStatus": "Ouvert",
+    "closesAt": "Ferme à {time}",
+    "sunday": "Dimanche",
+    "monday": "Lundi",
+    "tuesday": "Mardi",
+    "wednesday": "Mercredi",
+    "thursday": "Jeudi",
+    "friday": "Vendredi",
+    "saturday": "Samedi",
+    "rentalTerms": "Conditions de location",
+    "mileagePolicy": "Politique de kilométrage",
+    "fuelPolicy": "Politique de carburant",
+    "depositPolicy": "Politique de caution",
+    "rentalPolicy": "Politique de location",
+    "dealerInfoLocation": "Infos et localisation de l'agence"
   },
   "Cities": {
     "title": "Villes en {country}",
@@ -285,6 +344,81 @@
     "locationAndArea": "Lieu et zone",
     "carFeatures": "Équipements du véhicule",
     "exteriorCarColor": "Couleur extérieure"
+  },
+  "PrivacyPolicy": {
+    "breadcrumb": {
+      "ariaLabel": "Fil d’Ariane",
+      "home": "Accueil",
+      "current": "Politique de confidentialité"
+    },
+    "hero": {
+      "title": "Politique de confidentialité",
+      "subtitle": "Cette politique décrit comment RutaRide collecte, utilise et protège vos informations personnelles lorsque vous utilisez notre plateforme et nos services.",
+      "lastUpdated": "Dernière mise à jour : 10 octobre 2026"
+    },
+    "introduction": {
+      "title": "Introduction",
+      "p1": "RutaRide respecte votre vie privée et s’engage à protéger les informations personnelles recueillies auprès de vous par le biais de notre site Web et de notre application mobile (collectivement désignés ci-après comme la « Plateforme »). Cette politique de confidentialité régit la manière dont nous collectons et utilisons les informations. En utilisant les services proposés sur notre Plateforme (« Services »), vous acceptez d’être lié par cette politique. Toutes les références dans cette politique aux termes « nous/notre/nos » désignent <siteLink>rutaride.com</siteLink>. Cette politique de confidentialité complète les autres conditions générales applicables à la Plateforme. Les dispositions spécifiques relatives à la confidentialité figurant dans les documents que nous mettons à votre disposition doivent être lues conjointement avec cette politique de confidentialité.",
+      "p2": "Les politiques du site Web ainsi que les conditions générales peuvent être modifiées ou mises à jour occasionnellement afin de répondre aux exigences et aux normes applicables. Les clients sont donc invités à consulter régulièrement ces sections afin de se tenir informés des modifications apportées au site Web. Les modifications prennent effet le jour de leur publication.",
+      "p3": "Nous nous réservons le droit, à notre discrétion, de modifier ou de supprimer certaines parties de cette politique de confidentialité à tout moment. Vous devez consulter régulièrement cette politique afin de rester informé de toute modification. Nous ne faisons aucune déclaration concernant les sites Web de tiers pouvant être liés à la Plateforme. Lorsque vous utilisez les Services, vous avez la possibilité de nous fournir des informations personnelles, telles que votre adresse e-mail, afin que nous puissions vous tenir informé. Nous utilisons ces informations pour fournir les Services."
+    },
+    "rentalGuide": {
+      "title": "Points à vérifier lors de votre location",
+      "description": "Trouver la voiture de location idéale au bon prix ne doit pas être compliqué. Grâce à la fonctionnalité « Bid My Price » de RutaRide, vous pouvez négocier le prix de location au lieu d’accepter simplement le tarif affiché. Cela offre aux voyageurs davantage de flexibilité et la possibilité de réaliser des économies tout en réservant auprès d’opérateurs de location vérifiés."
+    },
+    "roadRules": {
+      "title": "Règles de circulation à retenir",
+      "description": "Les limitations de vitesse sont strictement contrôlées par des caméras. Respectez la limitation affichée ainsi que la petite marge de tolérance, signalez chaque changement de voie et ne dépassez jamais par la droite. Dans les ronds-points, la priorité est accordée aux véhicules venant de gauche. La fonctionnalité <strong>Bid My Price</strong> de RutaRide donne aux clients davantage de contrôle sur le processus de location de voiture. Au lieu d’accepter des prix fixes, vous avez la possibilité de négocier une meilleure offre en réservant via une plateforme de confiance. En suivant ces étapes simples, en recherchant un véhicule, en comparant les options, en faisant une offre et en finalisant votre réservation, vous pouvez profiter d’une expérience de location plus fluide et potentiellement économiser sur votre prochain voyage.",
+      "bullets": {
+        "contactDetails": "Informations telles que votre nom, votre adresse e-mail et vos autres coordonnées (y compris les informations que vous fournissez en remplissant les formulaires sur la Plateforme).",
+        "noCardStorage": "Les informations relatives aux cartes de crédit ou de débit ainsi que les données permettant de vous identifier personnellement ne seront <strong>PAS</strong> stockées, vendues, partagées, louées ou cédées à des tiers.",
+        "noCardThirdParty": "Nous ne transmettrons aucune information relative aux cartes de crédit ou de débit à des <strong>tiers</strong>.",
+        "securityMeasures": "Nous entendons prendre les mesures appropriées pour garantir la confidentialité et la sécurité des données, notamment au moyen de différentes méthodes matérielles et logicielles. Toutefois, RutaRide ne peut garantir la sécurité des informations divulguées en ligne.",
+        "correspondence": "Si vous nous contactez, nous pouvons conserver une trace de cette correspondance.",
+        "surveys": "Nous pouvons également vous demander de répondre à des enquêtes utilisées à des fins de recherche, mais vous n’êtes pas obligé d’y participer.",
+        "ipAddress": "Veuillez noter que nous pouvons utiliser votre adresse de protocole Internet (adresse IP), qui est un numéro unique attribué à votre serveur informatique ou à votre fournisseur d’accès à Internet (FAI). Nous utilisons votre adresse IP pour aider à diagnostiquer les problèmes liés à notre serveur informatique et à administrer notre ou nos sites Web. Votre adresse IP peut contribuer à vous identifier, mais ne contient aucune information personnelle vous concernant."
+      },
+      "confirmation": {
+        "title": "La confirmation contient :",
+        "items": {
+          "operatorContacts": "Les coordonnées de l’opérateur de location",
+          "pickupInstructions": "Les instructions de prise en charge du véhicule"
+        }
+      }
+    },
+    "cookies": {
+      "title": "Cookies et technologies de suivi",
+      "description": "Nous utilisons des cookies et des technologies de suivi similaires pour suivre l’activité sur notre plateforme et recueillir certaines informations analytiques afin d’améliorer votre expérience.",
+      "table": {
+        "headers": {
+          "type": "Type de cookie",
+          "purpose": "Finalité"
+        },
+        "rows": {
+          "essential": {
+            "type": "Essentiels",
+            "purpose": "Nécessaires au fonctionnement principal du site Web, notamment pour la connexion et les réservations."
+          },
+          "analytics": {
+            "type": "Analytiques",
+            "purpose": "Nous aident à comprendre comment les visiteurs interagissent avec notre site Web."
+          },
+          "preferences": {
+            "type": "Préférences",
+            "purpose": "Mémorisent vos paramètres, votre langue et vos préférences d’affichage."
+          },
+          "marketing": {
+            "type": "Marketing",
+            "purpose": "Utilisés pour envoyer des communications pertinentes et mesurer l’efficacité des campagnes."
+          }
+        }
+      }
+    },
+    "payments": {
+      "title": "Paiements",
+      "description": "Les limitations de vitesse sont strictement contrôlées par des caméras. Respectez la limitation affichée ainsi que la petite marge de tolérance, signalez chaque changement de voie et ne dépassez jamais par la droite. Dans les ronds-points, la priorité est accordée aux véhicules venant de gauche. La fonctionnalité Bid My Price de RutaRide donne aux clients davantage de contrôle sur le processus de location de voiture. Au lieu d’accepter des prix fixes, vous avez la possibilité de négocier une meilleure offre en réservant via une plateforme de confiance.",
+      "securityNote": "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées afin de protéger vos informations personnelles contre tout accès, toute modification, toute divulgation ou toute destruction non autorisés."
+    }
   },
   "Currencies": {
     "AED": "Dirham des EAU",

@@ -205,6 +205,27 @@ export function AppleLogoIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+export function ShareIcon({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M15 7l5 5-5 5" />
+      <path d="M4 18v-2a4 4 0 0 1 4-4h12" />
+    </svg>
+  );
+}
 export function ShieldIcon({
   size = 20,
   strokeWidth = 1.75,
