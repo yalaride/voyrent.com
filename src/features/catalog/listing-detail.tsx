@@ -10,10 +10,8 @@ import { ListingMobileGallery } from "@/components/car-detail/ListingMobileGalle
 import {
   ChevronRightIcon,
   HeartIcon,
-  PhoneIcon,
   ShareIcon,
   ShieldIcon,
-  WhatsAppIcon,
 } from "@/components/icons";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 import { Button } from "@/components/ui/button";
@@ -100,38 +98,35 @@ export async function ListingDetail({
     getDisplayCurrency(market.currency),
   ]);
 
+  const tf = (key: string, fallback: string) =>
+    t.has(key) ? t(key) : fallback;
+
   const details = listing as ListingWithDetails;
 
-  const homeLabel = t.has("home") ? t("home") : "Home";
-  const breadcrumbLabel = t.has("breadcrumb") ? t("breadcrumb") : "Breadcrumb";
-  const premiumLabel = t.has("premium") ? t("premium") : "Premium";
-  const shareLabel = t.has("share") ? t("share") : "Share";
-  const saveLabel = t.has("save") ? t("save") : "Save";
-  const prevImageLabel = t.has("prevImage") ? t("prevImage") : "Previous image";
-  const nextImageLabel = t.has("nextImage") ? t("nextImage") : "Next image";
-  const showMoreImagesLabel = t.has("showMoreImages")
-    ? t("showMoreImages")
-    : "Show more";
-  const pricingTitle = t.has("pricingTitle") ? t("pricingTitle") : "Pricing";
-  const overviewTitle = t.has("overviewTitle")
-    ? t("overviewTitle")
-    : "Overview";
-  const featuresTitle = t.has("featuresTitle")
-    ? t("featuresTitle")
-    : "Features";
-  const viewAllFeaturesLabel = t.has("viewAllFeatures")
-    ? t("viewAllFeatures")
-    : "View all features";
-  const installedOptionsTitle = t.has("installedOptionsTitle")
-    ? t("installedOptionsTitle")
-    : "Installed options & packages";
-  const installedOptionsNote = t.has("installedOptionsNote")
-    ? t("installedOptionsNote")
-    : "*May replace standard equipment.";
+  const homeLabel = tf("home", "Home");
+  const breadcrumbLabel = tf("breadcrumb", "Breadcrumb");
+  const premiumLabel = tf("premium", "Premium");
+  const shareLabel = tf("share", "Share");
+  const saveLabel = tf("save", "Save");
+  const prevImageLabel = tf("prevImage", "Previous image");
+  const nextImageLabel = tf("nextImage", "Next image");
+  const showMoreImagesLabel = tf("showMoreImages", "Show more");
+  const pricingTitle = tf("pricingTitle", "Pricing");
+  const overviewTitle = tf("overviewTitle", "Overview");
+  const featuresTitle = tf("featuresTitle", "Features");
+  const viewAllFeaturesLabel = tf("viewAllFeatures", "View all features");
+  const installedOptionsTitle = tf(
+    "installedOptionsTitle",
+    "Installed options & packages",
+  );
+  const installedOptionsNote = tf(
+    "installedOptionsNote",
+    "*May replace standard equipment.",
+  );
 
-  const dayUnit = t.has("dayUnit") ? t("dayUnit") : "day";
-  const weekUnit = t.has("weekUnit") ? t("weekUnit") : "week";
-  const monthUnit = t.has("monthUnit") ? t("monthUnit") : "mon";
+  const dayUnit = tf("dayUnit", "day");
+  const weekUnit = tf("weekUnit", "week");
+  const monthUnit = tf("monthUnit", "mon");
 
   const cityName = localize(market.cityNames, locale);
   const fullTitle = [details.year, listing.make, listing.model, details.trim]
@@ -186,112 +181,100 @@ export async function ListingDetail({
   const breadcrumbLinkClass =
     "inline-flex shrink-0 items-center text-center text-[14px] font-medium leading-[1.5] tracking-normal text-text-secondary no-underline transition-colors hover:text-text-primary hover:no-underline md:text-[16px]";
 
+  const engineLabel =
+    details.engine?.trim() || tf("fallbackEngine", "3.0L V6 Twin-Turbo");
+
   const overviewRows: Array<{ label: string; value: string }> = [
     {
-      label: t.has("bodyType") ? t("bodyType") : body("title"),
+      label: tf("bodyType", body("title")),
       value: body(listing.bodyType),
     },
     {
-      label: t.has("make") ? t("make") : "Make",
+      label: tf("make", "Make"),
       value: listing.make,
     },
     {
-      label: t.has("model") ? t("model") : "Model",
+      label: tf("model", "Model"),
       value: listing.model,
     },
     {
-      label: t.has("mileage") ? t("mileage") : "Mileage",
-      value: details.mileageLabel ?? "—",
+      label: tf("mileage", "Mileage"),
+      value: details.mileageLabel?.trim() || tf("fallbackMileage", "12,500 km"),
     },
     {
-      label: t.has("seatingCapacity")
-        ? t("seatingCapacity")
-        : "Seating Capacity",
+      label: tf("seatingCapacity", "Seating Capacity"),
       value: t.has("passengers")
         ? t("passengers", { count: listing.seats })
         : t("seats", { count: listing.seats }),
     },
     {
-      label: t.has("mpg") ? t("mpg") : "Mpg",
-      value: details.mpgLabel ?? "—",
+      label: tf("mpg", "Mpg"),
+      value: details.mpgLabel?.trim() || tf("fallbackMpg", "22 City / 30 Hwy"),
     },
     {
-      label: t.has("transmissionLabel")
-        ? t("transmissionLabel")
-        : "Transmission",
+      label: tf("transmissionLabel", "Transmission"),
       value: t(listing.transmission),
     },
     {
-      label: t.has("fuelType") ? t("fuelType") : "Fuel Type",
+      label: tf("fuelType", "Fuel Type"),
+      value: details.fuelType?.trim() || tf("gasoline", "Gasoline"),
+    },
+    {
+      label: tf("engine", "Engine"),
+      value: engineLabel,
+    },
+    {
+      label: tf("extColor", "Ext. Color"),
       value:
-        details.fuelType ?? (t.has("gasoline") ? t("gasoline") : "Gasoline"),
+        details.exteriorColor?.trim() ||
+        tf("fallbackExtColor", "Obsidian Black"),
     },
     {
-      label: t.has("engine") ? t("engine") : "Engine",
-      value: details.engine ?? "—",
+      label: tf("intColor", "Int. Color"),
+      value:
+        details.interiorColor?.trim() ||
+        tf("fallbackIntColor", "Beige Leather"),
     },
-    {
-      label: t.has("extColor") ? t("extColor") : "Ext. Color",
-      value: details.exteriorColor ?? "—",
-    },
-    {
-      label: t.has("intColor") ? t("intColor") : "Int. Color",
-      value: details.interiorColor ?? "—",
-    },
+  ];
+
+  const defaultFeatureItems = [
+    tf("featureBackupCamera", "Backup Camera"),
+    tf("featureCleanTitle", "Clean Title"),
+    tf("featureNoAccidents", "No Accidents"),
   ];
 
   const featureCategories = [
     {
       key: "comfort",
-      title: t.has("featureComfort")
-        ? t("featureComfort")
-        : "Comfort & Convenience",
-      items: details.features?.comfort ?? [
-        t.has("featureBackupCamera")
-          ? t("featureBackupCamera")
-          : "Backup Camera",
-        t.has("featureCleanTitle") ? t("featureCleanTitle") : "Clean Title",
-        t.has("featureNoAccidents") ? t("featureNoAccidents") : "No Accidents",
-      ],
+      title: tf("featureComfort", "Comfort & Convenience"),
+      items:
+        details.features?.comfort && details.features.comfort.length > 0
+          ? details.features.comfort
+          : defaultFeatureItems,
     },
     {
       key: "technology",
-      title: t.has("featureTechnology")
-        ? t("featureTechnology")
-        : "Technology & Connectivity",
-      items: details.features?.technology ?? [
-        t.has("featureBackupCamera")
-          ? t("featureBackupCamera")
-          : "Backup Camera",
-        t.has("featureCleanTitle") ? t("featureCleanTitle") : "Clean Title",
-        t.has("featureNoAccidents") ? t("featureNoAccidents") : "No Accidents",
-      ],
+      title: tf("featureTechnology", "Technology & Connectivity"),
+      items:
+        details.features?.technology && details.features.technology.length > 0
+          ? details.features.technology
+          : defaultFeatureItems,
     },
     {
       key: "safety",
-      title: t.has("featureSafety")
-        ? t("featureSafety")
-        : "Safety & driver assistance",
-      items: details.features?.safety ?? [
-        t.has("featureBackupCamera")
-          ? t("featureBackupCamera")
-          : "Backup Camera",
-        t.has("featureCleanTitle") ? t("featureCleanTitle") : "Clean Title",
-        t.has("featureNoAccidents") ? t("featureNoAccidents") : "No Accidents",
-      ],
+      title: tf("featureSafety", "Safety & driver assistance"),
+      items:
+        details.features?.safety && details.features.safety.length > 0
+          ? details.features.safety
+          : defaultFeatureItems,
     },
     {
       key: "appearance",
-      title: t.has("featureAppearance")
-        ? t("featureAppearance")
-        : "Appearance & Style",
-      items: details.features?.appearance ?? [
-        t.has("featureBackupCamera")
-          ? t("featureBackupCamera")
-          : "Backup Camera",
-        t.has("featureCleanTitle") ? t("featureCleanTitle") : "Clean Title",
-        t.has("featureNoAccidents") ? t("featureNoAccidents") : "No Accidents",
-      ],
+      title: tf("featureAppearance", "Appearance & Style"),
+      items:
+        details.features?.appearance && details.features.appearance.length > 0
+          ? details.features.appearance
+          : defaultFeatureItems,
     },
   ];
 
@@ -299,10 +282,12 @@ export async function ListingDetail({
     details.installedOptions && details.installedOptions.length > 0
       ? details.installedOptions
       : [
-          `${t.has("engine") ? t("engine") : "Engine"}: ${details.engine ?? "—"}`,
-          `${t.has("transmissionLabel") ? t("transmissionLabel") : "Transmission"}: ${t(listing.transmission)}`,
-          ...(listing.airportDelivery ? [t("airport")] : []),
-          ...(!listing.depositRequired ? [t("noDeposit")] : []),
+          `${tf("engine", "Engine")}: ${engineLabel}`,
+          `${tf("transmissionLabel", "Transmission")}: ${t(listing.transmission)}`,
+          ...(listing.airportDelivery
+            ? [tf("airport", "Airport Delivery")]
+            : []),
+          ...(!listing.depositRequired ? [tf("noDeposit", "No Deposit")] : []),
         ];
 
   const phoneHref = details.supplierPhone
@@ -318,9 +303,68 @@ export async function ListingDetail({
         count: details.supplierReviewsCount ?? 812,
       })
     : `${details.supplierReviewsCount ?? 812} reviews`;
-  const dealerLocationLabel = details.locationLabel ?? cityName;
 
-  const defaultHours = "9:00 AM - 7:00 PM";
+  const dealerLocationLabel = details.locationLabel?.trim() || cityName;
+
+  const drawerAddressFallback =
+    details.locationLabel?.trim() ||
+    tf("fallbackDealerAddress", "3914 Hempstead Tpke, Levittown, NY 11756");
+
+  const branchLocationsFallback =
+    details.branchLocations && details.branchLocations.length > 0
+      ? details.branchLocations
+      : [
+          tf("fallbackBranchLocation1", "Gulberg, Lahore"),
+          tf("fallbackBranchLocation2", "Model Town, Lahore"),
+        ];
+
+  const fastDeliveryLocationsFallback =
+    details.fastDeliveryLocations && details.fastDeliveryLocations.length > 0
+      ? details.fastDeliveryLocations
+      : [
+          tf("fallbackDeliveryLocation1", "Airport Terminal 1"),
+          tf("fallbackDeliveryLocation2", "Dubai Harbour"),
+          tf("fallbackDeliveryLocation3", "Dubai South"),
+          tf("fallbackDeliveryLocation4", "Ruwi"),
+          tf("fallbackDeliveryLocation5", "Sheikh Zayed Road"),
+          tf("fallbackDeliveryLocation6", "JBR"),
+          tf("fallbackDeliveryLocation7", "Business Bay"),
+          tf("fallbackDeliveryLocation8", "Palm Jumeirah"),
+          tf("fallbackDeliveryLocation9", "Dubai Mall"),
+        ];
+
+  const carFleetFallback =
+    details.carFleet && details.carFleet.length > 0
+      ? details.carFleet
+      : [
+          tf("fallbackFleetCommercial", "Commercial"),
+          tf("fallbackFleetSuv", "SUV"),
+          tf("fallbackFleetLuxury", "Luxury"),
+          tf("fallbackFleetHybrid", "Hybrid"),
+          tf("fallbackFleetConvertible", "Convertible"),
+          tf("fallbackFleetSupercar", "Supercar"),
+        ];
+
+  const languagesSpokenFallback =
+    details.languagesSpoken && details.languagesSpoken.length > 0
+      ? details.languagesSpoken
+      : [
+          tf("fallbackLanguageEnglish", "English"),
+          tf("fallbackLanguageArabic", "Arabic"),
+          tf("fallbackLanguageUrdu", "Urdu"),
+          tf("fallbackLanguageFrench", "French"),
+        ];
+
+  const aboutDealerFallback =
+    details.aboutDealer?.trim() ||
+    (t.has("fallbackAboutDealer")
+      ? t("fallbackAboutDealer", {
+          name: listing.supplier,
+          city: cityName,
+        })
+      : `Discover luxury and comfort with ${listing.supplier}, your premier choice for car rentals in ${cityName}. Whether you're a resident or a visitor, our aim is to make renting a premium automobile effortless and enjoyable. Our experienced and knowledgeable staff is dedicated to listening to your requirements and recommending the ideal vehicle for your journey, ensuring a seamless blend of style, luxury, and convenience.`);
+
+  const defaultHours = tf("defaultOpeningHours", "9:00 AM - 7:00 PM");
   const dayKeys = [
     "sunday",
     "monday",
@@ -340,18 +384,23 @@ export async function ListingDetail({
     "Saturday",
   ] as const;
 
-  const openStatusLabel = t.has("openStatus") ? t("openStatus") : "Open";
+  const openStatusLabel = tf("openStatus", "Open");
+  const closesAtTime =
+    details.closesAtLabel ?? tf("defaultClosesAtTime", "7:00 PM");
   const closesAtLabel = t.has("closesAt")
-    ? t("closesAt", { time: details.closesAtLabel ?? "7:00 PM" })
-    : `Closes at ${details.closesAtLabel ?? "7:00 PM"}`;
+    ? t("closesAt", { time: closesAtTime })
+    : `Closes at ${closesAtTime}`;
 
   const schedule = dayKeys.map((key, idx) => ({
     dayIndex: idx,
-    label: t.has(key) ? t(key) : fallbackDays[idx],
+    label: tf(key, fallbackDays[idx]),
     hours:
       details.openingHours?.find((d) => d.dayIndex === idx)?.hours ??
       defaultHours,
   }));
+
+  const callLabel = tf("call", "Call");
+  const whatsappLabel = tf("whatsapp", "WhatsApp");
 
   const callButton = (
     <Button
@@ -361,8 +410,16 @@ export async function ListingDetail({
       className="w-full rounded-full px-4 no-underline"
     >
       <a href={phoneHref}>
-        <PhoneIcon className="size-5 shrink-0 fill-current" />
-        <span>{t("call")}</span>
+        <Image
+          unoptimized
+          src="/icons/phone.svg"
+          alt=""
+          width={20}
+          height={20}
+          aria-hidden="true"
+          className="size-5 shrink-0 brightness-0 invert"
+        />
+        <span>{callLabel}</span>
       </a>
     </Button>
   );
@@ -379,8 +436,16 @@ export async function ListingDetail({
         target={details.supplierWhatsapp ? "_blank" : undefined}
         rel={details.supplierWhatsapp ? "noopener noreferrer" : undefined}
       >
-        <WhatsAppIcon className="size-5 shrink-0" />
-        <span>{t("whatsapp")}</span>
+        <Image
+          unoptimized
+          src="/icons/whatsapp.svg"
+          alt=""
+          width={20}
+          height={20}
+          aria-hidden="true"
+          className="size-5 shrink-0 brightness-0 invert"
+        />
+        <span>{whatsappLabel}</span>
       </a>
     </Button>
   );
@@ -472,9 +537,7 @@ export async function ListingDetail({
           showMoreLabel={showMoreImagesLabel}
         />
 
-        {/* Main Responsive Layout:
-            - Mobile & Tablet (< lg): Header -> Pricing -> Dealer Card -> Overview -> Features
-            - Desktop (lg+): 2-column (Left Details Stack + Right Sticky Dealer Card) */}
+        {/* Main Responsive Layout */}
         <div className="mt-6 grid grid-cols-1 gap-6 lg:mt-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8 xl:grid-cols-[minmax(0,845px)_minmax(0,1fr)]">
           {/* Left Column Group */}
           <div className="contents lg:flex lg:flex-col lg:gap-6">
@@ -509,9 +572,7 @@ export async function ListingDetail({
                   <Clock className="size-4 shrink-0" />
                   <span>
                     {details.updatedAtLabel ??
-                      (t.has("lastUpdatedDefault")
-                        ? t("lastUpdatedDefault")
-                        : "Recently updated")}
+                      tf("lastUpdatedDefault", "Recently updated")}
                   </span>
                 </p>
               </div>
@@ -524,7 +585,7 @@ export async function ListingDetail({
               </h2>
 
               <div className="grid min-h-[86px] grid-cols-3 gap-1.5 rounded-[var(--radius-16)] bg-background-secondary p-[var(--spacing-space-6)] sm:gap-[var(--spacing-space-12)]">
-                {/* Daily (Active Highlighted) */}
+                {/* Daily */}
                 <div className="flex flex-col items-center justify-center rounded-[var(--radius-12)] bg-background-primary px-2 py-2.5 text-center shadow-[var(--shadow-small)] sm:px-4">
                   {originalDaily ? (
                     <span className="text-xs font-normal text-text-secondary line-through sm:text-sm">
@@ -582,9 +643,7 @@ export async function ListingDetail({
               <div className="flex flex-col gap-[var(--spacing-space-8)] text-[14px] leading-[1.5] sm:text-[16px]">
                 <div className="flex items-center justify-between gap-4">
                   <span className="text-text-secondary">
-                    {t.has("includedMileage")
-                      ? t("includedMileage")
-                      : "Included mileage limit"}
+                    {tf("includedMileage", "Included mileage limit")}
                   </span>
                   <span className="shrink-0 whitespace-nowrap font-medium text-text-primary">
                     {t.has("kmValue")
@@ -595,22 +654,23 @@ export async function ListingDetail({
 
                 <div className="flex items-center justify-between gap-4">
                   <span className="text-text-secondary">
-                    {t.has("additionalMileageCharges")
-                      ? t("additionalMileageCharges")
-                      : "Additional mileage charges"}
+                    {tf(
+                      "additionalMileageCharges",
+                      "Additional mileage charges",
+                    )}
                   </span>
                   <span className="shrink-0 whitespace-nowrap font-medium text-text-primary">
-                    {additionalMileagePrice} /{" "}
-                    {t.has("kmUnit") ? t("kmUnit") : "km"}
+                    {additionalMileagePrice} / {tf("kmUnit", "km")}
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between gap-4">
                   <span className="inline-flex items-center gap-[var(--spacing-space-6)] text-text-secondary">
                     <span>
-                      {t.has("chauffeurCharges")
-                        ? t("chauffeurCharges")
-                        : "Additional Chauffeur / Driver charges"}
+                      {tf(
+                        "chauffeurCharges",
+                        "Additional Chauffeur / Driver charges",
+                      )}
                     </span>
                     <Info
                       className="size-4 shrink-0 text-text-secondary"
@@ -704,7 +764,7 @@ export async function ListingDetail({
             </section>
           </div>
 
-          {/* Dealer Info & Contact Card (3rd on Mobile/Tablet, Right Sticky Column on Desktop) */}
+          {/* Dealer Info & Contact Card */}
           <aside className="order-3 flex h-fit w-full flex-col gap-[var(--spacing-space-16)] rounded-[var(--radius-24)] border border-border-default bg-background-primary p-4 sm:gap-[var(--spacing-space-20)] sm:p-[var(--spacing-space-24)] lg:sticky lg:top-28 lg:col-start-2 lg:row-start-1 lg:order-none">
             {/* Dealer Header */}
             <div className="flex items-center gap-[var(--spacing-space-12)]">
@@ -753,29 +813,17 @@ export async function ListingDetail({
               {/* Rental Terms */}
               <div className="flex flex-col gap-[var(--spacing-space-12)]">
                 <h3 className="text-[16px] font-semibold leading-[1.4] text-text-primary">
-                  {t.has("rentalTerms") ? t("rentalTerms") : "Rental Terms"}
+                  {tf("rentalTerms", "Rental Terms")}
                 </h3>
 
                 <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-[14px] leading-[1.4] text-text-secondary sm:grid-cols-4 sm:text-[15px] lg:grid-cols-2">
                   {[
-                    {
-                      key: "mileagePolicy",
-                      fallback: "Mileage Policy",
-                    },
-                    {
-                      key: "fuelPolicy",
-                      fallback: "Fuel Policy",
-                    },
-                    {
-                      key: "depositPolicy",
-                      fallback: "Deposit Policy",
-                    },
-                    {
-                      key: "rentalPolicy",
-                      fallback: "Rental Policy",
-                    },
+                    { key: "mileagePolicy", fallback: "Mileage Policy" },
+                    { key: "fuelPolicy", fallback: "Fuel Policy" },
+                    { key: "depositPolicy", fallback: "Deposit Policy" },
+                    { key: "rentalPolicy", fallback: "Rental Policy" },
                   ].map((item) => {
-                    const label = t.has(item.key) ? t(item.key) : item.fallback;
+                    const label = tf(item.key, item.fallback);
                     return (
                       <button
                         key={item.key}
@@ -799,68 +847,56 @@ export async function ListingDetail({
               <div className="py-[var(--spacing-space-4)] sm:py-[var(--spacing-space-12)]">
                 <DealerInfoDrawer
                   labels={{
-                    triggerLabel: t.has("dealerInfoLocation")
-                      ? t("dealerInfoLocation")
-                      : "Dealer's Info & Location",
-                    drawerTitle: t.has("dealerInfoTitle")
-                      ? t("dealerInfoTitle")
-                      : "Dealer Information",
+                    triggerLabel: tf(
+                      "dealerInfoLocation",
+                      "Dealer's Info & Location",
+                    ),
+                    drawerTitle: tf("dealerInfoTitle", "Dealer Information"),
                     branchInCityTitle: t.has("branchInCity")
                       ? t("branchInCity", { city: cityName })
                       : `Branch in ${cityName}`,
-                    viewMoreDetail: t.has("viewMoreDetail")
-                      ? t("viewMoreDetail")
-                      : "View more detail",
-                    branchLocationsTitle: t.has("branchLocations")
-                      ? t("branchLocations")
-                      : "Branch Locations",
-                    shopTimingsTitle: t.has("shopTimings")
-                      ? t("shopTimings")
-                      : "Shop Timings",
-                    deliveryPickupTitle: t.has("deliveryPickupServices")
-                      ? t("deliveryPickupServices")
-                      : "Delivery & Pick-up Services",
-                    branchPickupLabel: t.has("branchPickup")
-                      ? t("branchPickup")
-                      : "Branch Pick-up",
-                    deliveryToYouLabel: t.has("deliveryToYou")
-                      ? t("deliveryToYou")
-                      : "Delivery to You",
-                    airportDeliveryLabel: t("airport"),
-                    fastDeliveryLocationsTitle: t.has("fastDeliveryLocations")
-                      ? t("fastDeliveryLocations")
-                      : "Fast Delivery Locations",
-                    carFleetTitle: t.has("carFleet")
-                      ? t("carFleet")
-                      : "Car Fleet",
-                    goodToKnowTitle: t.has("goodToKnow")
-                      ? t("goodToKnow")
-                      : "Good to know",
-                    languagesSpokenTitle: t.has("languagesSpoken")
-                      ? t("languagesSpoken")
-                      : "Languages Spoken",
+                    viewMoreDetail: tf("viewMoreDetail", "View more detail"),
+                    branchLocationsTitle: tf(
+                      "branchLocations",
+                      "Branch Locations",
+                    ),
+                    shopTimingsTitle: tf("shopTimings", "Shop Timings"),
+                    deliveryPickupTitle: tf(
+                      "deliveryPickupServices",
+                      "Delivery & Pick-up Services",
+                    ),
+                    branchPickupLabel: tf("branchPickup", "Branch Pick-up"),
+                    deliveryToYouLabel: tf("deliveryToYou", "Delivery to You"),
+                    airportDeliveryLabel: tf("airport", "Airport Delivery"),
+                    fastDeliveryLocationsTitle: tf(
+                      "fastDeliveryLocations",
+                      "Fast Delivery Locations",
+                    ),
+                    carFleetTitle: tf("carFleet", "Car Fleet"),
+                    goodToKnowTitle: tf("goodToKnow", "Good to know"),
+                    languagesSpokenTitle: tf(
+                      "languagesSpoken",
+                      "Languages Spoken",
+                    ),
                     aboutDealerTitle: t.has("aboutDealer")
                       ? t("aboutDealer", { name: listing.supplier })
                       : `About ${listing.supplier}`,
-                    callLabel: t("call"),
-                    whatsappLabel: t("whatsapp"),
-                    closeLabel: t.has("close") ? t("close") : "Close",
+                    callLabel,
+                    whatsappLabel,
+                    closeLabel: tf("close", "Close"),
                   }}
                   supplierName={listing.supplier}
-                  locationLabel={
-                    details.locationLabel ??
-                    "3914 Hempstead Tpke, Levittown, NY 11756"
-                  }
+                  locationLabel={drawerAddressFallback}
                   mapPreviewImage={details.mapPreviewImage}
-                  branchLocations={details.branchLocations}
+                  branchLocations={branchLocationsFallback}
                   schedule={schedule}
                   branchPickup={details.branchPickup ?? true}
                   deliveryToYou={details.deliveryToYou ?? true}
                   airportDelivery={listing.airportDelivery ?? true}
-                  fastDeliveryLocations={details.fastDeliveryLocations}
-                  carFleet={details.carFleet}
-                  languagesSpoken={details.languagesSpoken}
-                  aboutDealer={details.aboutDealer}
+                  fastDeliveryLocations={fastDeliveryLocationsFallback}
+                  carFleet={carFleetFallback}
+                  languagesSpoken={languagesSpokenFallback}
+                  aboutDealer={aboutDealerFallback}
                   phoneHref={phoneHref}
                   whatsappHref={whatsappHref}
                   hasWhatsapp={Boolean(details.supplierWhatsapp)}

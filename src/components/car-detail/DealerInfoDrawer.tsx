@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Check, ChevronDown, ChevronUp, MapPin, X } from "lucide-react";
 
 import type { OpeningHourRow } from "@/components/car-detail/dealer-opening-hours";
-import { PhoneIcon, WhatsAppIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 
 const emptySubscribe = () => () => {};
@@ -67,6 +66,8 @@ export type DealerDrawerLabels = {
   branchLocationsTitle: string;
   shopTimingsTitle: string;
   deliveryPickupTitle: string;
+  branchPickupLabel: string;
+  deliveryToYouLabel: string;
   airportDeliveryLabel: string;
   fastDeliveryLocationsTitle: string;
   carFleetTitle: string;
@@ -85,6 +86,8 @@ export function DealerInfoDrawer({
   mapPreviewImage,
   branchLocations = [],
   schedule,
+  branchPickup = false,
+  deliveryToYou = false,
   airportDelivery = false,
   fastDeliveryLocations = [],
   carFleet = [],
@@ -100,6 +103,8 @@ export function DealerInfoDrawer({
   mapPreviewImage?: string;
   branchLocations?: string[];
   schedule: OpeningHourRow[];
+  branchPickup?: boolean;
+  deliveryToYou?: boolean;
   airportDelivery?: boolean;
   fastDeliveryLocations?: string[];
   carFleet?: string[];
@@ -129,6 +134,12 @@ export function DealerInfoDrawer({
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
+
+  const deliveryServices = [
+    ...(branchPickup ? [labels.branchPickupLabel] : []),
+    ...(deliveryToYou ? [labels.deliveryToYouLabel] : []),
+    ...(airportDelivery ? [labels.airportDeliveryLabel] : []),
+  ];
 
   const mapsSearchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     `${supplierName} ${locationLabel}`,
@@ -263,14 +274,22 @@ export function DealerInfoDrawer({
                   </DrawerAccordionSection>
 
                   {/* 4. Delivery & Pick-up Services */}
-                  {airportDelivery || fastDeliveryLocations.length > 0 ? (
+                  {deliveryServices.length > 0 ||
+                  fastDeliveryLocations.length > 0 ? (
                     <DrawerAccordionSection title={labels.deliveryPickupTitle}>
                       <div className="flex flex-col gap-4">
-                        {airportDelivery ? (
-                          <div className="inline-flex items-center gap-2 text-[14px] font-medium text-primary">
-                            <Check className="size-4 shrink-0" />
-                            <span>{labels.airportDeliveryLabel}</span>
-                          </div>
+                        {deliveryServices.length > 0 ? (
+                          <ul className="flex flex-col gap-2">
+                            {deliveryServices.map((service) => (
+                              <li
+                                key={service}
+                                className="inline-flex items-center gap-2 text-[14px] font-medium text-primary"
+                              >
+                                <Check className="size-4 shrink-0" />
+                                <span>{service}</span>
+                              </li>
+                            ))}
+                          </ul>
                         ) : null}
 
                         {fastDeliveryLocations.length > 0 ? (
@@ -350,7 +369,15 @@ export function DealerInfoDrawer({
                     className="w-full rounded-full px-4 no-underline"
                   >
                     <a href={phoneHref}>
-                      <PhoneIcon className="size-5 shrink-0 fill-current" />
+                      <Image
+                        unoptimized
+                        src="/icons/phone.svg"
+                        alt=""
+                        width={20}
+                        height={20}
+                        aria-hidden="true"
+                        className="size-5 shrink-0 brightness-0 invert"
+                      />
                       <span>{labels.callLabel}</span>
                     </a>
                   </Button>
@@ -370,7 +397,15 @@ export function DealerInfoDrawer({
                         if (!hasWhatsapp) e.preventDefault();
                       }}
                     >
-                      <WhatsAppIcon className="size-5 shrink-0" />
+                      <Image
+                        unoptimized
+                        src="/icons/whatsapp.svg"
+                        alt=""
+                        width={20}
+                        height={20}
+                        aria-hidden="true"
+                        className="size-5 shrink-0 brightness-0 invert"
+                      />
                       <span>{labels.whatsappLabel}</span>
                     </a>
                   </Button>

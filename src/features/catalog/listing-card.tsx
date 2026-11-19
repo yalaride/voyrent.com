@@ -12,8 +12,6 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   CheckIcon,
-  PhoneIcon,
-  WhatsAppIcon,
   RoadIcon,
 } from "@/components/icons";
 
@@ -314,11 +312,27 @@ export function ListingCard({
           >
             {listing.phoneHref ? (
               <a href={listing.phoneHref} aria-label={listing.callLabel}>
-                <PhoneIcon className="size-5 fill-current" />
+                <Image
+                  unoptimized
+                  src="/icons/phone.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                  aria-hidden="true"
+                  className="size-5 shrink-0"
+                />
               </a>
             ) : (
               <Link href={listing.href} aria-label={listing.callLabel}>
-                <PhoneIcon className="size-5 fill-current" />
+                <Image
+                  unoptimized
+                  src="/icons/phone.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                  aria-hidden="true"
+                  className="size-5 shrink-0"
+                />
               </Link>
             )}
           </Button>
@@ -336,11 +350,27 @@ export function ListingCard({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <WhatsAppIcon className="size-5" />
+                <Image
+                  unoptimized
+                  src="/icons/whatsapp.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                  aria-hidden="true"
+                  className="size-5 shrink-0"
+                />
               </a>
             ) : (
               <Link href={listing.href} aria-label={listing.whatsappLabel}>
-                <WhatsAppIcon className="size-5" />
+                <Image
+                  unoptimized
+                  src="/icons/whatsapp.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                  aria-hidden="true"
+                  className="size-5 shrink-0"
+                />
               </Link>
             )}
           </Button>
@@ -602,12 +632,28 @@ export function ListingCard({
             >
               {listing.phoneHref ? (
                 <a href={listing.phoneHref} className="min-w-0">
-                  <PhoneIcon className="size-5 shrink-0 fill-current" />
+                  <Image
+                    unoptimized
+                    src="/icons/phone.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    aria-hidden="true"
+                    className="size-5 shrink-0"
+                  />
                   <span className="min-w-0 truncate">{listing.callLabel}</span>
                 </a>
               ) : (
                 <Link href={listing.href} className="min-w-0">
-                  <PhoneIcon className="size-5 shrink-0 fill-current" />
+                  <Image
+                    unoptimized
+                    src="/icons/phone.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    aria-hidden="true"
+                    className="size-5 shrink-0"
+                  />
                   <span className="min-w-0 truncate">{listing.callLabel}</span>
                 </Link>
               )}
@@ -626,14 +672,30 @@ export function ListingCard({
                   rel="noopener noreferrer"
                   className="min-w-0"
                 >
-                  <WhatsAppIcon className="size-5 shrink-0" />
+                  <Image
+                    unoptimized
+                    src="/icons/whatsapp.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    aria-hidden="true"
+                    className="size-5 shrink-0"
+                  />
                   <span className="min-w-0 truncate">
                     {listing.whatsappLabel}
                   </span>
                 </a>
               ) : (
                 <Link href={listing.href} className="min-w-0">
-                  <WhatsAppIcon className="size-5 shrink-0" />
+                  <Image
+                    unoptimized
+                    src="/icons/whatsapp.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    aria-hidden="true"
+                    className="size-5 shrink-0"
+                  />
                   <span className="min-w-0 truncate">
                     {listing.whatsappLabel}
                   </span>
