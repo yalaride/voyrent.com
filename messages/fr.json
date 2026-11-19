@@ -420,6 +420,62 @@
       "securityNote": "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées afin de protéger vos informations personnelles contre tout accès, toute modification, toute divulgation ou toute destruction non autorisés."
     }
   },
+  "MarketplaceBenefits": {
+    "title": "La première application automobile tout-en-un de Dubaï",
+    "items": {
+      "hugeSelection": {
+        "title": "Vaste choix",
+        "description": "Parcourez et comparez des offres en direct parmi un large éventail de locations de voitures et de voitures d’occasion à vendre près de chez vous. Notre application de location et de voitures d’occasion."
+      },
+      "freeOfCharge": {
+        "title": "Gratuit",
+        "description": "Aucune commission. Aucuns frais de réservation ni de plateforme. Contrairement aux autres applications de location de voitures à Dubaï, nous restons gratuits lorsque vous louez une voiture."
+      },
+      "bestRates": {
+        "title": "Meilleurs tarifs",
+        "description": "Trouvez des prix de location de voitures abordables, parmi les meilleurs du marché, sans majoration ni intermédiaire. Comparez les prix des voitures d’occasion en temps réel."
+      },
+      "localSuppliers": {
+        "title": "Fournisseurs et vendeurs locaux",
+        "description": "Toutes les voitures de notre application de location sont proposées par des fournisseurs agréés des EAU. Les annonces de voitures d’occasion proviennent directement de particuliers et de concessionnaires."
+      },
+      "bookOrBuyDirectly": {
+        "title": "Réservez ou achetez directement",
+        "description": "Évitez les intermédiaires et les frais supplémentaires. Louez des voitures ou achetez-en d’occasion directement auprès des fournisseurs et des vendeurs via notre application ou notre site de location de voitures."
+      },
+      "shortlistShare": {
+        "title": "Enregistrez et partagez",
+        "description": "Enregistrez vos voitures préférées en location et à vendre au même endroit pour les comparer plus tard. Partagez facilement les annonces avec vos amis ou votre famille."
+      }
+    }
+  },
+  "RentingSteps": {
+    "title": "Louer une voiture, tout simplement",
+    "previousSlide": "Étape précédente",
+    "nextSlide": "Étape suivante",
+    "steps": {
+      "searchCompare": {
+        "title": "Recherchez et comparez des voitures",
+        "description": "Parcourez les voitures de plusieurs sociétés de location. Filtrez par type de voiture, marque, prix et dates de location pour trouver la bonne option.",
+        "imageAlt": "Écran de recherche et de comparaison de voitures dans l’application"
+      },
+      "chooseCar": {
+        "title": "Choisissez votre voiture",
+        "description": "Consultez les détails de la voiture, comparez les prix, vérifiez la disponibilité et sélectionnez l’offre de location qui correspond le mieux à vos besoins.",
+        "imageAlt": "Écran des détails de la voiture et de la comparaison des prix"
+      },
+      "contactBook": {
+        "title": "Contactez et réservez directement",
+        "description": "Appelez ou écrivez sur WhatsApp à la société de location directement depuis l’annonce pour confirmer la disponibilité, discuter des détails et finaliser votre réservation.",
+        "imageAlt": "Écran d’appel direct et de réservation par WhatsApp"
+      }
+    }
+  },
+  "DealerPlansCta": {
+    "title": "Vous possédez une société de location de voitures ?",
+    "description": "Publiez vos voitures sur GleeCars et touchez directement les locataires.",
+    "buttonLabel": "Voir les offres pour professionnels"
+  },
   "Currencies": {
     "AED": "Dirham des EAU",
     "USD": "Dollar américain",

@@ -3,10 +3,10 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { makeFromToken } from "@/domain/catalog/directory";
 import type { RawSearchParams } from "@/domain/catalog/params";
 import { DEFAULT_LOCALE, isLocale, LOCALES } from "@/domain/geo/locales";
-import { requestLocale } from "@/server/seo/request-locale";
 import { countryHubPath } from "@/domain/routing/country-paths";
 import {
   catalogPath,
@@ -32,7 +32,7 @@ import {
   websiteJsonLd,
 } from "@/server/seo/metadata";
 import { absoluteUrl } from "@/server/seo/origins";
-import { Skeleton } from "@/components/ui/skeleton";
+import { requestLocale } from "@/server/seo/request-locale";
 
 type PageParams = { locale: string; slug: string[] };
 

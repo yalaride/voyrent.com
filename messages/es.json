@@ -422,6 +422,63 @@
       "securityNote": "Implementamos medidas técnicas y organizativas adecuadas para proteger su información personal contra el acceso, la alteración, la divulgación o la destrucción no autorizados."
     }
   },
+
+  "MarketplaceBenefits": {
+    "title": "La primera app de coches todo en uno de Dubái",
+    "items": {
+      "hugeSelection": {
+        "title": "Gran selección",
+        "description": "Explora y compara ofertas en tiempo real de una amplia variedad de coches de alquiler y coches usados en venta cerca de ti. Nuestra app de alquiler y coches usados."
+      },
+      "freeOfCharge": {
+        "title": "Sin coste",
+        "description": "Sin comisiones. Sin tarifas de reserva ni de plataforma. A diferencia de otras apps de alquiler de coches en Dubái, lo mantenemos gratis si alquilas un coche."
+      },
+      "bestRates": {
+        "title": "Mejores tarifas",
+        "description": "Encuentra precios de alquiler de coches asequibles y de los mejores del mercado, sin recargos ni intermediarios. Compara precios de coches usados en tiempo real."
+      },
+      "localSuppliers": {
+        "title": "Proveedores y vendedores locales",
+        "description": "Todos los coches de nuestra app de alquiler están publicados por proveedores autorizados de los EAU. Los anuncios de coches usados provienen directamente de particulares y concesionarios."
+      },
+      "bookOrBuyDirectly": {
+        "title": "Reserva o compra directamente",
+        "description": "Evita terceros y tarifas adicionales. Alquila coches o compra usados directamente a proveedores y vendedores a través de nuestra app o sitio web de alquiler de coches."
+      },
+      "shortlistShare": {
+        "title": "Guarda y comparte",
+        "description": "Guarda tus coches favoritos de alquiler y en venta en un solo lugar para compararlos más tarde. Comparte anuncios fácilmente con amigos o familiares."
+      }
+    }
+  },
+  "RentingSteps": {
+    "title": "Alquilar un coche, de forma sencilla",
+    "previousSlide": "Paso anterior",
+    "nextSlide": "Paso siguiente",
+    "steps": {
+      "searchCompare": {
+        "title": "Busca y compara coches",
+        "description": "Explora coches de varias empresas de alquiler. Filtra por tipo de coche, marca, precio y fechas de alquiler para encontrar la mejor opción.",
+        "imageAlt": "Pantalla de búsqueda y comparación de coches dentro de la app"
+      },
+      "chooseCar": {
+        "title": "Elige tu coche",
+        "description": "Consulta los detalles del coche, compara precios, comprueba la disponibilidad y selecciona la opción de alquiler que mejor se adapte a tus necesidades.",
+        "imageAlt": "Pantalla de detalles del coche y comparación de precios"
+      },
+      "contactBook": {
+        "title": "Contacta y reserva directamente",
+        "description": "Llama o escribe por WhatsApp a la empresa de alquiler directamente desde el anuncio del coche para confirmar la disponibilidad, hablar de los detalles y completar tu reserva.",
+        "imageAlt": "Pantalla de llamada directa y reserva por WhatsApp"
+      }
+    }
+  },
+  "DealerPlansCta": {
+    "title": "¿Tienes una empresa de alquiler de coches?",
+    "description": "Publica tus coches en GleeCars y llega directamente a los clientes.",
+    "buttonLabel": "Ver planes para distribuidores"
+  },
   "Currencies": {
     "AED": "Dírham de EAU",
     "USD": "Dólar estadounidense",

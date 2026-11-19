@@ -1,6 +1,7 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { getTranslations } from "next-intl/server";
 
+import appCtaPhonesImg from "../../../public/cta/Landing-Section-CTA.png"; // adjust path to /public
 import { AppleLogoIcon, GooglePlayIcon } from "@/components/icons";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 
@@ -9,7 +10,7 @@ interface AppDownloadCtaProps {
   appStoreHref?: string;
   downloadHref?: string;
   downloadLabel?: string;
-  imageSrc?: string;
+  imageSrc?: string | StaticImageData;
 }
 
 export async function AppDownloadCta({
@@ -17,16 +18,15 @@ export async function AppDownloadCta({
   appStoreHref = "https://apps.apple.com",
   downloadHref = appStoreHref,
   downloadLabel = "Download App",
-  imageSrc = "/landing-page/app-cta-phones.png",
+  imageSrc = appCtaPhonesImg,
 }: AppDownloadCtaProps) {
   const t = await getTranslations("AppCta");
 
   return (
     <LayoutWrapper className="w-full bg-background-primary">
-      <div className="flex w-full flex-col items-center justify-between gap-8 py-12 sm:flex-row sm:gap-6 md:py-16 lg:min-h-[448px] lg:gap-10 lg:py-[120px]">
-        {/* Left Side Content: centered on mobile, start-aligned on tablet & desktop */}
+      <div className="flex w-full flex-col items-center justify-between gap-8  sm:flex-row sm:gap-6 lg:min-h-[448px] lg:gap-10 ">
+        {/* Left Side Content */}
         <div className="flex w-full flex-1 flex-col items-center gap-6 text-center sm:max-w-[683px] sm:items-start sm:gap-8 sm:text-start">
-          {/* Heading + Subtitle: gap 8px */}
           <div className="flex w-full flex-col items-center gap-[var(--spacing-space-8)] sm:items-start">
             <h2 className="text-[32px] font-semibold leading-[1.16] tracking-[-0.02em] text-text-primary sm:text-[36px] lg:text-[48px]">
               {t.rich("title", {
@@ -50,7 +50,7 @@ export async function AppDownloadCta({
             {downloadLabel}
           </a>
 
-          {/* Desktop Store Buttons: 168 x 56, padding 12px 16px, gap 8px, radius/8 */}
+          {/* Desktop Store Buttons */}
           <div className="hidden flex-wrap items-center gap-3 lg:flex">
             <a
               href={googlePlayHref}
@@ -88,14 +88,16 @@ export async function AppDownloadCta({
           </div>
         </div>
 
-        {/* Right Side Phones Mockup */}
-        <div className="relative h-[260px] w-full max-w-[320px] shrink-0 sm:h-[270px] sm:w-[280px] sm:max-w-none md:h-[310px] md:w-[340px] lg:h-[360px] lg:w-[440px]">
+        {/* Right Side Phones Mockup (no `fill`, eager loading) */}
+        <div className="flex w-full max-w-[320px] shrink-0 items-center justify-center sm:w-[280px] sm:max-w-none md:w-[340px] lg:w-[440px]">
           <Image
             src={imageSrc}
             alt={t("imageAlt")}
-            fill
+            width={440}
+            height={360}
+            loading="eager"
             sizes="(max-width: 639px) 320px, (max-width: 1023px) 340px, 440px"
-            className="object-contain object-center"
+            className="h-[260px] w-full object-contain object-center sm:h-[270px] md:h-[310px] lg:h-[360px]"
           />
         </div>
       </div>

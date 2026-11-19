@@ -423,6 +423,62 @@
       "securityNote": "Implementamos medidas técnicas e organizacionais adequadas para proteger suas informações pessoais contra acesso, alteração, divulgação ou destruição não autorizados."
     }
   },
+  "MarketplaceBenefits": {
+    "title": "O primeiro app de carros tudo-em-um de Dubai",
+    "items": {
+      "hugeSelection": {
+        "title": "Enorme variedade",
+        "description": "Navegue e compare ofertas em tempo real de uma ampla gama de aluguel de carros e carros usados à venda perto de você. Nosso app de aluguel e carros usados."
+      },
+      "freeOfCharge": {
+        "title": "Sem custos",
+        "description": "Sem comissões. Sem taxas de reserva ou de plataforma. Ao contrário de outros apps de aluguel de carros em Dubai, mantemos tudo gratuito para quem aluga um carro."
+      },
+      "bestRates": {
+        "title": "Melhores preços",
+        "description": "Encontre preços de aluguel de carros acessíveis e entre os melhores do mercado, sem acréscimos nem intermediários. Compare preços de carros usados em tempo real."
+      },
+      "localSuppliers": {
+        "title": "Fornecedores e vendedores locais",
+        "description": "Todos os carros do nosso app de aluguel são anunciados por fornecedores licenciados dos EAU. Os anúncios de carros usados vêm diretamente de particulares e concessionárias."
+      },
+      "bookOrBuyDirectly": {
+        "title": "Reserve ou compre diretamente",
+        "description": "Dispense terceiros e taxas extras. Alugue carros ou compre usados diretamente de fornecedores e vendedores pelo nosso app ou site de aluguel de carros."
+      },
+      "shortlistShare": {
+        "title": "Salve e compartilhe",
+        "description": "Salve seus carros favoritos para aluguel e à venda em um só lugar para comparar depois. Compartilhe anúncios facilmente com amigos ou familiares."
+      }
+    }
+  },
+  "RentingSteps": {
+    "title": "Alugar um carro, de forma simples",
+    "previousSlide": "Etapa anterior",
+    "nextSlide": "Próxima etapa",
+    "steps": {
+      "searchCompare": {
+        "title": "Pesquise e compare carros",
+        "description": "Navegue por carros de várias locadoras. Filtre por tipo de carro, marca, preço e datas de aluguel para encontrar a melhor opção.",
+        "imageAlt": "Tela de pesquisa e comparação de carros dentro do app"
+      },
+      "chooseCar": {
+        "title": "Escolha seu carro",
+        "description": "Explore os detalhes do carro, compare preços, verifique a disponibilidade e selecione a opção de aluguel que melhor atende às suas necessidades.",
+        "imageAlt": "Tela de detalhes do carro e comparação de preços"
+      },
+      "contactBook": {
+        "title": "Entre em contato e reserve diretamente",
+        "description": "Ligue ou envie uma mensagem pelo WhatsApp para a locadora diretamente do anúncio do carro para confirmar a disponibilidade, tirar dúvidas e concluir sua reserva.",
+        "imageAlt": "Tela de ligação direta e reserva pelo WhatsApp"
+      }
+    }
+  },
+  "DealerPlansCta": {
+    "title": "Tem uma locadora de carros?",
+    "description": "Anuncie seus carros na GleeCars e alcance os clientes diretamente.",
+    "buttonLabel": "Ver planos para concessionárias"
+  },
   "Currencies": {
     "AED": "Dirham dos EAU",
     "USD": "Dólar americano",

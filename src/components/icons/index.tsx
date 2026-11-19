@@ -2,13 +2,7 @@ import * as React from "react";
 import type { SVGProps } from "react";
 
 /** Official WhatsApp Brand Icon */
-export function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.41a8.16 8.16 0 0 1 2.4 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24m4.52 11.64c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.9 2.42 1.02 2.59.13.17 1.77 2.7 4.28 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29" />
-    </svg>
-  );
-}
+
 // @/components/icons.tsx
 
 export function ArrowRightIcon({
@@ -32,6 +26,24 @@ export function ArrowRightIcon({
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+export function PhoneCallIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M15 3a6 6 0 0 1 6 6" />
+      <path d="M15 7a2 2 0 0 1 2 2" />
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   );
 }
@@ -63,27 +75,46 @@ export function InventoryBoxIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function PhoneCallIcon(props: SVGProps<SVGSVGElement>) {
+export function PhoneIcon({
+  className = "size-5",
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      className={className}
+      {...props}
+    >
+      <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z" />
     </svg>
   );
 }
 
-/** Call Icon (matches Figma geometry) */
-export function PhoneIcon(props: React.SVGProps<SVGSVGElement>) {
+export function WhatsAppIcon({
+  className = "size-5",
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
       {...props}
     >
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+      <path
+        d="M12 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9 9 9 0 0 0-9 9c0 1.66.45 3.22 1.24 4.56L3 21l4.6-1.2A8.96 8.96 0 0 0 12 21Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.6 8.9c-.2-.44-.4-.45-.6-.46h-.51c-.18 0-.47.07-.71.33-.24.27-.93.91-.93 2.21 0 1.31.95 2.57 1.08 2.75.13.17 1.84 2.94 4.54 4 2.24.88 2.7.71 3.19.66.49-.05 1.57-.64 1.79-1.26.22-.62.22-1.15.15-1.26-.06-.11-.24-.18-.5-.31-.27-.13-1.57-.77-1.81-.86-.24-.09-.42-.13-.6.13-.18.27-.69.86-.84 1.04-.15.18-.31.2-.58.07-.27-.13-1.12-.41-2.14-1.32-.79-.7-1.32-1.57-1.48-1.84-.15-.26-.02-.41.12-.54.12-.12.27-.31.4-.46.13-.16.18-.27.27-.44.09-.18.04-.34-.02-.47-.07-.13-.59-1.45-.82-1.97Z"
+        fill="currentColor"
+      />
     </svg>
   );
 }
@@ -226,6 +257,206 @@ export function ShareIcon({
     </svg>
   );
 }
+
+type IconProps = SVGProps<SVGSVGElement>;
+
+export function VerifiedSuppliersIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        d="M26 8.13L40.63 13.8V24.6C40.63 34.05 34.39 41.32 26 43.88C17.61 41.32 11.37 34.05 11.37 24.6V13.8L26 8.13Z"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M19.5 26.2L24 30.7L33 21.7"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function TransparentPricingIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <rect
+        x="8.13"
+        y="12.5"
+        width="35.75"
+        height="27"
+        rx="4"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8.13 21H43.88"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
+      <path
+        d="M16 31H24"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function InstantBookingIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <circle
+        cx="26"
+        cy="26"
+        r="17.875"
+        stroke="currentColor"
+        strokeWidth={3}
+      />
+      <path
+        d="M26 15.5V26L33 30"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function FreeCancellationIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <rect
+        x="8.13"
+        y="11.5"
+        width="35.75"
+        height="32.38"
+        rx="4"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinejoin="round"
+      />
+      <path
+        d="M17.5 8.13V14.5M34.5 8.13V14.5M8.13 21H43.88"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
+      <path
+        d="M19.5 32L24 36.5L33 27.5"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function WideFleetIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        d="M11 29L14.5 18.5C15.1 16.8 16.7 15.7 18.5 15.7H33.5C35.3 15.7 36.9 16.8 37.5 18.5L41 29M9.5 29H42.5C43.26 29 43.88 29.62 43.88 30.38V36.5C43.88 37.33 43.21 38 42.38 38H39.5M12.5 38H9.63C8.8 38 8.13 37.33 8.13 36.5V30.38C8.13 29.62 8.75 29 9.5 29Z"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="17" cy="37.5" r="3.5" stroke="currentColor" strokeWidth={3} />
+      <circle cx="35" cy="37.5" r="3.5" stroke="currentColor" strokeWidth={3} />
+    </svg>
+  );
+}
+
+export function Support247Icon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        d="M10.5 27V24.5C10.5 15.94 17.44 9 26 9C34.56 9 41.5 15.94 41.5 24.5V27"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
+      <rect
+        x="8.13"
+        y="25.5"
+        width="7.5"
+        height="13"
+        rx="3.75"
+        stroke="currentColor"
+        strokeWidth={3}
+      />
+      <rect
+        x="36.38"
+        y="25.5"
+        width="7.5"
+        height="13"
+        rx="3.75"
+        stroke="currentColor"
+        strokeWidth={3}
+      />
+      <path
+        d="M36.5 38.5C35.5 41.5 32.5 43.5 28 43.5H25"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function ShieldIcon({
   size = 20,
   strokeWidth = 1.75,
@@ -249,6 +480,218 @@ export function ShieldIcon({
     >
       <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
       <path d="m9 12 2 2 4-4" />
+    </svg>
+  );
+}
+
+export function HugeSelectionIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <rect
+        x="9.63"
+        y="9.63"
+        width="13"
+        height="13"
+        rx="3"
+        stroke="currentColor"
+        strokeWidth={3}
+      />
+      <rect
+        x="29.38"
+        y="9.63"
+        width="13"
+        height="13"
+        rx="3"
+        stroke="currentColor"
+        strokeWidth={3}
+      />
+      <rect
+        x="9.63"
+        y="29.38"
+        width="13"
+        height="13"
+        rx="3"
+        stroke="currentColor"
+        strokeWidth={3}
+      />
+      <path
+        d="M35.88 29.38V42.38M29.38 35.88H42.38"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function FreeOfChargeIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <circle cx="26" cy="26" r="16.38" stroke="currentColor" strokeWidth={3} />
+      <path
+        d="M14.42 14.42L37.58 37.58"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function BestRatesIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        d="M22.8 9.63H12.63C10.97 9.63 9.63 10.97 9.63 12.63V22.8C9.63 23.6 9.95 24.36 10.51 24.92L26.92 41.33C28.09 42.5 29.99 42.5 31.16 41.33L41.33 31.16C42.5 29.99 42.5 28.09 41.33 26.92L24.92 10.51C24.36 9.95 23.6 9.63 22.8 9.63Z"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="17.5" cy="17.5" r="2" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function LocalSuppliersIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        d="M9.63 20.5L13.1 10.63C13.4 9.98 14.04 9.63 14.75 9.63H37.25C37.96 9.63 38.6 9.98 38.9 10.63L42.38 20.5"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.63 20.5C9.63 23.1 11.8 25 15.08 25C18.36 25 20.54 23.1 20.54 20.5C20.54 23.1 22.72 25 26 25C29.28 25 31.46 23.1 31.46 20.5C31.46 23.1 33.64 25 36.92 25C40.2 25 42.38 23.1 42.38 20.5"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M20.54 20.5L21.5 9.63M31.46 20.5L30.5 9.63"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
+      <path
+        d="M12.5 24.5V42.38M39.5 24.5V42.38M9.63 42.38H42.38"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M17.5 42.38V30.5H24.5V42.38"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <rect
+        x="29.5"
+        y="30.5"
+        width="5.5"
+        height="5.5"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth={3}
+      />
+    </svg>
+  );
+}
+
+export function BookDirectlyIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        d="M23.5 16.5H12.63C10.97 16.5 9.63 17.84 9.63 19.5V39.38C9.63 41.04 10.97 42.38 12.63 42.38H32.5C34.16 42.38 35.5 41.04 35.5 39.38V28.5"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M23.5 28.5L42.38 9.63"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M30.5 9.63H42.38V21.5"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function ShortlistShareIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <rect
+        x="9.63"
+        y="9.63"
+        width="32.75"
+        height="32.75"
+        rx="5"
+        stroke="currentColor"
+        strokeWidth={3}
+      />
+      <path
+        d="M18.5 9.63V31.5L26 26.5L33.5 31.5V9.63"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

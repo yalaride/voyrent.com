@@ -1,10 +1,14 @@
+import { Suspense } from "react";
 import Image from "next/image";
 import { Clock, Info, MapPin, Star } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
+import { DealerInfoDrawer } from "@/components/car-detail/DealerInfoDrawer";
+import { DealerOpeningHours } from "@/components/car-detail/dealer-opening-hours";
+import { ListingDesktopGallery } from "@/components/car-detail/ListingDesktopGallery";
+import { ListingMobileGallery } from "@/components/car-detail/ListingMobileGallery";
 import {
   ChevronRightIcon,
-  CrownIcon,
   HeartIcon,
   PhoneIcon,
   ShareIcon,
@@ -18,13 +22,10 @@ import { convertMinor, formatMoney } from "@/domain/currency/format";
 import type { AppLocale } from "@/domain/geo/locales";
 import { localize, type Market } from "@/domain/geo/markets";
 import { catalogPath } from "@/domain/routing/rent-paths";
+import { ListingSection } from "@/features/catalog/listing-section";
+import { ListingSkeleton } from "@/features/catalog/listing-skeleton";
 import { Link } from "@/i18n/navigation";
 import { getDisplayCurrency } from "@/server/preferences/currency";
-import { ListingMobileGallery } from "@/components/car-detail/ListingMobileGallery";
-import { DealerOpeningHours } from "@/components/car-detail/dealer-opening-hours";
-import { ListingSkeleton } from "@/features/catalog/listing-skeleton";
-import { Suspense } from "react";
-import { ListingSection } from "@/features/catalog/listing-section";
 
 const FALLBACK_IMAGES = [
   "/blog/blog1.jpg",
@@ -72,7 +73,15 @@ type ListingWithDetails = VehicleListing & {
   supplierReviewsCount?: number;
   supplierPhone?: string;
   supplierWhatsapp?: string;
+  mapPreviewImage?: string;
+  branchLocations?: string[];
+  fastDeliveryLocations?: string[];
+  carFleet?: string[];
+  languagesSpoken?: string[];
+  aboutDealer?: string;
   closesAtLabel?: string;
+  branchPickup?: boolean;
+  deliveryToYou?: boolean;
   openingHours?: Array<{ dayIndex: number; hours: string }>;
 };
 
@@ -100,10 +109,16 @@ export async function ListingDetail({
   const saveLabel = t.has("save") ? t("save") : "Save";
   const prevImageLabel = t.has("prevImage") ? t("prevImage") : "Previous image";
   const nextImageLabel = t.has("nextImage") ? t("nextImage") : "Next image";
+  const showMoreImagesLabel = t.has("showMoreImages")
+    ? t("showMoreImages")
+    : "Show more";
   const pricingTitle = t.has("pricingTitle") ? t("pricingTitle") : "Pricing";
   const overviewTitle = t.has("overviewTitle")
     ? t("overviewTitle")
     : "Overview";
+  const featuresTitle = t.has("featuresTitle")
+    ? t("featuresTitle")
+    : "Features";
   const viewAllFeaturesLabel = t.has("viewAllFeatures")
     ? t("viewAllFeatures")
     : "View all features";
@@ -129,9 +144,6 @@ export async function ListingDetail({
       currency,
       locale,
     );
-  const featuresTitle = t.has("featuresTitle")
-    ? t("featuresTitle")
-    : "Features";
 
   const daily = formatConverted(listing.dailyPriceMinor);
   const weeklyMinor = details.weeklyPriceMinor ?? listing.dailyPriceMinor * 7;
@@ -170,8 +182,6 @@ export async function ListingDetail({
       : [];
 
   const galleryImages = rawImages.length > 0 ? rawImages : [...FALLBACK_IMAGES];
-  const topImages = galleryImages.slice(0, 5);
-  const extraImages = galleryImages.slice(5);
 
   const breadcrumbLinkClass =
     "inline-flex shrink-0 items-center text-center text-[14px] font-medium leading-[1.5] tracking-normal text-text-secondary no-underline transition-colors hover:text-text-primary hover:no-underline md:text-[16px]";
@@ -302,15 +312,56 @@ export async function ListingDetail({
     ? `https://wa.me/${details.supplierWhatsapp.replace(/\D/g, "")}`
     : "#";
 
+  const supplierRating = details.supplierRating ?? 4.7;
+  const reviewsLabel = t.has("reviewsCount")
+    ? t("reviewsCount", {
+        count: details.supplierReviewsCount ?? 812,
+      })
+    : `${details.supplierReviewsCount ?? 812} reviews`;
+  const dealerLocationLabel = details.locationLabel ?? cityName;
+
+  const defaultHours = "9:00 AM - 7:00 PM";
+  const dayKeys = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+  ] as const;
+  const fallbackDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ] as const;
+
+  const openStatusLabel = t.has("openStatus") ? t("openStatus") : "Open";
+  const closesAtLabel = t.has("closesAt")
+    ? t("closesAt", { time: details.closesAtLabel ?? "7:00 PM" })
+    : `Closes at ${details.closesAtLabel ?? "7:00 PM"}`;
+
+  const schedule = dayKeys.map((key, idx) => ({
+    dayIndex: idx,
+    label: t.has(key) ? t(key) : fallbackDays[idx],
+    hours:
+      details.openingHours?.find((d) => d.dayIndex === idx)?.hours ??
+      defaultHours,
+  }));
+
   const callButton = (
     <Button
       asChild
       variant="default"
       size="lg"
-      className="w-full px-4 no-underline"
+      className="w-full rounded-full px-4 no-underline"
     >
       <a href={phoneHref}>
-        <PhoneIcon className="fill-current" />
+        <PhoneIcon className="size-5 shrink-0 fill-current" />
         <span>{t("call")}</span>
       </a>
     </Button>
@@ -321,14 +372,14 @@ export async function ListingDetail({
       asChild
       variant="whatsapp-solid"
       size="lg"
-      className="w-full px-4 no-underline"
+      className="w-full rounded-full px-4 no-underline"
     >
       <a
         href={whatsappHref}
         target={details.supplierWhatsapp ? "_blank" : undefined}
         rel={details.supplierWhatsapp ? "noopener noreferrer" : undefined}
       >
-        <WhatsAppIcon />
+        <WhatsAppIcon className="size-5 shrink-0" />
         <span>{t("whatsapp")}</span>
       </a>
     </Button>
@@ -411,198 +462,15 @@ export async function ListingDetail({
         />
 
         {/* Desktop Gallery (lg+) */}
-        <div className="hidden lg:block">
-          {topImages.length === 1 ? (
-            <div className="relative h-[360px] w-full overflow-hidden bg-background-secondary">
-              <Image
-                src={topImages[0]}
-                alt={`${fullTitle} - 1`}
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover"
-              />
-              {listing.featured ? (
-                <span className="absolute start-3 top-3 z-10 inline-flex h-[26px] items-center gap-1.5 rounded-full bg-warning px-2.5 text-xs font-semibold text-text-inverse shadow-small">
-                  <CrownIcon className="size-3.5 shrink-0 fill-current" />
-                  <span>{premiumLabel}</span>
-                </span>
-              ) : null}
-            </div>
-          ) : topImages.length === 2 ? (
-            <div className="grid h-[360px] grid-cols-2 gap-2">
-              {topImages.map((src, idx) => (
-                <div
-                  key={`${src}-${idx}`}
-                  className="relative size-full overflow-hidden bg-background-secondary"
-                >
-                  <Image
-                    src={src}
-                    alt={`${fullTitle} - ${idx + 1}`}
-                    fill
-                    priority={idx === 0}
-                    sizes="50vw"
-                    className="object-cover"
-                  />
-                  {idx === 0 && listing.featured ? (
-                    <span className="absolute start-3 top-3 z-10 inline-flex h-[26px] items-center gap-1.5 rounded-full bg-warning px-2.5 text-xs font-semibold text-text-inverse shadow-small">
-                      <CrownIcon className="size-3.5 shrink-0 fill-current" />
-                      <span>{premiumLabel}</span>
-                    </span>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          ) : topImages.length === 3 ? (
-            <div className="grid h-[360px] grid-cols-[1.35fr_1fr_1fr] gap-2">
-              {topImages.map((src, idx) => (
-                <div
-                  key={`${src}-${idx}`}
-                  className="relative size-full overflow-hidden bg-background-secondary"
-                >
-                  <Image
-                    src={src}
-                    alt={`${fullTitle} - ${idx + 1}`}
-                    fill
-                    priority={idx === 0}
-                    sizes="(max-width: 1280px) 34vw, 450px"
-                    className="object-cover"
-                  />
-                  {idx === 0 && listing.featured ? (
-                    <span className="absolute start-3 top-3 z-10 inline-flex h-[26px] items-center gap-1.5 rounded-full bg-warning px-2.5 text-xs font-semibold text-text-inverse shadow-small">
-                      <CrownIcon className="size-3.5 shrink-0 fill-current" />
-                      <span>{premiumLabel}</span>
-                    </span>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          ) : topImages.length === 4 ? (
-            <div className="grid h-[360px] grid-cols-[1.2fr_1.1fr_0.75fr] gap-2">
-              <div className="relative size-full overflow-hidden bg-background-secondary">
-                <Image
-                  src={topImages[0]}
-                  alt={`${fullTitle} - 1`}
-                  fill
-                  priority
-                  sizes="(max-width: 1280px) 40vw, 480px"
-                  className="object-cover"
-                />
-                {listing.featured ? (
-                  <span className="absolute start-3 top-3 z-10 inline-flex h-[26px] items-center gap-1.5 rounded-full bg-warning px-2.5 text-xs font-semibold text-text-inverse shadow-small">
-                    <CrownIcon className="size-3.5 shrink-0 fill-current" />
-                    <span>{premiumLabel}</span>
-                  </span>
-                ) : null}
-              </div>
-              <div className="relative size-full overflow-hidden bg-background-secondary">
-                <Image
-                  src={topImages[1]}
-                  alt={`${fullTitle} - 2`}
-                  fill
-                  sizes="(max-width: 1280px) 35vw, 420px"
-                  className="object-cover"
-                />
-              </div>
-              <div className="grid grid-rows-2 gap-2">
-                <div className="relative size-full overflow-hidden bg-background-secondary">
-                  <Image
-                    src={topImages[2]}
-                    alt={`${fullTitle} - 3`}
-                    fill
-                    sizes="280px"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="relative size-full overflow-hidden bg-background-secondary">
-                  <Image
-                    src={topImages[3]}
-                    alt={`${fullTitle} - 4`}
-                    fill
-                    sizes="280px"
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="grid h-[360px] grid-cols-[1.15fr_1.15fr_0.65fr_1.15fr] gap-2">
-              <div className="relative size-full overflow-hidden bg-background-secondary">
-                <Image
-                  src={topImages[0]}
-                  alt={`${fullTitle} - 1`}
-                  fill
-                  priority
-                  sizes="(max-width: 1280px) 30vw, 380px"
-                  className="object-cover"
-                />
-                {listing.featured ? (
-                  <span className="absolute start-3 top-3 z-10 inline-flex h-[26px] items-center gap-1.5 rounded-full bg-warning px-2.5 text-xs font-semibold text-text-inverse shadow-small">
-                    <CrownIcon className="size-3.5 shrink-0 fill-current" />
-                    <span>{premiumLabel}</span>
-                  </span>
-                ) : null}
-              </div>
-              <div className="relative size-full overflow-hidden bg-background-secondary">
-                <Image
-                  src={topImages[1]}
-                  alt={`${fullTitle} - 2`}
-                  fill
-                  sizes="(max-width: 1280px) 28vw, 360px"
-                  className="object-cover"
-                />
-              </div>
-              <div className="grid grid-rows-2 gap-2">
-                <div className="relative size-full overflow-hidden bg-background-secondary">
-                  <Image
-                    src={topImages[2]}
-                    alt={`${fullTitle} - 3`}
-                    fill
-                    sizes="220px"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="relative size-full overflow-hidden bg-background-secondary">
-                  <Image
-                    src={topImages[3]}
-                    alt={`${fullTitle} - 4`}
-                    fill
-                    sizes="220px"
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-              <div className="relative size-full overflow-hidden bg-background-secondary">
-                <Image
-                  src={topImages[4]}
-                  alt={`${fullTitle} - 5`}
-                  fill
-                  sizes="(max-width: 1280px) 30vw, 380px"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          )}
-
-          {extraImages.length > 0 ? (
-            <div className="mt-2 grid grid-cols-4 gap-2">
-              {extraImages.map((src, idx) => (
-                <div
-                  key={`${src}-${idx}`}
-                  className="relative h-[180px] w-full overflow-hidden bg-background-secondary"
-                >
-                  <Image
-                    src={src}
-                    alt={`${fullTitle} - ${idx + 6}`}
-                    fill
-                    sizes="25vw"
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-          ) : null}
-        </div>
+        <ListingDesktopGallery
+          images={galleryImages}
+          title={fullTitle}
+          isFeatured={Boolean(listing.featured)}
+          premiumLabel={premiumLabel}
+          prevLabel={prevImageLabel}
+          nextLabel={nextImageLabel}
+          showMoreLabel={showMoreImagesLabel}
+        />
 
         {/* Main Responsive Layout:
             - Mobile & Tablet (< lg): Header -> Pricing -> Dealer Card -> Overview -> Features
@@ -635,7 +503,7 @@ export async function ListingDetail({
               <div className="flex flex-col gap-[var(--spacing-space-4)] text-[14px] font-normal leading-[1.5] tracking-normal text-text-secondary sm:text-[16px]">
                 <p className="flex items-center gap-[var(--spacing-space-6)]">
                   <MapPin className="size-4 shrink-0" />
-                  <span>{details.locationLabel ?? cityName}</span>
+                  <span>{dealerLocationLabel}</span>
                 </p>
                 <p className="flex items-center gap-[var(--spacing-space-6)]">
                   <Clock className="size-4 shrink-0" />
@@ -837,7 +705,7 @@ export async function ListingDetail({
           </div>
 
           {/* Dealer Info & Contact Card (3rd on Mobile/Tablet, Right Sticky Column on Desktop) */}
-          <aside className="order-3 flex h-fit w-full flex-col gap-[var(--spacing-space-16)] rounded-[var(--radius-24)] border border-border-default bg-background-primary p-4 sm:gap-[var(--spacing-space-20)] sm:p-[var(--spacing-space-24)] lg:sticky lg:top-6 lg:col-start-2 lg:row-start-1 lg:order-none">
+          <aside className="order-3 flex h-fit w-full flex-col gap-[var(--spacing-space-16)] rounded-[var(--radius-24)] border border-border-default bg-background-primary p-4 sm:gap-[var(--spacing-space-20)] sm:p-[var(--spacing-space-24)] lg:sticky lg:top-28 lg:col-start-2 lg:row-start-1 lg:order-none">
             {/* Dealer Header */}
             <div className="flex items-center gap-[var(--spacing-space-12)]">
               <div className="relative flex size-[52px] shrink-0 items-center justify-center overflow-hidden rounded-full border border-border-default bg-background-secondary text-sm font-semibold text-text-primary">
@@ -863,17 +731,9 @@ export async function ListingDetail({
                 <p className="flex items-center gap-1.5 text-sm leading-tight">
                   <Star className="size-4 shrink-0 fill-warning text-warning" />
                   <span className="font-semibold text-text-primary">
-                    {(details.supplierRating ?? 4.7).toFixed(1)}
+                    {supplierRating.toFixed(1)}
                   </span>
-                  <span className="text-text-secondary">
-                    (
-                    {t.has("reviewsCount")
-                      ? t("reviewsCount", {
-                          count: details.supplierReviewsCount ?? 812,
-                        })
-                      : `${details.supplierReviewsCount ?? 812} reviews`}
-                    )
-                  </span>
+                  <span className="text-text-secondary">({reviewsLabel})</span>
                 </p>
               </div>
             </div>
@@ -881,52 +741,12 @@ export async function ListingDetail({
             <hr className="border-t border-border-subtle" />
 
             {/* Other Details */}
-            {/* Other Details */}
             <div className="flex flex-col gap-[var(--spacing-space-12)]">
-              {(() => {
-                const defaultHours = "9:00 AM - 7:00 PM";
-                const dayKeys = [
-                  "sunday",
-                  "monday",
-                  "tuesday",
-                  "wednesday",
-                  "thursday",
-                  "friday",
-                  "saturday",
-                ] as const;
-                const fallbackDays = [
-                  "Sunday",
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday",
-                  "Saturday",
-                ] as const;
-
-                const openStatusLabel = t.has("openStatus")
-                  ? t("openStatus")
-                  : "Open";
-                const closesAtLabel = t.has("closesAt")
-                  ? t("closesAt", { time: details.closesAtLabel ?? "7:00 PM" })
-                  : `Closes at ${details.closesAtLabel ?? "7:00 PM"}`;
-
-                const schedule = dayKeys.map((key, idx) => ({
-                  dayIndex: idx,
-                  label: t.has(key) ? t(key) : fallbackDays[idx],
-                  hours:
-                    details.openingHours?.find((d) => d.dayIndex === idx)
-                      ?.hours ?? defaultHours,
-                }));
-
-                return (
-                  <DealerOpeningHours
-                    openStatusLabel={openStatusLabel}
-                    closesAtLabel={closesAtLabel}
-                    schedule={schedule}
-                  />
-                );
-              })()}
+              <DealerOpeningHours
+                openStatusLabel={openStatusLabel}
+                closesAtLabel={closesAtLabel}
+                schedule={schedule}
+              />
 
               <hr className="border-t border-border-subtle" />
 
@@ -977,17 +797,74 @@ export async function ListingDetail({
 
               {/* Dealer's Info & Location */}
               <div className="py-[var(--spacing-space-4)] sm:py-[var(--spacing-space-12)]">
-                <button
-                  type="button"
-                  className="inline-flex cursor-pointer items-center gap-2 text-[15px] font-medium text-text-primary underline underline-offset-4 transition-opacity hover:opacity-80"
-                >
-                  <MapPin className="size-4 shrink-0" />
-                  <span>
-                    {t.has("dealerInfoLocation")
+                <DealerInfoDrawer
+                  labels={{
+                    triggerLabel: t.has("dealerInfoLocation")
                       ? t("dealerInfoLocation")
-                      : "Dealer's Info & Location"}
-                  </span>
-                </button>
+                      : "Dealer's Info & Location",
+                    drawerTitle: t.has("dealerInfoTitle")
+                      ? t("dealerInfoTitle")
+                      : "Dealer Information",
+                    branchInCityTitle: t.has("branchInCity")
+                      ? t("branchInCity", { city: cityName })
+                      : `Branch in ${cityName}`,
+                    viewMoreDetail: t.has("viewMoreDetail")
+                      ? t("viewMoreDetail")
+                      : "View more detail",
+                    branchLocationsTitle: t.has("branchLocations")
+                      ? t("branchLocations")
+                      : "Branch Locations",
+                    shopTimingsTitle: t.has("shopTimings")
+                      ? t("shopTimings")
+                      : "Shop Timings",
+                    deliveryPickupTitle: t.has("deliveryPickupServices")
+                      ? t("deliveryPickupServices")
+                      : "Delivery & Pick-up Services",
+                    branchPickupLabel: t.has("branchPickup")
+                      ? t("branchPickup")
+                      : "Branch Pick-up",
+                    deliveryToYouLabel: t.has("deliveryToYou")
+                      ? t("deliveryToYou")
+                      : "Delivery to You",
+                    airportDeliveryLabel: t("airport"),
+                    fastDeliveryLocationsTitle: t.has("fastDeliveryLocations")
+                      ? t("fastDeliveryLocations")
+                      : "Fast Delivery Locations",
+                    carFleetTitle: t.has("carFleet")
+                      ? t("carFleet")
+                      : "Car Fleet",
+                    goodToKnowTitle: t.has("goodToKnow")
+                      ? t("goodToKnow")
+                      : "Good to know",
+                    languagesSpokenTitle: t.has("languagesSpoken")
+                      ? t("languagesSpoken")
+                      : "Languages Spoken",
+                    aboutDealerTitle: t.has("aboutDealer")
+                      ? t("aboutDealer", { name: listing.supplier })
+                      : `About ${listing.supplier}`,
+                    callLabel: t("call"),
+                    whatsappLabel: t("whatsapp"),
+                    closeLabel: t.has("close") ? t("close") : "Close",
+                  }}
+                  supplierName={listing.supplier}
+                  locationLabel={
+                    details.locationLabel ??
+                    "3914 Hempstead Tpke, Levittown, NY 11756"
+                  }
+                  mapPreviewImage={details.mapPreviewImage}
+                  branchLocations={details.branchLocations}
+                  schedule={schedule}
+                  branchPickup={details.branchPickup ?? true}
+                  deliveryToYou={details.deliveryToYou ?? true}
+                  airportDelivery={listing.airportDelivery ?? true}
+                  fastDeliveryLocations={details.fastDeliveryLocations}
+                  carFleet={details.carFleet}
+                  languagesSpoken={details.languagesSpoken}
+                  aboutDealer={details.aboutDealer}
+                  phoneHref={phoneHref}
+                  whatsappHref={whatsappHref}
+                  hasWhatsapp={Boolean(details.supplierWhatsapp)}
+                />
               </div>
             </div>
 
@@ -999,6 +876,7 @@ export async function ListingDetail({
           </aside>
         </div>
       </LayoutWrapper>
+
       <Suspense fallback={<ListingSkeleton />}>
         <ListingSection
           market={market}

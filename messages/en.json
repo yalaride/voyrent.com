@@ -10,7 +10,8 @@
     "modelTitle": "Rent {make} {model} in {city}",
     "modelDescription": "Rental offers for the {make} {model} in {city}.",
     "filteredTitle": "{filter} in {city}",
-    "filteredDescription": "Compare {filter} rental cars in {city}."
+    "filteredDescription": "Compare {filter} rental cars in {city}.",
+    "marketplaceTitle": "Car Marketplace"
   },
   "Header": {
     "skip": "Skip to content",
@@ -109,6 +110,8 @@
     "request": "Request this car",
     "requestNote": "Booking requests will go to the supplier through the NestJS API. That connection is not live yet.",
     "back": "Back to search",
+    "branchPickup": "Branch Pick-up",
+    "deliveryToYou": "Delivery to You",
     "previous": "Previous",
     "next": "Next",
     "pageStatus": "Page {page} of {pages}",
@@ -181,7 +184,19 @@
     "fuelPolicy": "Fuel Policy",
     "depositPolicy": "Deposit Policy",
     "rentalPolicy": "Rental Policy",
-    "dealerInfoLocation": "Dealer's Info & Location"
+    "dealerInfoLocation": "Dealer's Info & Location",
+    "dealerInfoTitle": "Dealer Information",
+    "branchInCity": "Branch in {city}",
+    "viewMoreDetail": "View more detail",
+    "branchLocations": "Branch Locations",
+    "shopTimings": "Shop Timings",
+    "deliveryPickupServices": "Delivery & Pick-up Services",
+    "fastDeliveryLocations": "Fast Delivery Locations",
+    "carFleet": "Car Fleet",
+    "goodToKnow": "Good to know",
+    "languagesSpoken": "Languages Spoken",
+    "aboutDealer": "About {name}",
+    "close": "Close"
   },
   "Cities": {
     "title": "Cities in {country}",
@@ -424,7 +439,62 @@
       "securityNote": "We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction."
     }
   },
-
+  "MarketplaceBenefits": {
+    "title": "Dubai’s First All-in-One Car App",
+    "items": {
+      "hugeSelection": {
+        "title": "Huge Selection",
+        "description": "Browse and compare live offers from a wide range of car rentals and used cars for sale near you. Our rental and used cars app."
+      },
+      "freeOfCharge": {
+        "title": "Free of Charge",
+        "description": "No commissions. No booking or platform fees. Unlike other car rental apps in Dubai, we keep it free whether you're renting a car."
+      },
+      "bestRates": {
+        "title": "Best Rates",
+        "description": "Find affordable, best-in-market car rental prices without any markups or middlemen. Compare real-time used car prices."
+      },
+      "localSuppliers": {
+        "title": "Local Suppliers & Sellers",
+        "description": "All cars on our car rental app are listed by licensed UAE suppliers. Used car listings come directly from individuals and car dealerships."
+      },
+      "bookOrBuyDirectly": {
+        "title": "Book or Buy Directly",
+        "description": "Skip third parties and extra fees. Rent cars or buy used ones straight from suppliers and sellers through our rent a car app or website."
+      },
+      "shortlistShare": {
+        "title": "Shortlist & Share",
+        "description": "Save your favourite rental and for-sale cars in one place to compare later. Share listings easily with friends or family."
+      }
+    }
+  },
+  "RentingSteps": {
+    "title": "Renting a car, made simple",
+    "previousSlide": "Previous step",
+    "nextSlide": "Next step",
+    "steps": {
+      "searchCompare": {
+        "title": "Search & Compare Cars",
+        "description": "Browse cars from multiple rental companies. Filter by car type, brand, price, and rental dates to find the right option.",
+        "imageAlt": "Search and compare cars screen inside the app"
+      },
+      "chooseCar": {
+        "title": "Choose Your Car",
+        "description": "Explore car details, compare prices, check availability, and select the rental option that best fits your needs.",
+        "imageAlt": "Car details and price comparison screen"
+      },
+      "contactBook": {
+        "title": "Contact & Book Directly",
+        "description": "Call or WhatsApp the rental company directly from the car listing to confirm availability, discuss details, and complete your booking.",
+        "imageAlt": "Direct call and WhatsApp booking screen"
+      }
+    }
+  },
+  "DealerPlansCta": {
+    "title": "Own a car rental company?",
+    "description": "List your cars on GleeCars and reach renters directly.",
+    "buttonLabel": "View Dealer Plans"
+  },
   "Currencies": {
     "AED": "UAE dirham",
     "USD": "US dollar",
