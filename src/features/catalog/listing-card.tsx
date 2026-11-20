@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { LikeButton } from "@/components/ui/like-button";
 
 export type ListingCardModel = {
   href: string;
@@ -19,12 +20,19 @@ export type ListingCardModel = {
   airportLabel: string;
   supplierLabel: string;
   viewLabel: string;
+  likeLabel: string;
+  likedLabel: string;
 };
 
 export function ListingCard({ listing }: { listing: ListingCardModel }) {
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border-default bg-bg-primary">
-      <div className="flex h-28 items-end bg-bg-section px-4 py-4 text-text-inverse">
+    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border-default bg-background-primary">
+      <div className="relative flex h-28 items-end bg-background-section px-4 py-4 text-text-inverse">
+        <LikeButton
+          label={listing.likeLabel}
+          likedLabel={listing.likedLabel}
+          className="absolute top-3 right-3"
+        />
         <p className="text-2xl font-semibold tracking-tight text-text-inverse">{listing.make}</p>
       </div>
       <div className="flex flex-1 flex-col gap-4 p-4">
@@ -54,12 +62,12 @@ export function ListingCard({ listing }: { listing: ListingCardModel }) {
           ) : null}
           <div className="mt-3 flex flex-wrap gap-2">
             {listing.noDeposit ? (
-              <span className="rounded-full bg-bg-secondary px-2 py-0.5 text-xs text-text-primary">
+              <span className="rounded-full bg-background-secondary px-2 py-0.5 text-xs text-text-primary">
                 {listing.noDepositLabel}
               </span>
             ) : null}
             {listing.airport ? (
-              <span className="rounded-full bg-bg-secondary px-2 py-0.5 text-xs text-text-primary">
+              <span className="rounded-full bg-background-secondary px-2 py-0.5 text-xs text-text-primary">
                 {listing.airportLabel}
               </span>
             ) : null}

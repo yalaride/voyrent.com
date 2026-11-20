@@ -25,6 +25,8 @@ function presentListing(
     supplier: string;
     supplierPrice: string;
     view: string;
+    like: string;
+    liked: string;
   },
 ): ListingCardModel {
   const dailyMinor = convertMinor(listing.dailyPriceMinor, listing.currency, displayCurrency);
@@ -60,6 +62,8 @@ function presentListing(
     airportLabel: labels.airport,
     supplierLabel: labels.supplier,
     viewLabel: labels.view,
+    likeLabel: labels.like,
+    likedLabel: labels.liked,
   };
 }
 
@@ -97,19 +101,25 @@ export async function ListingSection({
       supplier: t("supplier"),
       supplierPrice: t("supplierPrice", { price: "{price}" }),
       view: t("view"),
+      like: t("like"),
+      liked: t("liked"),
     }),
   );
 
   return (
     <section className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
-        {heading ? <h2 className="text-2xl font-semibold tracking-tight">{heading}</h2> : <span />}
-        <p className="text-sm text-muted-foreground">{t("results", { count: result.total })}</p>
+        {heading ? (
+          <h2 className="text-2xl font-semibold tracking-tight text-text-primary">{heading}</h2>
+        ) : (
+          <span />
+        )}
+        <p className="text-sm text-text-secondary">{t("results", { count: result.total })}</p>
       </div>
       {cards.length === 0 ? (
-        <div className="rounded-2xl border border-dashed px-6 py-12">
-          <h3 className="text-lg font-semibold">{t("emptyTitle")}</h3>
-          <p className="mt-2 text-sm text-muted-foreground">{t("emptyBody")}</p>
+        <div className="rounded-2xl border border-dashed border-border-default bg-background-primary px-6 py-12">
+          <h3 className="text-lg font-semibold text-text-primary">{t("emptyTitle")}</h3>
+          <p className="mt-2 text-sm text-text-secondary">{t("emptyBody")}</p>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -119,21 +129,34 @@ export async function ListingSection({
         </div>
       )}
       {showPagination && result.total > result.limit ? (
-        <nav className="flex items-center justify-between gap-3 text-sm" aria-label={t("pageStatus", { page: result.page, pages })}>
+        <nav
+          className="flex items-center justify-between gap-3 text-sm text-text-primary"
+          aria-label={t("pageStatus", { page: result.page, pages })}
+        >
           {result.page > 1 ? (
-            <Link href={catalogPath(market.city, { ...query, page: result.page - 1 })} className="rounded-lg border px-3 py-2">
+            <Link
+              href={catalogPath(market.city, { ...query, page: result.page - 1 })}
+              className="rounded-lg border border-border-default bg-background-primary px-3 py-2"
+            >
               {t("previous")}
             </Link>
           ) : (
-            <span className="rounded-lg border px-3 py-2 text-muted-foreground">{t("previous")}</span>
+            <span className="rounded-lg border border-border-default px-3 py-2 text-text-disabled">
+              {t("previous")}
+            </span>
           )}
           <p>{t("pageStatus", { page: result.page, pages })}</p>
           {result.page < pages ? (
-            <Link href={catalogPath(market.city, { ...query, page: result.page + 1 })} className="rounded-lg border px-3 py-2">
+            <Link
+              href={catalogPath(market.city, { ...query, page: result.page + 1 })}
+              className="rounded-lg border border-border-default bg-background-primary px-3 py-2"
+            >
               {t("next")}
             </Link>
           ) : (
-            <span className="rounded-lg border px-3 py-2 text-muted-foreground">{t("next")}</span>
+            <span className="rounded-lg border border-border-default px-3 py-2 text-text-disabled">
+              {t("next")}
+            </span>
           )}
         </nav>
       ) : null}

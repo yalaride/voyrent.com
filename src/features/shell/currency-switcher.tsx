@@ -37,7 +37,7 @@ export function CurrencySwitcher({ value, label }: { value: CurrencyCode; label:
           {CURRENCY_CODES.map((code) => (
             <DropdownMenuRadioItem key={code} value={code}>
               <span className="font-medium">{code}</span>
-              <span className="text-muted-foreground">{t(code)}</span>
+              <span className="text-text-secondary">{t(code)}</span>
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>

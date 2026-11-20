@@ -61,7 +61,7 @@ export function MarketSwitcher({
                 <button
                   type="button"
                   aria-current={countrySelected ? "true" : undefined}
-                  className="flex w-full rounded-lg px-2 py-2 text-start text-sm font-medium hover:bg-muted aria-[current=true]:bg-muted"
+                  className="flex w-full rounded-lg px-2 py-2 text-start text-sm font-medium text-text-primary hover:bg-background-secondary aria-[current=true]:bg-background-secondary"
                   onClick={() => selectPlace(countryHubPath(country.code))}
                 >
                   {country.name}
@@ -74,7 +74,7 @@ export function MarketSwitcher({
                         <button
                           type="button"
                           aria-current={selected ? "true" : undefined}
-                          className="flex w-full rounded-lg px-2 py-2 text-start text-sm text-muted-foreground hover:bg-muted hover:text-foreground aria-[current=true]:bg-muted aria-[current=true]:font-medium aria-[current=true]:text-foreground"
+                          className="flex w-full rounded-lg px-2 py-2 text-start text-sm text-text-secondary hover:bg-background-secondary hover:text-text-primary aria-[current=true]:bg-background-secondary aria-[current=true]:font-medium aria-[current=true]:text-text-primary"
                           onClick={() => selectPlace(cityRentPath(city.slug))}
                         >
                           {city.name}

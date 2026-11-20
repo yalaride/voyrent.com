@@ -24,7 +24,7 @@ export async function AppShell({
     <div className="flex min-h-dvh flex-col">
       <a
         href="#content"
-        className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-background focus:px-3 focus:py-2"
+        className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-background-primary focus:px-3 focus:py-2 focus:text-text-primary"
       >
         {t("skip")}
       </a>

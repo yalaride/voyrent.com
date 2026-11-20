@@ -113,7 +113,7 @@ export function SearchPanel({
           }
         }}
       >
-        <Search className="pointer-events-none absolute inset-s-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="pointer-events-none absolute inset-s-3 top-1/2 size-4 -translate-y-1/2 text-text-secondary" />
         <Input
           id={queryId}
           value={query}
@@ -134,7 +134,7 @@ export function SearchPanel({
             id={`${queryId}-suggestions`}
             role="listbox"
             aria-label={showingPopular ? t("popular") : t("suggestions")}
-            className="absolute inset-x-0 top-full z-20 mt-2 max-h-72 overflow-auto rounded-xl border bg-popover p-1 shadow-lg"
+            className="absolute inset-x-0 top-full z-20 mt-2 max-h-72 overflow-auto rounded-xl border border-border-default bg-background-primary p-1 shadow-large"
           >
             {visible.map((suggestion) => (
               <li key={`${suggestion.kind}-${suggestion.slug}`}>
@@ -142,7 +142,7 @@ export function SearchPanel({
                   type="button"
                   role="option"
                   aria-selected={false}
-                  className="flex w-full rounded-lg px-3 py-2.5 text-start text-sm hover:bg-muted"
+                  className="flex w-full rounded-lg px-3 py-2.5 text-start text-sm text-text-primary hover:bg-background-secondary"
                   onMouseDown={(event) => {
                     event.preventDefault();
                     applySuggestion(suggestion);

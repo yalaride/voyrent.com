@@ -28,7 +28,7 @@ export async function MarketHome({
 
   return (
     <>
-      <section className="bg-bg-section text-text-inverse">
+      <section className="bg-background-section text-text-inverse">
         <div className="mx-auto max-w-6xl px-4 pt-12 pb-20 md:pt-16">
           <p className="text-sm font-medium text-primary">{t("Hero.eyebrow")}</p>
           <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-balance text-text-inverse md:text-6xl">
@@ -40,7 +40,7 @@ export async function MarketHome({
         </div>
       </section>
       <div className="mx-auto -mt-10 max-w-6xl px-4">
-        <div className="rounded-2xl border border-border-default bg-bg-primary p-3 shadow-sm md:p-4">
+        <div className="rounded-2xl border border-border-default bg-background-primary p-3 shadow-small md:p-4">
           <SearchPanel country={market.country} city={market.city} />
         </div>
         <FamousSearches city={market.city} />
@@ -53,7 +53,7 @@ export async function MarketHome({
               <li key={type}>
                 <Link
                   href={catalogPath(market.city, { bodyType: type })}
-                  className="flex h-full items-end rounded-2xl border border-border-default bg-bg-primary px-3 py-4 text-sm font-medium text-text-primary hover:border-text-primary"
+                  className="flex h-full items-end rounded-2xl border border-border-default bg-background-primary px-3 py-4 text-sm font-medium text-text-primary hover:border-text-primary"
                 >
                   {body(type)}
                 </Link>
@@ -89,7 +89,7 @@ export async function MarketHome({
                   <li key={city.slug}>
                     <Link
                       href={cityRentPath(city.slug)}
-                      className="block rounded-2xl border border-border-default bg-bg-primary px-4 py-4 hover:border-text-primary"
+                      className="block rounded-2xl border border-border-default bg-background-primary px-4 py-4 hover:border-text-primary"
                     >
                       <span className="font-medium text-text-primary">
                         {localize(city.names, locale)}
@@ -115,7 +115,7 @@ export async function MarketHome({
             ).map(([title, bodyKey]) => (
               <li
                 key={title}
-                className="rounded-2xl border border-border-default bg-bg-primary p-5"
+                className="rounded-2xl border border-border-default bg-background-primary p-5"
               >
                 <h3 className="font-semibold text-text-primary">{t(title)}</h3>
                 <p className="mt-2 text-sm text-text-secondary">{t(bodyKey)}</p>

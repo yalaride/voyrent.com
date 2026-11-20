@@ -29,10 +29,10 @@ export async function SearchScreen({
 
   return (
     <div className="grid gap-8">
-      <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
+      <h1 className="text-3xl font-semibold tracking-tight text-text-primary md:text-4xl">
         {cityCatalog ? t("marketTitle", { city: cityName }) : t("searchTitle", { city: cityName })}
       </h1>
-      <div className="rounded-2xl border bg-card p-3 md:p-4">
+      <div className="rounded-2xl border border-border-default bg-background-primary p-3 shadow-small md:p-4">
         <SearchPanel
           key={searchQueryKey(query)}
           country={market.country}

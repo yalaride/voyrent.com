@@ -7,11 +7,11 @@ export default async function LocaleNotFound() {
 
   return (
     <div className="mx-auto max-w-lg px-4 py-24">
-      <h1 className="text-3xl font-semibold tracking-tight">{t("notFoundTitle")}</h1>
-      <p className="mt-3 text-muted-foreground">{t("notFoundBody")}</p>
+      <h1 className="text-3xl font-semibold tracking-tight text-text-primary">{t("notFoundTitle")}</h1>
+      <p className="mt-3 text-text-secondary">{t("notFoundBody")}</p>
       <Link
         href="/"
-        className="mt-6 inline-flex text-sm font-medium underline"
+        className="mt-6 inline-flex text-sm font-medium text-link underline"
       >
         {t("home")}
       </Link>
