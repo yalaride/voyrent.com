@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Check, ChevronDown, ChevronUp, MapPin, X } from "lucide-react";
 
 import type { OpeningHourRow } from "@/components/car-detail/dealer-opening-hours";
-import { Button } from "@/components/ui/button";
 
 const emptySubscribe = () => () => {};
 
@@ -28,13 +27,18 @@ function DrawerAccordionSection({
   children: React.ReactNode;
 }) {
   const [expanded, setExpanded] = React.useState(defaultOpen);
+  const id = React.useId();
+  const buttonId = `${id}-trigger`;
+  const panelId = `${id}-panel`;
 
   return (
     <section className="border-b border-border-subtle last:border-b-0">
       <button
+        id={buttonId}
         type="button"
         onClick={() => setExpanded((prev) => !prev)}
         aria-expanded={expanded}
+        aria-controls={panelId}
         className="flex min-h-12 w-full cursor-pointer items-center justify-between gap-5 py-[var(--spacing-space-12)] text-start text-[16px] font-medium leading-[1.5] text-text-primary transition-colors hover:text-primary"
       >
         <span>{title}</span>
@@ -46,6 +50,11 @@ function DrawerAccordionSection({
       </button>
 
       <div
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
+        aria-hidden={!expanded}
+        inert={!expanded}
         className={`grid transition-[grid-template-rows] duration-200 ease-out ${
           expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
@@ -74,12 +83,13 @@ export type DealerDrawerLabels = {
   goodToKnowTitle: string;
   languagesSpokenTitle: string;
   aboutDealerTitle: string;
-  callLabel: string;
-  whatsappLabel: string;
+  callLabel?: string;
+  whatsappLabel?: string;
   closeLabel?: string;
 };
 
 export function DealerInfoDrawer({
+  triggerVariant = "outline-pill",
   labels,
   supplierName,
   locationLabel,
@@ -93,10 +103,8 @@ export function DealerInfoDrawer({
   carFleet = [],
   languagesSpoken = [],
   aboutDealer,
-  phoneHref,
-  whatsappHref,
-  hasWhatsapp,
 }: {
+  triggerVariant?: "link" | "outline-pill";
   labels: DealerDrawerLabels;
   supplierName: string;
   locationLabel: string;
@@ -110,9 +118,10 @@ export function DealerInfoDrawer({
   carFleet?: string[];
   languagesSpoken?: string[];
   aboutDealer?: string;
-  phoneHref: string;
-  whatsappHref: string;
-  hasWhatsapp: boolean;
+  phoneHref?: string;
+  whatsappHref?: string;
+  hasPhone?: boolean;
+  hasWhatsapp?: boolean;
 }) {
   const [open, setOpen] = React.useState(false);
   const isClient = useIsClient();
@@ -147,20 +156,30 @@ export function DealerInfoDrawer({
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="inline-flex cursor-pointer items-center gap-2 text-[15px] font-medium text-text-primary underline underline-offset-4 transition-opacity hover:opacity-80"
-      >
-        <MapPin className="size-4 shrink-0" />
-        <span>{labels.triggerLabel}</span>
-      </button>
+      {triggerVariant === "outline-pill" ? (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border border-primary px-5 py-2.5 text-[14px] font-medium text-primary transition-colors hover:bg-primary/5"
+        >
+          {labels.triggerLabel}
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="inline-flex cursor-pointer items-center gap-2 text-[15px] font-medium text-text-primary underline underline-offset-4 transition-opacity hover:opacity-80"
+        >
+          <MapPin className="size-4 shrink-0" />
+          <span>{labels.triggerLabel}</span>
+        </button>
+      )}
 
       {isClient
         ? createPortal(
             <div
               aria-hidden={!open}
-              className={`fixed inset-0 z-[75] transition-visibility duration-300 ${
+              className={`fixed inset-0 z-[75] transition-[visibility] duration-300 ${
                 open
                   ? "pointer-events-auto visible"
                   : "pointer-events-none invisible"
@@ -358,57 +377,6 @@ export function DealerInfoDrawer({
                       </p>
                     </DrawerAccordionSection>
                   ) : null}
-                </div>
-
-                {/* Sticky Footer Actions */}
-                <div className="grid grid-cols-2 gap-3 border-t border-border-subtle bg-background-primary px-6 py-4">
-                  <Button
-                    asChild
-                    variant="default"
-                    size="lg"
-                    className="w-full rounded-full px-4 no-underline"
-                  >
-                    <a href={phoneHref}>
-                      <Image
-                        unoptimized
-                        src="/icons/phone.svg"
-                        alt=""
-                        width={20}
-                        height={20}
-                        aria-hidden="true"
-                        className="size-5 shrink-0 brightness-0 invert"
-                      />
-                      <span>{labels.callLabel}</span>
-                    </a>
-                  </Button>
-
-                  <Button
-                    asChild
-                    variant="whatsapp-solid"
-                    size="lg"
-                    className="w-full rounded-full px-4 no-underline"
-                  >
-                    <a
-                      href={whatsappHref}
-                      target={hasWhatsapp ? "_blank" : undefined}
-                      rel={hasWhatsapp ? "noopener noreferrer" : undefined}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (!hasWhatsapp) e.preventDefault();
-                      }}
-                    >
-                      <Image
-                        unoptimized
-                        src="/icons/whatsapp.svg"
-                        alt=""
-                        width={20}
-                        height={20}
-                        aria-hidden="true"
-                        className="size-5 shrink-0 brightness-0 invert"
-                      />
-                      <span>{labels.whatsappLabel}</span>
-                    </a>
-                  </Button>
                 </div>
               </aside>
             </div>,

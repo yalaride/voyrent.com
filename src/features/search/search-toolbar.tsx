@@ -26,6 +26,7 @@ interface SearchToolbarProps {
   makes: MakeOption[];
   models: ModelOption[];
   filterDrawerContent?: ReactNode;
+  basePath?: string;
 }
 
 const SORT_OPTIONS: Array<{
@@ -37,6 +38,29 @@ const SORT_OPTIONS: Array<{
   { value: "price_desc", labelKey: "sortPriceDesc" },
 ];
 
+function buildBasePathUrl(
+  basePath: string,
+  nextQuery: Partial<VehicleSearchQuery>,
+): string {
+  const params = new URLSearchParams();
+  if (nextQuery.q) params.set("q", nextQuery.q);
+  if (nextQuery.make) params.set("make", nextQuery.make);
+  if (nextQuery.model) params.set("model", nextQuery.model);
+  if (nextQuery.bodyType) params.set("bodyType", nextQuery.bodyType);
+  if (nextQuery.deposit) params.set("deposit", nextQuery.deposit);
+  if (nextQuery.term) params.set("term", nextQuery.term);
+  if (nextQuery.pickup) params.set("pickup", nextQuery.pickup);
+  if (nextQuery.seats) params.set("seats", String(nextQuery.seats));
+  if (nextQuery.sort && nextQuery.sort !== "recommended") {
+    params.set("sort", nextQuery.sort);
+  }
+  if (nextQuery.page && nextQuery.page > 1) {
+    params.set("page", String(nextQuery.page));
+  }
+  const qs = params.toString();
+  return qs ? `${basePath}?${qs}` : basePath;
+}
+
 export function SearchToolbar({
   country,
   city,
@@ -44,6 +68,7 @@ export function SearchToolbar({
   makes,
   models,
   filterDrawerContent,
+  basePath,
 }: SearchToolbarProps) {
   const router = useRouter();
   const bodyLabels = useTranslations("BodyTypes");
@@ -88,12 +113,16 @@ export function SearchToolbar({
   }, [isFilterDrawerOpen]);
 
   function pushQuery(patch: Partial<VehicleSearchQuery>) {
+    const nextQuery: VehicleSearchQuery = {
+      ...query,
+      ...patch,
+      page: 1,
+    };
+
     router.push(
-      catalogPath(city, {
-        ...query,
-        ...patch,
-        page: 1,
-      }),
+      basePath
+        ? buildBasePathUrl(basePath, nextQuery)
+        : catalogPath(city, nextQuery),
     );
   }
 
@@ -198,6 +227,7 @@ export function SearchToolbar({
               {/* Mobile: full-width input | Tablet: input + Filter button | Desktop: wider input + dark chips */}
               <div className="flex flex-1 items-center justify-between gap-[var(--spacing-space-16)] lg:flex-wrap lg:justify-start lg:gap-[var(--spacing-space-20)]">
                 <div className="w-full sm:max-w-[440px] sm:flex-1 lg:w-[440px] lg:max-w-none lg:flex-none xl:w-[500px] [&>*]:w-full [&>*]:max-w-none">
+                  {/* NOTE: Once you add `basePath?: string` to SearchPanel, pass `basePath={basePath}` here too */}
                   <SearchPanel
                     key={searchQueryKey(query)}
                     variant="toolbar"
@@ -427,6 +457,7 @@ export function SearchToolbar({
                   makes={makes}
                   models={models}
                   variant="drawer"
+                  basePath={basePath}
                 />
               )}
             </div>

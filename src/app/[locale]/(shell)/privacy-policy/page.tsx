@@ -1,9 +1,32 @@
-import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import { ShieldIcon } from "@/components/icons/index";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
+import { isLocale } from "@/domain/geo/locales";
+import { Link } from "@/i18n/navigation";
 
-export default async function PrivacyPage() {
+type PageProps = {
+  params: Promise<{ locale: string }>;
+};
+
+export default function PrivacyPage({ params }: PageProps) {
+  return (
+    <Suspense fallback={<div className="min-h-dvh bg-background" />}>
+      <PrivacyContent params={params} />
+    </Suspense>
+  );
+}
+
+async function PrivacyContent({ params }: PageProps) {
+  const { locale } = await params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
   const t = await getTranslations("PrivacyPolicy");
 
   const bulletPoints = [
@@ -108,7 +131,7 @@ export default async function PrivacyPage() {
 
       {/* Main Content Area */}
       <LayoutWrapper>
-        <main className="w-full bg-background-primary py-16">
+        <div className="w-full bg-background-primary py-16">
           <div className="flex w-full flex-col items-start gap-[var(--spacing-space-40)]">
             {/* Introduction */}
             <section className="flex w-full flex-col items-start gap-[var(--spacing-space-8)]">
@@ -254,7 +277,7 @@ export default async function PrivacyPage() {
               </div>
             </section>
           </div>
-        </main>
+        </div>
       </LayoutWrapper>
     </div>
   );

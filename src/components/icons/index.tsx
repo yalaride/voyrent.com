@@ -75,6 +75,167 @@ export function InventoryBoxIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function ReachRentersIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      {...props}
+    >
+      <circle cx="23" cy="23" r="14.5" stroke="currentColor" strokeWidth="3" />
+      <path
+        d="M33.5 33.5L44 44"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function FeaturedListingsIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        d="M26 7.5L31.4 18.6L43.6 20.4L34.8 29L36.9 41.2L26 35.4L15.1 41.2L17.2 29L8.4 20.4L20.6 18.6L26 7.5Z"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function ListingsOnTopIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      {...props}
+    >
+      <circle cx="26" cy="26" r="18" stroke="currentColor" strokeWidth="3" />
+      <path
+        d="M26 34V18M19 24.5L26 17.5L33 24.5"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function OwnRatesIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      {...props}
+    >
+      <rect
+        x="8"
+        y="12"
+        width="36"
+        height="22"
+        rx="3"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinejoin="round"
+      />
+      <circle cx="26" cy="23" r="4.5" stroke="currentColor" strokeWidth="3" />
+      <path
+        d="M11 39.5H41"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function ManageOnePlaceIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      {...props}
+    >
+      <rect
+        x="8"
+        y="8"
+        width="15"
+        height="15"
+        rx="4"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+      <rect
+        x="29"
+        y="8"
+        width="15"
+        height="15"
+        rx="4"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+      <rect
+        x="8"
+        y="29"
+        width="15"
+        height="15"
+        rx="4"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+      <rect
+        x="29"
+        y="29"
+        width="15"
+        height="15"
+        rx="4"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+    </svg>
+  );
+}
+
+export function GrowCitiesIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 52 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        d="M26 44.5C26 44.5 40 31.8 40 21.5C40 13.768 33.732 7.5 26 7.5C18.268 7.5 12 13.768 12 21.5C12 31.8 26 44.5 26 44.5Z"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="26" cy="21.5" r="5" stroke="currentColor" strokeWidth="3" />
+    </svg>
+  );
+}
+
 export function PhoneIcon({
   className = "size-5",
   ...props

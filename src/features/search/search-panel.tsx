@@ -22,18 +22,43 @@ const popularSuggestions: SearchSuggestion[] = FAMOUS_SEARCHES.map((item) => ({
   messageKey: item.messageKey,
 }));
 
+function buildBasePathUrl(
+  basePath: string,
+  nextQuery: Partial<VehicleSearchQuery>,
+): string {
+  const params = new URLSearchParams();
+  if (nextQuery.q) params.set("q", nextQuery.q);
+  if (nextQuery.make) params.set("make", nextQuery.make);
+  if (nextQuery.model) params.set("model", nextQuery.model);
+  if (nextQuery.bodyType) params.set("bodyType", nextQuery.bodyType);
+  if (nextQuery.deposit) params.set("deposit", nextQuery.deposit);
+  if (nextQuery.term) params.set("term", nextQuery.term);
+  if (nextQuery.pickup) params.set("pickup", nextQuery.pickup);
+  if (nextQuery.seats) params.set("seats", String(nextQuery.seats));
+  if (nextQuery.sort && nextQuery.sort !== "recommended") {
+    params.set("sort", nextQuery.sort);
+  }
+  if (nextQuery.page && nextQuery.page > 1) {
+    params.set("page", String(nextQuery.page));
+  }
+  const qs = params.toString();
+  return qs ? `${basePath}?${qs}` : basePath;
+}
+
 export function SearchPanel({
   country,
   city,
   initialQuery = "",
   variant = "hero",
   currentQuery,
+  basePath,
 }: {
   country: string;
   city: string;
   initialQuery?: string;
   variant?: "hero" | "toolbar";
   currentQuery?: Partial<VehicleSearchQuery>;
+  basePath?: string;
 }) {
   const t = useTranslations("Search");
   const bodyLabels = useTranslations("BodyTypes");
@@ -87,7 +112,10 @@ export function SearchPanel({
     setOpen(false);
     const merged =
       isToolbar && currentQuery ? { ...currentQuery, ...next, page: 1 } : next;
-    router.push(catalogPath(city, merged));
+
+    router.push(
+      basePath ? buildBasePathUrl(basePath, merged) : catalogPath(city, merged),
+    );
   }
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {

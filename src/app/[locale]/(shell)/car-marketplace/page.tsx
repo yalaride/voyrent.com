@@ -17,10 +17,10 @@ import {
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 import { RentingStepsSection } from "@/components/marketplace/RentingStepsSection";
 import { isLocale } from "@/domain/geo/locales";
-import { getMarket } from "@/domain/geo/markets";
-import { AppShell } from "@/features/shell/app-shell";
 
-type PageProps = { params: Promise<{ locale: string }> };
+type PageProps = {
+  params: Promise<{ locale: string }>;
+};
 
 export async function generateMetadata({
   params,
@@ -29,7 +29,7 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
 
   const t = await getTranslations({ locale, namespace: "Meta" });
-  return { title: { absolute: `${t("marketplaceTitle")} · GleeCars` } };
+  return { title: { absolute: `${t("marketplaceTitle")} · RutaRide` } };
 }
 
 export default function CarMarketplacePage({ params }: PageProps) {
@@ -42,18 +42,13 @@ export default function CarMarketplacePage({ params }: PageProps) {
 
 async function CarMarketplaceContent({ params }: PageProps) {
   const { locale } = await params;
-
   if (!isLocale(locale)) notFound();
 
   setRequestLocale(locale);
-
-  const market = getMarket("ae", "dubai");
-  if (!market) notFound();
-
   const tDealerCta = await getTranslations("DealerPlansCta");
 
   return (
-    <AppShell locale={locale} market={market}>
+    <>
       <AppDownloadCta />
       <MarketplaceBenefitsSection />
       <RentingStepsSection />
@@ -64,7 +59,7 @@ async function CarMarketplaceContent({ params }: PageProps) {
         href={`/${locale}/dealer-plans`}
       />
       <LandingFaqSection />
-    </AppShell>
+    </>
   );
 }
 

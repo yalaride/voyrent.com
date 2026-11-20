@@ -56,7 +56,8 @@ export function HeaderMenu({
     placeName: active?.placeName ?? t("chooseCity"),
   });
 
-  const countryCode = (draftRegion.country || active?.country)?.toUpperCase();
+  const countryCode =
+    (draftRegion.country || active?.country || locale?.split("-")[0]?.toUpperCase())?.toUpperCase();
   const FlagIcon =
     countryCode && hasFlag(countryCode)
       ? (

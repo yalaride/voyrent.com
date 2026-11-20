@@ -10,7 +10,9 @@
     "modelTitle": "Alquila un {make} {model} en {city}",
     "modelDescription": "Ofertas de alquiler del {make} {model} en {city}.",
     "filteredTitle": "{filter} en {city}",
-    "filteredDescription": "Compara alquileres de {filter} en {city}."
+    "filteredDescription": "Compara alquileres de {filter} en {city}.",
+    "marketplaceTitle": "Mercado de coches",
+    "companyTitle": "{company} – Alquiler de coches en {city}"
   },
   "Header": {
     "skip": "Saltar al contenido",
@@ -228,6 +230,25 @@
     "languagesSpoken": "Idiomas hablados",
     "aboutDealer": "Acerca de {name}",
     "close": "Cerrar",
+    "viewAllCarsByDealer": "Ver todos los coches de esta agencia",
+    "listedIn": "Publicado en",
+    "paymentModes": "Formas de pago",
+
+    "companyEmptyFilteredTitle": "No hay coches de {company} que coincidan con los filtros seleccionados.",
+    "companyEmptyFilteredBody": "Prueba a borrar o ajustar los filtros para ver más vehículos de {company}.",
+    "companyEmptyDefaultTitle": "Actualmente no hay coches disponibles de {company} en {city}.",
+    "companyEmptyDefaultBody": "Vuelve a consultar más tarde o explora todos los coches de alquiler en {city}.",
+    "browseAllCityCars": "Ver todos los coches en {city}",
+
+    "dealerPageTitle": "{name}: ofertas en vivo en {city}",
+    "dealerPageSubtitle": "Elige entre {count, plural, one {# coche de alquiler} other {# coches de alquiler}} y reserva directamente con RutaRide. ¡Cero comisiones, cero tarifas de reserva!",
+    "instantCallOrWhatsapp": "Llamada o WhatsApp al instante",
+    "bookDirectWithDealer": "Reserva directamente con la agencia",
+    "ratesUpdatedDaily": "Tarifas actualizadas a diario",
+
+    "fallbackDealerCityCountry": "{city}, Pakistán",
+    "fallbackListedIn1": "Alquiler de coches deportivos en Model Town",
+    "fallbackPaymentModes": "Efectivo, tarjeta de crédito, tarjeta de débito, transferencia bancaria",
     "fallbackAboutDealer": "Descubra lujo y comodidad con {name}, su mejor opción para el alquiler de coches en {city}. Ya sea residente o visitante, nuestro objetivo es que alquilar un automóvil premium sea sencillo y agradable. Nuestro equipo, con experiencia y conocimiento, se dedica a escuchar sus necesidades y a recomendarle el vehículo ideal para su viaje, garantizando una combinación perfecta de estilo, lujo y comodidad."
   },
 
@@ -286,7 +307,7 @@
       },
       "q5": {
         "question": "¿Cómo sé si el precio de un auto es justo?",
-        "answer": "Puedes comparar marcas, modelos, años y kilometrajes similares entre varios concesionarios de tu ciudad en Gleecar y ver precios transparentes de los proveedores."
+        "answer": "Puedes comparar marcas, modelos, años y kilometrajes similares entre varios concesionarios de tu ciudad en RutaRide y ver precios transparentes de los proveedores."
       },
       "q6": {
         "question": "¿Qué debo revisar antes de contactar a un vendedor?",
@@ -308,7 +329,7 @@
     "rangeTitle": "Marca, modelo y tipo",
     "rangeBody": "Busca como lo hace un conductor: marca, modelo, tipo de coche o una petición habitual.",
     "priceTitle": "Precios del proveedor",
-    "priceBody": "La tarifa la pone la empresa de alquiler. GleeCars no suma comisión.",
+    "priceBody": "La tarifa la pone la empresa de alquiler. RutaRide no suma comisión.",
     "marketTitle": "Varios mercados, una búsqueda",
     "marketBody": "Cambia de país, ciudad, idioma y moneda sin empezar de cero."
   },
@@ -339,7 +360,7 @@
     "termsConditions": "Términos y condiciones",
     "cookiePolicy": "Política de cookies",
     "supportTitle": "Soporte",
-    "contactEmail": "contact@gleeonedrive.com",
+    "contactEmail": "contact@RutaRide.com",
     "contactPhone": "+92 339 0500 659",
     "socialLabel": "Enlaces de redes sociales",
     "socialFacebook": "Facebook",
@@ -352,7 +373,7 @@
     "paymentUnionPay": "UnionPay"
   },
   "Dealers": {
-    "title": "Ofrece coches en GleeCars",
+    "title": "Ofrece coches en RutaRide",
     "body": "Las empresas de alquiler mantienen sus precios y hablan directo con los conductores. El alta de proveedores se conectará a la plataforma NestJS. Las herramientas del proveedor viven en una aplicación aparte."
   },
   "Errors": {
@@ -391,6 +412,30 @@
     "locationAndArea": "Ubicación y zona",
     "carFeatures": "Características del coche",
     "exteriorCarColor": "Color exterior del coche"
+  },
+  "paymentModesLabel": "Métodos de pago",
+  "paymentModes": {
+    "title": "Métodos de pago",
+    "crypto": {
+      "title": "Criptomonedas",
+      "description": "Paga utilizando criptomonedas admitidas."
+    },
+    "cash": {
+      "title": "Efectivo",
+      "description": "Paga en efectivo directamente en el momento de la recogida o entrega."
+    },
+    "credit": {
+      "title": "Tarjeta de crédito",
+      "description": "Paga de forma segura con una tarjeta de crédito. Apple Pay y Samsung Pay también pueden estar disponibles."
+    },
+    "debit": {
+      "title": "Tarjeta de débito",
+      "description": "Paga de forma segura con una tarjeta de débito. Apple Pay y Samsung Pay también pueden estar disponibles."
+    },
+    "tipPrefix": "Consejo:",
+    "tipBody": "¿Utilizas una tarjeta de débito, efectivo o transferencia bancaria? Los reembolsos tardan más, requieren un procesamiento manual y pueden generar comisiones por transferencia y conversión de divisas.",
+    "tipSuffix": "Consulta con tu proveedor con antelación.",
+    "depositNote": "La preautorización con tarjeta de crédito es el método preferido para los depósitos, ya que permite la liberación automática y una posible protección bancaria en caso de disputa."
   },
 
   "PrivacyPolicy": {
@@ -522,8 +567,188 @@
   },
   "DealerPlansCta": {
     "title": "¿Tienes una empresa de alquiler de coches?",
-    "description": "Publica tus coches en GleeCars y llega directamente a los clientes.",
+    "description": "Publica tus coches en RutaRide y llega directamente a los clientes.",
     "buttonLabel": "Ver planes para distribuidores"
+  },
+  "DealerPlans": {
+    "metaTitle": "Publica tu flota",
+    "hero": {
+      "title": "Haz que tu coche genere ingresos",
+      "subtitle": "Publica tus coches donde los clientes ya están buscando y usa la colocación destacada y las renovaciones para que sigan siendo visibles."
+    },
+    "form": {
+      "heading": "Publica tu flota hoy",
+      "submit": "Enviar",
+      "successMessage": "¡Gracias! Nuestro equipo se pondrá en contacto contigo en breve.",
+      "fields": {
+        "yourName": {
+          "label": "Tu nombre",
+          "placeholder": "Anas Ansari"
+        },
+        "companyName": {
+          "label": "Nombre de la empresa",
+          "placeholder": "Priceless"
+        },
+        "jobTitle": {
+          "label": "Cargo"
+        },
+        "fleetSize": {
+          "label": "Tamaño de la flota"
+        },
+        "contactNo": {
+          "label": "Teléfono de contacto",
+          "placeholder": "300 1234567"
+        },
+        "email": {
+          "label": "Correo electrónico",
+          "placeholder": "Introduce tu correo electrónico"
+        },
+        "country": {
+          "label": "País"
+        },
+        "city": {
+          "label": "Ciudad"
+        }
+      },
+      "options": {
+        "jobTitles": {
+          "ownerFounder": "Propietario / Fundador",
+          "fleetManager": "Gerente de flota",
+          "operationsManager": "Gerente de operaciones",
+          "salesManager": "Gerente de ventas",
+          "marketingManager": "Gerente de marketing"
+        },
+        "fleetSizes": {
+          "1to5": "1 - 5 coches",
+          "6to20": "6 - 20 coches",
+          "21to50": "21 - 50 coches",
+          "51to100": "51 - 100 coches",
+          "100plus": "Más de 100 coches"
+        },
+        "countries": {
+          "uae": "Emiratos Árabes Unidos",
+          "saudiArabia": "Arabia Saudí",
+          "pakistan": "Pakistán",
+          "uk": "Reino Unido",
+          "us": "Estados Unidos"
+        },
+        "cities": {
+          "dubai": "Dubái",
+          "abuDhabi": "Abu Dabi",
+          "sharjah": "Sharjah",
+          "ajman": "Ajmán",
+          "riyadh": "Riad",
+          "jeddah": "Yeda",
+          "dammam": "Dammam",
+          "karachi": "Karachi",
+          "lahore": "Lahore",
+          "islamabad": "Islamabad",
+          "london": "Londres",
+          "manchester": "Mánchester",
+          "birmingham": "Birmingham"
+        },
+        "plans": {
+          "title": "Elige el plan que se adapte a las necesidades de tu negocio",
+          "subtitle": "Gestiona tu inventario, sigue las consultas de los compradores y mantén el control desde un único panel fácil de usar.",
+          "cta": "Solicitar presupuesto",
+          "previousPlan": "Plan anterior",
+          "nextPlan": "Plan siguiente",
+          "billing": {
+            "monthly": "Mensual",
+            "annually": "Anual"
+          },
+          "countries": {
+            "uae": "Emiratos Árabes Unidos",
+            "saudiArabia": "Arabia Saudita",
+            "pakistan": "Pakistán",
+            "uk": "Reino Unido",
+            "us": "Estados Unidos"
+          },
+          "packs": {
+            "starter": {
+              "title": "Paquete Starter",
+              "subtitle": "Lo esencial para negocios nuevos",
+              "monthly": {
+                "listings": "{count} anuncios de coches",
+                "refreshes": "{count} renovaciones",
+                "visibility": "Visible en la web y la app"
+              },
+              "annually": {
+                "listings": "{count} anuncios de coches / año",
+                "refreshes": "{count} renovaciones / año",
+                "visibility": "Visible en la web y la app (sincronización prioritaria)"
+              }
+            },
+            "pro": {
+              "title": "Paquete Pro",
+              "subtitle": "Ideal para hacer crecer tu clientela",
+              "badge": "Oferta especial",
+              "annualBadge": "Ahorra un 20 %",
+              "monthly": {
+                "listings": "{count} anuncios de coches",
+                "refreshes": "{count} renovaciones",
+                "visibility": "Visible en la web y la app",
+                "featured": "Anuncio destacado"
+              },
+              "annually": {
+                "listings": "{count} anuncios de coches / año",
+                "refreshes": "{count} renovaciones / año",
+                "visibility": "Visible en la web y la app",
+                "featured": "Anuncio destacado + 2 meses gratis"
+              }
+            },
+            "luxury": {
+              "title": "Paquete Luxury",
+              "subtitle": "Funciones para flotas más grandes",
+              "monthly": {
+                "listings": "{count} anuncios de coches",
+                "refreshes": "{count} renovaciones",
+                "visibility": "Visible en la web y la app",
+                "featured": "Anuncio destacado",
+                "multiCity": "Cobertura en varias ciudades"
+              },
+              "annually": {
+                "listings": "{count} anuncios de coches / año",
+                "refreshes": "{count} renovaciones / año",
+                "visibility": "Visible en la web y la app",
+                "featured": "Anuncio destacado prioritario",
+                "multiCity": "Cobertura en todas las ciudades ({country})"
+              }
+            }
+          }
+        },
+        "benefits": {
+          "title": "Mantén tu flota en la carretera",
+          "subtitle": "Publica tus coches donde los clientes ya están buscando y usa la colocación destacada y las renovaciones para que sigan siendo visibles.",
+          "items": {
+            "reachRenters": {
+              "title": "Llega a clientes listos para reservar",
+              "description": "Haz que te vean las personas que ya buscan un coche de alquiler, en la web y en la app."
+            },
+            "featuredListings": {
+              "title": "Destaca con anuncios destacados",
+              "description": "En los planes Pro y Luxury, tus coches destacados tienen prioridad en los resultados de búsqueda."
+            },
+            "listingsOnTop": {
+              "title": "Mantén tus anuncios arriba",
+              "description": "Usa tus renovaciones cuando quieras subir un anuncio de nuevo, para que tus coches sean fáciles de encontrar."
+            },
+            "ownRates": {
+              "title": "Fija tus propias tarifas",
+              "description": "Elige tus precios por día, semana y mes y actualiza tu disponibilidad cuando quieras."
+            },
+            "manageOnePlace": {
+              "title": "Gestiona todo en un solo lugar",
+              "description": "Administra tus anuncios, renovaciones y consultas de clientes desde un único panel."
+            },
+            "growCities": {
+              "title": "Crece en varias ciudades",
+              "description": "El plan Luxury cubre varias ciudades, para que tu flota llegue a los clientes allí donde operes."
+            }
+          }
+        }
+      }
+    }
   },
   "Currencies": {
     "AED": "Dírham de EAU",

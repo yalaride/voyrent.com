@@ -49,6 +49,30 @@ interface FilterSidebarProps {
   facets?: BackendFilterFacets;
   variant?: "default" | "drawer";
   hideMobileTrigger?: boolean;
+  basePath?: string;
+}
+
+function buildBasePathUrl(
+  basePath: string,
+  nextQuery: Partial<VehicleSearchQuery>,
+): string {
+  const params = new URLSearchParams();
+  if (nextQuery.q) params.set("q", nextQuery.q);
+  if (nextQuery.make) params.set("make", nextQuery.make);
+  if (nextQuery.model) params.set("model", nextQuery.model);
+  if (nextQuery.bodyType) params.set("bodyType", nextQuery.bodyType);
+  if (nextQuery.deposit) params.set("deposit", nextQuery.deposit);
+  if (nextQuery.term) params.set("term", nextQuery.term);
+  if (nextQuery.pickup) params.set("pickup", nextQuery.pickup);
+  if (nextQuery.seats) params.set("seats", String(nextQuery.seats));
+  if (nextQuery.sort && nextQuery.sort !== "recommended") {
+    params.set("sort", nextQuery.sort);
+  }
+  if (nextQuery.page && nextQuery.page > 1) {
+    params.set("page", String(nextQuery.page));
+  }
+  const qs = params.toString();
+  return qs ? `${basePath}?${qs}` : basePath;
 }
 
 function AccordionCard({
@@ -201,6 +225,7 @@ export function FilterSidebar({
   facets,
   variant = "default",
   hideMobileTrigger = false,
+  basePath,
 }: FilterSidebarProps) {
   const router = useRouter();
   const bodyLabels = useTranslations("BodyTypes");
@@ -208,17 +233,21 @@ export function FilterSidebar({
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   function pushQuery(patch: Partial<VehicleSearchQuery>) {
+    const nextQuery: VehicleSearchQuery = {
+      ...query,
+      ...patch,
+      page: 1,
+    };
+
     router.push(
-      catalogPath(city, {
-        ...query,
-        ...patch,
-        page: 1,
-      }),
+      basePath
+        ? buildBasePathUrl(basePath, nextQuery)
+        : catalogPath(city, nextQuery),
     );
   }
 
   function clearAll() {
-    router.push(catalogPath(city, {}));
+    router.push(basePath ?? catalogPath(city, {}));
   }
 
   const activeCount = [
@@ -263,7 +292,7 @@ export function FilterSidebar({
 
       {/* 1. Car Type */}
       <AccordionCard title={t("carType")} defaultOpen>
-        <div className="filter-scrollbar max-h-44 space-y-2.5 overflow-y-auto pe-2">
+        <div className="filter-scrollbar max-h-44 space-y-2.5 overflow-y-auto pe-2 pl-4">
           {BODY_TYPES.map((type) => {
             const checked = query.bodyType === type;
             const count = facets?.bodyTypeCounts?.[type];

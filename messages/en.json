@@ -11,7 +11,8 @@
     "modelDescription": "Rental offers for the {make} {model} in {city}.",
     "filteredTitle": "{filter} in {city}",
     "filteredDescription": "Compare {filter} rental cars in {city}.",
-    "marketplaceTitle": "Car Marketplace"
+    "marketplaceTitle": "Car Marketplace",
+    "companyTitle": "{company} – Car rental in {city}"
   },
   "Header": {
     "skip": "Skip to content",
@@ -134,6 +135,7 @@
     "save": "Save",
     "prevImage": "Previous image",
     "nextImage": "Next image",
+    "showMoreImages": "Show more",
     "lastUpdatedDefault": "Recently updated",
     "pricingTitle": "Pricing",
     "dayUnit": "day",
@@ -172,6 +174,8 @@
     "reviewsCount": "{count, plural, one {# review} other {# reviews}}",
     "openStatus": "Open",
     "closesAt": "Closes at {time}",
+    "defaultOpeningHours": "9:00 AM - 7:00 PM",
+    "defaultClosesAtTime": "7:00 PM",
     "sunday": "Sunday",
     "monday": "Monday",
     "tuesday": "Tuesday",
@@ -184,12 +188,44 @@
     "fuelPolicy": "Fuel Policy",
     "depositPolicy": "Deposit Policy",
     "rentalPolicy": "Rental Policy",
+    "close": "Close",
+
+    "dealerInfoLocation": "Dealer's Info & Location",
+    "dealerInfoTitle": "Dealer Information",
+    "viewMoreDetail": "View more detail",
+    "viewAllCarsByDealer": "View All Cars by this Dealer",
+    "carFleet": "Car Fleet",
+    "listedIn": "Listed In",
+    "paymentModes": "Payment Modes",
+
+    "dealerPageTitle": "{name}: Live Offers in {city}",
+    "dealerPageSubtitle": "Choose among {count, plural, one {# rental car} other {# rental cars}} and book directly via RutaRide. Zero commission, zero booking fees!",
+    "instantCallOrWhatsapp": "Instant call or WhatsApp",
+    "bookDirectWithDealer": "Book direct with dealer",
+    "ratesUpdatedDaily": "Rates updated daily",
+
+    "branchInCity": "Branch in {city}",
+    "branchLocations": "Branch Locations",
+    "shopTimings": "Shop Timings",
+    "deliveryPickupServices": "Delivery & Pick-up Services",
+    "fastDeliveryLocations": "Fast Delivery Locations",
+    "goodToKnow": "Good to know",
+    "languagesSpoken": "Languages Spoken",
+    "aboutDealer": "About {name}",
+    "companyEmptyFilteredTitle": "No cars from {company} match your selected filters.",
+    "companyEmptyFilteredBody": "Try clearing or adjusting your filters to see more vehicles from {company}.",
+    "companyEmptyDefaultTitle": "No cars available from {company} in {city} right now.",
+    "companyEmptyDefaultBody": "Please check back later or browse all rental cars in {city}.",
+    "browseAllCityCars": "Browse all cars in {city}",
 
     "fallbackMileage": "12,500 km",
     "fallbackMpg": "22 City / 30 Hwy",
     "fallbackEngine": "3.0L V6 Twin-Turbo",
     "fallbackExtColor": "Obsidian Black",
     "fallbackIntColor": "Beige Leather",
+    "fallbackDealerCityCountry": "{city}, Pakistan",
+    "fallbackListedIn1": "Sports Car Rentals in Model Town",
+    "fallbackPaymentModes": "Cash, Credit Card, Debit Card, Bank Transfer",
     "fallbackDealerAddress": "3914 Hempstead Tpke, Levittown, NY 11756",
     "fallbackBranchLocation1": "Gulberg, Lahore",
     "fallbackBranchLocation2": "Model Town, Lahore",
@@ -240,7 +276,7 @@
     "rangeTitle": "Make, model, and type",
     "rangeBody": "Search the way drivers actually look: brand, model, body type, or a popular request.",
     "priceTitle": "Supplier prices",
-    "priceBody": "The rate comes from the rental company. GleeCars does not add a commission on top.",
+    "priceBody": "The rate comes from the rental company. RutaRide does not add a commission on top.",
     "marketTitle": "Many markets, one search",
     "marketBody": "Switch country, city, language, and currency without starting over."
   },
@@ -276,7 +312,7 @@
       },
       "q5": {
         "question": "How do I know if a car is priced fairly?",
-        "answer": "You can compare similar makes, models, years, and mileage across multiple dealers in your city on Gleecar to see transparent supplier pricing."
+        "answer": "You can compare similar makes, models, years, and mileage across multiple dealers in your city on RutaRide to see transparent supplier pricing."
       },
       "q6": {
         "question": "What should I check before contacting a seller?",
@@ -311,7 +347,7 @@
     "termsConditions": "Terms & Conditions",
     "cookiePolicy": "Cookie Policy",
     "supportTitle": "Support",
-    "contactEmail": "contact@gleeonedrive.com",
+    "contactEmail": "contact@RutaRide.com",
     "contactPhone": "+92 339 0500 659",
     "socialLabel": "Social media links",
     "socialFacebook": "Facebook",
@@ -325,7 +361,7 @@
   },
 
   "Dealers": {
-    "title": "Supply cars on GleeCars",
+    "title": "Supply cars on RutaRide",
     "body": "Rental companies keep their own prices and talk to drivers directly. Dealer onboarding will connect to the NestJS platform. The dealer tools live in a separate application."
   },
   "Errors": {
@@ -508,8 +544,220 @@
   },
   "DealerPlansCta": {
     "title": "Own a car rental company?",
-    "description": "List your cars on GleeCars and reach renters directly.",
+    "description": "List your cars on RutaRide and reach renters directly.",
     "buttonLabel": "View Dealer Plans"
+  },
+  "DealerPlans": {
+    "metaTitle": "List Your Fleet",
+    "hero": {
+      "title": "Make Your Car Earn",
+      "subtitle": "List your cars where renters are already searching, then use featured placement and refreshes to keep them seen."
+    },
+    "form": {
+      "heading": "List Your Fleet Today",
+      "submit": "Submit",
+      "successMessage": "Thank you! Our team will contact you shortly.",
+      "validationError": "Please fill in all required fields.",
+      "fields": {
+        "yourName": {
+          "label": "Your Name",
+          "placeholder": "Anas Ansari"
+        },
+        "companyName": {
+          "label": "Company Name",
+          "placeholder": "Priceless"
+        },
+        "jobTitle": {
+          "label": "Job Title",
+          "placeholder": "Select job title"
+        },
+        "fleetSize": {
+          "label": "Fleet Size",
+          "placeholder": "Select fleet size"
+        },
+        "contactNo": {
+          "label": "Contact No",
+          "placeholder": "300 1234567"
+        },
+        "email": {
+          "label": "Email Address",
+          "placeholder": "Enter email address"
+        },
+        "country": {
+          "label": "Country",
+          "placeholder": "Select country"
+        },
+        "city": {
+          "label": "City",
+          "placeholder": "Select city"
+        }
+      },
+      "options": {
+        "jobTitles": {
+          "ownerFounder": "Owner / Founder",
+          "fleetManager": "Fleet Manager",
+          "operationsManager": "Operations Manager",
+          "salesManager": "Sales Manager",
+          "marketingManager": "Marketing Manager"
+        },
+        "fleetSizes": {
+          "1to5": "1 - 5 Cars",
+          "6to20": "6 - 20 Cars",
+          "21to50": "21 - 50 Cars",
+          "51to100": "51 - 100 Cars",
+          "100plus": "100+ Cars"
+        },
+        "countries": {
+          "uae": "UAE",
+          "saudiArabia": "Saudi Arabia",
+          "pakistan": "Pakistan",
+          "uk": "United Kingdom",
+          "us": "United States"
+        },
+        "cities": {
+          "dubai": "Dubai",
+          "abuDhabi": "Abu Dhabi",
+          "sharjah": "Sharjah",
+          "ajman": "Ajman",
+          "riyadh": "Riyadh",
+          "jeddah": "Jeddah",
+          "dammam": "Dammam",
+          "karachi": "Karachi",
+          "lahore": "Lahore",
+          "islamabad": "Islamabad",
+          "london": "London",
+          "manchester": "Manchester",
+          "birmingham": "Birmingham",
+          "newYork": "New York",
+          "losAngeles": "Los Angeles",
+          "chicago": "Chicago"
+        }
+      }
+    },
+    "plans": {
+      "title": "Select a plan that suits your business needs",
+      "subtitle": "Manage inventory, track buyer inquiries, and stay in control with a single, easy-to-use dashboard.",
+      "cta": "Request Quote",
+      "previousPlan": "Previous plan",
+      "nextPlan": "Next plan",
+      "billing": {
+        "monthly": "Monthly",
+        "annually": "Annually"
+      },
+      "countries": {
+        "uae": "UAE",
+        "saudiArabia": "Saudi Arabia",
+        "pakistan": "Pakistan",
+        "uk": "United Kingdom",
+        "us": "United States"
+      },
+      "packs": {
+        "starter": {
+          "title": "Starter Pack",
+          "subtitle": "Essential for new businesses",
+          "monthly": {
+            "listings": "{count} Car Listings",
+            "refreshes": "{count} Refreshes",
+            "visibility": "Visible on Web + App"
+          },
+          "annually": {
+            "listings": "{count} Car Listings / year",
+            "refreshes": "{count} Refreshes / year",
+            "visibility": "Visible on Web + App (Priority Sync)"
+          }
+        },
+        "pro": {
+          "title": "Pro Pack",
+          "subtitle": "Best for customer growth",
+          "badge": "Special Offer",
+          "annualBadge": "Save 20%",
+          "monthly": {
+            "listings": "{count} Car Listings",
+            "refreshes": "{count} Refreshes",
+            "visibility": "Visible on Web + App",
+            "featured": "Featured Listing"
+          },
+          "annually": {
+            "listings": "{count} Car Listings / year",
+            "refreshes": "{count} Refreshes / year",
+            "visibility": "Visible on Web + App",
+            "featured": "Featured Listing + 2 Months Free"
+          }
+        },
+        "luxury": {
+          "title": "Luxury Pack",
+          "subtitle": "Features for larger fleets",
+          "monthly": {
+            "listings": "{count} Car Listings",
+            "refreshes": "{count} Refreshes",
+            "visibility": "Visible on Web + App",
+            "featured": "Featured Listing",
+            "multiCity": "Multiple City Coverage"
+          },
+          "annually": {
+            "listings": "{count} Car Listings / year",
+            "refreshes": "{count} Refreshes / year",
+            "visibility": "Visible on Web + App",
+            "featured": "Priority Featured Listing",
+            "multiCity": "All Cities Coverage ({country})"
+          }
+        }
+      }
+    },
+    "benefits": {
+      "title": "Keep your fleet on the road",
+      "subtitle": "List your cars where renters are already searching, then use featured placement and refreshes to keep them seen.",
+      "items": {
+        "reachRenters": {
+          "title": "Reach renters ready to book",
+          "description": "Be seen by people already searching to rent, on web and app."
+        },
+        "featuredListings": {
+          "title": "Stand out with featured listings",
+          "description": "On Pro and Luxury plans, your featured cars get priority placement in search results."
+        },
+        "listingsOnTop": {
+          "title": "Keep your listings on top",
+          "description": "Use your refreshes whenever you want to move a listing back up, so your cars stay easy to find."
+        },
+        "ownRates": {
+          "title": "Set your own rates",
+          "description": "Choose your daily, weekly and monthly prices and update your availability any time."
+        },
+        "manageOnePlace": {
+          "title": "Manage everything in one place",
+          "description": "Handle your listings, refreshes and renter inquiries from a single dashboard."
+        },
+        "growCities": {
+          "title": "Grow across cities",
+          "description": "The Luxury plan covers multiple cities, so your fleet can reach renters wherever you operate."
+        }
+      }
+    }
+  },
+  "paymentModesLabel": "Payment Modes",
+  "paymentModes": {
+    "title": "Payment Modes",
+    "crypto": {
+      "title": "Crypto",
+      "description": "Pay using supported crypto currencies."
+    },
+    "cash": {
+      "title": "Cash",
+      "description": "Pay in cash directly at the time of pickup or delivery."
+    },
+    "credit": {
+      "title": "Credit Card",
+      "description": "Pay securely with a credit card. Apple Pay and Samsung Pay may also be available."
+    },
+    "debit": {
+      "title": "Debit Card",
+      "description": "Pay securely using a debit card. Apple Pay and Samsung Pay may also be available."
+    },
+    "tipPrefix": "Tip:",
+    "tipBody": "Using a debit card, cash, or bank transfer? Refunds take longer, require manual processing, and may incur transfer and currency conversion fees.",
+    "tipSuffix": "Check with your provider in advance.",
+    "depositNote": "Credit card pre-authorization is the preferred method for deposits, offering automatic release and potential bank protection in case of disputes."
   },
   "Currencies": {
     "AED": "UAE dirham",

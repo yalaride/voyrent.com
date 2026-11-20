@@ -3,8 +3,8 @@ import Image from "next/image";
 import { Clock, Info, MapPin, Star } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-import { DealerInfoDrawer } from "@/components/car-detail/DealerInfoDrawer";
 import { DealerOpeningHours } from "@/components/car-detail/dealer-opening-hours";
+import { ListingDealerDrawer } from "@/components/car-detail/ListingDealerDrawer";
 import { ListingDesktopGallery } from "@/components/car-detail/ListingDesktopGallery";
 import { ListingMobileGallery } from "@/components/car-detail/ListingMobileGallery";
 import {
@@ -24,6 +24,7 @@ import { ListingSection } from "@/features/catalog/listing-section";
 import { ListingSkeleton } from "@/features/catalog/listing-skeleton";
 import { Link } from "@/i18n/navigation";
 import { getDisplayCurrency } from "@/server/preferences/currency";
+import { slugify } from "@/lib/slugify";
 
 const FALLBACK_IMAGES = [
   "/blog/blog1.jpg",
@@ -66,20 +67,17 @@ type ListingWithDetails = VehicleListing & {
     appearance?: string[];
   };
   installedOptions?: string[];
+  supplierSlug?: string;
   supplierLogo?: string;
   supplierRating?: number;
   supplierReviewsCount?: number;
   supplierPhone?: string;
   supplierWhatsapp?: string;
   mapPreviewImage?: string;
-  branchLocations?: string[];
-  fastDeliveryLocations?: string[];
   carFleet?: string[];
-  languagesSpoken?: string[];
-  aboutDealer?: string;
+  listedIn?: string[];
+  paymentModes?: string[];
   closesAtLabel?: string;
-  branchPickup?: boolean;
-  deliveryToYou?: boolean;
   openingHours?: Array<{ dayIndex: number; hours: string }>;
 };
 
@@ -306,32 +304,11 @@ export async function ListingDetail({
 
   const dealerLocationLabel = details.locationLabel?.trim() || cityName;
 
-  const drawerAddressFallback =
+  const compactDrawerLocation =
     details.locationLabel?.trim() ||
-    tf("fallbackDealerAddress", "3914 Hempstead Tpke, Levittown, NY 11756");
-
-  const branchLocationsFallback =
-    details.branchLocations && details.branchLocations.length > 0
-      ? details.branchLocations
-      : [
-          tf("fallbackBranchLocation1", "Gulberg, Lahore"),
-          tf("fallbackBranchLocation2", "Model Town, Lahore"),
-        ];
-
-  const fastDeliveryLocationsFallback =
-    details.fastDeliveryLocations && details.fastDeliveryLocations.length > 0
-      ? details.fastDeliveryLocations
-      : [
-          tf("fallbackDeliveryLocation1", "Airport Terminal 1"),
-          tf("fallbackDeliveryLocation2", "Dubai Harbour"),
-          tf("fallbackDeliveryLocation3", "Dubai South"),
-          tf("fallbackDeliveryLocation4", "Ruwi"),
-          tf("fallbackDeliveryLocation5", "Sheikh Zayed Road"),
-          tf("fallbackDeliveryLocation6", "JBR"),
-          tf("fallbackDeliveryLocation7", "Business Bay"),
-          tf("fallbackDeliveryLocation8", "Palm Jumeirah"),
-          tf("fallbackDeliveryLocation9", "Dubai Mall"),
-        ];
+    (t.has("fallbackDealerCityCountry")
+      ? t("fallbackDealerCityCountry", { city: cityName })
+      : `${cityName}, Pakistan`);
 
   const carFleetFallback =
     details.carFleet && details.carFleet.length > 0
@@ -345,24 +322,21 @@ export async function ListingDetail({
           tf("fallbackFleetSupercar", "Supercar"),
         ];
 
-  const languagesSpokenFallback =
-    details.languagesSpoken && details.languagesSpoken.length > 0
-      ? details.languagesSpoken
-      : [
-          tf("fallbackLanguageEnglish", "English"),
-          tf("fallbackLanguageArabic", "Arabic"),
-          tf("fallbackLanguageUrdu", "Urdu"),
-          tf("fallbackLanguageFrench", "French"),
-        ];
+  const listedInFallback =
+    details.listedIn && details.listedIn.length > 0
+      ? details.listedIn
+      : [tf("fallbackListedIn1", "Sports Car Rentals in Model Town")];
 
-  const aboutDealerFallback =
-    details.aboutDealer?.trim() ||
-    (t.has("fallbackAboutDealer")
-      ? t("fallbackAboutDealer", {
-          name: listing.supplier,
-          city: cityName,
-        })
-      : `Discover luxury and comfort with ${listing.supplier}, your premier choice for car rentals in ${cityName}. Whether you're a resident or a visitor, our aim is to make renting a premium automobile effortless and enjoyable. Our experienced and knowledgeable staff is dedicated to listening to your requirements and recommending the ideal vehicle for your journey, ensuring a seamless blend of style, luxury, and convenience.`);
+  const paymentModesFallback =
+    details.paymentModes && details.paymentModes.length > 0
+      ? details.paymentModes
+      : tf(
+          "fallbackPaymentModes",
+          "Cash, Credit Card, Debit Card, Bank Transfer",
+        )
+          .split(",")
+          .map((mode) => mode.trim())
+          .filter(Boolean);
 
   const defaultHours = tf("defaultOpeningHours", "9:00 AM - 7:00 PM");
   const dayKeys = [
@@ -398,7 +372,11 @@ export async function ListingDetail({
       details.openingHours?.find((d) => d.dayIndex === idx)?.hours ??
       defaultHours,
   }));
+  const companySlug = details.supplierSlug?.trim() || slugify(listing.supplier);
 
+  // Navigates to: /{locale}/company/{city}/{companySlug}
+  // e.g. /en/company/dubai/countach-rent-a-car
+  const dealerHref = `/company/${market.city}/${companySlug}`;
   const callLabel = tf("call", "Call");
   const whatsappLabel = tf("whatsapp", "WhatsApp");
 
@@ -843,63 +821,74 @@ export async function ListingDetail({
 
               <hr className="border-t border-border-subtle" />
 
-              {/* Dealer's Info & Location */}
+              {/* Dealer's Info & Location (Compact ListingDealerDrawer) */}
               <div className="py-[var(--spacing-space-4)] sm:py-[var(--spacing-space-12)]">
-                <DealerInfoDrawer
+                <ListingDealerDrawer
                   labels={{
                     triggerLabel: tf(
                       "dealerInfoLocation",
                       "Dealer's Info & Location",
                     ),
                     drawerTitle: tf("dealerInfoTitle", "Dealer Information"),
-                    branchInCityTitle: t.has("branchInCity")
-                      ? t("branchInCity", { city: cityName })
-                      : `Branch in ${cityName}`,
                     viewMoreDetail: tf("viewMoreDetail", "View more detail"),
-                    branchLocationsTitle: tf(
-                      "branchLocations",
-                      "Branch Locations",
-                    ),
-                    shopTimingsTitle: tf("shopTimings", "Shop Timings"),
-                    deliveryPickupTitle: tf(
-                      "deliveryPickupServices",
-                      "Delivery & Pick-up Services",
-                    ),
-                    branchPickupLabel: tf("branchPickup", "Branch Pick-up"),
-                    deliveryToYouLabel: tf("deliveryToYou", "Delivery to You"),
-                    airportDeliveryLabel: tf("airport", "Airport Delivery"),
-                    fastDeliveryLocationsTitle: tf(
-                      "fastDeliveryLocations",
-                      "Fast Delivery Locations",
+                    viewAllCarsByDealer: tf(
+                      "viewAllCarsByDealer",
+                      "View All Cars by this Dealer",
                     ),
                     carFleetTitle: tf("carFleet", "Car Fleet"),
-                    goodToKnowTitle: tf("goodToKnow", "Good to know"),
-                    languagesSpokenTitle: tf(
-                      "languagesSpoken",
-                      "Languages Spoken",
-                    ),
-                    aboutDealerTitle: t.has("aboutDealer")
-                      ? t("aboutDealer", { name: listing.supplier })
-                      : `About ${listing.supplier}`,
-                    callLabel,
-                    whatsappLabel,
+                    listedInTitle: tf("listedIn", "Listed In"),
+                    paymentModesLabel: tf("paymentModes", "Payment Modes"),
                     closeLabel: tf("close", "Close"),
+                    paymentModes: {
+                      title: tf("paymentModesTitle", "Payment Modes"),
+                      closeLabel: tf("close", "Close"),
+                      crypto: {
+                        title: tf("paymentCryptoTitle", "Cryptocurrency"),
+                        description: tf(
+                          "paymentCryptoDescription",
+                          "Accepted for select bookings where supported by the dealer.",
+                        ),
+                      },
+                      cash: {
+                        title: tf("paymentCashTitle", "Cash"),
+                        description: tf(
+                          "paymentCashDescription",
+                          "Pay in cash at the time of vehicle pickup or delivery.",
+                        ),
+                      },
+                      credit: {
+                        title: tf("paymentCreditTitle", "Credit Card"),
+                        description: tf(
+                          "paymentCreditDescription",
+                          "Major credit cards accepted for rental and security deposit.",
+                        ),
+                      },
+                      debit: {
+                        title: tf("paymentDebitTitle", "Debit Card"),
+                        description: tf(
+                          "paymentDebitDescription",
+                          "Accepted for rental payments subject to dealer terms.",
+                        ),
+                      },
+                      tipPrefix: tf("paymentTipPrefix", "Tip:"),
+                      tipBody: tf(
+                        "paymentTipBody",
+                        "Always confirm accepted payment methods and deposit rules with",
+                      ),
+                      tipSuffix: listing.supplier,
+                      depositNote: tf(
+                        "paymentDepositNote",
+                        "Security deposit requirements may vary by vehicle and payment method.",
+                      ),
+                    },
                   }}
                   supplierName={listing.supplier}
-                  locationLabel={drawerAddressFallback}
+                  locationLabel={compactDrawerLocation}
                   mapPreviewImage={details.mapPreviewImage}
-                  branchLocations={branchLocationsFallback}
-                  schedule={schedule}
-                  branchPickup={details.branchPickup ?? true}
-                  deliveryToYou={details.deliveryToYou ?? true}
-                  airportDelivery={listing.airportDelivery ?? true}
-                  fastDeliveryLocations={fastDeliveryLocationsFallback}
+                  dealerHref={dealerHref}
                   carFleet={carFleetFallback}
-                  languagesSpoken={languagesSpokenFallback}
-                  aboutDealer={aboutDealerFallback}
-                  phoneHref={phoneHref}
-                  whatsappHref={whatsappHref}
-                  hasWhatsapp={Boolean(details.supplierWhatsapp)}
+                  listedIn={listedInFallback}
+                  paymentModes={paymentModesFallback}
                 />
               </div>
             </div>
