@@ -67,16 +67,26 @@ export function CurrencySwitcher({
             }
           }}
         >
-          {CURRENCY_CODES.map((code) => (
+          {CURRENCY_CODES.map((code) => {
+            const selected = code === value;
+
+            return (
             <DropdownMenuRadioItem
               key={code}
               value={code}
-              className="flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm text-text-primary outline-none transition-colors hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary data-[state=checked]:bg-primary/10 data-[state=checked]:font-semibold data-[state=checked]:text-primary"
+              className={`flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm outline-none transition-colors hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary [&_[data-slot=dropdown-menu-radio-item-indicator]]:hidden ${
+                selected
+                  ? "bg-primary/15 font-semibold text-primary"
+                  : "text-text-primary"
+              }`}
             >
               <span className="font-medium">{code}</span>
-              <span className="text-xs text-text-secondary">{t(code)}</span>
+              <span className={`text-xs ${selected ? "text-primary" : "text-text-secondary"}`}>
+                {t(code)}
+              </span>
             </DropdownMenuRadioItem>
-          ))}
+            );
+          })}
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

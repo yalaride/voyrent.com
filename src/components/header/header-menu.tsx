@@ -4,10 +4,12 @@ import { hasFlag } from "country-flag-icons";
 import * as Flags from "country-flag-icons/react/3x2";
 import { ChevronDownIcon, Settings2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState, useTransition, type ComponentType } from "react";
+import { useEffect, useState, useTransition, type ComponentType } from "react";
 
 import type { CurrencyCode } from "@/domain/currency/currencies";
 import type { AppLocale } from "@/domain/geo/locales";
+import { getCountry } from "@/domain/geo/markets";
+import { cityRentPath } from "@/domain/routing/rent-paths";
 import { CurrencySwitcher } from "@/features/shell/currency-switcher";
 import { LocaleSwitcher } from "@/features/shell/locale-switcher";
 import type { MarketGroup } from "@/features/shell/market-switcher";
@@ -56,6 +58,18 @@ export function HeaderMenu({
     placeName: active?.placeName ?? t("chooseCity"),
   });
 
+  useEffect(() => {
+    if (!regionOpen) {
+      return;
+    }
+    document.getElementById("region-selected")?.scrollIntoView({ block: "nearest" });
+  }, [regionOpen, draftRegion.city, draftRegion.country]);
+
+  function capitalOf(country: MarketGroup) {
+    const slug = getCountry(country.code)?.capital;
+    return country.cities.find((city) => city.slug === slug) ?? country.cities[0];
+  }
+
   const countryCode =
     (draftRegion.country || active?.country || locale?.split("-")[0]?.toUpperCase())?.toUpperCase();
   const FlagIcon =
@@ -68,32 +82,23 @@ export function HeaderMenu({
         )[countryCode]
       : null;
 
-  // Save handler: no redirects, stays on the current page
   const handleSave = () => {
     startTransition(async () => {
-      // 1. Update currency if changed
       if (draftCurrency !== currency) {
         await setDisplayCurrency(draftCurrency);
       }
 
-      // 2. Save region preference in cookie (does NOT redirect)
-      if (
-        draftRegion.city !== active?.city ||
-        draftRegion.country !== active?.country
-      ) {
-        document.cookie = `market=${encodeURIComponent(
-          JSON.stringify({
-            country: draftRegion.country,
-            city: draftRegion.city,
-          }),
-        )}; path=/; max-age=31536000; SameSite=Lax`;
-      }
-
       setDialogOpen(false);
 
-      // 3. Switch language on current page or refresh current view in-place
-      if (draftLocale !== locale) {
-        router.replace(pathname, { locale: draftLocale });
+      const regionChanged =
+        draftRegion.city !== "" && draftRegion.city !== (active?.city ?? "");
+      const currentPath = `${pathname}${window.location.search}`;
+      const nextPath = regionChanged
+        ? cityRentPath(draftRegion.city)
+        : currentPath;
+
+      if (nextPath !== currentPath || draftLocale !== locale) {
+        router.push(nextPath, { locale: draftLocale });
       } else {
         router.refresh();
       }
@@ -153,7 +158,16 @@ export function HeaderMenu({
         <div className="flex flex-col gap-4 pt-1">
           {/* 1. Region */}
           <div
+            role="button"
+            tabIndex={0}
+            aria-expanded={regionOpen}
             onClick={() => setRegionOpen((open) => !open)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setRegionOpen((open) => !open);
+              }
+            }}
             className={`relative cursor-pointer rounded-xl border bg-white px-3 py-3 transition-colors dark:bg-background-primary ${
               regionOpen
                 ? "z-30 border-primary ring-1 ring-primary"
@@ -191,16 +205,22 @@ export function HeaderMenu({
                   onClick={(e) => e.stopPropagation()}
                   className="absolute start-0 top-[calc(100%+6px)] z-50 max-h-56 w-full overflow-y-auto rounded-xl border border-border-default bg-white p-2 shadow-2xl dark:bg-background-primary"
                 >
-                  {groups.map((country) => (
+                  {groups.map((country) => {
+                    return (
                     <section key={country.code} className="mb-2 last:mb-0">
                       <button
                         type="button"
                         className="flex w-full cursor-pointer rounded-md px-2 py-1.5 text-start text-sm font-semibold text-text-primary transition-colors hover:bg-primary/10 hover:text-primary"
-                        onClick={() => {
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          const capital = capitalOf(country);
+                          if (!capital) {
+                            return;
+                          }
                           setDraftRegion({
                             country: country.code,
-                            city: "",
-                            placeName: country.name,
+                            city: capital.slug,
+                            placeName: capital.name,
                           });
                           setRegionOpen(false);
                         }}
@@ -209,12 +229,24 @@ export function HeaderMenu({
                       </button>
 
                       <div className="grid gap-0.5 ps-3">
-                        {country.cities.map((city) => (
+                        {country.cities.map((city) => {
+                          const selected =
+                            draftRegion.country === country.code &&
+                            draftRegion.city === city.slug;
+
+                          return (
                           <button
                             key={city.slug}
+                            id={selected ? "region-selected" : undefined}
                             type="button"
-                            className="flex w-full cursor-pointer rounded-md px-2 py-1 text-start text-sm text-text-secondary transition-colors hover:bg-primary/10 hover:text-primary"
-                            onClick={() => {
+                            aria-current={selected ? "true" : undefined}
+                            className={`flex w-full cursor-pointer rounded-md px-2 py-1 text-start text-sm transition-colors hover:bg-primary/10 hover:text-primary ${
+                              selected
+                                ? "bg-primary/10 font-semibold text-primary"
+                                : "text-text-secondary"
+                            }`}
+                            onClick={(event) => {
+                              event.stopPropagation();
                               setDraftRegion({
                                 country: country.code,
                                 city: city.slug,
@@ -225,10 +257,12 @@ export function HeaderMenu({
                           >
                             {city.name}
                           </button>
-                        ))}
+                          );
+                        })}
                       </div>
                     </section>
-                  ))}
+                    );
+                  })}
                 </div>
               </>
             )}

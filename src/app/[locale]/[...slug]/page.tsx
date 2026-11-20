@@ -172,8 +172,13 @@ async function RentRouteContent({
           __html: JSON.stringify(websiteJsonLd(view.market, locale)),
         }}
       />
-      {view.kind === "country" && isIndexable(view, query) ? (
-        <MarketHome market={view.market} locale={locale} scope="country" />
+      {(view.kind === "country" || view.kind === "city") &&
+      isIndexable(view, query) ? (
+        <MarketHome
+          market={view.market}
+          locale={locale}
+          scope={view.kind === "country" ? "country" : "city"}
+        />
       ) : (
         <SearchScreen market={view.market} locale={locale} query={query} />
       )}

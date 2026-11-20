@@ -9,15 +9,15 @@
 ## Workflow
 
 ```bash
-pnpm install
+npm install
 cp .env.example .env.local   # leave API_BASE_URL empty for fixtures
-pnpm dev                     # http://localhost:3010
-pnpm typecheck
-pnpm lint
-pnpm build
+npm run dev                  # http://localhost:3010
+npm run typecheck
+npm run lint
+npm run build
 ```
 
-Use **pnpm** (`>=9`). Node `>=20`.
+Use **npm**. Node `>=20`.
 
 ## Feature checklist
 

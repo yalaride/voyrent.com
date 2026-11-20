@@ -5,10 +5,10 @@ Public marketplace for comparing rental cars across cities, languages, and curre
 ## Scripts
 
 ```bash
-pnpm dev
-pnpm typecheck
-pnpm lint
-pnpm build
+npm run dev
+npm run typecheck
+npm run lint
+npm run build
 ```
 
 The dev server listens on port 3010.

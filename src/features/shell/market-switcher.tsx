@@ -4,7 +4,7 @@ import { useState } from "react";
 import { MapPinIcon } from "lucide-react";
 
 import { useRouter } from "@/i18n/navigation";
-import { countryHubPath } from "@/domain/routing/country-paths";
+import { getCountry } from "@/domain/geo/markets";
 import { cityRentPath } from "@/domain/routing/rent-paths";
 import { Button } from "@/components/ui/button";
 import {
@@ -54,7 +54,12 @@ export function MarketSwitcher({
         </SheetHeader>
         <div className="grid gap-6 px-4 pb-6">
           {groups.map((country) => {
-            const countrySelected = active?.scope === "country" && active.country === country.code;
+            const capitalSlug = getCountry(country.code)?.capital;
+            const capital = country.cities.find((city) => city.slug === capitalSlug) ?? country.cities[0];
+            const countrySelected =
+              active?.scope === "city" &&
+              active.country === country.code &&
+              active.city === capital?.slug;
 
             return (
               <section key={country.code} className="grid gap-1">
@@ -62,7 +67,11 @@ export function MarketSwitcher({
                   type="button"
                   aria-current={countrySelected ? "true" : undefined}
                   className="flex w-full rounded-lg px-2 py-2 text-start text-sm font-medium text-text-primary hover:bg-background-secondary aria-[current=true]:bg-background-secondary"
-                  onClick={() => selectPlace(countryHubPath(country.code))}
+                  onClick={() => {
+                    if (capital) {
+                      selectPlace(cityRentPath(capital.slug));
+                    }
+                  }}
                 >
                   {country.name}
                 </button>

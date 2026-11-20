@@ -5,9 +5,9 @@ There is no unit/e2e test suite checked in yet. Until one exists, treat the foll
 ## Required checks
 
 ```bash
-pnpm typecheck
-pnpm lint
-pnpm build
+npm run typecheck
+npm run lint
+npm run build
 ```
 
 ## Manual verification (feature work)

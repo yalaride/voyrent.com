@@ -12,6 +12,8 @@ export type CityRecord = {
 export type CountryRecord = {
   code: string;
   currency: CurrencyCode;
+  /** City slug selected when the user picks this country. */
+  capital: string;
   names: LocalizedName;
   cities: readonly CityRecord[];
 };
@@ -43,6 +45,7 @@ export const COUNTRIES: readonly CountryRecord[] = [
   {
     code: "ae",
     currency: "AED",
+    capital: "abu-dhabi",
     names: {
       en: "United Arab Emirates",
       es: "Emiratos Árabes Unidos",
@@ -69,6 +72,7 @@ export const COUNTRIES: readonly CountryRecord[] = [
   {
     code: "sa",
     currency: "SAR",
+    capital: "riyadh",
     names: {
       en: "Saudi Arabia",
       es: "Arabia Saudí",
@@ -85,6 +89,7 @@ export const COUNTRIES: readonly CountryRecord[] = [
   {
     code: "ma",
     currency: "MAD",
+    capital: "rabat",
     names: {
       en: "Morocco",
       es: "Marruecos",
@@ -101,6 +106,7 @@ export const COUNTRIES: readonly CountryRecord[] = [
   {
     code: "es",
     currency: "EUR",
+    capital: "madrid",
     names: {
       en: "Spain",
       es: "España",
@@ -117,6 +123,7 @@ export const COUNTRIES: readonly CountryRecord[] = [
   {
     code: "fr",
     currency: "EUR",
+    capital: "paris",
     names: {
       en: "France",
       es: "Francia",
@@ -133,6 +140,7 @@ export const COUNTRIES: readonly CountryRecord[] = [
   {
     code: "pt",
     currency: "EUR",
+    capital: "lisbon",
     names: {
       en: "Portugal",
       es: "Portugal",
@@ -148,6 +156,7 @@ export const COUNTRIES: readonly CountryRecord[] = [
   {
     code: "gb",
     currency: "GBP",
+    capital: "london",
     names: {
       en: "United Kingdom",
       es: "Reino Unido",
@@ -163,6 +172,7 @@ export const COUNTRIES: readonly CountryRecord[] = [
   {
     code: "us",
     currency: "USD",
+    capital: "miami",
     names: {
       en: "United States",
       es: "Estados Unidos",
@@ -187,8 +197,7 @@ export function getCountry(code: string): CountryRecord | undefined {
 
 export function primaryMarket(countryCode: string): Market | undefined {
   const country = getCountry(countryCode);
-  const city = country?.cities[0];
-  return city ? getMarket(country.code, city.slug) : undefined;
+  return country ? getMarket(country.code, country.capital) : undefined;
 }
 
 export function getMarket(countryCode: string, citySlug: string): Market | undefined {

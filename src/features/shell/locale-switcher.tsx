@@ -53,15 +53,23 @@ export function LocaleSwitcher({
             }
           }}
         >
-          {LOCALES.map((code) => (
+          {LOCALES.map((code) => {
+            const selected = code === locale;
+
+            return (
             <DropdownMenuRadioItem
               key={code}
               value={code}
-              className="cursor-pointer rounded-lg px-3 py-2 text-sm text-text-primary outline-none transition-colors hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary data-[state=checked]:bg-primary/10 data-[state=checked]:font-semibold data-[state=checked]:text-primary"
+              className={`cursor-pointer rounded-lg px-3 py-2 text-sm outline-none transition-colors hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary [&_[data-slot=dropdown-menu-radio-item-indicator]]:hidden ${
+                selected
+                  ? "bg-primary/15 font-semibold text-primary"
+                  : "text-text-primary"
+              }`}
             >
               {LOCALE_NAMES[code]}
             </DropdownMenuRadioItem>
-          ))}
+            );
+          })}
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
