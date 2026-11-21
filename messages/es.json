@@ -750,6 +750,35 @@
       }
     }
   },
+  "RoadRules": {
+    "breadcrumb": {
+      "ariaLabel": "Ruta de navegación",
+      "home": "Inicio",
+      "current": "Normas y reglamentos de tráfico"
+    },
+    "hero": {
+      "title": "Normas y reglamentos de tráfico"
+    },
+    "filters": {
+      "selectContinent": "Seleccionar continente",
+      "selectCountry": "Seleccionar país",
+      "countryPlaceholder": "Elegir país"
+    },
+    "downloadPdf": "Descargar PDF",
+    "emptyState": "No hay normas de tráfico disponibles para el país seleccionado.",
+    "continents": {
+      "asia": "Asia",
+      "middleEast": "Oriente Medio",
+      "europe": "Europa",
+      "northAmerica": "América del Norte"
+    },
+    "countries": {
+      "usa": "Estados Unidos",
+      "uae": "Emiratos Árabes Unidos",
+      "uk": "Reino Unido",
+      "pakistan": "Pakistán"
+    }
+  },
   "Currencies": {
     "AED": "Dírham de EAU",
     "USD": "Dólar estadounidense",

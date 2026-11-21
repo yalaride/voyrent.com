@@ -758,7 +758,35 @@
       }
     }
   },
-
+  "RoadRules": {
+    "breadcrumb": {
+      "ariaLabel": "Trilha de navegação",
+      "home": "Início",
+      "current": "Regras e Regulamentos de Trânsito"
+    },
+    "hero": {
+      "title": "Regras e Regulamentos de Trânsito"
+    },
+    "filters": {
+      "selectContinent": "Selecionar continente",
+      "selectCountry": "Selecionar país",
+      "countryPlaceholder": "Escolher país"
+    },
+    "downloadPdf": "Baixar PDF",
+    "emptyState": "Não há regras de trânsito disponíveis para o país selecionado.",
+    "continents": {
+      "asia": "Ásia",
+      "middleEast": "Oriente Médio",
+      "europe": "Europa",
+      "northAmerica": "América do Norte"
+    },
+    "countries": {
+      "usa": "Estados Unidos",
+      "uae": "Emirados Árabes Unidos",
+      "uk": "Reino Unido",
+      "pakistan": "Paquistão"
+    }
+  },
   "Currencies": {
     "AED": "Dirham dos Emirados",
     "USD": "Dólar americano",

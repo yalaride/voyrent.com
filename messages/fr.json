@@ -756,6 +756,35 @@
     "tipSuffix": "Vérifiez auprès de votre prestataire à l'avance.",
     "depositNote": "La préautorisation par carte de crédit est la méthode privilégiée pour les dépôts. Elle permet une libération automatique et peut offrir une protection bancaire en cas de litige."
   },
+  "RoadRules": {
+    "breadcrumb": {
+      "ariaLabel": "Fil d’Ariane",
+      "home": "Accueil",
+      "current": "Règles et réglementations routières"
+    },
+    "hero": {
+      "title": "Règles et réglementations routières"
+    },
+    "filters": {
+      "selectContinent": "Sélectionner un continent",
+      "selectCountry": "Sélectionner un pays",
+      "countryPlaceholder": "Choisir un pays"
+    },
+    "downloadPdf": "Télécharger le PDF",
+    "emptyState": "Aucune règle de circulation disponible pour le pays sélectionné.",
+    "continents": {
+      "asia": "Asie",
+      "middleEast": "Moyen-Orient",
+      "europe": "Europe",
+      "northAmerica": "Amérique du Nord"
+    },
+    "countries": {
+      "usa": "États-Unis",
+      "uae": "Émirats arabes unis",
+      "uk": "Royaume-Uni",
+      "pakistan": "Pakistan"
+    }
+  },
   "Currencies": {
     "AED": "Dirham des Émirats",
     "USD": "Dollar américain",

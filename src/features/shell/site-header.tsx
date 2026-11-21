@@ -129,7 +129,7 @@ export async function SiteHeader({
               {t("carBrands")}
             </Link>
             <Link
-              href="/dealers"
+              href="/dealer-plans"
               className="text-white/85 transition-colors hover:text-white group-data-[transparent=false]:text-text-primary group-data-[transparent=false]:hover:text-link"
             >
               {t("dealers")}

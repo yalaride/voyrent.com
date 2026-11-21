@@ -753,6 +753,35 @@
       }
     }
   },
+  "RoadRules": {
+    "breadcrumb": {
+      "ariaLabel": "مسار التنقل",
+      "home": "الرئيسية",
+      "current": "قواعد ولوائح المرور"
+    },
+    "hero": {
+      "title": "قواعد ولوائح المرور"
+    },
+    "filters": {
+      "selectContinent": "اختر القارة",
+      "selectCountry": "اختر الدولة",
+      "countryPlaceholder": "اختر الدولة"
+    },
+    "downloadPdf": "تنزيل PDF",
+    "emptyState": "لا تتوفر قواعد المرور للدولة المحددة.",
+    "continents": {
+      "asia": "آسيا",
+      "middleEast": "الشرق الأوسط",
+      "europe": "أوروبا",
+      "northAmerica": "أمريكا الشمالية"
+    },
+    "countries": {
+      "usa": "الولايات المتحدة",
+      "uae": "الإمارات العربية المتحدة",
+      "uk": "المملكة المتحدة",
+      "pakistan": "باكستان"
+    }
+  },
   "Currencies": {
     "AED": "درهم إماراتي",
     "USD": "دولار أمريكي",

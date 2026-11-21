@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
@@ -9,37 +10,52 @@ const SOCIALS = [
   { src: "/footer/instagram.svg", labelKey: "socialInstagram" as const },
 ] as const;
 
+type FooterItem = {
+  label: string;
+  href?: string;
+};
+
+type FooterColumn = {
+  key: string;
+  title: string;
+  items: FooterItem[];
+};
+
 export async function SiteFooter() {
   const t = await getTranslations("Footer");
 
-  const columns = [
+  const columns: FooterColumn[] = [
     {
       key: "resources",
       title: t("resourcesTitle"),
       items: [
-        t("usedCarsDubai"),
-        t("newCarsDubai"),
-        t("sellMyCar"),
-        t("dealerDirectory"),
-        t("carBuyingGuide"),
+        { label: t("usedCarsDubai") },
+        { label: t("newCarsDubai") },
+        { label: t("sellMyCar") },
+        { label: t("dealerDirectory") },
+        { label: t("carBuyingGuide") },
       ],
     },
     {
       key: "company",
       title: t("companyTitle"),
       items: [
-        t("aboutUs"),
-        t("contactUs"),
-        t("joinAsDealer"),
-        t("dealerLogin"),
+        { label: t("aboutUs") },
+        { label: t("contactUs") },
+        { label: t("joinAsDealer"), href: "/dealer-plans" },
+        { label: t("dealerLogin") },
       ],
     },
     {
       key: "legal",
       title: t("legalTitle"),
-      items: [t("privacyPolicy"), t("termsConditions"), t("cookiePolicy")],
+      items: [
+        { label: t("privacyPolicy"), href: "/privacy-policy" },
+        { label: t("termsConditions") },
+        { label: t("cookiePolicy") },
+      ],
     },
-  ] as const;
+  ];
 
   const payments = [
     { src: "/footer/payment-visa.webp", alt: t("paymentVisa") },
@@ -60,8 +76,17 @@ export async function SiteFooter() {
                 </h2>
                 <ul className="flex flex-col gap-1.5 text-base font-medium leading-normal text-text-secondary">
                   {column.items.map((item) => (
-                    <li key={item} className="wrap-break-word">
-                      {item}
+                    <li key={item.label} className="wrap-break-word">
+                      {item.href ? (
+                        <Link
+                          href={item.href}
+                          className="transition-colors hover:text-text-inverse"
+                        >
+                          {item.label}
+                        </Link>
+                      ) : (
+                        item.label
+                      )}
                     </li>
                   ))}
                 </ul>

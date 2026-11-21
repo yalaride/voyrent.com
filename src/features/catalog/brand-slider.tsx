@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -20,6 +20,9 @@ const BRAND_LOGOS: Record<string, string> = {
   tesla: "/brands/tesla.svg",
   volkswagen: "/brands/volkswagen.svg",
 };
+
+const COPIES = [0, 1, 2] as const;
+const SCROLL_STEP = 280;
 
 export function BrandSlider({
   city,
@@ -62,26 +65,104 @@ function BrandSliderView({
   nextLabel: string;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const step = 280;
-    const multiplier = isRtl
-      ? direction === "left"
-        ? 1
-        : -1
-      : direction === "left"
-        ? -1
-        : 1;
+  // In RTL, modern browsers use negative scrollLeft values as you scroll left
+  const dirSign = isRtl ? -1 : 1;
 
-    scrollRef.current.scrollBy({
-      left: step * multiplier,
-      behavior: "smooth",
-    });
+  const getSetWidth = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el || brands.length === 0) return 0;
+
+    const first = el.children[0] as HTMLElement | undefined;
+    const secondSetFirst = el.children[brands.length] as
+      | HTMLElement
+      | undefined;
+    if (!first || !secondSetFirst) return 0;
+
+    return Math.abs(secondSetFirst.offsetLeft - first.offsetLeft);
+  }, [brands.length]);
+
+  // Start positioned at the beginning of the middle copy so both directions loop seamlessly
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const setWidth = getSetWidth();
+    if (setWidth > 0) {
+      el.scrollLeft = setWidth * dirSign;
+    }
+  }, [dirSign, getSetWidth]);
+
+  useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+
+    // Re-center silently into the middle copy after scrolling settles
+    scrollTimeoutRef.current = setTimeout(() => {
+      const setWidth = getSetWidth();
+      if (setWidth === 0) return;
+
+      const pos = el.scrollLeft * dirSign;
+      if (pos < setWidth * 0.5) {
+        el.scrollLeft = (pos + setWidth) * dirSign;
+      } else if (pos >= setWidth * 1.5) {
+        el.scrollLeft = (pos - setWidth) * dirSign;
+      }
+    }, 150);
   };
 
+  const scroll = (direction: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const setWidth = getSetWidth();
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    if (setWidth === 0 || maxScroll <= 0) return;
+
+    let pos = el.scrollLeft * dirSign;
+
+    if (direction === "left") {
+      // Jump ahead by one set silently before smooth scrolling if near the start edge
+      if (pos - SCROLL_STEP < 0) {
+        pos += setWidth;
+        el.scrollLeft = pos * dirSign;
+      }
+
+      el.scrollBy({
+        left: -SCROLL_STEP * dirSign,
+        behavior: "smooth",
+      });
+    } else {
+      // Jump back by one set silently before smooth scrolling if near the end edge
+      if (pos + SCROLL_STEP > maxScroll) {
+        pos -= setWidth;
+        el.scrollLeft = pos * dirSign;
+      }
+
+      el.scrollBy({
+        left: SCROLL_STEP * dirSign,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  if (brands.length === 0) return null;
+
   return (
-    <div className="relative flex w-full items-center gap-[10px] py-3 px-4">
+    <div className="relative flex w-full items-center gap-[10px] px-4 py-3">
       {/* Scroll Left Button */}
       <button
         type="button"
@@ -92,37 +173,42 @@ function BrandSliderView({
         <ChevronLeft className="h-[14px] w-[14px] transition-transform rtl:rotate-180" />
       </button>
 
-      {/* Scroll Track */}
+      {/* Scroll Track (note: no `scroll-smooth` class so instant loop resets don't animate) */}
       <div
         ref={scrollRef}
-        className="no-scrollbar flex min-w-0 flex-1 items-center gap-[10px] overflow-x-auto scroll-smooth py-1 [-webkit-overflow-scrolling:touch]"
+        onScroll={handleScroll}
+        className="no-scrollbar flex min-w-0 flex-1 items-center gap-[10px] overflow-x-auto py-1 [-webkit-overflow-scrolling:touch]"
       >
-        {brands.map((brand) => (
-          <Link
-            key={brand.slug}
-            href={catalogPath(city, { make: brand.slug })}
-            className="flex h-[40px] min-w-[128px] shrink-0 items-center justify-center gap-1 rounded-[999px] border border-[var(--Border-Default,#CCD0D8)] bg-white py-0 pe-[16px] ps-[12px] transition hover:border-neutral-900 hover:shadow-xs"
-          >
-            <span className="relative flex h-[18px] w-[18px] shrink-0 items-center justify-center">
-              {brand.logo ? (
-                <Image
-                  src={brand.logo}
-                  alt=""
-                  width={18}
-                  height={18}
-                  className="max-h-[18px] max-w-[18px] object-contain"
-                />
-              ) : (
-                <span className="text-[10px] font-bold text-text-secondary">
-                  {brand.name.slice(0, 1).toUpperCase()}
-                </span>
-              )}
-            </span>
-            <span className="truncate text-xs font-semibold text-neutral-800">
-              {brand.name}
-            </span>
-          </Link>
-        ))}
+        {COPIES.map((copyIndex) =>
+          brands.map((brand, brandIndex) => (
+            <Link
+              key={`${copyIndex}-${brand.slug}-${brandIndex}`}
+              href={catalogPath(city, { make: brand.slug })}
+              aria-hidden={copyIndex !== 1}
+              tabIndex={copyIndex !== 1 ? -1 : undefined}
+              className="flex h-[40px] min-w-[128px] shrink-0 items-center justify-center gap-1 rounded-[999px] border border-[var(--Border-Default,#CCD0D8)] bg-white py-0 pe-[16px] ps-[12px] transition hover:border-neutral-900 hover:shadow-xs"
+            >
+              <span className="relative flex h-[18px] w-[18px] shrink-0 items-center justify-center">
+                {brand.logo ? (
+                  <Image
+                    src={brand.logo}
+                    alt=""
+                    width={18}
+                    height={18}
+                    className="max-h-[18px] max-w-[18px] object-contain"
+                  />
+                ) : (
+                  <span className="text-[10px] font-bold text-text-secondary">
+                    {brand.name.slice(0, 1).toUpperCase()}
+                  </span>
+                )}
+              </span>
+              <span className="truncate text-xs font-semibold text-neutral-800">
+                {brand.name}
+              </span>
+            </Link>
+          )),
+        )}
       </div>
 
       {/* Scroll Right Button */}

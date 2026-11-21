@@ -738,6 +738,7 @@
   "paymentModesLabel": "Payment Modes",
   "paymentModes": {
     "title": "Payment Modes",
+    "fallbackPaymentModes": "Cash, Credit Card, Debit Card, Crypto",
     "crypto": {
       "title": "Crypto",
       "description": "Pay using supported crypto currencies."
@@ -759,6 +760,7 @@
     "tipSuffix": "Check with your provider in advance.",
     "depositNote": "Credit card pre-authorization is the preferred method for deposits, offering automatic release and potential bank protection in case of disputes."
   },
+
   "Currencies": {
     "AED": "UAE dirham",
     "USD": "US dollar",
