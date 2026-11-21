@@ -437,24 +437,33 @@
       "title": "What to look for in your rental",
       "description": "Finding the perfect rental car at the right price doesn't have to be difficult. With RutaRide's \"Bid My Price\" feature, you can negotiate the rental price instead of simply accepting the listed rate. This gives travelers more flexibility and the opportunity to save money while booking from verified rental operators."
     },
-    "roadRules": {
-      "title": "Road rules worth memorizing",
-      "description": "Speed limits are strictly enforced by camera. Stick within the posted limit plus the small grace buffer, signal every lane change, and never undertake on the right. Roundabouts give way to the left. RutaRide's <strong>Bid My Price</strong> feature gives customers more control over the car rental process. Instead of accepting fixed prices, you have the opportunity to negotiate a better deal while booking through a trusted marketplace. By following these simple steps, searching for a vehicle, comparing options, placing a bid, and completing your booking, you can enjoy a smoother rental experience and potentially save on your next trip.",
-      "bullets": {
-        "contactDetails": "Information, such as your name, email and other contact details (including information that you provide by filling in forms on the Platform).",
-        "noCardStorage": "All credit/debit cards details and personally identifiable information will <strong>NOT</strong> be stored, sold, shared, rented or leased to any third parties.",
-        "noCardThirdParty": "We will not pass any debit/credit card details to <strong>third parties</strong>.",
-        "securityMeasures": "We intend to take appropriate steps to ensure data privacy and security including through various hardware and software methodologies. However, RutaRide cannot guarantee the security of any information that is disclosed online.",
-        "correspondence": "If you contact us, we may keep a record of that correspondence.",
-        "surveys": "We may also ask you to complete surveys that we use for research purposes, although you are not obligated to respond to them.",
-        "ipAddress": "Please note that we may use your Internet protocol (or IP) address (which is a unique number assigned to your computer server or your Internet service provider (or ISP)). We use your Internet Protocol (IP) address to help diagnose problems with our computer server, and to administer our web site(s). Your IP address is used to help identify you, but contains no personal information about you."
+    "RoadRules": {
+      "breadcrumb": {
+        "ariaLabel": "Breadcrumb",
+        "home": "Home",
+        "current": "Road Rules & Regulations"
       },
-      "confirmation": {
-        "title": "The confirmation contains:",
-        "items": {
-          "operatorContacts": "Rental operator contacts details",
-          "pickupInstructions": "Pickup instructions"
-        }
+      "hero": {
+        "title": "Road Rules & Regulations"
+      },
+      "filters": {
+        "selectContinent": "Select Continent",
+        "selectCountry": "Select Country",
+        "countryPlaceholder": "Select Country"
+      },
+      "downloadPdf": "Download PDF",
+      "emptyState": "No road rules available for the selected country.",
+      "continents": {
+        "asia": "Asia",
+        "middleEast": "Middle East",
+        "europe": "Europe",
+        "northAmerica": "North America"
+      },
+      "countries": {
+        "usa": "United States",
+        "uae": "United Arab Emirates",
+        "uk": "United Kingdom",
+        "pakistan": "Pakistan"
       }
     },
     "cookies": {
@@ -738,7 +747,6 @@
   "paymentModesLabel": "Payment Modes",
   "paymentModes": {
     "title": "Payment Modes",
-    "fallbackPaymentModes": "Cash, Credit Card, Debit Card, Crypto",
     "crypto": {
       "title": "Crypto",
       "description": "Pay using supported crypto currencies."
@@ -760,7 +768,6 @@
     "tipSuffix": "Check with your provider in advance.",
     "depositNote": "Credit card pre-authorization is the preferred method for deposits, offering automatic release and potential bank protection in case of disputes."
   },
-
   "Currencies": {
     "AED": "UAE dirham",
     "USD": "US dollar",
