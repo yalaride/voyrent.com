@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { isLocale, type AppLocale } from "@/domain/geo/locales";
@@ -6,7 +7,15 @@ import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getPreferredMarket } from "@/server/preferences/market";
 
-export default async function NotFound() {
+export default function NotFound() {
+  return (
+    <Suspense fallback={<div className="min-h-dvh bg-background" />}>
+      <NotFoundContent />
+    </Suspense>
+  );
+}
+
+async function NotFoundContent() {
   const requested = await getLocale().catch(() => routing.defaultLocale);
   const locale: AppLocale = isLocale(requested) ? requested : routing.defaultLocale;
   const market = await getPreferredMarket();

@@ -97,7 +97,12 @@ export function HeaderMenu({
       if (regionChanged) {
         await setPreferredMarket(draftRegion.country, draftRegion.city);
         const prefix = draftLocale === DEFAULT_LOCALE ? "" : `/${draftLocale}`;
-        window.location.assign(`${prefix}${cityRentPath(draftRegion.city)}`);
+        // Full document load so the saved region is not served from the client cache.
+        const destination = new URL(
+          `${prefix}${cityRentPath(draftRegion.city)}`,
+          window.location.origin,
+        );
+        window.location.assign(destination.href);
         return;
       }
 

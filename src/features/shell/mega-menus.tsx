@@ -33,22 +33,30 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<"rent" | "brands" | null>(null);
   const [query, setQuery] = useState("");
+  const [path, setPath] = useState(pathname);
 
-  useEffect(() => {
+  if (path !== pathname) {
+    setPath(pathname);
     setOpen(null);
-  }, [pathname]);
+    setQuery("");
+  }
 
-  useEffect(() => {
-    if (open !== "brands") setQuery("");
-  }, [open]);
+  function show(next: "rent" | "brands" | null) {
+    setOpen(next);
+    if (next !== "brands") setQuery("");
+  }
 
   useEffect(() => {
     if (!open) return;
+    const close = () => {
+      setOpen(null);
+      setQuery("");
+    };
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(null);
+      if (event.key === "Escape") close();
     };
     const onPointer = (event: PointerEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) setOpen(null);
+      if (!rootRef.current?.contains(event.target as Node)) close();
     };
     window.addEventListener("keydown", onKey);
     window.addEventListener("pointerdown", onPointer);
@@ -67,12 +75,12 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
     <div
       ref={rootRef}
       className="flex h-full items-center gap-6"
-      onMouseLeave={() => setOpen(null)}
+      onMouseLeave={() => show(null)}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setOpen(null);
+        if (!event.currentTarget.contains(event.relatedTarget)) show(null);
       }}
     >
-      <div className="relative h-full" onMouseEnter={() => setOpen("rent")}>
+      <div className="relative h-full" onMouseEnter={() => show("rent")}>
         <Link
           href={nav.columns[0]?.links[0]?.href ?? "/"}
           prefetch={false}
@@ -94,7 +102,7 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
         </Link>
       </div>
 
-      <div className="relative h-full" onMouseEnter={() => setOpen("brands")}>
+      <div className="relative h-full" onMouseEnter={() => show("brands")}>
         <button
           type="button"
           aria-expanded={open === "brands"}
@@ -103,7 +111,7 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
             triggerClass,
             open === "brands" && "text-primary group-data-[transparent=false]:text-primary",
           )}
-          onClick={() => setOpen("brands")}
+          onClick={() => show("brands")}
         >
           {nav.brandsLabel}
           <ChevronDownIcon
@@ -120,7 +128,7 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
         href="/dealer-plans"
         prefetch={false}
         className={triggerClass}
-        onMouseEnter={() => setOpen(null)}
+        onMouseEnter={() => show(null)}
       >
         {nav.dealersLabel}
       </Link>
