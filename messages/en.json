@@ -17,6 +17,8 @@
   "Header": {
     "skip": "Skip to content",
     "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "back": "Back",
     "menu": "Menu",
     "chooseCity": "Choose a city or country",
     "language": "Language",
@@ -27,7 +29,31 @@
     "signIn": "Sign In",
     "displaySettings": "Display Settings",
     "region": "Region",
-    "save": "Save"
+    "save": "Save",
+    "nav": {
+      "categories": "Categories",
+      "bodyTypes": "Body Types",
+      "period": "Rental by Period",
+      "trending": "Trending",
+      "forDealers": "For dealers",
+      "viewAll": "View all cars",
+      "luxury": "Luxury car rental {city}",
+      "sports": "Sports car rental {city}",
+      "noDeposit": "No deposit cars",
+      "economy": "Economy cars",
+      "suv": "SUV",
+      "sedan": "Sedan",
+      "convertible": "Convertible",
+      "van": "Van",
+      "monthly": "Monthly car rental",
+      "sevenSeater": "7 seater car rental",
+      "listCars": "List your cars",
+      "rentalBrands": "Rental Car Brands",
+      "searchBrand": "Search a brand...",
+      "oneCar": "1 car",
+      "manyCars": "{count} cars",
+      "noBrands": "No matching brands"
+    }
   },
   "Hero": {
     "eyebrow": "Local suppliers. No platform fee.",
@@ -437,6 +463,26 @@
       "title": "What to look for in your rental",
       "description": "Finding the perfect rental car at the right price doesn't have to be difficult. With RutaRide's \"Bid My Price\" feature, you can negotiate the rental price instead of simply accepting the listed rate. This gives travelers more flexibility and the opportunity to save money while booking from verified rental operators."
     },
+    "roadRules": {
+      "title": "Road rules worth memorizing",
+      "description": "Speed limits are strictly enforced by camera. Stick within the posted limit plus the small grace buffer, signal every lane change, and never undertake on the right. Roundabouts give way to the left. RutaRide's <strong>Bid My Price</strong> feature gives customers more control over the car rental process. Instead of accepting fixed prices, you have the opportunity to negotiate a better deal while booking through a trusted marketplace. Search for a vehicle, compare options, make an offer, and complete your booking to get a smoother rental and a better price on your next trip.",
+      "bullets": {
+        "contactDetails": "Information such as your name, email address, and other contact details, including information you provide by filling in forms on the Platform.",
+        "noCardStorage": "Credit or debit card information, and data that personally identifies you, will <strong>NOT</strong> be stored, sold, shared, rented, or transferred to third parties.",
+        "noCardThirdParty": "We will not pass any credit or debit card information to <strong>third parties</strong>.",
+        "securityMeasures": "We take appropriate hardware and software measures to keep data confidential and secure. RutaRide cannot guarantee the security of information disclosed online.",
+        "correspondence": "If you contact us, we may keep a record of that correspondence.",
+        "surveys": "We may ask you to complete surveys used for research. You do not have to take part.",
+        "ipAddress": "We may use your Internet Protocol (IP) address, a unique number assigned to your computer or your Internet service provider. We use it to diagnose problems with our server and to administer our website. An IP address can help identify a connection, but it does not contain personal details about you."
+      },
+      "confirmation": {
+        "title": "The confirmation contains:",
+        "items": {
+          "operatorContacts": "The rental operator's contact details",
+          "pickupInstructions": "Vehicle pickup instructions"
+        }
+      }
+    },
 
     "cookies": {
       "title": "Cookies and Tracking Technologies",
@@ -777,5 +823,63 @@
     "GBP": "British pound",
     "SAR": "Saudi riyal",
     "MAD": "Moroccan dirham"
+  },
+  "Auth": {
+    "signInTitle": "Sign in",
+    "signInBody": "Use the email and password for your RutaRide account.",
+    "registerTitle": "Create an account",
+    "registerBody": "Save cars and manage your rental enquiries.",
+    "forgotTitle": "Reset your password",
+    "forgotBody": "We will email you a link to choose a new password.",
+    "verifyTitle": "Enter the code",
+    "verifyBody": "Type the 6-digit code from your email.",
+    "verifiedTitle": "You're verified",
+    "verifiedBody": "You can go back to browsing cars.",
+    "resetSentTitle": "Check your email",
+    "resetSentBody": "If an account exists for that address, a reset link is on the way.",
+    "newPasswordTitle": "Choose a new password",
+    "newPasswordBody": "Use at least 8 characters.",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "name": "Full name",
+    "phone": "Phone",
+    "code": "Verification code",
+    "remember": "Remember me",
+    "forgot": "Forgot password?",
+    "signIn": "Sign in",
+    "createAccount": "Create account",
+    "sendLink": "Send reset link",
+    "verify": "Verify",
+    "savePassword": "Save password",
+    "choosePassword": "Choose a new password",
+    "noAccount": "New to RutaRide?",
+    "hasAccount": "Already have an account?",
+    "backToSignIn": "Back to sign in",
+    "continue": "Continue browsing",
+    "passwordUpdated": "Password updated. Sign in with the new password.",
+    "emailInvalid": "Enter a valid email address.",
+    "passwordShort": "Use at least 8 characters.",
+    "passwordMismatch": "Passwords do not match.",
+    "nameShort": "Enter your full name.",
+    "phoneShort": "Enter a phone number.",
+    "codeInvalid": "Enter the 6-digit code.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
+  },
+  "Contact": {
+    "title": "Contact us",
+    "body": "Questions about a rental, a listing, or your account? Send a message and we will reply to the email you enter.",
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "submit": "Send message",
+    "success": "Message received. We will reply to the email you entered.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "nameShort": "Enter your full name.",
+    "emailInvalid": "Enter a valid email address.",
+    "messageShort": "Write a short message."
   }
 }

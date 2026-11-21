@@ -2,43 +2,54 @@ import { Suspense } from "react";
 import { UserRoundIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-import type { CurrencyCode } from "@/domain/currency/currencies";
 import type { AppLocale } from "@/domain/geo/locales";
-import { localize, type Market } from "@/domain/geo/markets";
+import { getMarket, localize, type Market } from "@/domain/geo/markets";
 import { HeaderShell } from "@/features/shell/header-shell";
+import { HeaderNav, loadHeaderNav } from "@/features/shell/header-nav";
 import { HeaderMenu } from "@/components/header/header-menu";
 import { MobileMenu } from "@/features/shell/mobile-menu";
 import { Link } from "@/i18n/navigation";
 import { getDisplayCurrency } from "@/server/preferences/currency";
+import { site } from "@/lib/config/site";
+import { readStoredMarket } from "@/server/preferences/market";
 import { listMarketReference } from "@/server/reference/repository";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
 async function Preferences({
   locale,
-  fallback,
+  pageMarket,
+  scope,
   groups,
-  active,
 }: {
   locale: AppLocale;
-  fallback: CurrencyCode;
+  pageMarket?: Market;
+  scope: "city" | "country";
   groups: {
     code: string;
     name: string;
     cities: { slug: string; name: string }[];
   }[];
-  active?: {
-    country: string;
-    city: string;
-    placeName: string;
-    scope: "city" | "country";
-  };
 }) {
   const t = await getTranslations({ locale, namespace: "Header" });
-  const currency = await getDisplayCurrency(fallback);
+  const chosen = await readStoredMarket();
+  const market =
+    chosen ?? pageMarket ?? getMarket(site.defaultCountry, site.defaultCity);
+  const active = market
+    ? {
+        country: market.country,
+        city: market.city,
+        placeName:
+          !chosen && scope === "country"
+            ? localize(market.countryNames, locale)
+            : localize(market.cityNames, locale),
+        scope: chosen ? ("city" as const) : scope,
+      }
+    : undefined;
+  const currency = await getDisplayCurrency(market?.currency ?? "AED");
 
   return (
-    <div className="ms-auto flex h-[25px] shrink-0 items-center justify-end gap-3 lg:h-auto">
+    <div className="ms-auto flex h-[25px] shrink-0 items-center self-center justify-end gap-3 lg:h-auto">
       <div className="flex h-full items-center gap-3">
         <HeaderMenu
           key={`${locale}-${currency}-${active?.country ?? ""}-${active?.city ?? ""}`}
@@ -65,19 +76,31 @@ async function Preferences({
           </Link>
         </Button>
       </div>
-      <MobileMenu locale={locale} currency={currency} />
     </div>
   );
+}
+
+async function MobileEntry({
+  locale,
+  pageMarket,
+}: {
+  locale: AppLocale;
+  pageMarket?: Market;
+}) {
+  const nav = await loadHeaderNav(locale, pageMarket);
+  return <MobileMenu locale={locale} nav={nav} />;
 }
 
 export async function SiteHeader({
   locale,
   market,
   scope = "city",
+  sticky = true,
 }: {
   locale: AppLocale;
   market?: Market;
   scope?: "city" | "country";
+  sticky?: boolean;
 }) {
   const t = await getTranslations({ locale, namespace: "Header" });
   const countries = await listMarketReference();
@@ -90,50 +113,36 @@ export async function SiteHeader({
     })),
   }));
   const homeHref = "/";
-  const active = market
-    ? {
-        country: market.country,
-        city: market.city,
-        placeName:
-          scope === "country"
-            ? localize(market.countryNames, locale)
-            : localize(market.cityNames, locale),
-        scope,
-      }
-    : undefined;
 
   return (
-    <HeaderShell>
-      <div className="flex h-20 w-full items-center justify-between gap-4">
-        <div className="flex min-w-0 items-center gap-4 lg:gap-8">
+    <HeaderShell sticky={sticky}>
+      <div className="relative flex h-20 w-full items-stretch justify-between gap-4">
+        <div className="flex min-w-0 items-stretch gap-3 lg:gap-8">
+          <Suspense fallback={<span className="size-6 self-center lg:hidden" />}>
+            <MobileEntry locale={locale} pageMarket={market} />
+          </Suspense>
           <Link
             href={homeHref}
+            prefetch={false}
             dir="ltr"
-            className="flex h-[34px] shrink-0 items-center text-xl font-bold text-white transition-opacity hover:opacity-90 group-data-[transparent=false]:text-text-primary ltr:tracking-tight lg:h-auto lg:text-2xl"
+            className="flex h-[34px] shrink-0 items-center self-center text-xl font-bold text-white transition-opacity hover:opacity-90 group-data-[transparent=false]:text-text-primary ltr:tracking-tight lg:h-auto lg:text-2xl"
           >
             <span>Ruta</span>
             <span className="text-primary">Ride</span>
           </Link>
 
-          <nav className="hidden items-center gap-6 whitespace-nowrap text-body-small font-medium lg:flex">
-            <Link
-              href="/"
-              className="text-white/85 transition-colors hover:text-white group-data-[transparent=false]:text-text-primary group-data-[transparent=false]:hover:text-link"
+          <nav className="hidden h-full self-stretch lg:flex">
+            <Suspense
+              fallback={
+                <div className="flex items-center gap-6 text-body-small font-medium text-white/85 group-data-[transparent=false]:text-text-primary">
+                  <span>{t("rentCar")}</span>
+                  <span>{t("carBrands")}</span>
+                  <span>{t("dealers")}</span>
+                </div>
+              }
             >
-              {t("rentCar")}
-            </Link>
-            <Link
-              href="/catalog"
-              className="text-white/85 transition-colors hover:text-white group-data-[transparent=false]:text-text-primary group-data-[transparent=false]:hover:text-link"
-            >
-              {t("carBrands")}
-            </Link>
-            <Link
-              href="/dealer-plans"
-              className="text-white/85 transition-colors hover:text-white group-data-[transparent=false]:text-text-primary group-data-[transparent=false]:hover:text-link"
-            >
-              {t("dealers")}
-            </Link>
+              <HeaderNav locale={locale} pageMarket={market} />
+            </Suspense>
           </nav>
         </div>
 
@@ -144,9 +153,9 @@ export async function SiteHeader({
         >
           <Preferences
             locale={locale}
-            fallback={market?.currency ?? "AED"}
+            pageMarket={market}
+            scope={scope}
             groups={groups}
-            active={active}
           />
         </Suspense>
       </div>

@@ -41,7 +41,7 @@ export async function SiteFooter() {
       title: t("companyTitle"),
       items: [
         { label: t("aboutUs") },
-        { label: t("contactUs") },
+        { label: t("contactUs"), href: "/contact" },
         { label: t("joinAsDealer"), href: "/dealer-plans" },
         { label: t("dealerLogin") },
       ],
@@ -80,6 +80,7 @@ export async function SiteFooter() {
                       {item.href ? (
                         <Link
                           href={item.href}
+                          prefetch={false}
                           className="transition-colors hover:text-text-inverse"
                         >
                           {item.label}

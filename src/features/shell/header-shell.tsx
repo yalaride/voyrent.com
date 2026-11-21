@@ -6,9 +6,10 @@ import LayoutWrapper from "@/components/layout/LayoutWrapper";
 
 interface HeaderShellProps {
   children: React.ReactNode;
+  sticky?: boolean;
 }
 
-export function HeaderShell({ children }: HeaderShellProps) {
+export function HeaderShell({ children, sticky = true }: HeaderShellProps) {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -34,7 +35,7 @@ export function HeaderShell({ children }: HeaderShellProps) {
     <header
       data-transparent={isTransparent ? "true" : "false"}
       className={`group inset-x-0 top-0 z-50 w-full transition-all duration-300 ${
-        isLandingPage ? "fixed" : "sticky"
+        isLandingPage ? "fixed" : sticky ? "sticky" : "relative"
       } ${
         isTransparent
           ? "border-b border-transparent bg-transparent text-white"

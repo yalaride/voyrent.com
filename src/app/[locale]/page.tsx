@@ -5,20 +5,21 @@ import { hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
 import { isLocale } from "@/domain/geo/locales";
-import { getMarket } from "@/domain/geo/markets";
 import { MarketHome } from "@/features/home/market-home";
 import { AppShell } from "@/features/shell/app-shell";
 import { routing } from "@/i18n/routing";
+import { getPreferredMarket } from "@/server/preferences/market";
 import { buildRentMetadata, websiteJsonLd } from "@/server/seo/metadata";
 import { requestLocale } from "@/server/seo/request-locale";
 
+/** `/` has no city in the URL, so it follows the last region the visitor chose. */
 function homeMarket() {
-  return getMarket("ae", "dubai");
+  return getPreferredMarket();
 }
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await requestLocale();
-  const market = homeMarket();
+  const market = await homeMarket();
 
   if (!locale || !market) {
     return {};
@@ -52,7 +53,7 @@ async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   }
 
   setRequestLocale(locale);
-  const market = homeMarket();
+  const market = await homeMarket();
 
   if (!market) {
     notFound();

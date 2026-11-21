@@ -33,6 +33,20 @@ function marketByCity(city: string): Market | undefined {
   return CITIES.find((market) => market.city === city);
 }
 
+const LANDING_BODY_TYPES = [
+  "economy",
+  "sedan",
+  "suv",
+  "luxury",
+  "sports",
+  "van",
+  "convertible",
+] as const satisfies readonly LandingId[];
+
+function isLandingBody(value: string): value is (typeof LANDING_BODY_TYPES)[number] {
+  return (LANDING_BODY_TYPES as readonly string[]).includes(value);
+}
+
 export function landingSegment(landing: LandingId, city: string): string {
   switch (landing) {
     case "economy":
@@ -203,7 +217,7 @@ export function catalogPath(city: string, query: Partial<VehicleSearchQuery> = {
   } else if (query.make) {
     path = makeRentPath(query.make, city);
     encoded.add("make");
-  } else if (query.bodyType) {
+  } else if (query.bodyType && isLandingBody(query.bodyType)) {
     path = `/${landingSegment(query.bodyType, city)}`;
     encoded.add("body");
   } else if (query.deposit === "none") {

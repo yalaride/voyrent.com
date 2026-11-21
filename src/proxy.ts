@@ -28,7 +28,13 @@ function legacyMarketRedirect(request: NextRequest): NextResponse | undefined {
  * API routes and static files are excluded by the matcher.
  */
 export default function proxy(request: NextRequest) {
-  return legacyMarketRedirect(request) ?? canonicalQueryRedirect(request) ?? handleLocale(request);
+  const redirect = legacyMarketRedirect(request) ?? canonicalQueryRedirect(request);
+  if (redirect) {
+    return redirect;
+  }
+
+  request.headers.set("x-pathname", request.nextUrl.pathname);
+  return handleLocale(request);
 }
 
 function canonicalQueryRedirect(request: NextRequest): NextResponse | undefined {

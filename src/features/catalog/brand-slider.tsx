@@ -7,7 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { catalogPath } from "@/domain/routing/rent-paths";
 
-const BRAND_LOGOS: Record<string, string> = {
+export const BRAND_LOGOS: Record<string, string> = {
   audi: "/brands/audi.svg",
   bmw: "/brands/bmw.svg",
   chevrolet: "/brands/chevrolet.svg",

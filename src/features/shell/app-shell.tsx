@@ -11,11 +11,13 @@ export async function AppShell({
   locale,
   market,
   scope = "city",
+  stickyHeader = true,
   children,
 }: {
   locale: AppLocale;
   market?: Market;
   scope?: "city" | "country";
+  stickyHeader?: boolean;
   children: React.ReactNode;
 }) {
   const t = await getTranslations("Header");
@@ -28,7 +30,7 @@ export async function AppShell({
       >
         {t("skip")}
       </a>
-      <SiteHeader locale={locale} market={market} scope={scope} />
+      <SiteHeader locale={locale} market={market} scope={scope} sticky={stickyHeader} />
       <main id="content" className="flex-1">
         <Suspense
           fallback={

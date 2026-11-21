@@ -219,7 +219,7 @@ export function SearchToolbar({
 
   return (
     <>
-      <div className="w-full">
+      <div className="sticky top-0 z-40 w-full">
         {/* 1. Dark Navy Top Bar */}
         <div className="w-full bg-background-section text-text-inverse">
           <LayoutWrapper className="py-[var(--spacing-space-20)]">

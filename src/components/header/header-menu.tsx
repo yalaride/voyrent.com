@@ -7,13 +7,14 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState, useTransition, type ComponentType } from "react";
 
 import type { CurrencyCode } from "@/domain/currency/currencies";
-import type { AppLocale } from "@/domain/geo/locales";
+import { DEFAULT_LOCALE, type AppLocale } from "@/domain/geo/locales";
 import { getCountry } from "@/domain/geo/markets";
 import { cityRentPath } from "@/domain/routing/rent-paths";
 import { CurrencySwitcher } from "@/features/shell/currency-switcher";
 import { LocaleSwitcher } from "@/features/shell/locale-switcher";
 import type { MarketGroup } from "@/features/shell/market-switcher";
 import { setDisplayCurrency } from "@/features/preferences/set-currency";
+import { setPreferredMarket } from "@/features/preferences/set-market";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -88,17 +89,22 @@ export function HeaderMenu({
         await setDisplayCurrency(draftCurrency);
       }
 
-      setDialogOpen(false);
-
       const regionChanged =
-        draftRegion.city !== "" && draftRegion.city !== (active?.city ?? "");
-      const currentPath = `${pathname}${window.location.search}`;
-      const nextPath = regionChanged
-        ? cityRentPath(draftRegion.city)
-        : currentPath;
+        draftRegion.city !== "" &&
+        (draftRegion.city !== (active?.city ?? "") ||
+          draftRegion.country !== (active?.country ?? ""));
 
-      if (nextPath !== currentPath || draftLocale !== locale) {
-        router.push(nextPath, { locale: draftLocale });
+      if (regionChanged) {
+        await setPreferredMarket(draftRegion.country, draftRegion.city);
+        const prefix = draftLocale === DEFAULT_LOCALE ? "" : `/${draftLocale}`;
+        window.location.assign(`${prefix}${cityRentPath(draftRegion.city)}`);
+        return;
+      }
+
+      setDialogOpen(false);
+      const currentPath = `${pathname}${window.location.search}`;
+      if (draftLocale !== locale) {
+        router.push(currentPath, { locale: draftLocale });
       } else {
         router.refresh();
       }

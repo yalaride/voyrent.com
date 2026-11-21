@@ -160,11 +160,15 @@ async function RentRouteContent({
     );
   }
 
+  const showHome =
+    (view.kind === "country" || view.kind === "city") && isIndexable(view, query);
+
   return (
     <AppShell
       locale={locale}
       market={view.market}
       scope={view.kind === "country" ? "country" : "city"}
+      stickyHeader={showHome}
     >
       <script
         type="application/ld+json"
@@ -172,8 +176,7 @@ async function RentRouteContent({
           __html: JSON.stringify(websiteJsonLd(view.market, locale)),
         }}
       />
-      {(view.kind === "country" || view.kind === "city") &&
-      isIndexable(view, query) ? (
+      {showHome ? (
         <MarketHome
           market={view.market}
           locale={locale}

@@ -53,6 +53,20 @@ export const BODY_KEYWORDS: Record<BodyType, PhraseBook> = {
     fr: ["cabriolet", "decapotable"],
     pt: ["descapotavel", "cabrio"],
   },
+  crossover: {
+    en: ["crossover"],
+    es: ["crossover"],
+    ar: ["كروس أوفر"],
+    fr: ["crossover"],
+    pt: ["crossover"],
+  },
+  pickup: {
+    en: ["pickup", "pick-up", "truck"],
+    es: ["pickup", "camioneta"],
+    ar: ["بيك أب", "وانيت"],
+    fr: ["pickup", "pick-up"],
+    pt: ["pickup", "picape"],
+  },
 };
 
 export function joinPhrases(book: PhraseBook): string {

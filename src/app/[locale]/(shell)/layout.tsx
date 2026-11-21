@@ -1,11 +1,14 @@
 import type { ReactNode } from "react";
 import { Suspense } from "react";
+import { headers } from "next/headers";
 import { hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
 import { isLocale } from "@/domain/geo/locales";
+import { marketFromPathname } from "@/domain/routing/market-from-path";
 import { AppShell } from "@/features/shell/app-shell";
 import { routing } from "@/i18n/routing";
+import { getPreferredMarket } from "@/server/preferences/market";
 
 export default function ShellLayout({
   children,
@@ -36,5 +39,13 @@ async function ShellDocument({
 
   setRequestLocale(locale);
 
-  return <AppShell locale={locale}>{children}</AppShell>;
+  const headerStore = await headers();
+  const pathname = headerStore.get("x-pathname") ?? "";
+  const market = marketFromPathname(pathname) ?? (await getPreferredMarket());
+
+  return (
+    <AppShell locale={locale} market={market}>
+      {children}
+    </AppShell>
+  );
 }
