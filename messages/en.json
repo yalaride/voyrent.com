@@ -437,35 +437,7 @@
       "title": "What to look for in your rental",
       "description": "Finding the perfect rental car at the right price doesn't have to be difficult. With RutaRide's \"Bid My Price\" feature, you can negotiate the rental price instead of simply accepting the listed rate. This gives travelers more flexibility and the opportunity to save money while booking from verified rental operators."
     },
-    "RoadRules": {
-      "breadcrumb": {
-        "ariaLabel": "Breadcrumb",
-        "home": "Home",
-        "current": "Road Rules & Regulations"
-      },
-      "hero": {
-        "title": "Road Rules & Regulations"
-      },
-      "filters": {
-        "selectContinent": "Select Continent",
-        "selectCountry": "Select Country",
-        "countryPlaceholder": "Select Country"
-      },
-      "downloadPdf": "Download PDF",
-      "emptyState": "No road rules available for the selected country.",
-      "continents": {
-        "asia": "Asia",
-        "middleEast": "Middle East",
-        "europe": "Europe",
-        "northAmerica": "North America"
-      },
-      "countries": {
-        "usa": "United States",
-        "uae": "United Arab Emirates",
-        "uk": "United Kingdom",
-        "pakistan": "Pakistan"
-      }
-    },
+
     "cookies": {
       "title": "Cookies and Tracking Technologies",
       "description": "We use cookies and similar tracking technologies to track activity on our platform and hold certain analytical information to enhance your experience.",
@@ -494,6 +466,7 @@
         }
       }
     },
+
     "payments": {
       "title": "Payments",
       "description": "Speed limits are strictly enforced by camera. Stick within the posted limit plus the small grace buffer, signal every lane change, and never undertake on the right. Roundabouts give way to the left. RutaRide's Bid My Price feature gives customers more control over the car rental process. Instead of accepting fixed prices, you have the opportunity to negotiate a better deal while booking through a trusted marketplace.",
@@ -767,6 +740,35 @@
     "tipBody": "Using a debit card, cash, or bank transfer? Refunds take longer, require manual processing, and may incur transfer and currency conversion fees.",
     "tipSuffix": "Check with your provider in advance.",
     "depositNote": "Credit card pre-authorization is the preferred method for deposits, offering automatic release and potential bank protection in case of disputes."
+  },
+  "RoadRules": {
+    "breadcrumb": {
+      "ariaLabel": "Breadcrumb",
+      "home": "Home",
+      "current": "Road Rules & Regulations"
+    },
+    "hero": {
+      "title": "Road Rules & Regulations"
+    },
+    "filters": {
+      "selectContinent": "Select Continent",
+      "selectCountry": "Select Country",
+      "countryPlaceholder": "Select Country"
+    },
+    "downloadPdf": "Download PDF",
+    "emptyState": "No road rules available for the selected country.",
+    "continents": {
+      "asia": "Asia",
+      "middleEast": "Middle East",
+      "europe": "Europe",
+      "northAmerica": "North America"
+    },
+    "countries": {
+      "usa": "United States",
+      "uae": "United Arab Emirates",
+      "uk": "United Kingdom",
+      "pakistan": "Pakistan"
+    }
   },
   "Currencies": {
     "AED": "UAE dirham",
