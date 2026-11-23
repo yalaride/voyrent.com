@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
 import { catalogPath, listingPath } from "@/domain/routing/rent-paths";
+import { slugify } from "@/lib/slugify";
 import type {
   VehicleListing,
   VehicleSearchQuery,
@@ -23,6 +24,7 @@ type ListingWithExtras = VehicleListing & {
   supplierPhone?: string;
   supplierWhatsapp?: string;
   supplierLogo?: string | null;
+  supplierSlug?: string;
   isPremium?: boolean;
   premium?: boolean;
   tier?: "premium" | "featured" | "standard";
@@ -155,6 +157,7 @@ function presentListing(
       : null,
     dealerName: listing.supplier,
     dealerLogoUrl: listingWithExtras.supplierLogo ?? null,
+    dealerHref: `/company/${listing.city}/${listingWithExtras.supplierSlug?.trim() || slugify(listing.supplier)}`,
 
     callLabel: labels.call,
     whatsappLabel: labels.whatsapp,

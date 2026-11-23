@@ -1,13 +1,26 @@
 import { Suspense } from "react";
 import Image from "next/image";
-import { Clock, Info, MapPin, Star } from "lucide-react";
+import { Clock, MapPin } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { DealerOpeningHours } from "@/components/car-detail/dealer-opening-hours";
 import { ListingDealerDrawer } from "@/components/car-detail/ListingDealerDrawer";
 import { ListingDesktopGallery } from "@/components/car-detail/ListingDesktopGallery";
+import {
+  ListingFeaturesCard,
+  type FeatureCategoryData,
+} from "@/components/car-detail/ListingFeaturesCard";
 import { ListingMobileGallery } from "@/components/car-detail/ListingMobileGallery";
 import {
+  ListingPricingCard,
+  type PricingPeriodData,
+} from "@/components/car-detail/ListingPricingCard";
+import {
+  ListingRentalTerms,
+  type RentalTermItem,
+} from "@/components/car-detail/ListingRentalTerms";
+import {
+  CheckIcon,
   ChevronRightIcon,
   HeartIcon,
   ShareIcon,
@@ -23,13 +36,16 @@ import { catalogPath } from "@/domain/routing/rent-paths";
 import { ListingSection } from "@/features/catalog/listing-section";
 import { ListingSkeleton } from "@/features/catalog/listing-skeleton";
 import { Link } from "@/i18n/navigation";
-import { getDisplayCurrency } from "@/server/preferences/currency";
 import { slugify } from "@/lib/slugify";
+import { getDisplayCurrency } from "@/server/preferences/currency";
 
 const FALLBACK_IMAGES = [
   "/blog/blog1.jpg",
   "/blog/blog2.jpg",
   "/blog/blog3.jpg",
+  "/car-image/image-1.jpg",
+  "/car-image/image-2.jpg",
+  "/car-image/image-3.jpg",
 ] as const;
 
 const normalizeImageSrc = (src: string) => {
@@ -52,8 +68,23 @@ type ListingWithDetails = VehicleListing & {
   originalWeeklyPriceMinor?: number;
   originalMonthlyPriceMinor?: number;
   includedMileageKm?: number;
+  dailyMileageKm?: number;
+  weeklyMileageKm?: number;
+  monthlyMileageKm?: number;
   additionalMileageMinor?: number;
+  additionalMileageDailyMinor?: number;
+  additionalMileageWeeklyMinor?: number;
+  additionalMileageMonthlyMinor?: number;
   chauffeurDailyMinor?: number;
+  chauffeurWeeklyMinor?: number;
+  chauffeurMonthlyMinor?: number;
+  chauffeurTooltipText?: string;
+  minDays?: number;
+  insuranceIncluded?: boolean;
+  mileagePolicyText?: string;
+  fuelPolicyText?: string;
+  depositPolicyText?: string;
+  rentalPolicyText?: string;
   mileageLabel?: string;
   mpgLabel?: string;
   fuelType?: string;
@@ -69,8 +100,6 @@ type ListingWithDetails = VehicleListing & {
   installedOptions?: string[];
   supplierSlug?: string;
   supplierLogo?: string;
-  supplierRating?: number;
-  supplierReviewsCount?: number;
   supplierPhone?: string;
   supplierWhatsapp?: string;
   mapPreviewImage?: string;
@@ -90,10 +119,11 @@ export async function ListingDetail({
   locale: AppLocale;
   listing: VehicleListing;
 }) {
-  const [t, body, currency] = await Promise.all([
+  const [t, body, currency, pm] = await Promise.all([
     getTranslations("Listings"),
     getTranslations("BodyTypes"),
     getDisplayCurrency(market.currency),
+    getTranslations("paymentModes"),
   ]);
 
   const tf = (key: string, fallback: string) =>
@@ -113,6 +143,7 @@ export async function ListingDetail({
   const overviewTitle = tf("overviewTitle", "Overview");
   const featuresTitle = tf("featuresTitle", "Features");
   const viewAllFeaturesLabel = tf("viewAllFeatures", "View all features");
+  const showLessFeaturesLabel = tf("showLess", "Show less");
   const installedOptionsTitle = tf(
     "installedOptionsTitle",
     "Installed options & packages",
@@ -125,6 +156,7 @@ export async function ListingDetail({
   const dayUnit = tf("dayUnit", "day");
   const weekUnit = tf("weekUnit", "week");
   const monthUnit = tf("monthUnit", "mon");
+  const kmUnit = tf("kmUnit", "km");
 
   const cityName = localize(market.cityNames, locale);
   const fullTitle = [details.year, listing.make, listing.model, details.trim]
@@ -155,13 +187,82 @@ export async function ListingDetail({
     ? formatConverted(details.originalMonthlyPriceMinor)
     : null;
 
-  const includedMileageKm = details.includedMileageKm ?? 1750;
-  const additionalMileagePrice = details.additionalMileageMinor
-    ? formatConverted(details.additionalMileageMinor)
-    : formatMoney(convertMinor(136, "USD", currency), currency, locale);
-  const chauffeurDailyPrice = details.chauffeurDailyMinor
-    ? formatConverted(details.chauffeurDailyMinor)
-    : formatMoney(convertMinor(540, "USD", currency), currency, locale);
+  // Per-period mileage limits (API values or calculated fallbacks)
+  const dailyMileageKm =
+    details.dailyMileageKm ?? details.includedMileageKm ?? 250;
+  const weeklyMileageKm = details.weeklyMileageKm ?? dailyMileageKm * 7;
+  const monthlyMileageKm = details.monthlyMileageKm ?? dailyMileageKm * 22;
+
+  const formatKm = (count: number) =>
+    t.has("kmValue") ? t("kmValue", { count }) : `${count} ${kmUnit}`;
+
+  // Per-period additional mileage charges (API values or fallback)
+  const additionalMileageDailyMinor =
+    details.additionalMileageDailyMinor ?? details.additionalMileageMinor;
+  const additionalMileageWeeklyMinor =
+    details.additionalMileageWeeklyMinor ?? additionalMileageDailyMinor;
+  const additionalMileageMonthlyMinor =
+    details.additionalMileageMonthlyMinor ?? additionalMileageDailyMinor;
+
+  const formatExtraKmCharge = (minor?: number) => {
+    const formatted = minor
+      ? formatConverted(minor)
+      : formatMoney(convertMinor(136, "USD", currency), currency, locale);
+    return `${formatted} / ${kmUnit}`;
+  };
+
+  // Per-period chauffeur charges (API values or scaled fallback)
+  const chauffeurDailyMinor = details.chauffeurDailyMinor;
+  const chauffeurWeeklyMinor =
+    details.chauffeurWeeklyMinor ??
+    (chauffeurDailyMinor ? chauffeurDailyMinor * 7 : 540 * 7);
+  const chauffeurMonthlyMinor =
+    details.chauffeurMonthlyMinor ??
+    (chauffeurDailyMinor ? chauffeurDailyMinor * 22 : 540 * 22);
+
+  const formatChauffeur = (minor: number | undefined, unit: string) => {
+    const formatted = minor
+      ? formatConverted(minor)
+      : formatMoney(convertMinor(540, "USD", currency), currency, locale);
+    return `${formatted} / ${unit}`;
+  };
+
+  const pricingPeriods: PricingPeriodData[] = [
+    {
+      key: "day",
+      price: daily,
+      originalPrice: originalDaily,
+      unit: dayUnit,
+      includedMileageText: formatKm(dailyMileageKm),
+      additionalMileageText: formatExtraKmCharge(additionalMileageDailyMinor),
+      chauffeurText: formatChauffeur(chauffeurDailyMinor, dayUnit),
+    },
+    {
+      key: "week",
+      price: weekly,
+      originalPrice: originalWeekly,
+      unit: weekUnit,
+      includedMileageText: formatKm(weeklyMileageKm),
+      additionalMileageText: formatExtraKmCharge(additionalMileageWeeklyMinor),
+      chauffeurText: formatChauffeur(chauffeurWeeklyMinor, weekUnit),
+    },
+    {
+      key: "month",
+      price: monthly,
+      originalPrice: originalMonthly,
+      unit: monthUnit,
+      includedMileageText: formatKm(monthlyMileageKm),
+      additionalMileageText: formatExtraKmCharge(additionalMileageMonthlyMinor),
+      chauffeurText: formatChauffeur(chauffeurMonthlyMinor, monthUnit),
+    },
+  ];
+
+  const minRentalText =
+    details.minDays && details.minDays > 1 && t.has("minDays")
+      ? t("minDays", { count: details.minDays })
+      : tf("oneDayRentalAvailable", "1 day rental available");
+  const showInsuranceIncluded = details.insuranceIncluded !== false;
+  const insuranceIncludedText = tf("insuranceIncluded", "Insurance included");
 
   const rawImages =
     "images" in listing && Array.isArray(listing.images)
@@ -241,7 +342,7 @@ export async function ListingDetail({
     tf("featureNoAccidents", "No Accidents"),
   ];
 
-  const featureCategories = [
+  const featureCategories: FeatureCategoryData[] = [
     {
       key: "comfort",
       title: tf("featureComfort", "Comfort & Convenience"),
@@ -249,6 +350,11 @@ export async function ListingDetail({
         details.features?.comfort && details.features.comfort.length > 0
           ? details.features.comfort
           : defaultFeatureItems,
+      expandedFallbackItems: [
+        tf("fallbackComfort1", "Dual-Zone Climate Control"),
+        tf("fallbackComfort2", "Keyless Entry & Push Start"),
+        tf("fallbackComfort3", "Leather Upholstery"),
+      ],
     },
     {
       key: "technology",
@@ -257,6 +363,11 @@ export async function ListingDetail({
         details.features?.technology && details.features.technology.length > 0
           ? details.features.technology
           : defaultFeatureItems,
+      expandedFallbackItems: [
+        tf("fallbackTech1", "Apple CarPlay & Android Auto"),
+        tf("fallbackTech2", "Bluetooth Audio & Hands-Free"),
+        tf("fallbackTech3", "Digital Instrument Cluster"),
+      ],
     },
     {
       key: "safety",
@@ -265,6 +376,11 @@ export async function ListingDetail({
         details.features?.safety && details.features.safety.length > 0
           ? details.features.safety
           : defaultFeatureItems,
+      expandedFallbackItems: [
+        tf("fallbackSafety1", "Adaptive Cruise Control"),
+        tf("fallbackSafety2", "Blind Spot Monitoring"),
+        tf("fallbackSafety3", "360° Parking Sensors"),
+      ],
     },
     {
       key: "appearance",
@@ -273,6 +389,11 @@ export async function ListingDetail({
         details.features?.appearance && details.features.appearance.length > 0
           ? details.features.appearance
           : defaultFeatureItems,
+      expandedFallbackItems: [
+        tf("fallbackAppearance1", "LED Headlights"),
+        tf("fallbackAppearance2", "Alloy Wheels"),
+        tf("fallbackAppearance3", "Panoramic Sunroof"),
+      ],
     },
   ];
 
@@ -288,19 +409,55 @@ export async function ListingDetail({
           ...(!listing.depositRequired ? [tf("noDeposit", "No Deposit")] : []),
         ];
 
+  const rentalTermItems: RentalTermItem[] = [
+    {
+      key: "mileagePolicy",
+      label: tf("mileagePolicy", "Mileage Policy"),
+      tooltip:
+        details.mileagePolicyText?.trim() ||
+        tf(
+          "mileagePolicyTooltip",
+          "Included mileage applies per selected period. Extra distance beyond the limit is billed per km.",
+        ),
+    },
+    {
+      key: "fuelPolicy",
+      label: tf("fuelPolicy", "Fuel Policy"),
+      tooltip:
+        details.fuelPolicyText?.trim() ||
+        tf(
+          "fuelPolicyTooltip",
+          "Full-to-full fuel policy: return the vehicle with the same fuel level as provided at pickup.",
+        ),
+    },
+    {
+      key: "depositPolicy",
+      label: tf("depositPolicy", "Deposit Policy"),
+      tooltip:
+        details.depositPolicyText?.trim() ||
+        tf(
+          "depositPolicyTooltip",
+          "A refundable security deposit may be required at pickup and is released after vehicle inspection.",
+        ),
+    },
+    {
+      key: "rentalPolicy",
+      label: tf("rentalPolicy", "Rental Policy"),
+      tooltip:
+        details.rentalPolicyText?.trim() ||
+        tf(
+          "rentalPolicyTooltip",
+          "Valid driver's license, ID or passport, and minimum age requirements apply at rental pickup.",
+        ),
+    },
+  ];
+
   const phoneHref = details.supplierPhone
     ? `tel:${details.supplierPhone}`
     : "#";
   const whatsappHref = details.supplierWhatsapp
     ? `https://wa.me/${details.supplierWhatsapp.replace(/\D/g, "")}`
     : "#";
-
-  const supplierRating = details.supplierRating ?? 4.7;
-  const reviewsLabel = t.has("reviewsCount")
-    ? t("reviewsCount", {
-        count: details.supplierReviewsCount ?? 812,
-      })
-    : `${details.supplierReviewsCount ?? 812} reviews`;
 
   const dealerLocationLabel = details.locationLabel?.trim() || cityName;
 
@@ -330,11 +487,8 @@ export async function ListingDetail({
   const paymentModesFallback =
     details.paymentModes && details.paymentModes.length > 0
       ? details.paymentModes
-      : tf(
-          "fallbackPaymentModes",
-          "Cash, Credit Card, Debit Card, Bank Transfer",
-        )
-          .split(",")
+      : tf("fallbackPaymentModes", "Cash, Credit Card, Debit Card, Crypto")
+          .split(/,|،/)
           .map((mode) => mode.trim())
           .filter(Boolean);
 
@@ -374,8 +528,6 @@ export async function ListingDetail({
   }));
   const companySlug = details.supplierSlug?.trim() || slugify(listing.supplier);
 
-  // Navigates to: /{locale}/company/{city}/{companySlug}
-  // e.g. /en/company/dubai/countach-rent-a-car
   const dealerHref = `/company/${market.city}/${companySlug}`;
   const callLabel = tf("call", "Call");
   const whatsappLabel = tf("whatsapp", "WhatsApp");
@@ -556,111 +708,50 @@ export async function ListingDetail({
               </div>
             </header>
 
-            {/* 2. Pricing Card */}
-            <section className="order-2 flex flex-col gap-[var(--spacing-space-16)] rounded-[var(--radius-24)] border border-border-default bg-background-primary p-4 sm:gap-[var(--spacing-space-20)] sm:p-8">
-              <h2 className="text-[20px] font-semibold leading-[1.26] tracking-[-0.02em] text-text-primary sm:text-[24px]">
-                {pricingTitle}
-              </h2>
+            {/* 2. Pricing Card + Rental Availability / Insurance Highlights */}
+            <div className="order-2 flex flex-col gap-4 sm:gap-6">
+              <ListingPricingCard
+                title={pricingTitle}
+                periods={pricingPeriods}
+                includedMileageLabel={tf(
+                  "includedMileage",
+                  "Included mileage limit",
+                )}
+                additionalMileageLabel={tf(
+                  "additionalMileageCharges",
+                  "Additional mileage charges",
+                )}
+                chauffeurLabel={tf(
+                  "chauffeurCharges",
+                  "Additional Chauffeur / Driver charges",
+                )}
+                chauffeurTooltip={
+                  details.chauffeurTooltipText?.trim() ||
+                  tf(
+                    "chauffeurTooltip",
+                    "Optional professional chauffeur service billed per selected rental period.",
+                  )
+                }
+              />
 
-              <div className="grid min-h-[86px] grid-cols-3 gap-1.5 rounded-[var(--radius-16)] bg-background-secondary p-[var(--spacing-space-6)] sm:gap-[var(--spacing-space-12)]">
-                {/* Daily */}
-                <div className="flex flex-col items-center justify-center rounded-[var(--radius-12)] bg-background-primary px-2 py-2.5 text-center shadow-[var(--shadow-small)] sm:px-4">
-                  {originalDaily ? (
-                    <span className="text-xs font-normal text-text-secondary line-through sm:text-sm">
-                      {originalDaily}
-                    </span>
-                  ) : null}
-                  <div className="flex flex-col items-center justify-center sm:flex-row sm:items-baseline sm:gap-1">
-                    <span className="text-[18px] font-bold leading-tight text-primary sm:text-[22px]">
-                      {daily}
-                    </span>
-                    <span className="text-xs font-normal text-text-secondary sm:text-sm">
-                      <span className="hidden sm:inline">/ </span>
-                      {dayUnit}
-                    </span>
-                  </div>
-                </div>
+              <div className="flex flex-wrap items-center gap-x-10 gap-y-3 rounded-[var(--radius-24)] border border-border-default bg-background-primary px-4 py-4 sm:px-8 sm:py-5">
+                <span className="inline-flex items-center gap-2.5 text-[14px] font-normal text-text-secondary sm:text-[15px]">
+                  <span className="inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-text-inverse">
+                    <CheckIcon className="size-3" />
+                  </span>
+                  <span>{minRentalText}</span>
+                </span>
 
-                {/* Weekly */}
-                <div className="flex flex-col items-center justify-center rounded-[var(--radius-12)] px-2 py-2.5 text-center sm:px-4">
-                  {originalWeekly ? (
-                    <span className="text-xs font-normal text-text-secondary line-through sm:text-sm">
-                      {originalWeekly}
+                {showInsuranceIncluded ? (
+                  <span className="inline-flex items-center gap-2.5 text-[14px] font-normal text-text-secondary sm:text-[15px]">
+                    <span className="inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-text-inverse">
+                      <CheckIcon className="size-3" />
                     </span>
-                  ) : null}
-                  <div className="flex flex-col items-center justify-center sm:flex-row sm:items-baseline sm:gap-1">
-                    <span className="text-[18px] font-bold leading-tight text-primary sm:text-[22px]">
-                      {weekly}
-                    </span>
-                    <span className="text-xs font-normal text-text-secondary sm:text-sm">
-                      <span className="hidden sm:inline">/ </span>
-                      {weekUnit}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Monthly */}
-                <div className="flex flex-col items-center justify-center rounded-[var(--radius-12)] px-2 py-2.5 text-center sm:px-4">
-                  {originalMonthly ? (
-                    <span className="text-xs font-normal text-text-secondary line-through sm:text-sm">
-                      {originalMonthly}
-                    </span>
-                  ) : null}
-                  <div className="flex flex-col items-center justify-center sm:flex-row sm:items-baseline sm:gap-1">
-                    <span className="text-[18px] font-bold leading-tight text-primary sm:text-[22px]">
-                      {monthly}
-                    </span>
-                    <span className="text-xs font-normal text-text-secondary sm:text-sm">
-                      <span className="hidden sm:inline">/ </span>
-                      {monthUnit}
-                    </span>
-                  </div>
-                </div>
+                    <span>{insuranceIncludedText}</span>
+                  </span>
+                ) : null}
               </div>
-
-              <div className="flex flex-col gap-[var(--spacing-space-8)] text-[14px] leading-[1.5] sm:text-[16px]">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-text-secondary">
-                    {tf("includedMileage", "Included mileage limit")}
-                  </span>
-                  <span className="shrink-0 whitespace-nowrap font-medium text-text-primary">
-                    {t.has("kmValue")
-                      ? t("kmValue", { count: includedMileageKm })
-                      : `${includedMileageKm} km`}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-text-secondary">
-                    {tf(
-                      "additionalMileageCharges",
-                      "Additional mileage charges",
-                    )}
-                  </span>
-                  <span className="shrink-0 whitespace-nowrap font-medium text-text-primary">
-                    {additionalMileagePrice} / {tf("kmUnit", "km")}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between gap-4">
-                  <span className="inline-flex items-center gap-[var(--spacing-space-6)] text-text-secondary">
-                    <span>
-                      {tf(
-                        "chauffeurCharges",
-                        "Additional Chauffeur / Driver charges",
-                      )}
-                    </span>
-                    <Info
-                      className="size-4 shrink-0 text-text-secondary"
-                      aria-hidden="true"
-                    />
-                  </span>
-                  <span className="shrink-0 whitespace-nowrap font-medium text-text-primary">
-                    {chauffeurDailyPrice} / {dayUnit}
-                  </span>
-                </div>
-              </div>
-            </section>
+            </div>
 
             {/* 3. Overview Card */}
             <section className="order-4 flex flex-col gap-[var(--spacing-space-16)] rounded-[var(--radius-24)] border border-border-default bg-background-primary p-4 sm:gap-[var(--spacing-space-20)] sm:p-8">
@@ -686,65 +777,20 @@ export async function ListingDetail({
             </section>
 
             {/* 4. Features + Installed Options & Packages Card */}
-            <section className="order-5 flex flex-col gap-6 rounded-[var(--radius-24)] border border-border-default bg-background-primary p-4 sm:gap-8 sm:p-8">
-              <h2 className="text-[20px] font-semibold leading-[1.26] tracking-[-0.02em] text-text-primary sm:text-[24px]">
-                {featuresTitle}
-              </h2>
-
-              <hr className="border-t border-border-subtle" />
-
-              <div className="flex flex-col gap-6">
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                  {featureCategories.map((category) => (
-                    <div
-                      key={category.key}
-                      className="flex flex-col gap-[var(--spacing-space-12)]"
-                    >
-                      <h3 className="text-[18px] font-semibold leading-[1.4] text-text-primary">
-                        {category.title}
-                      </h3>
-                      <ul className="list-disc space-y-1.5 ps-5 text-[15px] font-normal leading-[1.5] text-text-secondary">
-                        {category.items.map((item, idx) => (
-                          <li key={`${category.key}-${idx}`}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-
-                <div>
-                  <button
-                    type="button"
-                    className="cursor-pointer text-[15px] font-medium text-link no-underline transition-opacity hover:opacity-80"
-                  >
-                    {viewAllFeaturesLabel}
-                  </button>
-                </div>
-              </div>
-
-              <hr className="border-t border-border-subtle" />
-
-              <div className="flex flex-col gap-[var(--spacing-space-16)]">
-                <h2 className="text-[20px] font-semibold leading-[1.26] tracking-[-0.02em] text-text-primary sm:text-[24px]">
-                  {installedOptionsTitle}
-                </h2>
-
-                <ul className="space-y-2.5 text-[15px] font-normal leading-[1.5] text-text-secondary">
-                  {installedOptions.map((option, idx) => (
-                    <li key={idx}>{option}</li>
-                  ))}
-                </ul>
-
-                <p className="pt-2 text-xs text-text-secondary">
-                  {installedOptionsNote}
-                </p>
-              </div>
-            </section>
+            <ListingFeaturesCard
+              featuresTitle={featuresTitle}
+              categories={featureCategories}
+              viewAllFeaturesLabel={viewAllFeaturesLabel}
+              showLessLabel={showLessFeaturesLabel}
+              installedOptionsTitle={installedOptionsTitle}
+              installedOptions={installedOptions}
+              installedOptionsNote={installedOptionsNote}
+            />
           </div>
 
           {/* Dealer Info & Contact Card */}
           <aside className="order-3 flex h-fit w-full flex-col gap-[var(--spacing-space-16)] rounded-[var(--radius-24)] border border-border-default bg-background-primary p-4 sm:gap-[var(--spacing-space-20)] sm:p-[var(--spacing-space-24)] lg:sticky lg:top-28 lg:col-start-2 lg:row-start-1 lg:order-none">
-            {/* Dealer Header */}
+            {/* Dealer Header (Review & rating section removed) */}
             <div className="flex items-center gap-[var(--spacing-space-12)]">
               <div className="relative flex size-[52px] shrink-0 items-center justify-center overflow-hidden rounded-full border border-border-default bg-background-secondary text-sm font-semibold text-text-primary">
                 {details.supplierLogo ? (
@@ -760,18 +806,10 @@ export async function ListingDetail({
                 )}
               </div>
 
-              <div className="flex min-w-0 flex-1 flex-col gap-[var(--spacing-space-6)]">
+              <div className="flex min-w-0 flex-1 flex-col">
                 <p className="flex items-center gap-1.5 text-[17px] font-semibold leading-tight text-text-primary sm:text-[18px]">
                   <span className="truncate">{listing.supplier}</span>
                   <ShieldIcon className="size-4 shrink-0 text-primary" />
-                </p>
-
-                <p className="flex items-center gap-1.5 text-sm leading-tight">
-                  <Star className="size-4 shrink-0 fill-warning text-warning" />
-                  <span className="font-semibold text-text-primary">
-                    {supplierRating.toFixed(1)}
-                  </span>
-                  <span className="text-text-secondary">({reviewsLabel})</span>
                 </p>
               </div>
             </div>
@@ -788,40 +826,15 @@ export async function ListingDetail({
 
               <hr className="border-t border-border-subtle" />
 
-              {/* Rental Terms */}
-              <div className="flex flex-col gap-[var(--spacing-space-12)]">
-                <h3 className="text-[16px] font-semibold leading-[1.4] text-text-primary">
-                  {tf("rentalTerms", "Rental Terms")}
-                </h3>
-
-                <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-[14px] leading-[1.4] text-text-secondary sm:grid-cols-4 sm:text-[15px] lg:grid-cols-2">
-                  {[
-                    { key: "mileagePolicy", fallback: "Mileage Policy" },
-                    { key: "fuelPolicy", fallback: "Fuel Policy" },
-                    { key: "depositPolicy", fallback: "Deposit Policy" },
-                    { key: "rentalPolicy", fallback: "Rental Policy" },
-                  ].map((item) => {
-                    const label = tf(item.key, item.fallback);
-                    return (
-                      <button
-                        key={item.key}
-                        type="button"
-                        className="inline-flex cursor-pointer items-center gap-1.5 text-start transition-colors hover:text-text-primary"
-                      >
-                        <span className="truncate">{label}</span>
-                        <Info
-                          className="size-4 shrink-0 text-text-secondary"
-                          aria-hidden="true"
-                        />
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              {/* Rental Terms with hover/focus tooltips */}
+              <ListingRentalTerms
+                title={tf("rentalTerms", "Rental Terms")}
+                items={rentalTermItems}
+              />
 
               <hr className="border-t border-border-subtle" />
 
-              {/* Dealer's Info & Location (Compact ListingDealerDrawer) */}
+              {/* Dealer's Info & Location */}
               <div className="py-[var(--spacing-space-4)] sm:py-[var(--spacing-space-12)]">
                 <ListingDealerDrawer
                   labels={{
@@ -840,46 +853,28 @@ export async function ListingDetail({
                     paymentModesLabel: tf("paymentModes", "Payment Modes"),
                     closeLabel: tf("close", "Close"),
                     paymentModes: {
-                      title: tf("paymentModesTitle", "Payment Modes"),
+                      title: pm("title"),
                       closeLabel: tf("close", "Close"),
                       crypto: {
-                        title: tf("paymentCryptoTitle", "Cryptocurrency"),
-                        description: tf(
-                          "paymentCryptoDescription",
-                          "Accepted for select bookings where supported by the dealer.",
-                        ),
+                        title: pm("crypto.title"),
+                        description: pm("crypto.description"),
                       },
                       cash: {
-                        title: tf("paymentCashTitle", "Cash"),
-                        description: tf(
-                          "paymentCashDescription",
-                          "Pay in cash at the time of vehicle pickup or delivery.",
-                        ),
+                        title: pm("cash.title"),
+                        description: pm("cash.description"),
                       },
                       credit: {
-                        title: tf("paymentCreditTitle", "Credit Card"),
-                        description: tf(
-                          "paymentCreditDescription",
-                          "Major credit cards accepted for rental and security deposit.",
-                        ),
+                        title: pm("credit.title"),
+                        description: pm("credit.description"),
                       },
                       debit: {
-                        title: tf("paymentDebitTitle", "Debit Card"),
-                        description: tf(
-                          "paymentDebitDescription",
-                          "Accepted for rental payments subject to dealer terms.",
-                        ),
+                        title: pm("debit.title"),
+                        description: pm("debit.description"),
                       },
-                      tipPrefix: tf("paymentTipPrefix", "Tip:"),
-                      tipBody: tf(
-                        "paymentTipBody",
-                        "Always confirm accepted payment methods and deposit rules with",
-                      ),
-                      tipSuffix: listing.supplier,
-                      depositNote: tf(
-                        "paymentDepositNote",
-                        "Security deposit requirements may vary by vehicle and payment method.",
-                      ),
+                      tipPrefix: pm("tipPrefix"),
+                      tipBody: pm("tipBody"),
+                      tipSuffix: pm("tipSuffix"),
+                      depositNote: pm("depositNote"),
                     },
                   }}
                   supplierName={listing.supplier}

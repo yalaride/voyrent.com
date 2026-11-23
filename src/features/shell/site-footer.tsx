@@ -64,7 +64,7 @@ export async function SiteFooter() {
   ] as const;
 
   return (
-    <footer className="mt-16 overflow-x-clip bg-background-section pt-15">
+    <footer className="mt-16 overflow-x-clip bg-background-section pt-20">
       <LayoutWrapper>
         {/* Main footer content — aligned directly to LayoutWrapper */}
         <div className="flex w-full flex-col gap-10">
@@ -135,7 +135,7 @@ export async function SiteFooter() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-base font-medium leading-normal text-text-secondary">
                 {t("copyright")}
@@ -163,14 +163,14 @@ export async function SiteFooter() {
         </div>
       </LayoutWrapper>
 
-      {/* Brand wordmark — aligned to LayoutWrapper */}
+      {/* Tight vertical spacing so the border line sits close above RutaRide */}
       <LayoutWrapper>
         <div
           aria-hidden
           dir="ltr"
-          className="flex w-full select-none justify-center overflow-hidden"
+          className="@container flex w-full select-none justify-center overflow-hidden"
         >
-          <p className="whitespace-nowrap bg-linear-to-b from-text-inverse/20 to-transparent bg-clip-text text-center text-[clamp(3.75rem,18vw,17.5rem)] font-medium leading-none tracking-[-0.02em] text-transparent">
+          <p className="translate-y-[5%] whitespace-nowrap bg-linear-to-b from-text-inverse/20 to-transparent bg-clip-text text-center text-[21.5cqw] font-medium leading-[0.82] tracking-[-0.02em] text-transparent">
             RutaRide
           </p>
         </div>

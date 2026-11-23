@@ -39,21 +39,34 @@ const PAYMENT_MODE_ICONS: Record<PaymentModeKey, string> = {
 
 export function normalizePaymentModeKey(value: string): PaymentModeKey | null {
   const normalized = value.trim().toLowerCase();
+
+  // Check debit before credit (and before the broad "bit" crypto check),
+  // because "debit" / "débito" / "débit" all contain the substring "bit".
+  if (normalized.includes("debit") || normalized.includes("débit") || normalized.includes("débito") || normalized.includes("خصم")) {
+    return "debit";
+  }
+  if (normalized.includes("credit") || normalized.includes("crédit") || normalized.includes("crédito") || normalized.includes("ائتمان")) {
+    return "credit";
+  }
   if (
     normalized.includes("crypto") ||
-    normalized.includes("bit") ||
-    normalized.includes("btc")
+    normalized.includes("btc") ||
+    normalized.includes("bitcoin") ||
+    // "bit" last and only when it's not part of debit (already handled above)
+    /\bbit\b/.test(normalized)
   ) {
     return "crypto";
   }
-  if (normalized.includes("cash")) {
+  // Cash / equivalents across supported languages
+  if (
+    normalized.includes("cash") ||
+    normalized.includes("espèces") ||
+    normalized.includes("especes") ||
+    normalized.includes("efectivo") ||
+    normalized.includes("dinheiro") ||
+    normalized.includes("نقد")
+  ) {
     return "cash";
-  }
-  if (normalized.includes("credit")) {
-    return "credit";
-  }
-  if (normalized.includes("debit")) {
-    return "debit";
   }
   return null;
 }

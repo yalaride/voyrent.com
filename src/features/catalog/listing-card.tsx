@@ -60,6 +60,7 @@ export type ListingCardModel = {
   likedLabel: string;
   prevImageLabel?: string;
   nextImageLabel?: string;
+  bookNowLabel?: string;
 };
 
 function formatUnit(label: string, fallback: "day" | "mon"): string {
@@ -112,6 +113,7 @@ export function ListingCard({
 
   const dailyUnit = formatUnit(listing.perDayLabel, "day");
   const monthlyUnit = formatUnit(listing.perMonthLabel, "mon");
+  const bookNowLabel = listing.bookNowLabel ?? "Book Now";
   const visibleHorizontalDots = Math.min(images.length, 4);
 
   const featuresList = React.useMemo(
@@ -131,7 +133,7 @@ export function ListingCard({
       }`}
     >
       {/* 1. IMAGE CONTAINER */}
-      <div className="relative h-[200px] w-full shrink-0 overflow-hidden bg-background-secondary">
+      <div className="group/image relative h-[200px] w-full shrink-0 overflow-hidden bg-background-secondary">
         <Link href={listing.href} className="block size-full">
           <Image
             src={images[currentImageIndex]}
@@ -139,20 +141,30 @@ export function ListingCard({
             fill
             sizes="(max-width: 640px) 85vw, 308px"
             priority={false}
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-300 group-hover/image:scale-105"
           />
         </Link>
 
+        {/* Centered Book Now button on image hover */}
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-black/25 opacity-0 transition-opacity duration-200 group-hover/image:opacity-100">
+          <Link
+            href={listing.href}
+            className="pointer-events-none inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs font-semibold text-text-inverse shadow-medium transition-all duration-200 hover:scale-105 hover:bg-primary/90 group-hover/image:pointer-events-auto"
+          >
+            {bookNowLabel}
+          </Link>
+        </div>
+
         {/* Badge: Premium OR Featured OR None */}
         {badgeType === "premium" && listing.premiumLabel ? (
-          <div className="absolute start-2.5 top-2.5 z-10 flex h-[26px] items-center gap-[6px] rounded-full bg-warning px-2.5 py-1 text-text-inverse shadow-xs">
+          <div className="absolute start-2.5 top-2.5 z-20 flex h-[26px] items-center gap-[6px] rounded-full bg-warning px-2.5 py-1 text-text-inverse shadow-xs">
             <CrownIcon className="size-3.5 shrink-0 fill-current" />
             <span className="truncate text-[11px] font-semibold leading-none">
               {listing.premiumLabel}
             </span>
           </div>
         ) : badgeType === "featured" && listing.featuredLabel ? (
-          <div className="absolute start-2.5 top-2.5 z-10 flex h-[26px] max-w-[calc(100%-64px)] items-center gap-[6px] rounded-full bg-primary px-2.5 py-1 text-text-inverse shadow-xs">
+          <div className="absolute start-2.5 top-2.5 z-20 flex h-[26px] max-w-[calc(100%-64px)] items-center gap-[6px] rounded-full bg-primary px-2.5 py-1 text-text-inverse shadow-xs">
             <Star className="size-3.5 shrink-0" />
             <span className="truncate text-[11px] font-semibold leading-none">
               {listing.featuredLabel}
@@ -165,7 +177,7 @@ export function ListingCard({
           type="button"
           onClick={handleLike}
           aria-label={isLiked ? listing.likedLabel : listing.likeLabel}
-          className="absolute end-2.5 top-2.5 z-10 flex size-8 items-center justify-center rounded-full border border-border-subtle bg-background-primary/80 backdrop-blur-xs transition hover:scale-105 hover:bg-background-primary"
+          className="absolute end-2.5 top-2.5 z-20 flex size-8 items-center justify-center rounded-full border border-border-subtle bg-background-primary/80 backdrop-blur-xs transition hover:scale-105 hover:bg-background-primary"
         >
           <HeartIcon
             className={`size-4 transition-colors ${
@@ -183,7 +195,7 @@ export function ListingCard({
               type="button"
               onClick={handlePrev}
               aria-label={listing.prevImageLabel ?? "Previous"}
-              className="absolute start-2 top-1/2 z-10 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-background-primary/80 text-text-primary opacity-0 shadow-xs backdrop-blur-xs transition group-hover:opacity-100 hover:bg-background-primary rtl:rotate-180"
+              className="absolute start-2 top-1/2 z-20 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-background-primary/80 text-text-primary opacity-0 shadow-xs backdrop-blur-xs transition group-hover/image:opacity-100 hover:bg-background-primary rtl:rotate-180"
             >
               <ChevronLeftIcon className="size-4" />
             </button>
@@ -191,12 +203,12 @@ export function ListingCard({
               type="button"
               onClick={handleNext}
               aria-label={listing.nextImageLabel ?? "Next"}
-              className="absolute end-2 top-1/2 z-10 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-background-primary/80 text-text-primary opacity-0 shadow-xs backdrop-blur-xs transition group-hover:opacity-100 hover:bg-background-primary rtl:rotate-180"
+              className="absolute end-2 top-1/2 z-20 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-background-primary/80 text-text-primary opacity-0 shadow-xs backdrop-blur-xs transition group-hover/image:opacity-100 hover:bg-background-primary rtl:rotate-180"
             >
               <ChevronRightIcon className="size-4" />
             </button>
 
-            <div className="absolute bottom-2 left-1/2 z-10 flex h-[12px] -translate-x-1/2 items-center justify-center gap-[3px] rounded-full bg-black/45 px-2 py-1 backdrop-blur-xs">
+            <div className="absolute bottom-2 left-1/2 z-20 flex h-[12px] -translate-x-1/2 items-center justify-center gap-[3px] rounded-full bg-black/45 px-2 py-1 backdrop-blur-xs">
               {images.slice(0, 5).map((_, idx) => (
                 <span
                   key={idx}
@@ -379,7 +391,8 @@ export function ListingCard({
             <Link
               href={listing.dealerHref}
               aria-label={listing.dealerName}
-              className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border-default bg-background-primary p-1 transition hover:bg-background-secondary"
+              title={listing.dealerName}
+              className="group/dealer flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-999)] border border-border-default bg-background-primary p-1 text-text-secondary no-underline transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
             >
               {listing.dealerLogoUrl ? (
                 <Image
@@ -390,7 +403,7 @@ export function ListingCard({
                   className="size-full object-contain"
                 />
               ) : (
-                <span className="text-[10px] font-semibold text-text-secondary">
+                <span className="text-xs font-semibold text-text-primary transition-colors group-hover/dealer:text-primary">
                   {listing.dealerName.slice(0, 2).toUpperCase()}
                 </span>
               )}
@@ -398,7 +411,7 @@ export function ListingCard({
           ) : (
             <div
               title={listing.dealerName}
-              className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border-default bg-background-primary p-1"
+              className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-999)] border border-border-default bg-background-primary p-1 transition-colors hover:border-primary hover:bg-primary/10"
             >
               {listing.dealerLogoUrl ? (
                 <Image
@@ -409,7 +422,7 @@ export function ListingCard({
                   className="size-full object-contain"
                 />
               ) : (
-                <span className="text-[10px] font-semibold text-text-secondary">
+                <span className="text-xs font-semibold text-text-primary transition-colors hover:text-primary">
                   {listing.dealerName.slice(0, 2).toUpperCase()}
                 </span>
               )}
@@ -430,17 +443,27 @@ export function ListingCard({
       {verticalCard}
 
       <article className="group hidden min-h-[242px] flex-row items-stretch gap-4 rounded-[var(--radius-24)] border border-border-default bg-background-primary p-[var(--spacing-space-16)] shadow-[var(--shadow-small)] transition-shadow duration-200 hover:shadow-[var(--shadow-medium)] lg:flex xl:gap-[var(--spacing-space-20)]">
-        {/* Left Image Carousel (responsive width so price & checklist never clip below 2xl) */}
-        <div className="relative min-h-[208px] w-[228px] shrink-0 overflow-hidden rounded-[var(--radius-16)] bg-background-secondary xl:w-[268px] 2xl:w-[324px]">
+        {/* Left Image Carousel */}
+        <div className="group/image relative min-h-[208px] w-[228px] shrink-0 overflow-hidden rounded-[var(--radius-16)] bg-background-secondary xl:w-[268px] 2xl:w-[324px]">
           <Link href={listing.href} className="block size-full">
             <Image
               src={images[currentImageIndex]}
               alt={listing.title}
               fill
               sizes="(max-width: 1279px) 228px, (max-width: 1535px) 268px, 324px"
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              className="object-cover transition-transform duration-300 group-hover/image:scale-105"
             />
           </Link>
+
+          {/* Centered Book Now button on image hover */}
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-black/25 opacity-0 transition-opacity duration-200 group-hover/image:opacity-100">
+            <Link
+              href={listing.href}
+              className="pointer-events-none inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs font-semibold text-text-inverse shadow-medium transition-all duration-200 hover:scale-105 hover:bg-primary/90 group-hover/image:pointer-events-auto"
+            >
+              {bookNowLabel}
+            </Link>
+          </div>
 
           {/* Wishlist Heart */}
           <button
@@ -448,7 +471,7 @@ export function ListingCard({
             onClick={handleLike}
             aria-label={isLiked ? listing.likedLabel : listing.likeLabel}
             aria-pressed={isLiked}
-            className="absolute end-3 top-3 z-10 flex size-8 cursor-pointer items-center justify-center gap-[var(--spacing-space-6)] rounded-[var(--radius-999)] bg-background-primary shadow-[var(--shadow-small)] transition hover:scale-105"
+            className="absolute end-3 top-3 z-20 flex size-8 cursor-pointer items-center justify-center gap-[var(--spacing-space-6)] rounded-[var(--radius-999)] bg-background-primary shadow-[var(--shadow-small)] transition hover:scale-105"
           >
             <HeartIcon
               className={`size-4 stroke-[1.5] transition-colors ${
@@ -466,7 +489,7 @@ export function ListingCard({
                 type="button"
                 onClick={handlePrev}
                 aria-label={listing.prevImageLabel ?? "Previous image"}
-                className="absolute start-2.5 top-1/2 z-10 flex size-7 -translate-y-1/2 cursor-pointer items-center justify-center rounded-[var(--radius-999)] bg-black/55 text-text-inverse transition-colors hover:bg-black/75 rtl:rotate-180"
+                className="absolute start-2.5 top-1/2 z-20 flex size-7 -translate-y-1/2 cursor-pointer items-center justify-center rounded-[var(--radius-999)] bg-black/55 text-text-inverse transition-colors hover:bg-black/75 rtl:rotate-180"
               >
                 <ChevronLeftIcon className="size-3.5 stroke-[1.5]" />
               </button>
@@ -474,12 +497,12 @@ export function ListingCard({
                 type="button"
                 onClick={handleNext}
                 aria-label={listing.nextImageLabel ?? "Next image"}
-                className="absolute end-2.5 top-1/2 z-10 flex size-7 -translate-y-1/2 cursor-pointer items-center justify-center rounded-[var(--radius-999)] bg-black/55 text-text-inverse transition-colors hover:bg-black/75 rtl:rotate-180"
+                className="absolute end-2.5 top-1/2 z-20 flex size-7 -translate-y-1/2 cursor-pointer items-center justify-center rounded-[var(--radius-999)] bg-black/55 text-text-inverse transition-colors hover:bg-black/75 rtl:rotate-180"
               >
                 <ChevronRightIcon className="size-3.5 stroke-[1.5]" />
               </button>
 
-              <div className="absolute bottom-2.5 left-1/2 z-10 flex h-3 -translate-x-1/2 items-center gap-[3px] rounded-[var(--radius-999)] bg-black/50 px-[5px] py-[3px] backdrop-blur-xs">
+              <div className="absolute bottom-2.5 left-1/2 z-20 flex h-3 -translate-x-1/2 items-center gap-[3px] rounded-[var(--radius-999)] bg-black/50 px-[5px] py-[3px] backdrop-blur-xs">
                 {Array.from({ length: visibleHorizontalDots }).map((_, idx) => (
                   <button
                     key={idx}
@@ -533,7 +556,7 @@ export function ListingCard({
             ) : null}
           </div>
 
-          {/* Row 2: Price Section + Checklist (stacked cleanly on lg, side-by-side on xl+ without truncating prices) */}
+          {/* Row 2: Price Section + Checklist */}
           <div className="flex flex-col items-start gap-3 xl:flex-row xl:items-center xl:justify-between xl:gap-4">
             {/* Pricing Columns */}
             <div className="flex min-w-0 flex-nowrap items-center gap-3 xl:gap-5 2xl:gap-7">
@@ -705,18 +728,46 @@ export function ListingCard({
 
             {/* Dealer Avatar (40 x 40) + Location */}
             <div className="flex shrink-0 items-center gap-[var(--spacing-space-6)]">
-              {listing.dealerLogoUrl ? (
-                <Image
-                  src={listing.dealerLogoUrl}
-                  alt={listing.dealerName}
-                  width={40}
-                  height={40}
-                  className="size-10 shrink-0 rounded-[var(--radius-999)] border border-border-default bg-background-primary object-contain p-1"
-                />
+              {listing.dealerHref ? (
+                <Link
+                  href={listing.dealerHref}
+                  aria-label={listing.dealerName}
+                  title={listing.dealerName}
+                  className="group/dealer flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-999)] border border-border-default bg-background-primary p-1 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                >
+                  {listing.dealerLogoUrl ? (
+                    <Image
+                      src={listing.dealerLogoUrl}
+                      alt={listing.dealerName}
+                      width={36}
+                      height={36}
+                      className="size-full object-contain"
+                    />
+                  ) : (
+                    <span className="text-xs font-semibold text-text-primary transition-colors group-hover/dealer:text-primary">
+                      {listing.dealerName.slice(0, 2).toUpperCase()}
+                    </span>
+                  )}
+                </Link>
               ) : (
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-[var(--radius-999)] border border-border-default bg-background-secondary text-xs font-semibold text-text-primary">
-                  {listing.dealerName.slice(0, 2).toUpperCase()}
-                </span>
+                <div
+                  title={listing.dealerName}
+                  className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-999)] border border-border-default bg-background-primary p-1 transition-colors hover:border-primary hover:bg-primary/10"
+                >
+                  {listing.dealerLogoUrl ? (
+                    <Image
+                      src={listing.dealerLogoUrl}
+                      alt={listing.dealerName}
+                      width={36}
+                      height={36}
+                      className="size-full object-contain"
+                    />
+                  ) : (
+                    <span className="text-xs font-semibold text-text-primary transition-colors hover:text-primary">
+                      {listing.dealerName.slice(0, 2).toUpperCase()}
+                    </span>
+                  )}
+                </div>
               )}
 
               {listing.locationLabel ? (
