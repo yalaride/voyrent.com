@@ -27,14 +27,11 @@ function getServerSnapshot() {
 export function HeaderShell({ children }: HeaderShellProps) {
   const pathname = usePathname();
 
-  // Landing page
   const isLandingPage =
     pathname === "/" || /^\/[a-zA-Z]{2}(-[a-zA-Z]{2})?\/?$/.test(pathname);
 
-  // Dealer Plans page
   const isDealerPlansPage = pathname.includes("/dealer-plans");
 
-  // Pages where header should be transparent
   const isTransparentPage = isLandingPage || isDealerPlansPage;
 
   const isScrolled = useSyncExternalStore(
