@@ -95,7 +95,7 @@ export async function SiteHeader({
   locale,
   market,
   scope = "city",
-  sticky = true,
+  sticky = false,
 }: {
   locale: AppLocale;
   market?: Market;

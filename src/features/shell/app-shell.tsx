@@ -11,7 +11,7 @@ export async function AppShell({
   locale,
   market,
   scope = "city",
-  stickyHeader = true,
+  stickyHeader = false,
   children,
 }: {
   locale: AppLocale;

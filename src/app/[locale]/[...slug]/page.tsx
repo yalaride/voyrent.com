@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
@@ -168,7 +168,7 @@ async function RentRouteContent({
       locale={locale}
       market={view.market}
       scope={view.kind === "country" ? "country" : "city"}
-      stickyHeader={showHome}
+      stickyHeader={false}
     >
       <script
         type="application/ld+json"
