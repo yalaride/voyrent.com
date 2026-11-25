@@ -80,7 +80,7 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
         if (!event.currentTarget.contains(event.relatedTarget)) show(null);
       }}
     >
-      <div className="relative h-full" onMouseEnter={() => show("rent")}>
+      <div className="h-full" onMouseEnter={() => show("rent")}>
         <Link
           href={nav.columns[0]?.links[0]?.href ?? "/"}
           prefetch={false}
@@ -88,39 +88,51 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
           aria-haspopup="true"
           className={cn(
             triggerClass,
-            open === "rent" && "text-primary group-data-[transparent=false]:text-primary",
+            open === "rent" &&
+              "text-primary group-data-[transparent=false]:text-primary",
           )}
         >
-          {nav.rentLabel}
+          <span className="relative flex h-full items-center">
+            {nav.rentLabel}
+            {open === "rent" ? (
+              <span className="pointer-events-none absolute inset-x-1 bottom-0 h-0.5 bg-primary" />
+            ) : null}
+          </span>
           <ChevronDownIcon
-            className={cn("size-3.5 opacity-70 transition-transform", open === "rent" && "rotate-180")}
+            className={cn(
+              "size-3.5 opacity-70 transition-transform",
+              open === "rent" && "rotate-180",
+            )}
             aria-hidden="true"
           />
-          {open === "rent" ? (
-            <span className="absolute inset-x-0 bottom-0 h-0.5 bg-primary" />
-          ) : null}
         </Link>
       </div>
 
-      <div className="relative h-full" onMouseEnter={() => show("brands")}>
+      <div className="h-full" onMouseEnter={() => show("brands")}>
         <button
           type="button"
           aria-expanded={open === "brands"}
           aria-haspopup="true"
           className={cn(
             triggerClass,
-            open === "brands" && "text-primary group-data-[transparent=false]:text-primary",
+            open === "brands" &&
+              "text-primary group-data-[transparent=false]:text-primary",
           )}
           onClick={() => show("brands")}
         >
-          {nav.brandsLabel}
+          <span className="relative flex h-full items-center">
+            {nav.brandsLabel}
+            {open === "brands" ? (
+              <span className="pointer-events-none absolute inset-x-1 bottom-0 h-0.5 bg-primary" />
+            ) : null}
+          </span>
           <ChevronDownIcon
-            className={cn("size-3.5 opacity-70 transition-transform", open === "brands" && "rotate-180")}
+            className={cn(
+              "size-3.5 opacity-70 transition-transform",
+              open === "brands" && "rotate-180",
+            )}
             aria-hidden="true"
           />
-          {open === "brands" ? (
-            <span className="absolute inset-x-0 bottom-0 h-0.5 bg-primary" />
-          ) : null}
         </button>
       </div>
 
@@ -134,14 +146,18 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
       </Link>
 
       {open === "rent" ? (
-        <div className="absolute inset-x-0 top-full z-50 px-4 pt-2 sm:px-8">
+        <div className="absolute inset-x-0 top-full z-50 px-4  sm:px-8">
           <div className="mx-auto grid w-full max-w-[1440px] gap-8 rounded-xl border border-border-default bg-background-primary p-6 text-text-primary shadow-xl sm:grid-cols-3">
             {nav.columns.map((column, index) => (
               <div
                 key={column.title}
-                className={cn(index > 0 && "sm:border-s sm:border-border-default sm:ps-8")}
+                className={cn(
+                  index > 0 && "sm:border-s sm:border-border-default sm:ps-8",
+                )}
               >
-                <p className="text-sm font-semibold text-primary">{column.title}</p>
+                <p className="text-sm font-semibold text-primary">
+                  {column.title}
+                </p>
                 <ul className="mt-3 grid gap-2.5">
                   {column.links.map((link) => (
                     <li key={link.href}>
@@ -151,7 +167,9 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
                 </ul>
                 {index === 0 ? (
                   <div className="mt-5 border-t border-border-default pt-4">
-                    <p className="text-sm font-semibold text-primary">{nav.dealers.title}</p>
+                    <p className="text-sm font-semibold text-primary">
+                      {nav.dealers.title}
+                    </p>
                     <ul className="mt-3 grid gap-2.5">
                       {nav.dealers.links.map((link) => (
                         <li key={link.href}>
@@ -163,7 +181,9 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
                 ) : null}
                 {column.extra ? (
                   <div className="mt-5 border-t border-border-default pt-4">
-                    <p className="text-sm font-semibold text-primary">{column.extra.title}</p>
+                    <p className="text-sm font-semibold text-primary">
+                      {column.extra.title}
+                    </p>
                     <ul className="mt-3 grid gap-2.5">
                       {column.extra.links.map((link) => (
                         <li key={link.href}>
@@ -180,7 +200,7 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
       ) : null}
 
       {open === "brands" ? (
-        <div className="absolute inset-x-0 top-full z-50 px-4 pt-2 sm:px-8">
+        <div className="absolute inset-x-0 top-full z-50 px-4  sm:px-8">
           <div className="mx-auto w-full max-w-[1440px] rounded-xl border border-border-default bg-background-primary p-6 text-text-primary shadow-xl">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-default pb-3">
               <p className="border-b-2 border-primary pb-2 text-sm font-semibold text-primary">
@@ -200,7 +220,9 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
               </label>
             </div>
             {brands.length === 0 ? (
-              <p className="px-1 py-8 text-sm text-text-secondary">{nav.emptyBrands}</p>
+              <p className="px-1 py-8 text-sm text-text-secondary">
+                {nav.emptyBrands}
+              </p>
             ) : (
               <ul className="mt-4 grid gap-x-6 gap-y-1 sm:grid-cols-2 lg:grid-cols-4">
                 {brands.map((brand) => (
@@ -213,7 +235,11 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
                       {brand.logo ? (
                         // Brand marks are small static SVGs in /public.
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={brand.logo} alt="" className="size-5 object-contain" />
+                        <img
+                          src={brand.logo}
+                          alt=""
+                          className="size-5 object-contain"
+                        />
                       ) : (
                         <span className="grid size-5 place-items-center rounded-full bg-background-secondary text-[10px] font-semibold text-text-secondary">
                           {brand.name.slice(0, 1)}
@@ -222,7 +248,10 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
                       <span className="min-w-0 truncate">
                         {brand.name}
                         {brand.countLabel ? (
-                          <span className="text-text-secondary"> ({brand.countLabel})</span>
+                          <span className="text-text-secondary">
+                            {" "}
+                            ({brand.countLabel})
+                          </span>
                         ) : null}
                       </span>
                     </Link>

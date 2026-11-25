@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useSyncExternalStore } from "react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 
 interface HeaderShellProps {
@@ -25,14 +25,30 @@ function getServerSnapshot() {
 }
 
 export function HeaderShell({ children }: HeaderShellProps) {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "/";
+  const params = useParams();
+  const locale = typeof params?.locale === "string" ? params.locale : "";
+
+  // Strip locale if present via [locale] route param (e.g. /ar/rent-a-car-riyadh -> /rent-a-car-riyadh)
+  const normalizedPath =
+    locale && (pathname === `/${locale}` || pathname.startsWith(`/${locale}/`))
+      ? pathname.slice(locale.length + 1) || "/"
+      : pathname;
 
   const isLandingPage =
-    pathname === "/" || /^\/[a-zA-Z]{2}(-[a-zA-Z]{2})?\/?$/.test(pathname);
+    normalizedPath === "/" ||
+    /^\/[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,4})?\/?$/.test(normalizedPath);
 
-  const isDealerPlansPage = pathname.includes("/dealer-plans");
+  // Matches /rent-a-car-riyadh, /en/rent-a-car-riyadh, /ar/rent-a-car-jeddah, etc.
+  const isRegionLandingPage =
+    /^(\/[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,4})?)?\/rent-a-car-[^/]+\/?$/.test(
+      normalizedPath,
+    );
 
-  const isTransparentPage = isLandingPage || isDealerPlansPage;
+  const isDealerPlansPage = normalizedPath.includes("/dealer-plans");
+
+  const isTransparentPage =
+    isLandingPage || isRegionLandingPage || isDealerPlansPage;
 
   const isScrolled = useSyncExternalStore(
     isTransparentPage ? subscribeToScroll : emptySubscribe,
