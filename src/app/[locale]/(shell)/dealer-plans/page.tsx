@@ -19,7 +19,7 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
 
   const t = await getTranslations({ locale, namespace: "DealerPlans" });
-  return { title: { absolute: `${t("metaTitle")} · RutaRide` } };
+  return { title: { absolute: `${t("metaTitle")} · VoyRent` } };
 }
 
 export default function DealerPlansPage({ params }: PageProps) {

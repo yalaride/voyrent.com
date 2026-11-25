@@ -225,7 +225,7 @@
     "paymentModes": "Payment Modes",
 
     "dealerPageTitle": "{name}: Live Offers in {city}",
-    "dealerPageSubtitle": "Choose among {count, plural, one {# rental car} other {# rental cars}} and book directly via RutaRide. Zero commission, zero booking fees!",
+    "dealerPageSubtitle": "Choose among {count, plural, one {# rental car} other {# rental cars}} and book directly via VoyRent. Zero commission, zero booking fees!",
     "instantCallOrWhatsapp": "Instant call or WhatsApp",
     "bookDirectWithDealer": "Book direct with dealer",
     "ratesUpdatedDaily": "Rates updated daily",
@@ -322,7 +322,7 @@
     "rangeTitle": "Make, model, and type",
     "rangeBody": "Search the way drivers actually look: brand, model, body type, or a popular request.",
     "priceTitle": "Supplier prices",
-    "priceBody": "The rate comes from the rental company. RutaRide does not add a commission on top.",
+    "priceBody": "The rate comes from the rental company. VoyRent does not add a commission on top.",
     "marketTitle": "Many markets, one search",
     "marketBody": "Switch country, city, language, and currency without starting over."
   },
@@ -341,12 +341,12 @@
     "subtitle": "Manage inventory, track buyer inquiries, and stay in control with a single, easy-to-use dashboard.",
     "items": {
       "q1": {
-        "question": "How does RutaRide verify listings?",
+        "question": "How does VoyRent verify listings?",
         "answer": "We review listings to help reduce duplicate, incomplete, or misleading posts. While we aim to maintain listing quality, we recommend that buyers inspect the vehicle and verify all details before making a purchase."
       },
       "q2": {
-        "question": "Is RutaRide a dealership?",
-        "answer": "No. RutaRide is a marketplace that connects buyers and renters directly with verified dealers and rental partners. We do not own the vehicles listed on the platform."
+        "question": "Is VoyRent a dealership?",
+        "answer": "No. VoyRent is a marketplace that connects buyers and renters directly with verified dealers and rental partners. We do not own the vehicles listed on the platform."
       },
       "q3": {
         "question": "Can I contact a seller directly?",
@@ -358,7 +358,7 @@
       },
       "q5": {
         "question": "How do I know if a car is priced fairly?",
-        "answer": "You can compare similar makes, models, years, and mileage across multiple dealers in your city on RutaRide to see transparent supplier pricing."
+        "answer": "You can compare similar makes, models, years, and mileage across multiple dealers in your city on VoyRent to see transparent supplier pricing."
       },
       "q6": {
         "question": "What should I check before contacting a seller?",
@@ -367,13 +367,13 @@
     }
   },
   "AppCta": {
-    "title": "Go further with <brand>RutaRide</brand>",
-    "subtitle": "Download the RutaRide app to book cars faster, manage reservations anytime, and unlock exclusive deals. Get it on the App Store, Google Play, or scan the QR code.",
+    "title": "Go further with <brand>VoyRent</brand>",
+    "subtitle": "Download the VoyRent app to book cars faster, manage reservations anytime, and unlock exclusive deals. Get it on the App Store, Google Play, or scan the QR code.",
     "googlePlayTop": "Get it on",
     "googlePlayName": "Google Play",
     "appStoreTop": "Download on the",
     "appStoreName": "App Store",
-    "imageAlt": "RutaRide mobile app preview on smartphones"
+    "imageAlt": "VoyRent mobile app preview on smartphones"
   },
 
   "Footer": {
@@ -393,7 +393,7 @@
     "termsConditions": "Terms & Conditions",
     "cookiePolicy": "Cookie Policy",
     "supportTitle": "Support",
-    "contactEmail": "contact@RutaRide.com",
+    "contactEmail": "contact@VoyRent.com",
     "contactPhone": "+92 339 0500 659",
     "socialLabel": "Social media links",
     "socialFacebook": "Facebook",
@@ -407,7 +407,7 @@
   },
 
   "Dealers": {
-    "title": "Supply cars on RutaRide",
+    "title": "Supply cars on VoyRent",
     "body": "Rental companies keep their own prices and talk to drivers directly. Dealer onboarding will connect to the NestJS platform. The dealer tools live in a separate application."
   },
   "Errors": {
@@ -470,27 +470,27 @@
     },
     "hero": {
       "title": "Privacy Policy",
-      "subtitle": "This policy describes how RutaRide collects, uses, and protects your personal information when you use our platform and services.",
+      "subtitle": "This policy describes how VoyRent collects, uses, and protects your personal information when you use our platform and services.",
       "lastUpdated": "Last updated: October 10, 2026"
     },
     "introduction": {
       "title": "Introduction",
-      "p1": "RutaRide respects your privacy and is committed to protecting personal information collected from you through our website and mobile application (herein collectively referred to as the “Platform”). This privacy policy governs the way we collect and use information, and by using the services on our Platform (“Services”) you agree to be bound by this policy. All references within this policy to 'we/us/our' refer to <siteLink>rutaride.com</siteLink>. This Privacy Policy is in addition to any other terms and conditions applicable to the Platform. Specific privacy terms contained in any documents made available by us should be read together with this Privacy Policy.",
+      "p1": "VoyRent respects your privacy and is committed to protecting personal information collected from you through our website and mobile application (herein collectively referred to as the “Platform”). This privacy policy governs the way we collect and use information, and by using the services on our Platform (“Services”) you agree to be bound by this policy. All references within this policy to 'we/us/our' refer to <siteLink>VoyRent.com</siteLink>. This Privacy Policy is in addition to any other terms and conditions applicable to the Platform. Specific privacy terms contained in any documents made available by us should be read together with this Privacy Policy.",
       "p2": "The Website Policies and Terms & Conditions may be changed or updated occasionally to meet the requirements and standards. Therefore, the Customers’ are encouraged to frequently visit these sections to be updated about the changes on the website. Modifications will be effective on the day they are posted.",
       "p3": "We reserve the right, at our discretion, to modify or remove portions of this Privacy Policy at any time. You should review this Privacy Policy periodically so that you are updated on any changes. We do not make any representations about third party web sites that may be linked to the Platform. Information we collect when you use the Services you will have the option to provide us with personal information, such as your email address, so that we may keep you informed. We use this to provide the Services."
     },
     "rentalGuide": {
       "title": "What to look for in your rental",
-      "description": "Finding the perfect rental car at the right price doesn't have to be difficult. With RutaRide's \"Bid My Price\" feature, you can negotiate the rental price instead of simply accepting the listed rate. This gives travelers more flexibility and the opportunity to save money while booking from verified rental operators."
+      "description": "Finding the perfect rental car at the right price doesn't have to be difficult. With VoyRent's \"Bid My Price\" feature, you can negotiate the rental price instead of simply accepting the listed rate. This gives travelers more flexibility and the opportunity to save money while booking from verified rental operators."
     },
     "roadRules": {
       "title": "Road rules worth memorizing",
-      "description": "Speed limits are strictly enforced by camera. Stick within the posted limit plus the small grace buffer, signal every lane change, and never undertake on the right. Roundabouts give way to the left. RutaRide's <strong>Bid My Price</strong> feature gives customers more control over the car rental process. Instead of accepting fixed prices, you have the opportunity to negotiate a better deal while booking through a trusted marketplace. Search for a vehicle, compare options, make an offer, and complete your booking to get a smoother rental and a better price on your next trip.",
+      "description": "Speed limits are strictly enforced by camera. Stick within the posted limit plus the small grace buffer, signal every lane change, and never undertake on the right. Roundabouts give way to the left. VoyRent's <strong>Bid My Price</strong> feature gives customers more control over the car rental process. Instead of accepting fixed prices, you have the opportunity to negotiate a better deal while booking through a trusted marketplace. Search for a vehicle, compare options, make an offer, and complete your booking to get a smoother rental and a better price on your next trip.",
       "bullets": {
         "contactDetails": "Information such as your name, email address, and other contact details, including information you provide by filling in forms on the Platform.",
         "noCardStorage": "Credit or debit card information, and data that personally identifies you, will <strong>NOT</strong> be stored, sold, shared, rented, or transferred to third parties.",
         "noCardThirdParty": "We will not pass any credit or debit card information to <strong>third parties</strong>.",
-        "securityMeasures": "We take appropriate hardware and software measures to keep data confidential and secure. RutaRide cannot guarantee the security of information disclosed online.",
+        "securityMeasures": "We take appropriate hardware and software measures to keep data confidential and secure. VoyRent cannot guarantee the security of information disclosed online.",
         "correspondence": "If you contact us, we may keep a record of that correspondence.",
         "surveys": "We may ask you to complete surveys used for research. You do not have to take part.",
         "ipAddress": "We may use your Internet Protocol (IP) address, a unique number assigned to your computer or your Internet service provider. We use it to diagnose problems with our server and to administer our website. An IP address can help identify a connection, but it does not contain personal details about you."
@@ -535,7 +535,7 @@
 
     "payments": {
       "title": "Payments",
-      "description": "Speed limits are strictly enforced by camera. Stick within the posted limit plus the small grace buffer, signal every lane change, and never undertake on the right. Roundabouts give way to the left. RutaRide's Bid My Price feature gives customers more control over the car rental process. Instead of accepting fixed prices, you have the opportunity to negotiate a better deal while booking through a trusted marketplace.",
+      "description": "Speed limits are strictly enforced by camera. Stick within the posted limit plus the small grace buffer, signal every lane change, and never undertake on the right. Roundabouts give way to the left. VoyRent's Bid My Price feature gives customers more control over the car rental process. Instead of accepting fixed prices, you have the opportunity to negotiate a better deal while booking through a trusted marketplace.",
       "securityNote": "We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction."
     }
   },
@@ -592,7 +592,7 @@
   },
   "DealerPlansCta": {
     "title": "Own a car rental company?",
-    "description": "List your cars on RutaRide and reach renters directly.",
+    "description": "List your cars on VoyRent and reach renters directly.",
     "buttonLabel": "View Dealer Plans"
   },
   "DealerPlans": {
@@ -846,7 +846,7 @@
   },
   "Auth": {
     "signInTitle": "Sign in",
-    "signInBody": "Use the email and password for your RutaRide account.",
+    "signInBody": "Use the email and password for your VoyRent account.",
     "registerTitle": "Create an account",
     "registerBody": "Save cars and manage your rental enquiries.",
     "forgotTitle": "Reset your password",
@@ -873,7 +873,7 @@
     "verify": "Verify",
     "savePassword": "Save password",
     "choosePassword": "Choose a new password",
-    "noAccount": "New to RutaRide?",
+    "noAccount": "New to VoyRent?",
     "hasAccount": "Already have an account?",
     "backToSignIn": "Back to sign in",
     "continue": "Continue browsing",

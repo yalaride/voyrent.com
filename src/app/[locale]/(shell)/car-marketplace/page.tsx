@@ -29,7 +29,7 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
 
   const t = await getTranslations({ locale, namespace: "Meta" });
-  return { title: { absolute: `${t("marketplaceTitle")} · RutaRide` } };
+  return { title: { absolute: `${t("marketplaceTitle")} · VoyRent` } };
 }
 
 export default function CarMarketplacePage({ params }: PageProps) {

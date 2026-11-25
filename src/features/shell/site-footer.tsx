@@ -163,7 +163,7 @@ export async function SiteFooter() {
         </div>
       </LayoutWrapper>
 
-      {/* Tight vertical spacing so the border line sits close above RutaRide */}
+      {/* Tight vertical spacing so the border line sits close above VoyRent */}
       <LayoutWrapper>
         <div
           aria-hidden
@@ -171,7 +171,7 @@ export async function SiteFooter() {
           className="@container flex w-full select-none justify-center overflow-hidden"
         >
           <p className="translate-y-[5%] whitespace-nowrap bg-linear-to-b from-text-inverse/20 to-transparent bg-clip-text text-center text-[21.5cqw] font-medium leading-[0.82] tracking-[-0.02em] text-transparent">
-            RutaRide
+            VoyRent
           </p>
         </div>
       </LayoutWrapper>

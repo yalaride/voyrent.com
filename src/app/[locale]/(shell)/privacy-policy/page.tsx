@@ -143,7 +143,7 @@ async function PrivacyContent({ params }: PageProps) {
                   {t.rich("introduction.p1", {
                     siteLink: (chunks) => (
                       <a
-                        href="https://rutaride.com"
+                        href="https://VoyRent.com"
                         target="_blank"
                         rel="noreferrer"
                         className="text-link hover:underline"

@@ -118,7 +118,9 @@ export async function SiteHeader({
     <HeaderShell sticky={sticky}>
       <div className="relative flex h-20 w-full items-stretch justify-between gap-4">
         <div className="flex min-w-0 items-stretch gap-3 lg:gap-8">
-          <Suspense fallback={<span className="size-6 self-center lg:hidden" />}>
+          <Suspense
+            fallback={<span className="size-6 self-center lg:hidden" />}
+          >
             <MobileEntry locale={locale} pageMarket={market} />
           </Suspense>
           <Link
@@ -127,8 +129,8 @@ export async function SiteHeader({
             dir="ltr"
             className="flex h-[34px] shrink-0 items-center self-center text-xl font-bold text-white transition-opacity hover:opacity-90 group-data-[transparent=false]:text-text-primary ltr:tracking-tight lg:h-auto lg:text-2xl"
           >
-            <span>Ruta</span>
-            <span className="text-primary">Ride</span>
+            <span>Voy</span>
+            <span className="text-primary">Rent</span>
           </Link>
 
           <nav className="hidden h-full self-stretch lg:flex">

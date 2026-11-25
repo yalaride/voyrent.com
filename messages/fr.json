@@ -287,7 +287,7 @@
     "browseAllCityCars": "Voir toutes les voitures à {city}",
 
     "dealerPageTitle": "{name} : offres en direct à {city}",
-    "dealerPageSubtitle": "Choisissez parmi {count, plural, one {# voiture de location} other {# voitures de location}} et réservez directement via RutaRide. Zéro commission, zéro frais de réservation !",
+    "dealerPageSubtitle": "Choisissez parmi {count, plural, one {# voiture de location} other {# voitures de location}} et réservez directement via VoyRent. Zéro commission, zéro frais de réservation !",
     "instantCallOrWhatsapp": "Appel ou WhatsApp instantané",
     "bookDirectWithDealer": "Réservez directement auprès du loueur",
     "ratesUpdatedDaily": "Tarifs mis à jour quotidiennement",
@@ -321,7 +321,7 @@
     "rangeTitle": "Marque, modèle et type",
     "rangeBody": "Cherchez comme un conducteur : marque, modèle, type de carrosserie ou demande fréquente.",
     "priceTitle": "Prix des loueurs",
-    "priceBody": "Le tarif est fixé par le loueur. RutaRide n’ajoute pas de commission.",
+    "priceBody": "Le tarif est fixé par le loueur. VoyRent n’ajoute pas de commission.",
     "marketTitle": "Plusieurs marchés, une recherche",
     "marketBody": "Changez de pays, de ville, de langue et de devise sans tout recommencer."
   },
@@ -354,12 +354,12 @@
     "subtitle": "Gérez votre stock, suivez les demandes des acheteurs et gardez le contrôle depuis un seul tableau de bord simple d'utilisation.",
     "items": {
       "q1": {
-        "question": "Comment RutaRide vérifie-t-elle les annonces ?",
+        "question": "Comment VoyRent vérifie-t-elle les annonces ?",
         "answer": "Nous examinons les annonces afin de limiter les publications en double, incomplètes ou trompeuses. Nous nous efforçons de maintenir la qualité des annonces, mais nous recommandons aux acheteurs d'inspecter le véhicule et de vérifier tous les détails avant de finaliser un achat."
       },
       "q2": {
-        "question": "RutaRide est-elle un concessionnaire ?",
-        "answer": "Non. RutaRide est une place de marché qui met en relation les acheteurs et les locataires directement avec des concessionnaires vérifiés et des partenaires de location. Nous ne possédons pas les véhicules proposés sur la plateforme."
+        "question": "VoyRent est-elle un concessionnaire ?",
+        "answer": "Non. VoyRent est une place de marché qui met en relation les acheteurs et les locataires directement avec des concessionnaires vérifiés et des partenaires de location. Nous ne possédons pas les véhicules proposés sur la plateforme."
       },
       "q3": {
         "question": "Puis-je contacter directement un vendeur ?",
@@ -371,7 +371,7 @@
       },
       "q5": {
         "question": "Comment savoir si le prix d'une voiture est correct ?",
-        "answer": "Vous pouvez comparer des marques, modèles, années et kilométrages similaires chez plusieurs concessionnaires de votre ville sur RutaRide et consulter des prix fournisseurs transparents."
+        "answer": "Vous pouvez comparer des marques, modèles, années et kilométrages similaires chez plusieurs concessionnaires de votre ville sur VoyRent et consulter des prix fournisseurs transparents."
       },
       "q6": {
         "question": "Que dois-je vérifier avant de contacter un vendeur ?",
@@ -396,7 +396,7 @@
     "termsConditions": "Conditions générales",
     "cookiePolicy": "Politique relative aux cookies",
     "supportTitle": "Assistance",
-    "contactEmail": "contact@RutaRide.com",
+    "contactEmail": "contact@VoyRent.com",
     "contactPhone": "+92 339 0500 659",
     "socialLabel": "Liens vers les réseaux sociaux",
     "socialFacebook": "Facebook",
@@ -409,16 +409,16 @@
     "paymentUnionPay": "UnionPay"
   },
   "AppCta": {
-    "title": "Allez plus loin avec <brand>RutaRide</brand>",
-    "subtitle": "Téléchargez l'application RutaRide pour réserver plus vite, gérer vos réservations à tout moment et profiter d'offres exclusives. Disponible sur l'App Store et Google Play, ou scannez le code QR.",
+    "title": "Allez plus loin avec <brand>VoyRent</brand>",
+    "subtitle": "Téléchargez l'application VoyRent pour réserver plus vite, gérer vos réservations à tout moment et profiter d'offres exclusives. Disponible sur l'App Store et Google Play, ou scannez le code QR.",
     "googlePlayTop": "Disponible sur",
     "googlePlayName": "Google Play",
     "appStoreTop": "Télécharger dans l'",
     "appStoreName": "App Store",
-    "imageAlt": "Aperçu de l'application mobile RutaRide sur smartphones"
+    "imageAlt": "Aperçu de l'application mobile VoyRent sur smartphones"
   },
   "Dealers": {
-    "title": "Proposez des voitures sur RutaRide",
+    "title": "Proposez des voitures sur VoyRent",
     "body": "Les loueurs gardent leurs prix et parlent directement aux conducteurs. L’inscription des partenaires sera reliée à la plateforme NestJS. Les outils loueur sont une application séparée."
   },
   "Errors": {
@@ -466,27 +466,27 @@
     },
     "hero": {
       "title": "Politique de confidentialité",
-      "subtitle": "Cette politique décrit comment RutaRide collecte, utilise et protège vos informations personnelles lorsque vous utilisez notre plateforme et nos services.",
+      "subtitle": "Cette politique décrit comment VoyRent collecte, utilise et protège vos informations personnelles lorsque vous utilisez notre plateforme et nos services.",
       "lastUpdated": "Dernière mise à jour : 10 octobre 2026"
     },
     "introduction": {
       "title": "Introduction",
-      "p1": "RutaRide respecte votre vie privée et s’engage à protéger les informations personnelles recueillies auprès de vous par le biais de notre site Web et de notre application mobile (collectivement désignés ci-après comme la « Plateforme »). Cette politique de confidentialité régit la manière dont nous collectons et utilisons les informations. En utilisant les services proposés sur notre Plateforme (« Services »), vous acceptez d’être lié par cette politique. Toutes les références dans cette politique aux termes « nous/notre/nos » désignent <siteLink>rutaride.com</siteLink>. Cette politique de confidentialité complète les autres conditions générales applicables à la Plateforme. Les dispositions spécifiques relatives à la confidentialité figurant dans les documents que nous mettons à votre disposition doivent être lues conjointement avec cette politique de confidentialité.",
+      "p1": "VoyRent respecte votre vie privée et s’engage à protéger les informations personnelles recueillies auprès de vous par le biais de notre site Web et de notre application mobile (collectivement désignés ci-après comme la « Plateforme »). Cette politique de confidentialité régit la manière dont nous collectons et utilisons les informations. En utilisant les services proposés sur notre Plateforme (« Services »), vous acceptez d’être lié par cette politique. Toutes les références dans cette politique aux termes « nous/notre/nos » désignent <siteLink>VoyRent.com</siteLink>. Cette politique de confidentialité complète les autres conditions générales applicables à la Plateforme. Les dispositions spécifiques relatives à la confidentialité figurant dans les documents que nous mettons à votre disposition doivent être lues conjointement avec cette politique de confidentialité.",
       "p2": "Les politiques du site Web ainsi que les conditions générales peuvent être modifiées ou mises à jour occasionnellement afin de répondre aux exigences et aux normes applicables. Les clients sont donc invités à consulter régulièrement ces sections afin de se tenir informés des modifications apportées au site Web. Les modifications prennent effet le jour de leur publication.",
       "p3": "Nous nous réservons le droit, à notre discrétion, de modifier ou de supprimer certaines parties de cette politique de confidentialité à tout moment. Vous devez consulter régulièrement cette politique afin de rester informé de toute modification. Nous ne faisons aucune déclaration concernant les sites Web de tiers pouvant être liés à la Plateforme. Lorsque vous utilisez les Services, vous avez la possibilité de nous fournir des informations personnelles, telles que votre adresse e-mail, afin que nous puissions vous tenir informé. Nous utilisons ces informations pour fournir les Services."
     },
     "rentalGuide": {
       "title": "Points à vérifier lors de votre location",
-      "description": "Trouver la voiture de location idéale au bon prix ne doit pas être compliqué. Grâce à la fonctionnalité « Bid My Price » de RutaRide, vous pouvez négocier le prix de location au lieu d’accepter simplement le tarif affiché. Cela offre aux voyageurs davantage de flexibilité et la possibilité de réaliser des économies tout en réservant auprès d’opérateurs de location vérifiés."
+      "description": "Trouver la voiture de location idéale au bon prix ne doit pas être compliqué. Grâce à la fonctionnalité « Bid My Price » de VoyRent, vous pouvez négocier le prix de location au lieu d’accepter simplement le tarif affiché. Cela offre aux voyageurs davantage de flexibilité et la possibilité de réaliser des économies tout en réservant auprès d’opérateurs de location vérifiés."
     },
     "roadRules": {
       "title": "Règles de circulation à retenir",
-      "description": "Les limitations de vitesse sont strictement contrôlées par des caméras. Respectez la limitation affichée ainsi que la petite marge de tolérance, signalez chaque changement de voie et ne dépassez jamais par la droite. Dans les ronds-points, la priorité est accordée aux véhicules venant de gauche. La fonctionnalité <strong>Bid My Price</strong> de RutaRide donne aux clients davantage de contrôle sur le processus de location de voiture. Au lieu d’accepter des prix fixes, vous avez la possibilité de négocier une meilleure offre en réservant via une plateforme de confiance. En suivant ces étapes simples, en recherchant un véhicule, en comparant les options, en faisant une offre et en finalisant votre réservation, vous pouvez profiter d’une expérience de location plus fluide et potentiellement économiser sur votre prochain voyage.",
+      "description": "Les limitations de vitesse sont strictement contrôlées par des caméras. Respectez la limitation affichée ainsi que la petite marge de tolérance, signalez chaque changement de voie et ne dépassez jamais par la droite. Dans les ronds-points, la priorité est accordée aux véhicules venant de gauche. La fonctionnalité <strong>Bid My Price</strong> de VoyRent donne aux clients davantage de contrôle sur le processus de location de voiture. Au lieu d’accepter des prix fixes, vous avez la possibilité de négocier une meilleure offre en réservant via une plateforme de confiance. En suivant ces étapes simples, en recherchant un véhicule, en comparant les options, en faisant une offre et en finalisant votre réservation, vous pouvez profiter d’une expérience de location plus fluide et potentiellement économiser sur votre prochain voyage.",
       "bullets": {
         "contactDetails": "Informations telles que votre nom, votre adresse e-mail et vos autres coordonnées (y compris les informations que vous fournissez en remplissant les formulaires sur la Plateforme).",
         "noCardStorage": "Les informations relatives aux cartes de crédit ou de débit ainsi que les données permettant de vous identifier personnellement ne seront <strong>PAS</strong> stockées, vendues, partagées, louées ou cédées à des tiers.",
         "noCardThirdParty": "Nous ne transmettrons aucune information relative aux cartes de crédit ou de débit à des <strong>tiers</strong>.",
-        "securityMeasures": "Nous entendons prendre les mesures appropriées pour garantir la confidentialité et la sécurité des données, notamment au moyen de différentes méthodes matérielles et logicielles. Toutefois, RutaRide ne peut garantir la sécurité des informations divulguées en ligne.",
+        "securityMeasures": "Nous entendons prendre les mesures appropriées pour garantir la confidentialité et la sécurité des données, notamment au moyen de différentes méthodes matérielles et logicielles. Toutefois, VoyRent ne peut garantir la sécurité des informations divulguées en ligne.",
         "correspondence": "Si vous nous contactez, nous pouvons conserver une trace de cette correspondance.",
         "surveys": "Nous pouvons également vous demander de répondre à des enquêtes utilisées à des fins de recherche, mais vous n’êtes pas obligé d’y participer.",
         "ipAddress": "Veuillez noter que nous pouvons utiliser votre adresse de protocole Internet (adresse IP), qui est un numéro unique attribué à votre serveur informatique ou à votre fournisseur d’accès à Internet (FAI). Nous utilisons votre adresse IP pour aider à diagnostiquer les problèmes liés à notre serveur informatique et à administrer notre ou nos sites Web. Votre adresse IP peut contribuer à vous identifier, mais ne contient aucune information personnelle vous concernant."
@@ -529,7 +529,7 @@
     },
     "payments": {
       "title": "Paiements",
-      "description": "Les limitations de vitesse sont strictement contrôlées par des caméras. Respectez la limitation affichée ainsi que la petite marge de tolérance, signalez chaque changement de voie et ne dépassez jamais par la droite. Dans les ronds-points, la priorité est accordée aux véhicules venant de gauche. La fonctionnalité Bid My Price de RutaRide donne aux clients davantage de contrôle sur le processus de location de voiture. Au lieu d’accepter des prix fixes, vous avez la possibilité de négocier une meilleure offre en réservant via une plateforme de confiance.",
+      "description": "Les limitations de vitesse sont strictement contrôlées par des caméras. Respectez la limitation affichée ainsi que la petite marge de tolérance, signalez chaque changement de voie et ne dépassez jamais par la droite. Dans les ronds-points, la priorité est accordée aux véhicules venant de gauche. La fonctionnalité Bid My Price de VoyRent donne aux clients davantage de contrôle sur le processus de location de voiture. Au lieu d’accepter des prix fixes, vous avez la possibilité de négocier une meilleure offre en réservant via une plateforme de confiance.",
       "securityNote": "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées afin de protéger vos informations personnelles contre tout accès, toute modification, toute divulgation ou toute destruction non autorisés."
     }
   },
@@ -586,7 +586,7 @@
   },
   "DealerPlansCta": {
     "title": "Vous possédez une société de location de voitures ?",
-    "description": "Publiez vos voitures sur RutaRide et touchez directement les locataires.",
+    "description": "Publiez vos voitures sur VoyRent et touchez directement les locataires.",
     "buttonLabel": "Voir les offres pour professionnels"
   },
   "DealerPlans": {
@@ -840,7 +840,7 @@
   },
   "Auth": {
     "signInTitle": "Connexion",
-    "signInBody": "Utilisez l'e-mail et le mot de passe de votre compte RutaRide.",
+    "signInBody": "Utilisez l'e-mail et le mot de passe de votre compte VoyRent.",
     "registerTitle": "Créer un compte",
     "registerBody": "Enregistrez des voitures et suivez vos demandes de location.",
     "forgotTitle": "Réinitialiser le mot de passe",
@@ -867,7 +867,7 @@
     "verify": "Vérifier",
     "savePassword": "Enregistrer le mot de passe",
     "choosePassword": "Choisir un nouveau mot de passe",
-    "noAccount": "Nouveau sur RutaRide ?",
+    "noAccount": "Nouveau sur VoyRent ?",
     "hasAccount": "Vous avez déjà un compte ?",
     "backToSignIn": "Retour à la connexion",
     "continue": "Continuer à parcourir",

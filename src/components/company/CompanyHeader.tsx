@@ -48,7 +48,7 @@ export async function CompanyHeader({
 
   const pageSubtitle = t.has("dealerPageSubtitle")
     ? t("dealerPageSubtitle", { count: totalCars })
-    : `Choose among ${totalCars} rental cars and book directly via RutaRide. Zero commission, zero booking fees!`;
+    : `Choose among ${totalCars} rental cars and book directly via VoyRent. Zero commission, zero booking fees!`;
 
   const highlights = [
     tf("instantCallOrWhatsapp", "Instant call or WhatsApp"),

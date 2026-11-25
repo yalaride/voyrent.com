@@ -286,7 +286,7 @@
     "browseAllCityCars": "Ver todos los coches en {city}",
 
     "dealerPageTitle": "{name}: ofertas en vivo en {city}",
-    "dealerPageSubtitle": "Elige entre {count, plural, one {# coche de alquiler} other {# coches de alquiler}} y reserva directamente con RutaRide. ¡Cero comisiones, cero tarifas de reserva!",
+    "dealerPageSubtitle": "Elige entre {count, plural, one {# coche de alquiler} other {# coches de alquiler}} y reserva directamente con VoyRent. ¡Cero comisiones, cero tarifas de reserva!",
     "instantCallOrWhatsapp": "Llamada o WhatsApp al instante",
     "bookDirectWithDealer": "Reserva directamente con la agencia",
     "ratesUpdatedDaily": "Tarifas actualizadas a diario",
@@ -335,12 +335,12 @@
     "subtitle": "Gestiona el inventario, da seguimiento a las consultas de los compradores y mantén el control desde un único panel fácil de usar.",
     "items": {
       "q1": {
-        "question": "¿Cómo verifica RutaRide los anuncios?",
+        "question": "¿Cómo verifica VoyRent los anuncios?",
         "answer": "Revisamos los anuncios para ayudar a reducir las publicaciones duplicadas, incompletas o engañosas. Aunque nos esforzamos por mantener la calidad de los anuncios, recomendamos a los compradores inspeccionar el vehículo y verificar todos los detalles antes de realizar la compra."
       },
       "q2": {
-        "question": "¿RutaRide es un concesionario?",
-        "answer": "No. RutaRide es un marketplace que conecta a compradores y arrendatarios directamente con concesionarios verificados y socios de alquiler. No somos propietarios de los vehículos publicados en la plataforma."
+        "question": "¿VoyRent es un concesionario?",
+        "answer": "No. VoyRent es un marketplace que conecta a compradores y arrendatarios directamente con concesionarios verificados y socios de alquiler. No somos propietarios de los vehículos publicados en la plataforma."
       },
       "q3": {
         "question": "¿Puedo contactar directamente al vendedor?",
@@ -352,7 +352,7 @@
       },
       "q5": {
         "question": "¿Cómo sé si el precio de un auto es justo?",
-        "answer": "Puedes comparar marcas, modelos, años y kilometrajes similares entre varios concesionarios de tu ciudad en RutaRide y ver precios transparentes de los proveedores."
+        "answer": "Puedes comparar marcas, modelos, años y kilometrajes similares entre varios concesionarios de tu ciudad en VoyRent y ver precios transparentes de los proveedores."
       },
       "q6": {
         "question": "¿Qué debo revisar antes de contactar a un vendedor?",
@@ -361,20 +361,20 @@
     }
   },
   "AppCta": {
-    "title": "Ve más lejos con <brand>RutaRide</brand>",
-    "subtitle": "Descarga la app de RutaRide para reservar autos más rápido, gestionar tus reservas en cualquier momento y acceder a ofertas exclusivas. Disponible en App Store y Google Play, o escanea el código QR.",
+    "title": "Ve más lejos con <brand>VoyRent</brand>",
+    "subtitle": "Descarga la app de VoyRent para reservar autos más rápido, gestionar tus reservas en cualquier momento y acceder a ofertas exclusivas. Disponible en App Store y Google Play, o escanea el código QR.",
     "googlePlayTop": "Disponible en",
     "googlePlayName": "Google Play",
     "appStoreTop": "Descarga en el",
     "appStoreName": "App Store",
-    "imageAlt": "Vista previa de la app móvil de RutaRide en smartphones"
+    "imageAlt": "Vista previa de la app móvil de VoyRent en smartphones"
   },
   "Trust": {
     "title": "Un mercado, no un intermediario",
     "rangeTitle": "Marca, modelo y tipo",
     "rangeBody": "Busca como lo hace un conductor: marca, modelo, tipo de coche o una petición habitual.",
     "priceTitle": "Precios del proveedor",
-    "priceBody": "La tarifa la pone la empresa de alquiler. RutaRide no suma comisión.",
+    "priceBody": "La tarifa la pone la empresa de alquiler. VoyRent no suma comisión.",
     "marketTitle": "Varios mercados, una búsqueda",
     "marketBody": "Cambia de país, ciudad, idioma y moneda sin empezar de cero."
   },
@@ -405,7 +405,7 @@
     "termsConditions": "Términos y condiciones",
     "cookiePolicy": "Política de cookies",
     "supportTitle": "Soporte",
-    "contactEmail": "contact@RutaRide.com",
+    "contactEmail": "contact@VoyRent.com",
     "contactPhone": "+92 339 0500 659",
     "socialLabel": "Enlaces de redes sociales",
     "socialFacebook": "Facebook",
@@ -418,7 +418,7 @@
     "paymentUnionPay": "UnionPay"
   },
   "Dealers": {
-    "title": "Ofrece coches en RutaRide",
+    "title": "Ofrece coches en VoyRent",
     "body": "Las empresas de alquiler mantienen sus precios y hablan directo con los conductores. El alta de proveedores se conectará a la plataforma NestJS. Las herramientas del proveedor viven en una aplicación aparte."
   },
   "Errors": {
@@ -491,27 +491,27 @@
     },
     "hero": {
       "title": "Política de privacidad",
-      "subtitle": "Esta política describe cómo RutaRide recopila, utiliza y protege su información personal cuando utiliza nuestra plataforma y nuestros servicios.",
+      "subtitle": "Esta política describe cómo VoyRent recopila, utiliza y protege su información personal cuando utiliza nuestra plataforma y nuestros servicios.",
       "lastUpdated": "Última actualización: 10 de octubre de 2026"
     },
     "introduction": {
       "title": "Introducción",
-      "p1": "RutaRide respeta su privacidad y se compromete a proteger la información personal recopilada a través de nuestro sitio web y aplicación móvil (denominados conjuntamente en adelante como la «Plataforma»). Esta política de privacidad establece cómo recopilamos y utilizamos la información. Al utilizar los servicios disponibles en nuestra Plataforma («Servicios»), usted acepta cumplir esta política. Todas las referencias en esta política a los términos «nosotros/nuestro/nuestra» se refieren a <siteLink>rutaride.com</siteLink>. Esta Política de privacidad complementa cualquier otro término y condición aplicable a la Plataforma. Las disposiciones específicas sobre privacidad incluidas en cualquier documento que pongamos a su disposición deben leerse conjuntamente con esta Política de privacidad.",
+      "p1": "VoyRent respeta su privacidad y se compromete a proteger la información personal recopilada a través de nuestro sitio web y aplicación móvil (denominados conjuntamente en adelante como la «Plataforma»). Esta política de privacidad establece cómo recopilamos y utilizamos la información. Al utilizar los servicios disponibles en nuestra Plataforma («Servicios»), usted acepta cumplir esta política. Todas las referencias en esta política a los términos «nosotros/nuestro/nuestra» se refieren a <siteLink>VoyRent.com</siteLink>. Esta Política de privacidad complementa cualquier otro término y condición aplicable a la Plataforma. Las disposiciones específicas sobre privacidad incluidas en cualquier documento que pongamos a su disposición deben leerse conjuntamente con esta Política de privacidad.",
       "p2": "Las políticas del sitio web y los Términos y condiciones pueden modificarse o actualizarse ocasionalmente para cumplir con los requisitos y estándares aplicables. Por lo tanto, se recomienda a los clientes visitar estas secciones con frecuencia para mantenerse informados sobre los cambios en el sitio web. Las modificaciones entrarán en vigor el día de su publicación.",
       "p3": "Nos reservamos el derecho, a nuestra discreción, de modificar o eliminar partes de esta Política de privacidad en cualquier momento. Debe revisar periódicamente esta Política de privacidad para mantenerse informado sobre cualquier cambio. No realizamos declaraciones sobre sitios web de terceros que puedan estar vinculados a la Plataforma. Al utilizar los Servicios, tendrá la opción de proporcionarnos información personal, como su dirección de correo electrónico, para que podamos mantenerle informado. Utilizamos esta información para prestar los Servicios."
     },
     "rentalGuide": {
       "title": "Qué tener en cuenta al alquilar un vehículo",
-      "description": "Encontrar el coche de alquiler perfecto al precio adecuado no tiene por qué ser difícil. Con la función «Bid My Price» de RutaRide, puede negociar el precio del alquiler en lugar de aceptar simplemente la tarifa publicada. Esto ofrece a los viajeros mayor flexibilidad y la oportunidad de ahorrar dinero al reservar con operadores de alquiler verificados."
+      "description": "Encontrar el coche de alquiler perfecto al precio adecuado no tiene por qué ser difícil. Con la función «Bid My Price» de VoyRent, puede negociar el precio del alquiler en lugar de aceptar simplemente la tarifa publicada. Esto ofrece a los viajeros mayor flexibilidad y la oportunidad de ahorrar dinero al reservar con operadores de alquiler verificados."
     },
     "roadRules": {
       "title": "Normas de tráfico que conviene recordar",
-      "description": "Los límites de velocidad se controlan estrictamente mediante cámaras. Respete el límite indicado y el pequeño margen de tolerancia, señalice cada cambio de carril y nunca adelante por la derecha. En las rotondas, tienen prioridad los vehículos que vienen por la izquierda. La función <strong>Bid My Price</strong> de RutaRide ofrece a los clientes un mayor control sobre el proceso de alquiler de vehículos. En lugar de aceptar precios fijos, tiene la oportunidad de negociar una oferta mejor al reservar a través de un marketplace de confianza. Siguiendo estos sencillos pasos, buscando un vehículo, comparando opciones, realizando una oferta y completando su reserva, podrá disfrutar de una experiencia de alquiler más sencilla y posiblemente ahorrar en su próximo viaje.",
+      "description": "Los límites de velocidad se controlan estrictamente mediante cámaras. Respete el límite indicado y el pequeño margen de tolerancia, señalice cada cambio de carril y nunca adelante por la derecha. En las rotondas, tienen prioridad los vehículos que vienen por la izquierda. La función <strong>Bid My Price</strong> de VoyRent ofrece a los clientes un mayor control sobre el proceso de alquiler de vehículos. En lugar de aceptar precios fijos, tiene la oportunidad de negociar una oferta mejor al reservar a través de un marketplace de confianza. Siguiendo estos sencillos pasos, buscando un vehículo, comparando opciones, realizando una oferta y completando su reserva, podrá disfrutar de una experiencia de alquiler más sencilla y posiblemente ahorrar en su próximo viaje.",
       "bullets": {
         "contactDetails": "Información como su nombre, dirección de correo electrónico y otros datos de contacto (incluida la información que proporciona al completar formularios en la Plataforma).",
         "noCardStorage": "Los datos de todas las tarjetas de crédito/débito y la información de identificación personal <strong>NO</strong> serán almacenados, vendidos, compartidos, alquilados ni cedidos a terceros.",
         "noCardThirdParty": "No compartiremos ningún dato de tarjetas de crédito/débito con <strong>terceros</strong>.",
-        "securityMeasures": "Tenemos la intención de adoptar medidas adecuadas para garantizar la privacidad y seguridad de los datos, incluso mediante diversos métodos de hardware y software. Sin embargo, RutaRide no puede garantizar la seguridad de ninguna información divulgada en línea.",
+        "securityMeasures": "Tenemos la intención de adoptar medidas adecuadas para garantizar la privacidad y seguridad de los datos, incluso mediante diversos métodos de hardware y software. Sin embargo, VoyRent no puede garantizar la seguridad de ninguna información divulgada en línea.",
         "correspondence": "Si se pone en contacto con nosotros, podemos conservar un registro de dicha correspondencia.",
         "surveys": "También podemos pedirle que complete encuestas que utilizamos con fines de investigación, aunque no está obligado a responderlas.",
         "ipAddress": "Tenga en cuenta que podemos utilizar su dirección de protocolo de Internet (dirección IP), que es un número único asignado a su servidor informático o a su proveedor de servicios de Internet (ISP). Utilizamos su dirección IP para ayudar a diagnosticar problemas con nuestro servidor informático y administrar nuestro(s) sitio(s) web. Su dirección IP puede ayudarnos a identificarle, pero no contiene información personal sobre usted."
@@ -554,7 +554,7 @@
     },
     "payments": {
       "title": "Pagos",
-      "description": "Los límites de velocidad se controlan estrictamente mediante cámaras. Respete el límite indicado y el pequeño margen de tolerancia, señalice cada cambio de carril y nunca adelante por la derecha. En las rotondas, tienen prioridad los vehículos que vienen por la izquierda. La función Bid My Price de RutaRide ofrece a los clientes un mayor control sobre el proceso de alquiler de vehículos. En lugar de aceptar precios fijos, tiene la oportunidad de negociar una oferta mejor al reservar a través de un marketplace de confianza.",
+      "description": "Los límites de velocidad se controlan estrictamente mediante cámaras. Respete el límite indicado y el pequeño margen de tolerancia, señalice cada cambio de carril y nunca adelante por la derecha. En las rotondas, tienen prioridad los vehículos que vienen por la izquierda. La función Bid My Price de VoyRent ofrece a los clientes un mayor control sobre el proceso de alquiler de vehículos. En lugar de aceptar precios fijos, tiene la oportunidad de negociar una oferta mejor al reservar a través de un marketplace de confianza.",
       "securityNote": "Implementamos medidas técnicas y organizativas adecuadas para proteger su información personal contra el acceso, la alteración, la divulgación o la destrucción no autorizados."
     }
   },
@@ -612,7 +612,7 @@
   },
   "DealerPlansCta": {
     "title": "¿Tienes una empresa de alquiler de coches?",
-    "description": "Publica tus coches en RutaRide y llega directamente a los clientes.",
+    "description": "Publica tus coches en VoyRent y llega directamente a los clientes.",
     "buttonLabel": "Ver planes para distribuidores"
   },
   "DealerPlans": {
@@ -834,7 +834,7 @@
   },
   "Auth": {
     "signInTitle": "Iniciar sesión",
-    "signInBody": "Usa el correo y la contraseña de tu cuenta de RutaRide.",
+    "signInBody": "Usa el correo y la contraseña de tu cuenta de VoyRent.",
     "registerTitle": "Crear una cuenta",
     "registerBody": "Guarda coches y gestiona tus consultas de alquiler.",
     "forgotTitle": "Restablecer la contraseña",
@@ -861,7 +861,7 @@
     "verify": "Verificar",
     "savePassword": "Guardar contraseña",
     "choosePassword": "Elegir una contraseña nueva",
-    "noAccount": "¿Nuevo en RutaRide?",
+    "noAccount": "¿Nuevo en VoyRent?",
     "hasAccount": "¿Ya tienes una cuenta?",
     "backToSignIn": "Volver a iniciar sesión",
     "continue": "Seguir explorando",
