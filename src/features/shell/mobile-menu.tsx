@@ -46,8 +46,8 @@ export function MobileMenu({ locale, nav }: { locale: AppLocale; nav: HeaderNavM
         <div className="relative flex h-full flex-col">
           <div className="flex h-[68px] shrink-0 items-center justify-between border-b border-[#eee] px-4">
             <Link href="/" prefetch={false} dir="ltr" className="text-xl font-bold tracking-tight text-text-primary">
-              <span>Ruta</span>
-              <span className="text-primary">Ride</span>
+              <span>Voy</span>
+              <span className="text-primary">Rent</span>
             </Link>
             <SheetClose asChild>
               <button type="button" className="grid size-10 place-items-center text-[#373737]" aria-label={t("closeMenu")}>
