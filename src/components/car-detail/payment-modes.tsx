@@ -42,16 +42,31 @@ export function normalizePaymentModeKey(value: string): PaymentModeKey | null {
 
   // Check debit before credit (and before the broad "bit" crypto check),
   // because "debit" / "débito" / "débit" all contain the substring "bit".
-  if (normalized.includes("debit") || normalized.includes("débit") || normalized.includes("débito") || normalized.includes("خصم")) {
+  if (
+    normalized.includes("debit") ||
+    normalized.includes("débit") ||
+    normalized.includes("débito") ||
+    normalized.includes("خصم")
+  ) {
     return "debit";
   }
-  if (normalized.includes("credit") || normalized.includes("crédit") || normalized.includes("crédito") || normalized.includes("ائتمان")) {
+  if (
+    normalized.includes("credit") ||
+    normalized.includes("crédit") ||
+    normalized.includes("crédito") ||
+    normalized.includes("ائتمان")
+  ) {
     return "credit";
   }
   if (
     normalized.includes("crypto") ||
+    normalized.includes("cripto") ||
     normalized.includes("btc") ||
     normalized.includes("bitcoin") ||
+    normalized.includes("كريبتو") ||
+    normalized.includes("عملات رقمية") ||
+    normalized.includes("عملة رقمية") ||
+    normalized.includes("بيتكوين") ||
     // "bit" last and only when it's not part of debit (already handled above)
     /\bbit\b/.test(normalized)
   ) {
