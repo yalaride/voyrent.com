@@ -278,7 +278,8 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
 
       {/* Rent a Car Full-Width Mega Menu */}
       {open === "rent" ? (
-        <div className="absolute top-full left-1/2 z-50 w-screen -translate-x-1/2 border-t border-border-subtle bg-background-primary text-text-primary shadow-[0px_16px_40px_-8px_#121A2924]">
+        <div className="absolute top-full left-1/2 z-50 w-screen -translate-x-1/2 border-b border-border-subtle bg-background-primary text-text-primary shadow-[0px_24px_32px_-12px_#121A2924]">
+          {" "}
           <div className="mx-auto flex max-h-[calc(100dvh-6rem)] w-full max-w-[1440px] flex-col overflow-y-auto px-4 py-6 sm:px-6 lg:px-8">
             <div
               className={cn(
@@ -370,7 +371,8 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
 
       {/* Car Brands Full-Width Mega Menu */}
       {open === "brands" ? (
-        <div className="absolute top-full left-1/2 z-50 w-screen -translate-x-1/2 border-t border-border-subtle bg-background-primary text-text-primary shadow-[0px_16px_40px_-8px_#121A2924]">
+        <div className="absolute top-full left-1/2 z-50 w-screen -translate-x-1/2 border-b border-border-subtle bg-background-primary text-text-primary shadow-[0px_24px_32px_-12px_#121A2924]">
+          {" "}
           <div className="mx-auto flex max-h-[calc(100dvh-6rem)] w-full max-w-[1440px] flex-col px-4 py-6 sm:px-6 lg:px-8">
             <div className="flex shrink-0 flex-col items-stretch justify-between gap-3 pb-5 sm:flex-row sm:items-center sm:gap-4">
               <label className="relative flex h-11 w-full items-center gap-2 rounded-full border border-border-default bg-background-primary px-4 py-2 transition-colors focus-within:border-primary sm:max-w-[380px]">

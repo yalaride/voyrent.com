@@ -72,10 +72,10 @@ export function HeaderShell({ children, sticky = false }: HeaderShellProps) {
   return (
     <header
       data-transparent={isTransparent ? "true" : "false"}
-      className={`group inset-x-0 top-0 z-50 w-full ${positionClass} ${
+      className={`group inset-x-0 top-0 z-50 w-full border-b ${positionClass} ${
         isTransparent
-          ? "border-b border-transparent bg-transparent text-white"
-          : "border-b border-border-default bg-background-primary/95 text-text-primary shadow-xs backdrop-blur"
+          ? "border-transparent bg-transparent text-white"
+          : "border-border-subtle bg-background-primary text-text-primary shadow-xs"
       } in-data-[mega-menu-open=true]:border-transparent in-data-[mega-menu-open=true]:bg-background-primary in-data-[mega-menu-open=true]:text-text-primary in-data-[mega-menu-open=true]:shadow-none in-data-[mega-menu-open=true]:backdrop-blur-none in-data-[mega-menu-open=true]:transition-none`}
     >
       <LayoutWrapper>{children}</LayoutWrapper>
