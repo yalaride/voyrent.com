@@ -55,6 +55,7 @@ export function ListingSlider({
   const [pageCount, setPageCount] = React.useState(1);
   const [isPaused, setIsPaused] = React.useState(false);
 
+  const isLanding = variant === "default";
   const resolvedScrollBy = scrollBy ?? (variant === "search" ? "card" : "page");
 
   const getMetrics = React.useCallback(
@@ -187,12 +188,27 @@ export function ListingSlider({
     resolvedScrollBy,
   ]);
 
-  // Exact card widths per breakpoint -> zero half-card cutoffs
+  // Landing mobile shows 1 card + partial 2nd card peek; sm+ uses exact widths with zero cutoffs
+  const mobileCardWidth = isLanding ? "w-[82%]" : "w-full";
   const cardWidthClass =
     desktopColumns === 3
-      ? "w-full min-w-0 shrink-0 snap-start sm:w-[calc((100%-16px)/2)] xl:w-[calc((100%-32px)/3)]"
-      : "w-full min-w-0 shrink-0 snap-start sm:w-[calc((100%-16px)/2)] lg:w-[calc((100%-32px)/3)] xl:w-[calc((100%-48px)/4)]";
+      ? `${mobileCardWidth} min-w-0 shrink-0 snap-start sm:w-[calc((100%-16px)/2)] xl:w-[calc((100%-32px)/3)]`
+      : `${mobileCardWidth} min-w-0 shrink-0 snap-start sm:w-[calc((100%-16px)/2)] lg:w-[calc((100%-32px)/3)] xl:w-[calc((100%-48px)/4)]`;
   const hasOverflow = canScrollLeft || canScrollRight;
+
+  const shopButton =
+    viewAllHref && viewAllLabel ? (
+      <Button
+        asChild
+        variant="outline"
+        className="h-10 min-w-[107px] gap-2 rounded-full border border-[#0B7AD3] bg-transparent py-0 pe-3 ps-4 text-sm font-medium text-[#0B7AD3] shadow-none transition-colors hover:bg-[#0B7AD3]/10"
+      >
+        <Link href={viewAllHref}>
+          <span className="truncate">{viewAllLabel}</span>
+          <ArrowRightIcon className="size-4 shrink-0 rtl:rotate-180" />
+        </Link>
+      </Button>
+    ) : null;
 
   return (
     <div
@@ -205,16 +221,35 @@ export function ListingSlider({
       {showHeader ? (
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div className="flex max-w-[601px] flex-col gap-2">
-            <h2 className="text-[28px] font-semibold leading-[120%] tracking-[-0.02em] text-text-primary md:text-[36px]">
+            <h2
+              className={
+                isLanding
+                  ? "text-[24px] font-semibold leading-[120%] tracking-[-0.02em] text-text-primary md:text-[28px]"
+                  : "text-[28px] font-semibold leading-[120%] tracking-[-0.02em] text-text-primary md:text-[36px]"
+              }
+            >
               {heading}
             </h2>
-            <p className="text-sm leading-[150%] text-text-secondary md:text-base">
+            <p
+              className={
+                isLanding
+                  ? "text-[16px] leading-[150%] text-text-secondary"
+                  : "text-sm leading-[150%] text-text-secondary md:text-base"
+              }
+            >
               {subtitle}
             </p>
           </div>
+          {showHeader && isLanding && shopButton ? (
+            <div className="flex md:hidden">{shopButton}</div>
+          ) : null}
 
-          <div className="flex items-center gap-4 self-start md:self-end">
-            <div className="flex items-center gap-2">
+          <div
+            className={`${isLanding ? "hidden md:flex" : "flex"} items-center gap-4 self-start md:self-end`}
+          >
+            <div
+              className={`${isLanding ? "hidden lg:flex" : "flex"} items-center gap-2`}
+            >
               <Button
                 type="button"
                 variant="outline"
@@ -240,18 +275,7 @@ export function ListingSlider({
               </Button>
             </div>
 
-            {viewAllHref && viewAllLabel ? (
-              <Button
-                asChild
-                variant="outline"
-                className="h-10 min-w-[107px] gap-2 rounded-full border border-[#0B7AD3] bg-transparent py-0 pe-3 ps-4 text-sm font-medium text-[#0B7AD3] shadow-none transition-colors hover:bg-[#0B7AD3]/10"
-              >
-                <Link href={viewAllHref}>
-                  <span className="truncate">{viewAllLabel}</span>
-                  <ArrowRightIcon className="size-4 shrink-0 rtl:rotate-180" />
-                </Link>
-              </Button>
-            ) : null}
+            {shopButton}
           </div>
         </div>
       ) : null}

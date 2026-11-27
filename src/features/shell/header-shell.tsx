@@ -24,7 +24,7 @@ function getServerSnapshot() {
   return false;
 }
 
-export function HeaderShell({ children }: HeaderShellProps) {
+export function HeaderShell({ children, sticky = false }: HeaderShellProps) {
   const pathname = usePathname() ?? "/";
   const params = useParams();
   const locale = typeof params?.locale === "string" ? params.locale : "";
@@ -50,24 +50,33 @@ export function HeaderShell({ children }: HeaderShellProps) {
   const isTransparentPage =
     isLandingPage || isRegionLandingPage || isDealerPlansPage;
 
+  // Only watch scroll if the header is actually sticky on a transparent page
+  const shouldWatchScroll = isTransparentPage && sticky;
+
   const isScrolled = useSyncExternalStore(
-    isTransparentPage ? subscribeToScroll : emptySubscribe,
-    isTransparentPage ? getScrollSnapshot : getServerSnapshot,
+    shouldWatchScroll ? subscribeToScroll : emptySubscribe,
+    shouldWatchScroll ? getScrollSnapshot : getServerSnapshot,
     getServerSnapshot,
   );
 
   const isTransparent = isTransparentPage && !isScrolled;
 
+  const positionClass = isTransparentPage
+    ? sticky
+      ? "fixed"
+      : "absolute"
+    : sticky
+      ? "sticky"
+      : "relative";
+
   return (
     <header
       data-transparent={isTransparent ? "true" : "false"}
-      className={`group inset-x-0 top-0 z-50 w-full transition-all duration-300 ${
-        isTransparentPage ? "absolute" : "relative"
-      } ${
+      className={`group inset-x-0 top-0 z-50 w-full ${positionClass} ${
         isTransparent
           ? "border-b border-transparent bg-transparent text-white"
           : "border-b border-border-default bg-background-primary/95 text-text-primary shadow-xs backdrop-blur"
-      }`}
+      } in-data-[mega-menu-open=true]:border-transparent in-data-[mega-menu-open=true]:bg-background-primary in-data-[mega-menu-open=true]:text-text-primary in-data-[mega-menu-open=true]:shadow-none in-data-[mega-menu-open=true]:backdrop-blur-none in-data-[mega-menu-open=true]:transition-none`}
     >
       <LayoutWrapper>{children}</LayoutWrapper>
     </header>

@@ -50,7 +50,7 @@ export async function MarketHome({
 
   return (
     <>
-      <section className="relative z-20 flex h-[627px] w-full flex-col justify-between overflow-visible bg-background-section px-4 pt-20 pb-8 md:h-[499px] md:justify-center md:pt-0 md:pb-0 lg:h-[620px]">
+      <section className="relative z-20 flex h-[627px] w-full flex-col justify-between overflow-visible bg-background-section px-4 pt-24 pb-8 md:h-[499px] md:justify-center md:pt-0 md:pb-0 lg:h-[620px]">
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           <Image
             src="/landing-page/hero.png"
@@ -78,7 +78,7 @@ export async function MarketHome({
         </div>
 
         <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 flex-col items-center justify-between text-center md:flex-initial md:justify-center">
-          <h1 className="w-full max-w-[320px] text-[32px] font-semibold leading-[1.16] tracking-[-0.02em] text-text-inverse drop-shadow-sm sm:max-w-[420px] sm:text-[38px] md:max-w-[520px] md:text-[48px] lg:max-w-[760px] lg:text-[72px] lg:leading-[1.1]">
+          <h1 className="text-h2 lg:text-title w-full max-w-[361px] font-semibold leading-[1.16] tracking-[-0.02em] text-text-inverse drop-shadow-sm md:max-w-[363px] lg:max-w-[637px] lg:font-semibold lg:leading-[1.1]">
             {t.rich("Hero.title", {
               city: place,
               place,
@@ -92,7 +92,7 @@ export async function MarketHome({
         </div>
       </section>
 
-      <section className="border-b border-[var(--Border-Default,#CCD0D8)] bg-white">
+      <section className="bg-white">
         <BrandSlider city={market.city} brands={brands} />
       </section>
 

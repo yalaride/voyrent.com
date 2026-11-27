@@ -171,15 +171,15 @@ export function SearchPanel({
       onSubmit={onSubmit}
       className={
         isToolbar
-          ? "w-full lg:max-w-[330px] shrink-0"
-          : "mx-auto w-full max-w-[363px] sm:max-w-[490px] md:max-w-[561px] lg:max-w-[637px]"
+          ? "w-full shrink-0 lg:max-w-[330px]"
+          : "mx-auto w-full max-w-[361px] md:max-w-[561px] lg:max-w-[637px]"
       }
     >
       <div
         className={
           isToolbar
-            ? "relative flex h-11 w-full items-center rounded-full border border-white/25 bg-white/5 px-1.5 transition-colors focus-within:border-white/60 focus-within:bg-white/10"
-            : "relative flex h-[54px] w-full items-center rounded-full border border-white/50 bg-background-primary/60 p-[5px] shadow-large backdrop-blur-md transition-all focus-within:border-white focus-within:bg-background-primary focus-within:shadow-spread dark:border-white/15 dark:bg-black/40"
+            ? "relative flex h-11 w-full items-center rounded-[var(--radius-999)] border border-white/25 bg-white/5 px-1.5 transition-colors focus-within:border-white/60 focus-within:bg-white/10"
+            : "relative flex h-[54px] w-full items-center justify-between gap-[var(--spacing-space-8)] rounded-[var(--radius-999)] border border-white/50 bg-background-primary/60 py-[var(--spacing-space-0)] ps-[var(--spacing-space-16)] pe-[5px] shadow-large backdrop-blur-md transition-all focus-within:border-white focus-within:bg-background-primary focus-within:shadow-spread dark:border-white/15 dark:bg-black/40"
         }
         onBlur={(event) => {
           if (
@@ -190,10 +190,11 @@ export function SearchPanel({
         }}
       >
         <Search
+          strokeWidth={2}
           className={
             isToolbar
               ? "pointer-events-none ms-2.5 size-4 shrink-0 text-white/70"
-              : "pointer-events-none ms-3.5 size-5 shrink-0 text-text-secondary"
+              : "pointer-events-none size-6 shrink-0 text-text-primary"
           }
         />
 
@@ -217,8 +218,8 @@ export function SearchPanel({
           aria-autocomplete="list"
           className={
             isToolbar
-              ? "h-full flex-1 bg-transparent px-2.5 text-sm text-white placeholder:text-white/70 focus:outline-none"
-              : "h-full flex-1 bg-transparent px-3 text-sm text-text-primary placeholder:text-text-primary focus:outline-none sm:text-base"
+              ? "h-full min-w-0 flex-1 bg-transparent px-2.5 text-sm text-white placeholder:text-white/70 focus:outline-none"
+              : "h-full min-w-0 flex-1 bg-transparent font-sans text-[length:var(--text-body)] font-medium leading-[var(--text-body--line-height)] tracking-normal text-text-primary placeholder:text-text-primary focus:outline-none"
           }
         />
 
@@ -234,7 +235,7 @@ export function SearchPanel({
                   navigate({ q: undefined });
                 }
               }}
-              className="me-1.5 flex size-7 shrink-0 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+              className="me-1.5 flex size-7 shrink-0 items-center justify-center rounded-[var(--radius-999)] text-white/70 transition-colors hover:bg-white/10 hover:text-white"
             >
               <X className="size-3.5" />
             </button>
@@ -243,9 +244,9 @@ export function SearchPanel({
           <Button
             type="submit"
             aria-label={t("submit")}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary p-0 text-primary-foreground shadow-sm transition-all hover:bg-primary/90 lg:h-11 lg:w-auto lg:px-6"
+            className="flex h-[var(--spacing-dim-44)] w-[var(--spacing-dim-44)] shrink-0 items-center justify-center rounded-[var(--radius-999)] bg-primary p-0 text-primary-foreground shadow-sm transition-all hover:bg-primary/90 lg:w-auto lg:min-w-[147px] lg:gap-[var(--spacing-space-10)] lg:px-[var(--spacing-space-24)] lg:py-[var(--spacing-space-10)]"
           >
-            <span className="hidden text-sm font-medium lg:inline">
+            <span className="hidden whitespace-nowrap text-sm font-medium lg:inline">
               {t("submit")}
             </span>
             <ArrowRight className="size-5 lg:hidden rtl:rotate-180" />

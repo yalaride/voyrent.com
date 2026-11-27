@@ -57,7 +57,7 @@
   },
   "Hero": {
     "eyebrow": "Local suppliers. No platform fee.",
-    "title": "Rent a car in {city}",
+    "title": "<line>Rent a Car in</line><line>{city}</line>",
     "titlePrefix": "Rent a car in",
     "subtitle": "Compare makes, models, and car types across {country}. Daily and monthly rates, shown in the currency you choose."
   },

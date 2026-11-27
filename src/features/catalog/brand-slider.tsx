@@ -200,12 +200,12 @@ function BrandSliderView({
   if (brands.length === 0) return null;
 
   return (
-    <div className="relative flex w-full items-center gap-[10px] px-4 py-3">
+    <div className="relative flex w-full items-center gap-[var(--spacing-space-10)]  px-[var(--spacing-space-16)] py-[var(--spacing-space-12)]">
       <button
         type="button"
         onClick={() => scroll("left")}
         aria-label={prevLabel}
-        className="hidden h-[40px] w-[30px] shrink-0 items-center justify-center rounded-[999px] border border-[var(--Border-Default,#CCD0D8)] bg-white text-neutral-700 transition hover:bg-neutral-50 active:scale-95 md:flex"
+        className="hidden h-[var(--spacing-dim-40)] w-[var(--spacing-space-30)] shrink-0 items-center justify-center rounded-[var(--radius-999)] border border-border-default bg-background-primary text-text-primary transition hover:bg-background-secondary active:scale-95 md:flex"
       >
         <ChevronLeft className="h-[14px] w-[14px] transition-transform rtl:rotate-180" />
       </button>
@@ -213,7 +213,7 @@ function BrandSliderView({
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="no-scrollbar flex min-w-0 flex-1 items-center gap-[10px] overflow-x-auto py-1 [-webkit-overflow-scrolling:touch]"
+        className="no-scrollbar flex min-w-0 flex-1 items-center gap-[var(--spacing-space-10)] overflow-x-auto py-[var(--spacing-space-4)] [-webkit-overflow-scrolling:touch]"
       >
         {COPIES.map((copyIndex) =>
           brands.map((brand, brandIndex) => (
@@ -222,15 +222,15 @@ function BrandSliderView({
               href={catalogPath(city, { make: brand.slug })}
               aria-hidden={copyIndex !== 1}
               tabIndex={copyIndex !== 1 ? -1 : undefined}
-              className="flex h-[40px] min-w-[128px] shrink-0 items-center justify-center gap-[6px] rounded-[999px] border border-[var(--Border-Default,#CCD0D8)] bg-white px-[14px] py-0 transition hover:border-neutral-900 hover:shadow-xs"
+              className="flex h-[var(--spacing-dim-40)] w-auto shrink-0 items-center justify-center gap-[var(--spacing-space-4)] rounded-[var(--radius-999)] border border-border-default bg-background-primary py-[var(--spacing-space-0)] ps-[var(--spacing-space-12)] pe-[var(--spacing-space-16)] transition hover:border-text-primary"
             >
-              <span className="relative flex h-[20px] w-[20px] shrink-0 items-center justify-center">
+              <span className="relative flex h-[var(--spacing-space-20)] w-[var(--spacing-space-20)] shrink-0 items-center justify-center">
                 {brand.logo ? (
                   <Image
                     src={brand.logo}
                     alt=""
-                    width={24}
-                    height={24}
+                    width={20}
+                    height={20}
                     className="h-full w-full object-contain"
                   />
                 ) : (
@@ -239,7 +239,7 @@ function BrandSliderView({
                   </span>
                 )}
               </span>
-              <span className="truncate text-xs font-semibold leading-none text-neutral-800">
+              <span className="whitespace-nowrap text-center font-sans text-[13px] font-medium leading-[1.1] tracking-normal text-text-primary">
                 {brand.name}
               </span>
             </Link>
@@ -251,7 +251,7 @@ function BrandSliderView({
         type="button"
         onClick={() => scroll("right")}
         aria-label={nextLabel}
-        className="hidden h-[40px] w-[30px] shrink-0 items-center justify-center rounded-[999px] border border-[var(--Border-Default,#CCD0D8)] bg-white text-neutral-700 transition hover:bg-neutral-50 active:scale-95 md:flex"
+        className="hidden h-[var(--spacing-dim-40)] w-[var(--spacing-space-30)] shrink-0 items-center justify-center rounded-[var(--radius-999)] border border-border-default bg-background-primary text-text-primary transition hover:bg-background-secondary active:scale-95 md:flex"
       >
         <ChevronRight className="h-[14px] w-[14px] transition-transform rtl:rotate-180" />
       </button>

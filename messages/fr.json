@@ -58,7 +58,7 @@
   },
   "Hero": {
     "eyebrow": "Loueurs locaux. Aucun frais de plateforme.",
-    "title": "Louer une voiture à {city}",
+    "title": "<line>Louer une voiture à</line><line>{city}</line>",
     "titlePrefix": "Louer une voiture à",
     "subtitle": "Comparez marques, modèles et types de voiture en {country}. Tarifs journaliers et mensuels, dans la devise de votre choix."
   },

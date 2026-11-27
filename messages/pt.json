@@ -57,7 +57,7 @@
   },
   "Hero": {
     "eyebrow": "Empresas locais. Sem taxa da plataforma.",
-    "title": "Alugue um carro em {city}",
+    "title": "<line>Alugue um carro em</line><line>{city}</line>",
     "titlePrefix": "Alugue um carro em",
     "subtitle": "Compare marcas, modelos e tipos de carro em {country}. Preços diários e mensais, na moeda que escolher."
   },

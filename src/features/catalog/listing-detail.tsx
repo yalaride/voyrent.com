@@ -674,7 +674,7 @@ export async function ListingDetail({
             {/* 1. Title + Location + Last Updated + Action Buttons */}
             <header className="order-1 flex flex-col gap-[var(--spacing-space-12)] sm:gap-[var(--spacing-space-16)]">
               <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-                <h1 className="text-[22px] font-semibold leading-[1.3] tracking-tight text-text-primary sm:text-[28px] lg:text-[32px] lg:leading-[1.35]">
+                <h1 className="text-[22px] font-semibold leading-[1.3] tracking-tight text-text-primary sm:text-[26px] lg:text-[32px] lg:leading-[1.35]">
                   {fullTitle}
                 </h1>
 

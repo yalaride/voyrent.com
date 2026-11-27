@@ -57,7 +57,7 @@
   },
   "Hero": {
     "eyebrow": "Empresas locales. Sin comisión de plataforma.",
-    "title": "Alquila un coche en {city}",
+    "title": "<line>Alquila un coche en</line><line>{city}</line>",
     "titlePrefix": "Alquila un coche en",
     "subtitle": "Compara marcas, modelos y tipos de coche en {country}. Tarifas diarias y mensuales, en la moneda que elijas."
   },

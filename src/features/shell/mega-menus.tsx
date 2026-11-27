@@ -43,7 +43,10 @@ export type HeaderNavModel = {
   viewAllBrandsHref?: string;
 };
 
-function extractBrandSlug(brand: { name: string; href: string }): string {
+export function extractBrandSlug(brand: {
+  name: string;
+  href: string;
+}): string {
   const makeMatch = brand.href.match(/[?&]make=([^&]+)/i);
   if (makeMatch?.[1]) {
     return decodeURIComponent(makeMatch[1]).toLowerCase();
@@ -55,7 +58,7 @@ function extractBrandSlug(brand: { name: string; href: string }): string {
     .replace(/^-|-$/g, "");
 }
 
-function buildBrandHref(
+export function buildBrandHref(
   slug: string,
   sampleHref: string | undefined,
   fallbackBaseHref: string,
@@ -76,7 +79,7 @@ function buildBrandHref(
 }
 
 const triggerClass =
-  "flex h-full items-center gap-1 text-body-small font-medium text-white/85 transition-colors hover:text-white group-data-[transparent=false]:text-text-primary group-data-[transparent=false]:hover:text-link";
+  "flex h-full items-center gap-1 text-body font-medium leading-[1.5] text-text-inverse/85 transition-colors hover:text-text-inverse group-data-[transparent=false]:text-text-primary group-data-[transparent=false]:hover:text-link in-data-[mega-menu-open=true]:text-text-primary in-data-[mega-menu-open=true]:hover:text-link";
 
 export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
   const pathname = usePathname();
@@ -84,12 +87,10 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
   const tHeaderNav = useTranslations("HeaderNav");
 
   const rootRef = useRef<HTMLDivElement>(null);
-  const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [open, setOpen] = useState<"rent" | "brands" | null>(null);
   const [query, setQuery] = useState("");
   const [path, setPath] = useState(pathname);
-  const [isScrolling, setIsScrolling] = useState(false);
 
   if (path !== pathname) {
     setPath(pathname);
@@ -101,27 +102,8 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
     setOpen(next);
     if (next !== "brands") {
       setQuery("");
-      setIsScrolling(false);
     }
   }
-
-  function handleBrandsScroll() {
-    setIsScrolling(true);
-    if (scrollTimerRef.current) {
-      clearTimeout(scrollTimerRef.current);
-    }
-    scrollTimerRef.current = setTimeout(() => {
-      setIsScrolling(false);
-    }, 800);
-  }
-
-  useEffect(() => {
-    return () => {
-      if (scrollTimerRef.current) {
-        clearTimeout(scrollTimerRef.current);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -140,7 +122,6 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
     const close = () => {
       setOpen(null);
       setQuery("");
-      setIsScrolling(false);
     };
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") close();
@@ -239,25 +220,18 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
   const brandsCountUnit = nav.brandsCountUnit ?? tHeaderNav("brandsCountUnit");
 
   return (
-    <div
-      ref={rootRef}
-      className="flex h-full items-center gap-4 md:gap-6"
-      onMouseLeave={() => show(null)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) show(null);
-      }}
-    >
-      <div className="h-full" onMouseEnter={() => show("rent")}>
-        <Link
-          href={nav.columns[0]?.links[0]?.href ?? "/"}
-          prefetch={false}
+    <div ref={rootRef} className="flex h-full items-center gap-4 md:gap-6">
+      <div className="h-full">
+        <button
+          type="button"
           aria-expanded={open === "rent"}
           aria-haspopup="true"
           className={cn(
             triggerClass,
             open === "rent" &&
-              "text-primary group-data-[transparent=false]:text-primary",
+              "text-primary group-data-[transparent=false]:text-primary in-data-[mega-menu-open=true]:text-primary",
           )}
+          onClick={() => show(open === "rent" ? null : "rent")}
         >
           <span>{nav.rentLabel}</span>
           <ChevronDownIcon
@@ -267,10 +241,10 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
             )}
             aria-hidden="true"
           />
-        </Link>
+        </button>
       </div>
 
-      <div className="h-full" onMouseEnter={() => show("brands")}>
+      <div className="h-full">
         <button
           type="button"
           aria-expanded={open === "brands"}
@@ -278,9 +252,9 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
           className={cn(
             triggerClass,
             open === "brands" &&
-              "text-primary group-data-[transparent=false]:text-primary",
+              "text-primary group-data-[transparent=false]:text-primary in-data-[mega-menu-open=true]:text-primary",
           )}
-          onClick={() => show("brands")}
+          onClick={() => show(open === "brands" ? null : "brands")}
         >
           <span>{nav.brandsLabel}</span>
           <ChevronDownIcon
@@ -297,104 +271,109 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
         href="/dealer-plans"
         prefetch={false}
         className={triggerClass}
-        onMouseEnter={() => show(null)}
+        onClick={() => show(null)}
       >
         {nav.dealersLabel}
       </Link>
 
-      {/* Rent a Car Mega Menu */}
+      {/* Rent a Car Full-Width Mega Menu */}
       {open === "rent" ? (
-        <div className="absolute inset-x-0 top-full z-50 px-3 sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-h-[calc(100dvh-7rem)] w-full max-w-[1160px] flex-col overflow-hidden rounded-[16px] bg-background-primary text-text-primary shadow-[0px_16px_40px_-8px_#121A2924]">
-            <div className="flex-1 overflow-y-auto">
-              <div
-                className={cn(
-                  "grid gap-y-4 px-2 py-4 sm:gap-y-5 sm:px-4 sm:py-5",
-                  rentColumns.length >= 4
-                    ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-                    : "grid-cols-1 sm:grid-cols-3",
-                )}
-              >
-                {rentColumns.map((column, index) => (
-                  <Fragment key={column.title}>
-                    <div
-                      className={cn(
-                        "px-3 sm:px-4",
-                        rentColumns.length >= 4
-                          ? cn(
-                              index > 0 &&
-                                "border-t border-border-default/50 pt-4 sm:border-t-0 sm:pt-0 lg:border-s lg:border-border-default/50",
-                              index % 2 === 1 &&
-                                "sm:border-s sm:border-border-default/50",
-                            )
-                          : index > 0 &&
-                              "border-t border-border-default/50 pt-4 sm:border-t-0 sm:border-s sm:border-border-default/50 sm:pt-0",
-                      )}
-                    >
-                      <p className="px-3 text-[12px] font-medium leading-[1.1] tracking-[0.06em] text-primary uppercase sm:text-[13px]">
-                        {column.title}
-                      </p>
-                      <ul className="mt-2 flex flex-col gap-0.5">
-                        {column.links.map((link) => (
-                          <li key={`${link.href}-${link.label}`}>
-                            <MenuLink item={link} />
-                          </li>
-                        ))}
-                      </ul>
+        <div className="absolute top-full left-1/2 z-50 w-screen -translate-x-1/2 border-t border-border-subtle bg-background-primary text-text-primary shadow-[0px_16px_40px_-8px_#121A2924]">
+          <div className="mx-auto flex max-h-[calc(100dvh-6rem)] w-full max-w-[1440px] flex-col overflow-y-auto px-4 py-6 sm:px-6 lg:px-8">
+            <div
+              className={cn(
+                "grid gap-y-5",
+                rentColumns.length >= 4
+                  ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+                  : "grid-cols-1 sm:grid-cols-3",
+              )}
+            >
+              {rentColumns.map((column, index) => (
+                <Fragment key={column.title}>
+                  <div
+                    className={cn(
+                      "px-2 sm:px-5",
+                      index === 0 && "sm:ps-0",
+                      rentColumns.length >= 4
+                        ? cn(
+                            index > 0 &&
+                              "border-t border-border-subtle pt-4 sm:border-t-0 sm:pt-0 lg:border-s lg:border-border-subtle",
+                            index % 2 === 1 &&
+                              "sm:border-s sm:border-border-subtle",
+                          )
+                        : index > 0 &&
+                            "border-t border-border-subtle pt-4 sm:border-t-0 sm:border-s sm:border-border-subtle sm:pt-0",
+                    )}
+                  >
+                    <p className="px-3 text-body-small font-medium text-primary">
+                      {column.title}
+                    </p>
+                    <ul className="mt-2 flex flex-col gap-0.5">
+                      {column.links.map((link) => (
+                        <li key={`${link.href}-${link.label}`}>
+                          <MenuLink item={link} onSelect={() => show(null)} />
+                        </li>
+                      ))}
+                    </ul>
 
-                      {index === 0 &&
-                      nav.columns.length >= 4 &&
-                      nav.dealers.links.length > 0 ? (
-                        <div className="mt-4 border-t border-border-default/50 pt-3.5">
-                          <p className="px-3 text-[12px] font-medium leading-[1.1] tracking-[0.06em] text-text-secondary uppercase sm:text-[13px]">
-                            {nav.dealers.title}
-                          </p>
-                          <ul className="mt-1.5 flex flex-col gap-0.5">
-                            {nav.dealers.links.map((link) => (
-                              <li key={`${link.href}-${link.label}`}>
-                                <MenuLink item={link} />
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
-
-                      {column.extra ? (
-                        <div className="mt-4 border-t border-border-default/50 pt-3.5">
-                          <p className="px-3 text-[12px] font-medium leading-[1.1] tracking-[0.06em] text-text-secondary uppercase sm:text-[13px]">
-                            {column.extra.title}
-                          </p>
-                          <ul className="mt-1.5 flex flex-col gap-0.5">
-                            {column.extra.links.map((link) => (
-                              <li key={`${link.href}-${link.label}`}>
-                                <MenuLink item={link} />
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
-                    </div>
-
-                    {rentColumns.length >= 4 && index === 1 ? (
-                      <div
-                        aria-hidden="true"
-                        className="hidden h-px bg-border-default/50 sm:col-span-2 sm:mx-3 sm:block lg:hidden"
-                      />
+                    {index === 0 &&
+                    nav.columns.length >= 4 &&
+                    nav.dealers.links.length > 0 ? (
+                      <div className="mt-4 border-t border-border-subtle pt-3.5">
+                        <p className="px-3 text-body-small font-medium text-primary">
+                          {nav.dealers.title}
+                        </p>
+                        <ul className="mt-1.5 flex flex-col gap-0.5">
+                          {nav.dealers.links.map((link) => (
+                            <li key={`${link.href}-${link.label}`}>
+                              <MenuLink
+                                item={link}
+                                onSelect={() => show(null)}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     ) : null}
-                  </Fragment>
-                ))}
-              </div>
+
+                    {column.extra ? (
+                      <div className="mt-4 border-t border-border-subtle pt-3.5">
+                        <p className="px-3 text-body-small font-medium text-primary">
+                          {column.extra.title}
+                        </p>
+                        <ul className="mt-1.5 flex flex-col gap-0.5">
+                          {column.extra.links.map((link) => (
+                            <li key={`${link.href}-${link.label}`}>
+                              <MenuLink
+                                item={link}
+                                onSelect={() => show(null)}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </div>
+
+                  {rentColumns.length >= 4 && index === 1 ? (
+                    <div
+                      aria-hidden="true"
+                      className="hidden h-px bg-border-subtle sm:col-span-2 sm:mx-3 sm:block lg:hidden"
+                    />
+                  ) : null}
+                </Fragment>
+              ))}
             </div>
           </div>
         </div>
       ) : null}
 
-      {/* Brands Mega Menu */}
+      {/* Car Brands Full-Width Mega Menu */}
       {open === "brands" ? (
-        <div className="absolute inset-x-0 top-full z-50 px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-h-[calc(100dvh-7rem)] w-full max-w-[880px] flex-col overflow-hidden rounded-[16px] bg-background-primary text-text-primary shadow-[0px_16px_40px_-8px_#121A2924]">
-            <div className="flex shrink-0 flex-col items-stretch justify-between gap-2.5 px-4 py-3 sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-3.5">
-              <label className="relative flex h-[42px] w-full items-center gap-2 rounded-full border border-border-default/70 bg-background-primary px-4 py-2 transition-colors focus-within:border-primary sm:h-[44px] sm:max-w-[380px]">
+        <div className="absolute top-full left-1/2 z-50 w-screen -translate-x-1/2 border-t border-border-subtle bg-background-primary text-text-primary shadow-[0px_16px_40px_-8px_#121A2924]">
+          <div className="mx-auto flex max-h-[calc(100dvh-6rem)] w-full max-w-[1440px] flex-col px-4 py-6 sm:px-6 lg:px-8">
+            <div className="flex shrink-0 flex-col items-stretch justify-between gap-3 pb-5 sm:flex-row sm:items-center sm:gap-4">
+              <label className="relative flex h-11 w-full items-center gap-2 rounded-full border border-border-default bg-background-primary px-4 py-2 transition-colors focus-within:border-primary sm:max-w-[380px]">
                 <SearchIcon
                   className="size-4 shrink-0 text-text-secondary"
                   aria-hidden="true"
@@ -403,38 +382,30 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={nav.searchPlaceholder}
-                  className="h-5 w-full bg-transparent text-sm text-text-primary outline-none placeholder:text-text-secondary"
+                  className="h-5 w-full bg-transparent text-body-small text-text-primary outline-none placeholder:text-text-secondary"
                 />
               </label>
 
-              <span className="text-xs font-medium text-text-secondary">
+              <span className="text-body-small font-normal text-text-secondary">
                 {brands.length} {brandsCountUnit}
               </span>
             </div>
 
             {brands.length === 0 ? (
-              <p className="flex h-[200px] items-center justify-center px-6 text-sm text-text-secondary sm:h-[270px]">
+              <p className="flex h-[200px] items-center justify-center px-6 text-body-small text-text-secondary sm:h-[260px]">
                 {nav.emptyBrands}
               </p>
             ) : (
-              <ul
-                onScroll={handleBrandsScroll}
-                className={cn(
-                  "grid min-h-[180px] max-h-[44dvh] flex-1 content-start grid-cols-1 gap-x-3 gap-y-0.5 overflow-y-auto px-4 pt-0.5 pb-4 min-[420px]:grid-cols-2 sm:h-[270px] sm:max-h-none sm:grid-cols-3 sm:gap-x-4 sm:px-6 sm:pt-1 lg:grid-cols-4",
-                  "[scrollbar-width:thin] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:transition-colors",
-                  isScrolling
-                    ? "[scrollbar-color:rgba(15,23,42,0.25)_transparent] [&::-webkit-scrollbar-thumb]:bg-slate-900/25"
-                    : "[scrollbar-color:transparent_transparent] [&::-webkit-scrollbar-thumb]:bg-transparent",
-                )}
-              >
+              <ul className="filter-scrollbar grid min-h-[180px] max-h-[260px] flex-1 content-start grid-cols-1 gap-x-4 gap-y-1.5 overflow-y-auto pe-2 min-[420px]:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                 {brands.map((brand) => (
                   <li key={`${brand.slug}-${brand.href}`}>
                     <Link
                       href={brand.href}
                       prefetch={false}
-                      className="group/brand flex min-h-[36px] items-center gap-2.5 rounded-[8px] px-2.5 py-1.5 text-[14px] font-normal text-text-primary transition-colors hover:bg-background-secondary"
+                      onClick={() => show(null)}
+                      className="group/brand flex min-h-[38px] items-center gap-2.5 rounded-[8px] px-2.5 py-1.5 text-body-small font-normal text-text-primary transition-colors hover:bg-primary/10 hover:text-primary"
                     >
-                      <span className="relative flex size-7 shrink-0 items-center justify-center rounded-full border border-border-default/60 bg-white p-1.5">
+                      <span className="relative flex size-7 shrink-0 items-center justify-center rounded-full border border-border-subtle bg-background-primary p-1.5">
                         {brand.logo ? (
                           <Image
                             src={brand.logo}
@@ -452,7 +423,7 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
                       <span className="min-w-0 truncate">
                         {brand.name}
                         {brand.countLabel ? (
-                          <span className="text-xs text-text-secondary">
+                          <span className="text-caption text-text-secondary group-hover/brand:text-primary/80">
                             {" "}
                             ({brand.countLabel})
                           </span>
@@ -481,22 +452,29 @@ function getBadgeClasses(badge: string, variant?: NavLinkBadgeVariant): string {
 
   switch (resolved) {
     case "hot":
-      return "bg-[#EF4444] text-white";
+      return "bg-danger text-text-inverse";
     case "new":
-      return "bg-primary text-white";
+      return "bg-primary text-text-inverse";
     case "save":
     case "discount":
     default:
-      return "bg-[#16A34A] text-white";
+      return "bg-success text-text-inverse";
   }
 }
 
-function MenuLink({ item }: { item: NavLinkItem }) {
+function MenuLink({
+  item,
+  onSelect,
+}: {
+  item: NavLinkItem;
+  onSelect?: () => void;
+}) {
   return (
     <Link
       href={item.href}
       prefetch={false}
-      className="flex min-h-[34px] w-full items-center justify-between gap-3 rounded-[8px] px-3 py-1.5 text-[14px] font-normal leading-[1.4] text-text-primary transition-colors hover:bg-background-secondary sm:text-[15px]"
+      onClick={onSelect}
+      className="flex min-h-[36px] w-full items-center justify-between gap-3 rounded-[8px] px-3 py-1.5 text-body-small font-normal leading-[1.4] text-text-primary transition-colors hover:bg-primary/10 hover:text-primary sm:text-[15px]"
     >
       <span className="truncate">{item.label}</span>
       {item.badge ? (
