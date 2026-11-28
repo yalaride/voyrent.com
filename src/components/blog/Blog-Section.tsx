@@ -75,7 +75,7 @@ export async function BlogSection({
           <Button
             variant="outline-brand"
             size="sm"
-            className="w-fit shrink-0 rounded-full"
+            className="w-fit shrink-0 rounded-full border-primary"
             asChild
           >
             <Link href={viewAllHref}>

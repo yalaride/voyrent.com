@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ChevronDownIcon, SearchIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
+import LayoutWrapper from "@/components/layout/LayoutWrapper";
 
 import { Link } from "@/i18n/navigation";
 import { BRAND_LOGOS, formatBrandName } from "@/domain/catalog/brand-logos";
@@ -87,6 +88,7 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
   const tHeaderNav = useTranslations("HeaderNav");
 
   const rootRef = useRef<HTMLDivElement>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [open, setOpen] = useState<"rent" | "brands" | null>(null);
   const [query, setQuery] = useState("");
@@ -98,12 +100,36 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
     setQuery("");
   }
 
+  function cancelClose() {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }
+
   function show(next: "rent" | "brands" | null) {
+    cancelClose();
     setOpen(next);
     if (next !== "brands") {
       setQuery("");
     }
   }
+
+  function scheduleClose() {
+    cancelClose();
+    closeTimerRef.current = setTimeout(() => {
+      setOpen(null);
+      setQuery("");
+    }, 120);
+  }
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -120,6 +146,7 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
   useEffect(() => {
     if (!open) return;
     const close = () => {
+      cancelClose();
       setOpen(null);
       setQuery("");
     };
@@ -220,8 +247,16 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
   const brandsCountUnit = nav.brandsCountUnit ?? tHeaderNav("brandsCountUnit");
 
   return (
-    <div ref={rootRef} className="flex h-full items-center gap-4 md:gap-6">
-      <div className="h-full">
+    <div
+      ref={rootRef}
+      className="flex h-full items-center gap-4 md:gap-6"
+      onMouseEnter={cancelClose}
+      onMouseLeave={scheduleClose}
+    >
+      <div
+        className="flex h-full items-center"
+        onMouseEnter={() => show("rent")}
+      >
         <button
           type="button"
           aria-expanded={open === "rent"}
@@ -244,7 +279,10 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
         </button>
       </div>
 
-      <div className="h-full">
+      <div
+        className="flex h-full items-center"
+        onMouseEnter={() => show("brands")}
+      >
         <button
           type="button"
           aria-expanded={open === "brands"}
@@ -271,6 +309,7 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
         href="/dealer-plans"
         prefetch={false}
         className={triggerClass}
+        onMouseEnter={() => show(null)}
         onClick={() => show(null)}
       >
         {nav.dealersLabel}
@@ -278,9 +317,11 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
 
       {/* Rent a Car Full-Width Mega Menu */}
       {open === "rent" ? (
-        <div className="absolute top-full left-1/2 z-50 w-screen -translate-x-1/2 border-b border-border-subtle bg-background-primary text-text-primary shadow-[0px_24px_32px_-12px_#121A2924]">
-          {" "}
-          <div className="mx-auto flex max-h-[calc(100dvh-6rem)] w-full max-w-[1440px] flex-col overflow-y-auto px-4 py-6 sm:px-6 lg:px-8">
+        <div
+          onMouseEnter={cancelClose}
+          className="absolute top-full left-1/2 z-50 w-screen -translate-x-1/2 border-b border-border-subtle bg-background-primary text-text-primary shadow-[0px_24px_32px_-12px_#121A2924]"
+        >
+          <LayoutWrapper className="flex max-h-[calc(100dvh-6rem)] flex-col overflow-y-auto py-6">
             <div
               className={cn(
                 "grid gap-y-5",
@@ -365,15 +406,17 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
                 </Fragment>
               ))}
             </div>
-          </div>
+          </LayoutWrapper>
         </div>
       ) : null}
 
       {/* Car Brands Full-Width Mega Menu */}
       {open === "brands" ? (
-        <div className="absolute top-full left-1/2 z-50 w-screen -translate-x-1/2 border-b border-border-subtle bg-background-primary text-text-primary shadow-[0px_24px_32px_-12px_#121A2924]">
-          {" "}
-          <div className="mx-auto flex max-h-[calc(100dvh-6rem)] w-full max-w-[1440px] flex-col px-4 py-6 sm:px-6 lg:px-8">
+        <div
+          onMouseEnter={cancelClose}
+          className="absolute top-full left-1/2 z-50 w-screen -translate-x-1/2 border-b border-border-subtle bg-background-primary text-text-primary shadow-[0px_24px_32px_-12px_#121A2924]"
+        >
+          <LayoutWrapper className="flex max-h-[calc(100dvh-6rem)] flex-col py-6">
             <div className="flex shrink-0 flex-col items-stretch justify-between gap-3 pb-5 sm:flex-row sm:items-center sm:gap-4">
               <label className="relative flex h-11 w-full items-center gap-2 rounded-full border border-border-default bg-background-primary px-4 py-2 transition-colors focus-within:border-primary sm:max-w-[380px]">
                 <SearchIcon
@@ -436,7 +479,7 @@ export function DesktopMenus({ nav }: { nav: HeaderNavModel }) {
                 ))}
               </ul>
             )}
-          </div>
+          </LayoutWrapper>
         </div>
       ) : null}
     </div>

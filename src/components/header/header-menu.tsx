@@ -63,16 +63,23 @@ export function HeaderMenu({
     if (!regionOpen) {
       return;
     }
-    document.getElementById("region-selected")?.scrollIntoView({ block: "nearest" });
+    document
+      .getElementById("region-selected")
+      ?.scrollIntoView({ block: "nearest" });
   }, [regionOpen, draftRegion.city, draftRegion.country]);
 
   function capitalOf(country: MarketGroup) {
     const slug = getCountry(country.code)?.capital;
-    return country.cities.find((city) => city.slug === slug) ?? country.cities[0];
+    return (
+      country.cities.find((city) => city.slug === slug) ?? country.cities[0]
+    );
   }
 
-  const countryCode =
-    (draftRegion.country || active?.country || locale?.split("-")[0]?.toUpperCase())?.toUpperCase();
+  const countryCode = (
+    draftRegion.country ||
+    active?.country ||
+    locale?.split("-")[0]?.toUpperCase()
+  )?.toUpperCase();
   const FlagIcon =
     countryCode && hasFlag(countryCode)
       ? (
@@ -138,20 +145,20 @@ export function HeaderMenu({
         <Button
           variant="ghost"
           size="sm"
-          className="h-6 gap-1 border-none bg-transparent px-0 text-white hover:bg-white/10 hover:text-white group-data-[transparent=false]:text-text-primary group-data-[transparent=false]:hover:bg-primary/10 group-data-[transparent=false]:hover:text-primary lg:h-8 lg:gap-2 lg:px-2"
+          className="h-6 gap-1.5 border-none bg-transparent px-0 text-body font-medium leading-[1.5] text-text-inverse hover:bg-white/10 hover:text-text-inverse group-data-[transparent=false]:text-text-primary group-data-[transparent=false]:hover:bg-primary/10 group-data-[transparent=false]:hover:text-primary in-data-[mega-menu-open=true]:text-text-primary in-data-[mega-menu-open=true]:hover:bg-primary/10 in-data-[mega-menu-open=true]:hover:text-primary lg:h-9 lg:gap-2 lg:px-2"
           aria-label={`${currency} - ${active?.placeName ?? t("menu")}`}
         >
-          <span className="text-sm font-semibold tracking-wide">
+          <span className="text-body font-medium leading-[1.5] tracking-wide">
             {currency}
           </span>
-          <span className="text-xs opacity-80">•</span>
+          <span className="text-body leading-[1.5] opacity-80">•</span>
           {FlagIcon ? (
             <FlagIcon
-              className="h-3.5 w-5 shrink-0 rounded-[2px] object-cover shadow-xs"
+              className="h-[18px]! w-[27px]! shrink-0 rounded-[2px] shadow-xs"
               title={draftRegion.placeName}
             />
           ) : (
-            <Settings2Icon className="size-4" />
+            <Settings2Icon className="size-5" />
           )}
         </Button>
       </DialogTrigger>
@@ -218,60 +225,60 @@ export function HeaderMenu({
                 >
                   {groups.map((country) => {
                     return (
-                    <section key={country.code} className="mb-2 last:mb-0">
-                      <button
-                        type="button"
-                        className="flex w-full cursor-pointer rounded-md px-2 py-1.5 text-start text-sm font-semibold text-text-primary transition-colors hover:bg-primary/10 hover:text-primary"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          const capital = capitalOf(country);
-                          if (!capital) {
-                            return;
-                          }
-                          setDraftRegion({
-                            country: country.code,
-                            city: capital.slug,
-                            placeName: capital.name,
-                          });
-                          setRegionOpen(false);
-                        }}
-                      >
-                        {country.name}
-                      </button>
+                      <section key={country.code} className="mb-2 last:mb-0">
+                        <button
+                          type="button"
+                          className="flex w-full cursor-pointer rounded-md px-2 py-1.5 text-start text-sm font-semibold text-text-primary transition-colors hover:bg-primary/10 hover:text-primary"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            const capital = capitalOf(country);
+                            if (!capital) {
+                              return;
+                            }
+                            setDraftRegion({
+                              country: country.code,
+                              city: capital.slug,
+                              placeName: capital.name,
+                            });
+                            setRegionOpen(false);
+                          }}
+                        >
+                          {country.name}
+                        </button>
 
-                      <div className="grid gap-0.5 ps-3">
-                        {country.cities.map((city) => {
-                          const selected =
-                            draftRegion.country === country.code &&
-                            draftRegion.city === city.slug;
+                        <div className="grid gap-0.5 ps-3">
+                          {country.cities.map((city) => {
+                            const selected =
+                              draftRegion.country === country.code &&
+                              draftRegion.city === city.slug;
 
-                          return (
-                          <button
-                            key={city.slug}
-                            id={selected ? "region-selected" : undefined}
-                            type="button"
-                            aria-current={selected ? "true" : undefined}
-                            className={`flex w-full cursor-pointer rounded-md px-2 py-1 text-start text-sm transition-colors hover:bg-primary/10 hover:text-primary ${
-                              selected
-                                ? "bg-primary/10 font-semibold text-primary"
-                                : "text-text-secondary"
-                            }`}
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              setDraftRegion({
-                                country: country.code,
-                                city: city.slug,
-                                placeName: city.name,
-                              });
-                              setRegionOpen(false);
-                            }}
-                          >
-                            {city.name}
-                          </button>
-                          );
-                        })}
-                      </div>
-                    </section>
+                            return (
+                              <button
+                                key={city.slug}
+                                id={selected ? "region-selected" : undefined}
+                                type="button"
+                                aria-current={selected ? "true" : undefined}
+                                className={`flex w-full cursor-pointer rounded-md px-2 py-1 text-start text-sm transition-colors hover:bg-primary/10 hover:text-primary ${
+                                  selected
+                                    ? "bg-primary/10 font-semibold text-primary"
+                                    : "text-text-secondary"
+                                }`}
+                                onClick={(event) => {
+                                  event.stopPropagation();
+                                  setDraftRegion({
+                                    country: country.code,
+                                    city: city.slug,
+                                    placeName: city.name,
+                                  });
+                                  setRegionOpen(false);
+                                }}
+                              >
+                                {city.name}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </section>
                     );
                   })}
                 </div>

@@ -179,7 +179,7 @@ export function SearchPanel({
         className={
           isToolbar
             ? "relative flex h-11 w-full items-center rounded-[var(--radius-999)] border border-white/25 bg-white/5 px-1.5 transition-colors focus-within:border-white/60 focus-within:bg-white/10"
-            : "relative flex h-[54px] w-full items-center justify-between gap-[var(--spacing-space-8)] rounded-[var(--radius-999)] border border-white/50 bg-background-primary/60 py-[var(--spacing-space-0)] ps-[var(--spacing-space-16)] pe-[5px] shadow-large backdrop-blur-md transition-all focus-within:border-white focus-within:bg-background-primary focus-within:shadow-spread dark:border-white/15 dark:bg-black/40"
+            : "relative flex h-[54px] w-full items-center justify-between gap-[var(--spacing-space-8)] rounded-[var(--radius-999)] border border-white/50 bg-[#CFCFCF] py-[var(--spacing-space-0)] ps-[var(--spacing-space-16)] pe-[5px] transition-all focus-within:border-white focus-within:bg-white focus-within:shadow-spread dark:border-white/15"
         }
         onBlur={(event) => {
           if (

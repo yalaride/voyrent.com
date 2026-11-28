@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
-import { Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
+import { Google_Sans_Flex, Noto_Sans_Arabic } from "next/font/google";
 import { hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
@@ -15,10 +15,12 @@ import { organizationJsonLd, rootVerification } from "@/server/seo/metadata";
 import { siteOrigin } from "@/server/seo/origins";
 import "../globals.css";
 
-const sans = Plus_Jakarta_Sans({
+const sans = Google_Sans_Flex({
   subsets: ["latin", "latin-ext"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-sans-latin",
   display: "swap",
+  adjustFontFallback: false,
 });
 
 const arabic = Noto_Sans_Arabic({

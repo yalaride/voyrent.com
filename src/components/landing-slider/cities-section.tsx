@@ -26,6 +26,14 @@ interface PopularCitiesSliderProps {
 const DEFAULT_CARD_WIDTH = 311;
 const CARD_GAP = 12;
 
+// Make sure these match the exact filenames inside your public/ folder
+const FALLBACK_CITY_IMAGES = [
+  "/popular-city/image-1.jpg",
+  "/popular-city/image-2.jpg",
+  "/popular-city/image-3.jpg",
+  "/popular-city/image-4.jpg",
+] as const;
+
 export function PopularCitiesSlider({
   countryName,
   cities,
@@ -37,6 +45,7 @@ export function PopularCitiesSlider({
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
   const updateScrollButtons = useCallback(() => {
     const el = trackRef.current;
@@ -125,45 +134,60 @@ export function PopularCitiesSlider({
           onScroll={updateScrollButtons}
           className="-me-4 mt-4 flex h-[200px] touch-pan-x snap-x snap-mandatory gap-[var(--spacing-space-12)] overflow-x-auto scroll-smooth pe-4 [scrollbar-width:none] sm:-me-5 sm:pe-5 lg:me-0 lg:pe-0 [&::-webkit-scrollbar]:hidden"
         >
-          {cities.map((city) => (
-            <li
-              key={city.slug}
-              className="h-[200px] w-[311px] shrink-0 snap-start lg:w-[calc((100%-36px)/4)]"
-            >
-              <Link
-                href={city.href}
-                className="group relative flex h-full w-full flex-col justify-end overflow-hidden rounded-[var(--radius-16)] bg-background-section p-[var(--spacing-space-20)]"
+          {cities.map((city, index) => {
+            const fallbackImage =
+              FALLBACK_CITY_IMAGES[index % FALLBACK_CITY_IMAGES.length];
+            const imageSrc =
+              city.image && !failedImages[city.slug]
+                ? city.image
+                : fallbackImage;
+
+            return (
+              <li
+                key={city.slug}
+                className="h-[200px] w-[311px] shrink-0 snap-start lg:w-[calc((100%-36px)/4)]"
               >
-                {city.image ? (
+                <Link
+                  href={city.href}
+                  className="group relative flex h-full w-full flex-col justify-end overflow-hidden rounded-[var(--radius-16)] bg-background-section p-[var(--spacing-space-20)]"
+                >
                   <Image
-                    src={city.image}
+                    src={imageSrc}
                     alt={city.name}
                     fill
                     sizes="(max-width: 1023px) 311px, 25vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    onError={() => {
+                      if (imageSrc !== fallbackImage) {
+                        setFailedImages((prev) => ({
+                          ...prev,
+                          [city.slug]: true,
+                        }));
+                      }
+                    }}
                   />
-                ) : null}
 
-                {/* Gradient overlay: 180deg, transparent 50% -> #000000 100% */}
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_50%,#000000_100%)]"
-                />
+                  {/* Gradient overlay: 180deg, transparent 50% -> #000000 100% */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_50%,#000000_100%)]"
+                  />
 
-                {/* Card Text Block: 271px width, 25px title height */}
-                <div className="relative z-10 flex w-full max-w-[271px] flex-col gap-0">
-                  <span className="h-[25px] truncate text-[20px] font-semibold leading-[1.26] text-text-inverse ltr:tracking-[-0.02em]">
-                    {city.name}
-                  </span>
-                  <span className="h-[25px] truncate text-[16px] font-normal leading-[1.5] tracking-[0] text-text-inverse">
-                    {typeof city.carCount === "number"
-                      ? t("carsAvailable", { count: city.carCount })
-                      : (fallbackSubtitle ?? countryName)}
-                  </span>
-                </div>
-              </Link>
-            </li>
-          ))}
+                  {/* Card Text Block: 271px width, 25px title height */}
+                  <div className="relative z-10 flex w-full max-w-[271px] flex-col gap-0">
+                    <span className="h-[25px] truncate text-[20px] font-semibold leading-[1.26] text-text-inverse ltr:tracking-[-0.02em]">
+                      {city.name}
+                    </span>
+                    <span className="h-[25px] truncate text-[16px] font-normal leading-[1.5] tracking-[0] text-text-inverse">
+                      {typeof city.carCount === "number"
+                        ? t("carsAvailable", { count: city.carCount })
+                        : (fallbackSubtitle ?? countryName)}
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </LayoutWrapper>
